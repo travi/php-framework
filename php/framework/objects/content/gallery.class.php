@@ -8,26 +8,27 @@ class Gallery extends ContentObject
     }
     function setDependencies()
     {
-//		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
+		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
 
 		$this->reflectionDependencies();
-//		$this->lightBoxDependencies();
-//		$this->carouselDependencies();
+		$this->lightBoxDependencies();
+		$this->carouselDependencies();
+
+		$this->addJavaScript('/reusable/js/gallery/gallery.js');
     }
     function reflectionDependencies()
     {
 		 $this->addJavaScript('/reusable/js/jQuery/jquery.js');
 		 $this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
-		 $this->addJavaScript('/reusable/js/gallery/gallery.js');
 //		 $this->addJavaScript('/reusable/js/reflection/jquery/jquery.offset.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/iutil.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifx.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxslide.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxblind.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery.gallery.js');
-//		 $this->addJavaScript('/reusable/js/reflection/reflection/reflection.js');
-//		 $this->addJavaScript('/reusable/js/reflection/images.js');
-//		 $this->addJavaScript('/reusable/js/reflection/menu.js');
+		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/iutil.js');
+		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifx.js');
+		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxslide.js');
+		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxblind.js');
+		 $this->addJavaScript('/reusable/js/reflection/jquery.gallery.js');
+		 $this->addJavaScript('/reusable/js/reflection/reflection/reflection.js');
+		 $this->addJavaScript('/reusable/js/reflection/images.js');
+		 $this->addJavaScript('/reusable/js/reflection/menu.js');
     }
     function lightBoxDependencies()
     {
@@ -83,28 +84,29 @@ class Gallery extends ContentObject
 							<div class="button left"><a href="javascript:;" onclick="prevImage()">&#171; previous image</a></div>
 							<div class="button right"><a href="javascript:;" onclick="nextImage()">next image &#187;</a></div>
 						</div>
-						<div id="img">
-							<img id="preview_pos" class="imagen preview" src="galleries/camaro/image1.jpg" title="image1" alt="image1"  />
+						<!-- <div id="img"> -->
+							<img id="preview_pos" class="imagen preview" src="galleries/camaro/image1.jpg" title="image1" alt="image1" onload="Reflection.add(this);" />
 							<!-- onload="Reflection.add(this);" -->
-						</div>
+						<!-- </div> -->
 						<div id="image_title"></div>
 					</div>
 				</div>
+				<a href="galleries/camaro/image1.jpg" rel="lightbox" onclick="myLightbox.start(this); return false;">
+					<img src="galleries/camaro/image1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
+				</a>
 
-				<div id="overlay_img">
+				<!-- <div id="overlay_img">
 					<div id="space_tool">
 						<a href="galleries/camaro/image1.jpg" rel="lightbox" onclick="myLightbox.start(this); return false;">
 							<img src="galleries/camaro/image1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
 						</a>
 					</div>
-				</div>
+				</div> -->
 
 				<div id="gallery_info">
 					click on a gallery from the menu above
 				</div>
-			</div>
-							<img id="preview_pos1" src="galleries/camaro/image1.jpg" title="image1" alt="image1"  />
-							<img id="preview_pos2" src="galleries/camaro/image1.jpg" title="image1" alt="image1"  />';
+			</div>';
     }
 }
 ?>
