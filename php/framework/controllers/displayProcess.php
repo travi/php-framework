@@ -7,14 +7,17 @@
 if(empty($_POST['Submit']))
 {
 	list($content,$title) = content();
-	$page->setTitle($title);
-	if($title == "Results")
+	if(isset($page))
 	{
-		list($status,$msg,$redirectTo) = $content;
-		$page->redirect($status,$msg,$redirectTo);
+		$page->setTitle($title);
+		if($title == "Results")
+		{
+			list($status,$msg,$redirectTo) = $content;
+			$page->redirect($status,$msg,$redirectTo);
+		}
+		else
+			$page->addToContent($content);
 	}
-	else
-		$page->addToContent($content);
 }
 else
 {
