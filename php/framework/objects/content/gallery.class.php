@@ -20,15 +20,7 @@ class Gallery extends ContentObject
     {
 		 $this->addJavaScript('/reusable/js/jQuery/jquery.js');
 		 $this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
-//		 $this->addJavaScript('/reusable/js/reflection/jquery/jquery.offset.js');
-		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/iutil.js');
-		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifx.js');
-		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxslide.js');
-		 $this->addJavaScript('/reusable/js/reflection/jquery/interface/ifxblind.js');
-		 $this->addJavaScript('/reusable/js/reflection/jquery.gallery.js');
 		 $this->addJavaScript('/reusable/js/reflection/reflection/reflection.js');
-		 $this->addJavaScript('/reusable/js/reflection/images.js');
-		 $this->addJavaScript('/reusable/js/reflection/menu.js');
     }
     function lightBoxDependencies()
     {
@@ -85,7 +77,7 @@ class Gallery extends ContentObject
 							<div class="button right"><a href="javascript:;" onclick="nextImage()">next image &#187;</a></div>
 						</div>
 						<!-- <div id="img"> -->
-							<img id="preview_pos" class="imagen preview" src="galleries/camaro/image1.jpg" title="image1" alt="image1" onload="Reflection.add(this);" />
+							<img id="preview_pos" class="imagen preview reflect" src="galleries/camaro/image1.jpg" title="image1" alt="image1" />
 							<!-- onload="Reflection.add(this);" -->
 						<!-- </div> -->
 						<div id="image_title"></div>
