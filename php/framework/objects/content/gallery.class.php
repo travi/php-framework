@@ -10,6 +10,8 @@ class Gallery extends ContentObject
     {
 		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
 
+		$this->addJavaScript('/reusable/js/jQuery/jquery.js');
+		$this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
 		$this->reflectionDependencies();
 		$this->lightBoxDependencies();
 		$this->carouselDependencies();
@@ -18,9 +20,7 @@ class Gallery extends ContentObject
     }
     function reflectionDependencies()
     {
-		 $this->addJavaScript('/reusable/js/jQuery/jquery.js');
-		 $this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
-		 $this->addJavaScript('/reusable/js/reflection/reflection/reflection.js');
+		 $this->addJavaScript('/reusable/js/reflection/reflection.js');
     }
     function lightBoxDependencies()
     {
