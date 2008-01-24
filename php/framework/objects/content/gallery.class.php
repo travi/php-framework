@@ -76,25 +76,13 @@ class Gallery extends ContentObject
 							<div class="button left"><a href="javascript:;" onclick="prevImage()">&#171; previous image</a></div>
 							<div class="button right"><a href="javascript:;" onclick="nextImage()">next image &#187;</a></div>
 						</div>
-						<!-- <div id="img"> -->
-							<img id="preview_pos" class="imagen preview reflect" src="galleries/camaro/image1.jpg" title="image1" alt="image1" />
-							<!-- onload="Reflection.add(this);" -->
-						<!-- </div> -->
+						<img id="preview_pos" class="imagen preview reflect" src="galleries/camaro/image1.jpg" title="image1" alt="image1" />
 						<div id="image_title"></div>
 					</div>
 				</div>
 				<a href="galleries/camaro/image1.jpg" rel="lightbox" onclick="myLightbox.start(this); return false;">
 					<img src="galleries/camaro/image1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
 				</a>
-
-				<!-- <div id="overlay_img">
-					<div id="space_tool">
-						<a href="galleries/camaro/image1.jpg" rel="lightbox" onclick="myLightbox.start(this); return false;">
-							<img src="galleries/camaro/image1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
-						</a>
-					</div>
-				</div> -->
-
 				<div id="gallery_info">
 					click on a gallery from the menu above
 				</div>
