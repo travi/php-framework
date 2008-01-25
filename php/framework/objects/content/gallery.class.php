@@ -2,9 +2,20 @@
 
 class Gallery extends ContentObject
 {
+	var $thumbs = array();
+	var $thumbs_theme;
+
     function Gallery()
     {
 		$this->setDependencies();
+    }
+    function setThumbs($thumbs=array())
+    {
+    	$this->thumbs = $thumbs;
+    }
+    function setThumbsTheme($theme)
+    {
+    	$this->thumbs_theme = $theme;
     }
     function setDependencies()
     {
@@ -14,7 +25,7 @@ class Gallery extends ContentObject
 		$this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
 		$this->reflectionDependencies();
 		$this->lightBoxDependencies();
-		$this->carouselDependencies();
+		$this->jcarouselDependencies();
 
 		$this->addJavaScript('/reusable/js/gallery/gallery.js');
     }
@@ -29,7 +40,7 @@ class Gallery extends ContentObject
 		$this->addJavaScript('/reusable/js/lightbox/js/scriptaculous.js?load=effects');
 		$this->addJavaScript('/reusable/js/lightbox/js/lightbox.js');
     }
-    function carouselDependencies()
+    function ycarouselDependencies()
     {
 		 $this->addJavaScript('/reusable/js/yahoo/yui/build/yahoo/yahoo.js');
 		 $this->addJavaScript('/reusable/js/yahoo/yui/build/event/event.js');
@@ -43,12 +54,19 @@ class Gallery extends ContentObject
 		 $this->addStyleSheet('/reusable/js/carousel/carousel.css');
 		 $this->addStyleSheet('/reusable/css/gallery/carousel_overrides.css');
     }
+    function jcarouselDependencies()
+    {
+		$this->addJavaScript("/reusable/js/jQuery/plugins/jcarousel/jquery.jcarousel.js");
+		$this->addStyleSheet("/reusable/js/jQuery/plugins/jcarousel/jquery.jcarousel.css");
+		$this->addStyleSheet("/reusable/js/jQuery/plugins/jcarousel/skins/tango/skin.css");
+
+    }
 	function menu()
 	{
 		return '
 			<div id="msc_menu"></div>';
 	}
-    function carousel()
+    function ycarousel()
     {
     	return '
 			<div id="thumbs-carousel" class="carousel-component">
@@ -64,9 +82,25 @@ class Gallery extends ContentObject
 			    </div>
 			</div>';
     }
+    function jcarousel()
+    {
+		$carousel = '
+				<ul class="carousel jcarousel-skin-tango">';
+
+		foreach($this->thumbs as $thumb)
+		{
+			$carousel .= '
+					<li><img src="/gallery/images/thumbs/'.$thumb["filename"].'" /></li>';
+		}
+
+		$carousel .= '
+				</ul>';
+
+		return $carousel;
+    }
     function toString()
     {
-    	return $this->menu().$this->carousel().'
+    	return $this->menu().$this->jcarousel().'
 
 			<div id="msc_image">
 
