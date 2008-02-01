@@ -87,11 +87,11 @@ class Gallery extends ContentObject
 		$carousel = '
 				<ul class="carousel jcarousel-skin-tango">';
 
-		foreach($this->thumbs as $thumb)
-		{
-			$carousel .= '
-					<li><img src="/gallery/images/thumbs/'.$thumb["filename"].'" /></li>';
-		}
+//		foreach($this->thumbs as $thumb)
+//		{
+//			$carousel .= '
+//					<li><img src="/gallery/images/thumbs/'.$thumb["filename"].'" /></li>';
+//		}
 
 		$carousel .= '
 				</ul>';
