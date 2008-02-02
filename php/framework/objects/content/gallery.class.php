@@ -64,7 +64,15 @@ class Gallery extends ContentObject
 	function menu()
 	{
 		return '
-			<div id="msc_menu"></div>';
+			<div id="msc_menu">
+			<!--
+				<ul>
+						<li>&nbsp;|&nbsp;<a href="#">camaro</a></li>
+						<li>&nbsp;|&nbsp;<a href="#">corvette</a></li>
+						<li>&nbsp;|&nbsp;<a href="#">truck</a></li>
+				</ul>
+			-->
+			</div>';
 	}
     function ycarousel()
     {
@@ -106,16 +114,18 @@ class Gallery extends ContentObject
 
 				<div id="image_div">
 					<div id="image_container">
+					<!--
 						<div id="image_nav">
 							<div class="button left"><a href="javascript:;" onclick="prevImage()">&#171; previous image</a></div>
 							<div class="button right"><a href="javascript:;" onclick="nextImage()">next image &#187;</a></div>
 						</div>
-						<img id="preview_pos" class="imagen preview reflect" src="galleries/camaro/image1.jpg" title="image1" alt="image1" />
+					-->
+						<img id="preview_pos" class="imagen preview reflect" src="images/camaro_1.jpg" title="image1" alt="image1" />
 						<div id="image_title"></div>
 					</div>
 				</div>
-				<a href="galleries/camaro/image1.jpg" rel="lightbox" onclick="myLightbox.start(this); return false;">
-					<img src="galleries/camaro/image1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
+				<a href="images/camaro_1.jpg" rel="lightbox">
+					<img src="images/camaro_1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
 				</a>
 				<div id="gallery_info">
 					click on a gallery from the menu above
