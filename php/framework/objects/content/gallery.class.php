@@ -22,10 +22,10 @@ class Gallery extends ContentObject
 		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
 
 		$this->addJavaScript('/reusable/js/jQuery/jquery.js');
-		$this->addJavaScript('/reusable/js/jQuery/plugins/jquery.dimensions.min.js');
 		$this->reflectionDependencies();
-		$this->lightBoxDependencies();
+		$this->thickboxDependencies();
 		$this->jcarouselDependencies();
+		$this->addJavaScript('/reusable/js/jQuery/plugins/dimensions/jquery.dimensions.js');
 
 		$this->addJavaScript('/reusable/js/gallery/gallery.js');
     }
@@ -39,6 +39,12 @@ class Gallery extends ContentObject
 		$this->addJavaScript('/reusable/js/lightbox/js/prototype.js');
 		$this->addJavaScript('/reusable/js/lightbox/js/scriptaculous.js?load=effects');
 		$this->addJavaScript('/reusable/js/lightbox/js/lightbox.js');
+    }
+    function thickboxDependencies()
+    {
+    	$this->addStyleSheet('/reusable/js/jQuery/plugins/thickbox/thickbox.css');
+		$this->addJavaScript('/reusable/js/jQuery/plugins/thickbox/thickbox.js');
+
     }
     function ycarouselDependencies()
     {
@@ -110,27 +116,25 @@ class Gallery extends ContentObject
     {
     	return $this->menu().$this->jcarousel().'
 
-			<div id="msc_image">
+		<!--	<div id="msc_image">
 
 				<div id="image_div">
-					<div id="image_container">
+					<div id="image_container"> -->
 					<!--
 						<div id="image_nav">
 							<div class="button left"><a href="javascript:;" onclick="prevImage()">&#171; previous image</a></div>
 							<div class="button right"><a href="javascript:;" onclick="nextImage()">next image &#187;</a></div>
 						</div>
 					-->
-						<img id="preview_pos" class="imagen preview reflect" src="images/camaro_1.jpg" title="image1" alt="image1" />
+				<!--		<img id="preview_pos" class="imagen preview reflect" src="images/camaro_1.jpg" title="image1" alt="image1" />
 						<div id="image_title"></div>
 					</div>
 				</div>
-				<a href="images/camaro_1.jpg" rel="lightbox">
-					<img src="images/camaro_1.jpg" title="image1" alt="image1" class="preview" id="preview_overlay"/>
-				</a>
+				<img src="images/camaro_1.jpg" alt="preview" class="preview" id="preview_overlay"/>
 				<div id="gallery_info">
 					click on a gallery from the menu above
 				</div>
-			</div>';
+			</div> -->';
     }
 }
 ?>
