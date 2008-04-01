@@ -23,7 +23,7 @@ class Gallery extends ContentObject
 
 		$this->addJavaScript('/reusable/js/jQuery/jquery.js');
 		$this->reflectionDependencies();
-		$this->thickboxDependencies();
+		$this->lightboxDependencies();
 		$this->jcarouselDependencies();
 		$this->addJavaScript('/reusable/js/jQuery/plugins/dimensions/jquery.dimensions.js');
 
@@ -35,10 +35,8 @@ class Gallery extends ContentObject
     }
     function lightBoxDependencies()
     {
-    	$this->addStyleSheet('/reusable/js/lightbox/css/lightbox.css');
-		$this->addJavaScript('/reusable/js/lightbox/js/prototype.js');
-		$this->addJavaScript('/reusable/js/lightbox/js/scriptaculous.js?load=effects');
-		$this->addJavaScript('/reusable/js/lightbox/js/lightbox.js');
+    	$this->addStyleSheet('/reusable/js/jQuery/plugins/lightbox/css/jquery.lightbox-0.4.css');
+		$this->addJavaScript('/reusable/js/jQuery/plugins/lightbox/jquery.lightbox-0.4.js');
     }
     function thickboxDependencies()
     {
