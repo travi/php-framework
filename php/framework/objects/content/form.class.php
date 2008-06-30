@@ -29,7 +29,7 @@ class Form extends ContentObject
 		else
 			$this->action = $_SERVER['REQUEST_URI'] . "#Results";
 
-		$this->addStyleSheet('/reusable/css/form.css');
+		$this->addStyleSheet('/resources/shared/css/travi.form.css');
 	}
 	function addFieldset($fieldset)
 	{
@@ -198,14 +198,17 @@ class Fieldset extends contentObject
 	function toString()
 	{
 		$form = '
-			<fieldset><legend>'.$this->legend.'</legend>';
+			<fieldset>
+				<legend>'.$this->legend.'</legend>
+				<ul class="fieldList">';
 		foreach ($this->fieldArray as $field)
 		{
-			$form .= $field->toString();
+			$form .= '<li>'.$field->toString().'</li>';
 			if(is_a($field,'ContentObject'))
 				$this->checkDependencies($field);
 		}
 		$form .= '
+				</ul>
 			</fieldset>';
 
 		return $form;
@@ -494,8 +497,7 @@ class FormattedTextArea extends TextArea
 					<textarea name="'.$this->name.'" id="'.$this->name.'" rows="'.$this->rows.'" class="'.$this->class.'">'
 						.$this->value.
 					'</textarea>
-				</div>
-				<br />';
+				</div>';
 	}
 }
 //Still need to get this working

@@ -37,6 +37,7 @@ class xhtmlPage
 
  	function importNavFile()
  	{
+		
 		return $this->keyValueFromFile(NAV_FILE);
  	}
 
@@ -111,8 +112,7 @@ class xhtmlPage
 
 	function addNavSection($section)
 	{
-		array_push($this->nav,'
-					'.$section);
+		array_push($this->nav,$section);
 	}
 
 	function addNavItem($index, $item)
@@ -120,14 +120,24 @@ class xhtmlPage
 		$this->nav[$index] .= $item;
 	}
 
-	function xhtmlPage($title)
+	function addStyleSheet($sheet,$index="")
 	{
-		$this->title = $title;
+		if(!empty($index))
+		{
+			$this->stylesheets[$index] = $sheet;
+		}
+		else
+			array_push($this->stylesheets,$sheet);
 	}
-
-	function addStyleSheet($sheet)
+	
+	function setTheme($sheet)
 	{
-		array_push($this->stylesheets,$sheet);
+		$this->addStyleSheet($sheet,'siteTheme');
+	}
+	
+	function setPageStyle($sheet)
+	{
+		$this->addStyleSheet($sheet,'thisPage');		
 	}
 
 	function addAltStyle($sheet)
