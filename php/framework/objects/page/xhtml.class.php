@@ -186,6 +186,8 @@ class xhtmlPage
 			$this->getSmartyConfig();
 
         require_once($this->smartyConfig['pathToSmarty']);
+		
+		ksort($this->stylesheets);
 
 		$smarty = new Smarty();
 
