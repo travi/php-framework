@@ -165,12 +165,12 @@ class xhtmlPage
 		if ($status == "good")
 		{
 			$this->content .= '
-					<p class="good">'.$msg.'</p>';
+					<div class="good">'.$msg.'</div>';
 		}
 		else if ($status == "bad" || $status == "undo")
 		{
 			$this->content .= '
-					<p class="bad">'.$msg.'</p>';
+					<div class="bad">'.$msg.'</div>';
 		}
 		$this->content .= '
 					<p>You will be redirected in 5 seconds.</p>
