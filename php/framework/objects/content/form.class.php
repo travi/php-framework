@@ -651,27 +651,30 @@ class RadioButtons extends Choices
 	function toString()
 	{
 		$form = '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<div class="formBlock radioBlock">';
-			foreach ($this->options as $option)
-			{
-				$form .= '
-				<input type="'.$this->type.'" name="'.$this->name.'" value="';
-				if(!empty($option[1]))
-					$form .= $option[1];
-				else
-					$form .= $option[0];
-				$form .= '" class="'.$this->class.'"';
-				if($option[3])
-				{	$form .= ' disabled';
+				<fieldset>
+					<legend>'.$this->label.'</legend>';
+					
+				foreach ($this->options as $option)
+				{
+					$form .= '
+					<label for="'.$this->name.'">
+						<input type="'.$this->type.'" name="'.$this->name.'" value="';
+					if(!empty($option[1]))
+						$form .= $option[1];
+					else
+						$form .= $option[0];
+					$form .= '" class="'.$this->class.'"';
+					if($option[3])
+					{	
+						$form .= ' disabled';
+					}
+					if($option[2])
+						$form .= ' checked ';
+					$form .= '/>'.$option[0].'
+					</label>';
 				}
-				if($option[2])
-					$form .= ' checked ';
-				$form .= '/>'.$option[0]
-				.'<br />';
-			}
-		$form .= '
-				</div>';
+			$form .= '
+					</fieldset>';
 		return $form;
 	}
 }
