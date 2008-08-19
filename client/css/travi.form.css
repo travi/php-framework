@@ -26,14 +26,17 @@ ul.fieldList label{
 }
 ul.fieldList fieldset{
 	border: none;
-	margin: 3px 0 0;
+	padding: 0;
+	margin: 3px 0 10px 0;
 }
 ul.fieldList fieldset legend{
-	padding: 0 0 5px;
+	padding: 0 0 5px 0;
 	font-weight: normal;
+	font-size: 1em;
 }
 ul.fieldList fieldset label{
 	display: block;
+	padding-left: 90px;
 }
 /*label.inlineLabel
 {
