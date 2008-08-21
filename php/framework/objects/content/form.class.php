@@ -657,7 +657,7 @@ class RadioButtons extends Choices
 				foreach ($this->options as $option)
 				{
 					$form .= '
-					<label for="'.$this->name.'">
+					<label>
 						<input type="'.$this->type.'" name="'.$this->name.'" value="';
 					if(!empty($option[1]))
 						$form .= $option[1];
