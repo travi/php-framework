@@ -603,6 +603,37 @@ class Choices //abstract
 	{
 		return array();
 	}
+	function toString()
+	{
+		$form = '
+				<fieldset>
+					<legend>'.$this->label.'</legend>';
+					
+		foreach ($this->options as $option)
+		{				
+			$form .= '
+					<label>
+						<input type="'.$this->type.'" name="'.$this->name.'" value="';
+			if(!empty($option[1]))
+				$form .= $option[1];
+			else
+				$form .= $option[0];
+			$form .= '" class="'.$this->class.'"';
+			if($option[3])
+			{	
+				$form .= ' disabled';
+			}
+			if($option[2])
+				$form .= ' checked ';
+			$form .= '/>'.$option[0].'
+					</label>';
+		}
+				
+		$form .= '
+				</fieldset>';
+					
+		return $form;
+	}
 }
 
 class SelectionBox extends Choices
@@ -648,35 +679,6 @@ class RadioButtons extends Choices
 		$this->type = "radio";
 		$this->class = "radioButton";
 	}
-	function toString()
-	{
-		$form = '
-				<fieldset>
-					<legend>'.$this->label.'</legend>';
-					
-				foreach ($this->options as $option)
-				{
-					$form .= '
-					<label>
-						<input type="'.$this->type.'" name="'.$this->name.'" value="';
-					if(!empty($option[1]))
-						$form .= $option[1];
-					else
-						$form .= $option[0];
-					$form .= '" class="'.$this->class.'"';
-					if($option[3])
-					{	
-						$form .= ' disabled';
-					}
-					if($option[2])
-						$form .= ' checked ';
-					$form .= '/>'.$option[0].'
-					</label>';
-				}
-			$form .= '
-					</fieldset>';
-		return $form;
-	}
 }
 class CheckBoxes extends Choices
 {
@@ -688,32 +690,6 @@ class CheckBoxes extends Choices
 		parent::Choices($label,$name);
 		$this->type = "checkbox";
 		$this->class = "checkbox";
-	}
-	function toString()
-	{
-		$form = '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<div class="formBlock radioBlock">';
-			foreach ($this->options as $option)
-			{
-				$form .= '
-				<input type="'.$this->type.'" name="'.$this->name.'[]" class="'.$this->class.'"';
-				if(!empty($option[1]))
-				{
-					$form .= ' value="'.$option[1].'"';
-				}
-				if($option[3])
-				{
-					$form .= ' disabled';
-				}
-				if($option[2])
-					$form .= ' checked ';
-				$form .= ' />'.$option[0]
-				.'<br />';
-			}
-		$form .= '
-				</div>';
-		return $form;
 	}
 }
 ?>
