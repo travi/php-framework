@@ -24,6 +24,9 @@ ul.fieldList label{
 	display:		inline-block;
 	vertical-align:	top;
 }
+ul.fieldList button{
+	margin-left: 93px;
+}
 ul.fieldList fieldset{
 	border: none;
 	padding: 0;
@@ -37,6 +40,10 @@ ul.fieldList fieldset legend{
 ul.fieldList fieldset label{
 	display: block;
 	padding-left: 90px;
+}
+ul.fieldList .formBlock{
+	display: block;
+	padding-left: 93px;
 }
 /*label.inlineLabel
 {
