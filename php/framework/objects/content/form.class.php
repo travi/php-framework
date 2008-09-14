@@ -351,14 +351,14 @@ class DateInput extends Input
 		parent::Input($label,$value,$name);
 		$this->type = "text";
 		$this->class = "textInput";
-		$this->addStyleSheet('/reusable/css/calendar.css');
-		$this->addJavaScript('/reusable/js/calendar.js');
+		$this->addStyleSheet('/resources/shared/css/calendar.css');
+		$this->addJavaScript('/resources/shared/js/calendar.js');
 	}
 	function toString()
 	{
 		$form = parent::toString();
 		$form .= '
-				<img src="/reusable/images/formatButtons/cal.gif" alt="calendar date trigger" id="date_trigger" />
+				<img src="/resources/shared/img/formatButtons/cal.gif" alt="calendar date trigger" id="date_trigger" />
 	 			<script type="text/javascript">
 					Calendar.setup
 					({
@@ -547,6 +547,35 @@ class SubmitButton extends Input
 			$string .= ' onclick="if (confirm(\''.$this->confirmation.'\')) return true; else return false;"';
 		$string .= '/>';
 
+		return $string;
+	}
+}
+
+class Button
+{
+	var $type;
+	var $class;
+	var $value;
+	var $name;
+
+	function Button($value,$class="button")
+	{
+		$this->type = "submit";
+		$this->name = "Submit";
+		$this->class = $class;
+		$this->value = $value;
+	}
+	
+	function getValidations()
+	{
+		return array();
+	}
+
+	function toString()
+	{
+		$string = '
+				<button type="'.$this->type.'" class="'.$this->class.'">'.$this->value.'</button>';
+	
 		return $string;
 	}
 }
