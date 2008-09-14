@@ -2,12 +2,12 @@
  * jQuery lightBox plugin
  * This jQuery plugin was inspired and based on Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
  * and adapted to me for use like a plugin from jQuery.
- * @name jquery-lightbox-0.4.js
+ * @name jquery-lightbox-0.5.js
  * @author Leandro Vieira Pinho - http://leandrovieira.com
- * @version 0.4
- * @date November 17, 2007
+ * @version 0.5
+ * @date April 11, 2008
  * @category jQuery plugin
- * @copyright (c) 2007 Leandro Vieira Pinho (leandrovieira.com)
+ * @copyright (c) 2008 Leandro Vieira Pinho (leandrovieira.com)
  * @license CC Attribution-No Derivative Works 2.5 Brazil - http://creativecommons.org/licenses/by-nd/2.5/br/deed.en_US
  * @example Visit http://leandrovieira.com/projects/jquery/lightbox/ for more informations about this jQuery plugin
  */
@@ -24,12 +24,14 @@
 			// Configuration related to overlay
 			overlayBgColor: 		'#000',		// (string) Background color to overlay; inform a hexadecimal value like: #RRGGBB. Where RR, GG, and BB are the hexadecimal values for the red, green, and blue values of the color.
 			overlayOpacity:			0.8,		// (integer) Opacity value to overlay; inform: 0.X. Where X are number from 0 to 9
+			// Configuration related to navigation
+			fixedNavigation:		false,		// (boolean) Boolean that informs if the navigation (next and prev button) will be fixed or not in the interface.
 			// Configuration related to images
-			imageLoading:			'/reusable/js/jQuery/plugins/lightbox/images/lightbox-ico-loading.gif',		// (string) Path and the name of the loading icon
-			imageBtnPrev:			'/reusable/js/jQuery/plugins/lightbox/images/lightbox-btn-prev.gif',			// (string) Path and the name of the prev button image
-			imageBtnNext:			'/reusable/js/jQuery/plugins/lightbox/images/lightbox-btn-next.gif',			// (string) Path and the name of the next button image
-			imageBtnClose:			'/reusable/js/jQuery/plugins/lightbox/images/lightbox-btn-close.gif',		// (string) Path and the name of the close btn
-			imageBlank:				'/reusable/js/jQuery/plugins/lightbox/images/lightbox-blank.gif',			// (string) Path and the name of a blank image (one pixel)
+			imageLoading:			'/resources/shared/js/jquery/plugins/lightbox/images/lightbox-ico-loading.gif',		// (string) Path and the name of the loading icon
+			imageBtnPrev:			'/resources/shared/js/jquery/plugins/lightbox/images/lightbox-btn-prev.gif',			// (string) Path and the name of the prev button image
+			imageBtnNext:			'/resources/shared/js/jquery/plugins/lightbox/images/lightbox-btn-next.gif',			// (string) Path and the name of the next button image
+			imageBtnClose:			'/resources/shared/js/jquery/plugins/lightbox/images/lightbox-btn-close.gif',		// (string) Path and the name of the close btn
+			imageBlank:				'/resources/shared/js/jquery/plugins/lightbox/images/lightbox-blank.gif',			// (string) Path and the name of a blank image (one pixel)
 			// Configuration related to container image box
 			containerBorderSize:	10,			// (integer) If you adjust the padding in the CSS for the container, #lightbox-container-image-box, you will need to update this value
 			containerResizeSpeed:	400,		// (integer) Specify the resize duration of container image. These number are miliseconds. 400 is default.
@@ -40,7 +42,7 @@
 			keyToClose:				'c',		// (string) (c = close) Letter to close the jQuery lightBox interface. Beyond this letter, the letter X and the SCAPE key is used to.
 			keyToPrev:				'p',		// (string) (p = previous) Letter to show the previous image
 			keyToNext:				'n',		// (string) (n = next) Letter to show the next image.
-			// Don´t alter these variables in any way
+			// Donï¿½t alter these variables in any way
 			imageArray:				[],
 			activeImage:			0
 		},settings);
@@ -70,11 +72,11 @@
 			settings.imageArray.length = 0;
 			// Unset image active information
 			settings.activeImage = 0;
-			// We have an image set? Or just an image? Let´s see it.
+			// We have an image set? Or just an image? Letï¿½s see it.
 			if ( jQueryMatchedObj.length == 1 ) {
 				settings.imageArray.push(new Array(objClicked.getAttribute('href'),objClicked.getAttribute('title')));
 			} else {
-				// Add an Array (as many as we have), with href and title atributes, inside the Array that storage the images references
+				// Add an Array (as many as we have), with href and title atributes, inside the Array that storage the images references		
 				for ( var i = 0; i < jQueryMatchedObj.length; i++ ) {
 					settings.imageArray.push(new Array(jQueryMatchedObj[i].getAttribute('href'),jQueryMatchedObj[i].getAttribute('title')));
 				}
@@ -123,7 +125,7 @@
 		 */
 		function _set_interface() {
 			// Apply the HTML markup into body tag
-			$('body').append('<div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src="' + settings.imageLoading + '"></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a href="#" id="lightbox-secNav-btnClose"><img src="' + settings.imageBtnClose + '"></a></div></div></div></div>');
+			$('body').append('<div id="jquery-overlay"></div><div id="jquery-lightbox"><div id="lightbox-container-image-box"><div id="lightbox-container-image"><img id="lightbox-image"><div style="" id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src="' + settings.imageLoading + '"></a></div></div></div><div id="lightbox-container-image-data-box"><div id="lightbox-container-image-data"><div id="lightbox-image-details"><span id="lightbox-image-details-caption"></span><span id="lightbox-image-details-currentNumber"></span></div><div id="lightbox-secNav"><a href="#" id="lightbox-secNav-btnClose"><img src="' + settings.imageBtnClose + '"></a></div></div></div></div>');	
 			// Get page sizes
 			var arrPageSizes = ___getPageSize();
 			// Style overlay and show it
@@ -142,7 +144,7 @@
 			}).show();
 			// Assigning click events in elements to close overlay
 			$('#jquery-overlay,#jquery-lightbox').click(function() {
-				_finish();
+				_finish();									
 			});
 			// Assign the _finish function to lightbox-loading-link and lightbox-secNav-btnClose objects
 			$('#lightbox-loading-link,#lightbox-secNav-btnClose').click(function() {
@@ -168,14 +170,18 @@
 			});
 		}
 		/**
-		 * Prepares image exibition; doing a image´s preloader to calculate it´s size
+		 * Prepares image exibition; doing a imageï¿½s preloader to calculate itï¿½s size
 		 *
 		 */
 		function _set_image_to_view() { // show the loading
 			// Show the loading
 			$('#lightbox-loading').show();
-			// Hide some elements
-			$('#lightbox-image,#lightbox-nav,#lightbox-nav-btnPrev,#lightbox-nav-btnNext,#lightbox-container-image-data-box,#lightbox-image-details-currentNumber').hide();
+			if ( settings.fixedNavigation ) {
+				$('#lightbox-image,#lightbox-container-image-data-box,#lightbox-image-details-currentNumber').hide();
+			} else {
+				// Hide some elements
+				$('#lightbox-image,#lightbox-nav,#lightbox-nav-btnPrev,#lightbox-nav-btnNext,#lightbox-container-image-data-box,#lightbox-image-details-currentNumber').hide();
+			}
 			// Image preload process
 			var objImagePreloader = new Image();
 			objImagePreloader.onload = function() {
@@ -184,14 +190,14 @@
 				_resize_container_image_box(objImagePreloader.width,objImagePreloader.height);
 				//	clear onLoad, IE behaves irratically with animated gifs otherwise
 				objImagePreloader.onload=function(){};
-			}
+			};
 			objImagePreloader.src = settings.imageArray[settings.activeImage][0];
 		};
 		/**
 		 * Perfomance an effect in the image container resizing it
 		 *
-		 * @param integer intImageWidth The image´s width that will be showed
-		 * @param integer intImageHeight The image´s height that will be showed
+		 * @param integer intImageWidth The imageï¿½s width that will be showed
+		 * @param integer intImageHeight The imageï¿½s height that will be showed
 		 */
 		function _resize_container_image_box(intImageWidth,intImageHeight) {
 			// Get current width and height
@@ -219,10 +225,9 @@
 					intAdjustedWidth = x;
 				}
 			}
-
 			// Get the width and height of the selected image plus the padding
-			var intWidth = (intAdjustedWidth + (settings.containerBorderSize * 2)); // Plus the image´s width and the left and right padding value
-			var intHeight = (intAdjustedHeight + (settings.containerBorderSize * 2)); // Plus the image´s height and the left and right padding value
+			var intWidth = (intAdjustedWidth + (settings.containerBorderSize * 2)); // Plus the imageï¿½s width and the left and right padding value
+			var intHeight = (intAdjustedHeight + (settings.containerBorderSize * 2)); // Plus the imageï¿½s height and the left and right padding value
 			// Diferences
 			var intDiffW = intCurrentWidth - intWidth;
 			var intDiffH = intCurrentHeight - intHeight;
@@ -232,11 +237,11 @@
 				if ( $.browser.msie ) {
 					___pause(250);
 				} else {
-					___pause(100);
+					___pause(100);	
 				}
-			}
-			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ height: intAdjustedHeight + (settings.containerBorderSize * 2) });
+			} 
 			$('#lightbox-container-image-data-box').css({ width: intAdjustedWidth });
+			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ height: intAdjustedHeight + (settings.containerBorderSize * 2) });
 		};
 		/**
 		 * Show the prepared image
@@ -263,7 +268,7 @@
 			// If we have a image set, display 'Image X of X'
 			if ( settings.imageArray.length > 1 ) {
 				$('#lightbox-image-details-currentNumber').html(settings.txtImage + ' ' + ( settings.activeImage + 1 ) + ' ' + settings.txtOf + ' ' + settings.imageArray.length).show();
-			}
+			}		
 		}
 		/**
 		 * Display the button navigations
@@ -272,35 +277,55 @@
 		function _set_navigation() {
 			$('#lightbox-nav').show();
 
-			// Instead to define this configuration in CSS file, we define here. And it´s need to IE. Just.
+			// Instead to define this configuration in CSS file, we define here. And itï¿½s need to IE. Just.
 			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
-
+			
 			// Show the prev button, if not the first image in set
 			if ( settings.activeImage != 0 ) {
-				// Show the images button for Next buttons
-				$('#lightbox-nav-btnPrev').unbind().hover(function() {
-					$(this).css({ 'background' : 'url(' + settings.imageBtnPrev + ') left 15% no-repeat' });
-				},function() {
-					$(this).css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
-				}).show().bind('click',function() {
-					settings.activeImage = settings.activeImage - 1;
-					_set_image_to_view();
-					return false;
-				});
+				if ( settings.fixedNavigation ) {
+					$('#lightbox-nav-btnPrev').css({ 'background' : 'url(' + settings.imageBtnPrev + ') left 15% no-repeat' })
+						.unbind()
+						.bind('click',function() {
+							settings.activeImage = settings.activeImage - 1;
+							_set_image_to_view();
+							return false;
+						});
+				} else {
+					// Show the images button for Next buttons
+					$('#lightbox-nav-btnPrev').unbind().hover(function() {
+						$(this).css({ 'background' : 'url(' + settings.imageBtnPrev + ') left 15% no-repeat' });
+					},function() {
+						$(this).css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
+					}).show().bind('click',function() {
+						settings.activeImage = settings.activeImage - 1;
+						_set_image_to_view();
+						return false;
+					});
+				}
 			}
-
+			
 			// Show the next button, if not the last image in set
 			if ( settings.activeImage != ( settings.imageArray.length -1 ) ) {
-				// Show the images button for Next buttons
-				$('#lightbox-nav-btnNext').unbind().hover(function() {
-					$(this).css({ 'background' : 'url(' + settings.imageBtnNext + ') right 15% no-repeat' });
-				},function() {
-					$(this).css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
-				}).show().bind('click',function() {
-					settings.activeImage = settings.activeImage + 1;
-					_set_image_to_view();
-					return false;
-				});
+				if ( settings.fixedNavigation ) {
+					$('#lightbox-nav-btnNext').css({ 'background' : 'url(' + settings.imageBtnNext + ') right 15% no-repeat' })
+						.unbind()
+						.bind('click',function() {
+							settings.activeImage = settings.activeImage + 1;
+							_set_image_to_view();
+							return false;
+						});
+				} else {
+					// Show the images button for Next buttons
+					$('#lightbox-nav-btnNext').unbind().hover(function() {
+						$(this).css({ 'background' : 'url(' + settings.imageBtnNext + ') right 15% no-repeat' });
+					},function() {
+						$(this).css({ 'background' : 'transparent url(' + settings.imageBlank + ') no-repeat' });
+					}).show().bind('click',function() {
+						settings.activeImage = settings.activeImage + 1;
+						_set_image_to_view();
+						return false;
+					});
+				}
 			}
 			// Enable keyboard navigation
 			_enable_keyboard_navigation();
@@ -343,7 +368,7 @@
 			}
 			// Verify the key to show the previous image
 			if ( ( key == settings.keyToPrev ) || ( keycode == 37 ) ) {
-				// If we´re not showing the first image, call the previous
+				// If weï¿½re not showing the first image, call the previous
 				if ( settings.activeImage != 0 ) {
 					settings.activeImage = settings.activeImage - 1;
 					_set_image_to_view();
@@ -352,7 +377,7 @@
 			}
 			// Verify the key to show the next image
 			if ( ( key == settings.keyToNext ) || ( keycode == 39 ) ) {
-				// If we´re not showing the last image, call the next
+				// If weï¿½re not showing the last image, call the next
 				if ( settings.activeImage != ( settings.imageArray.length - 1 ) ) {
 					settings.activeImage = settings.activeImage + 1;
 					_set_image_to_view();
@@ -392,7 +417,7 @@
 		 */
 		function ___getPageSize() {
 			var xScroll, yScroll;
-			if (window.innerHeight && window.scrollMaxY) {
+			if (window.innerHeight && window.scrollMaxY) {	
 				xScroll = window.innerWidth + window.scrollMaxX;
 				yScroll = window.innerHeight + window.scrollMaxY;
 			} else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
@@ -405,7 +430,7 @@
 			var windowWidth, windowHeight;
 			if (self.innerHeight) {	// all except Explorer
 				if(document.documentElement.clientWidth){
-					windowWidth = document.documentElement.clientWidth;
+					windowWidth = document.documentElement.clientWidth; 
 				} else {
 					windowWidth = self.innerWidth;
 				}
@@ -416,20 +441,20 @@
 			} else if (document.body) { // other Explorers
 				windowWidth = document.body.clientWidth;
 				windowHeight = document.body.clientHeight;
-			}
+			}	
 			// for small pages with total height less then height of the viewport
 			if(yScroll < windowHeight){
 				pageHeight = windowHeight;
-			} else {
+			} else { 
 				pageHeight = yScroll;
 			}
 			// for small pages with total width less then width of the viewport
-			if(xScroll < windowWidth){
-				pageWidth = xScroll;
+			if(xScroll < windowWidth){	
+				pageWidth = xScroll;		
 			} else {
 				pageWidth = windowWidth;
 			}
-			arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight)
+			arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight);
 			return arrayPageSize;
 		};
 		/**
@@ -448,9 +473,9 @@
 				xScroll = document.documentElement.scrollLeft;
 			} else if (document.body) {// all other Explorers
 				yScroll = document.body.scrollTop;
-				xScroll = document.body.scrollLeft;
+				xScroll = document.body.scrollLeft;	
 			}
-			arrayPageScroll = new Array(xScroll,yScroll)
+			arrayPageScroll = new Array(xScroll,yScroll);
 			return arrayPageScroll;
 		};
 		 /**
@@ -458,7 +483,7 @@
 		  *
 		  */
 		 function ___pause(ms) {
-			var date = new Date();
+			var date = new Date(); 
 			curDate = null;
 			do { var curDate = new Date(); }
 			while ( curDate - date < ms);
