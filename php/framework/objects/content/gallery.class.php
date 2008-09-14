@@ -35,8 +35,8 @@ class Gallery extends ContentObject
     }
     function lightBoxDependencies()
     {
-    	$this->addStyleSheet('/reusable/js/jQuery/plugins/lightbox/css/jquery.lightbox-0.4.css');
-		$this->addJavaScript('/reusable/js/jQuery/plugins/lightbox/jquery.lightbox-0.4.js');
+    	$this->addStyleSheet('/resources/shared/js/jQuery/plugins/lightbox/css/jquery.lightbox-0.4.css');
+		$this->addJavaScript('/resources/shared/js/jQuery/plugins/lightbox/jquery.lightbox-0.4.js');
     }
     function thickboxDependencies()
     {
