@@ -137,3 +137,6 @@ ul.fieldList .formBlock{
 {
 	border:			1px solid gray;
 }
+input.datepicker{
+	margin-right: 5px;
+}
