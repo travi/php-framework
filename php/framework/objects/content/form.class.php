@@ -373,6 +373,18 @@ class DateInput extends Input
 		return $form;
 	}
 }
+class jDateInput extends Input
+{
+	function jDateInput($label,$value="",$name="")
+	{
+		parent::Input($label,$value,$name);
+		$this->type = "text";
+		$this->class = "textInput datepicker";
+		$this->addStyleSheet('/resources/shared/css/calendar.css');
+		//$this->addJavaScript('/resources/shared/js/jquery/jquery.js');
+		//$this->addJavaScript('/resources/shared/js/jquery/ui/jquery-ui.min.js');
+	}
+}
 class TimeInput extends Input
 {
 	function TimeInput($label,$value="",$name="")
