@@ -344,38 +344,10 @@ class HiddenInput extends Input
 				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'"/>';
 	}
 }
+
 class DateInput extends Input
 {
 	function DateInput($label,$value="",$name="")
-	{
-		parent::Input($label,$value,$name);
-		$this->type = "text";
-		$this->class = "textInput";
-		$this->addStyleSheet('/resources/shared/css/calendar.css');
-		$this->addJavaScript('/resources/shared/js/calendar.js');
-	}
-	function toString()
-	{
-		$form = parent::toString();
-		$form .= '
-				<img src="/resources/shared/img/formatButtons/cal.gif" alt="calendar date trigger" id="date_trigger" />
-	 			<script type="text/javascript">
-					Calendar.setup
-					({
-						inputField     :    "'.$this->name.'",             // id of the input field
-						ifFormat       :    "%Y-%m-%d",     	// format of the input field default: "%m/%d/%Y %I:%M %p"    "%Y-%m-%d"
-						showsTime      :    false,          	// will display a time selector
-						button         :    "date_trigger", 	// trigger for the calendar (button ID)
-						singleClick    :    false,           	// double-click mode
-						step           :    1                	// show all years in drop-down boxes (instead of every other year as default)
-					});
-				</script>';
-		return $form;
-	}
-}
-class jDateInput extends Input
-{
-	function jDateInput($label,$value="",$name="")
 	{
 		parent::Input($label,$value,$name);
 		$this->type = "text";
