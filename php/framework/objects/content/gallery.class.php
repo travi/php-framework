@@ -21,48 +21,27 @@ class Gallery extends ContentObject
     {
 		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
 
-		$this->addJavaScript('/reusable/js/jQuery/jquery.js');
+		$this->addJavaScript('/resources/shared/js/jquery/jquery.js');
 		$this->reflectionDependencies();
 		$this->lightboxDependencies();
 		$this->jcarouselDependencies();
-		$this->addJavaScript('/reusable/js/jQuery/plugins/dimensions/jquery.dimensions.js');
 
 		$this->addJavaScript('/reusable/js/gallery/gallery.js');
     }
     function reflectionDependencies()
     {
-		 $this->addJavaScript('/reusable/js/reflection/reflection.js');
+		 $this->addJavaScript('/resources/shared/js/reflection/reflection.js');
     }
     function lightBoxDependencies()
     {
     	$this->addStyleSheet('/resources/shared/js/jquery/plugins/lightbox/css/jquery.lightbox.css');
 		$this->addJavaScript('/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
     }
-    function thickboxDependencies()
-    {
-    	$this->addStyleSheet('/reusable/js/jQuery/plugins/thickbox/thickbox.css');
-		$this->addJavaScript('/reusable/js/jQuery/plugins/thickbox/thickbox.js');
-
-    }
-    function ycarouselDependencies()
-    {
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/yahoo/yahoo.js');
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/event/event.js');
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/container/container_core.js');
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/connection/connection.js');
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/dom/dom.js');
-		 $this->addJavaScript('/reusable/js/yahoo/yui/build/animation/animation.js');
-		 $this->addJavaScript('/reusable/js/carousel/carousel.js');
-		 $this->addJavaScript('/reusable/js/carousel/load.js');
-		// $this->addJavaScript('/reusable/js/carousel/carousel_load.js');
-		 $this->addStyleSheet('/reusable/js/carousel/carousel.css');
-		 $this->addStyleSheet('/reusable/css/gallery/carousel_overrides.css');
-    }
     function jcarouselDependencies()
     {
-		$this->addJavaScript("/reusable/js/jQuery/plugins/jcarousel/jquery.jcarousel.js");
-		$this->addStyleSheet("/reusable/js/jQuery/plugins/jcarousel/jquery.jcarousel.css");
-		$this->addStyleSheet("/reusable/js/jQuery/plugins/jcarousel/skins/tango/skin.css");
+		$this->addJavaScript("/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js");
+		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css");
+		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/skins/tango/skin.css");
 
     }
 	function menu()
@@ -78,22 +57,6 @@ class Gallery extends ContentObject
 			-->
 			</div>';
 	}
-    function ycarousel()
-    {
-    	return '
-			<div id="thumbs-carousel" class="carousel-component">
-				<div class="carousel-prev">
-					<img id="prev-arrow" class="left-button-image" src="/reusable/images/left-enabled.gif" alt="left"/>
-				</div>
-				<div class="carousel-next">
-					<img id="next-arrow" class="right-button-image" src="/reusable/images/right-enabled.gif" alt="right"/>
-				</div>
-				<div class="carousel-clip-region">
-					<ul class="carousel-list">
-					</ul>
-			    </div>
-			</div>';
-    }
     function jcarousel()
     {
 		$carousel = '
