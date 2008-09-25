@@ -13,9 +13,9 @@ class xhtmlPage
 	var $stylesheets = array();
 	var $altStyles = array();
 	var $scripts = array();
+	var $jsInits = array();
 	var $feeds = array();
 	var $body;
-	var $onload;
  	var $nav = array();
  	var $content;
  	var $debug = false;
@@ -88,6 +88,12 @@ class xhtmlPage
 			$this->addJavaScript($script);
 		}
 
+		$inits = $object->getJsInits();
+		foreach($inits as $init)
+		{
+			$this->addJsInit($init);
+		}
+
 		$styles = $object->getStyles();
 		foreach($styles as $style)
 		{
@@ -147,7 +153,15 @@ class xhtmlPage
 
 	function addJavaScript($script)
 	{
-		array_push($this->scripts,$script);
+		if(!in_array($script,$this->scripts))
+		{
+			array_push($this->scripts,$script);
+		}
+	}
+	
+	function addJsInit($init)
+	{
+		array_push($this->jsInits,$init);
 	}
 
 	function addFeed($feed)

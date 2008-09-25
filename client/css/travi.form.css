@@ -116,7 +116,7 @@ ul.fieldList .formBlock{
 }
 .outerButton
 {
-	margin-left:	100px;
+	margin-left:	112px;
 }
 #date_trigger
 {
@@ -139,4 +139,5 @@ ul.fieldList .formBlock{
 }
 input.datepicker{
 	margin-right: 5px;
+	vertical-align: top;
 }

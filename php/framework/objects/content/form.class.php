@@ -30,6 +30,9 @@ class Form extends ContentObject
 			$this->action = $_SERVER['REQUEST_URI'] . "#Results";
 
 		$this->addStyleSheet('/resources/shared/css/travi.form.css');
+		$this->addJavaScript(JQUERY);
+		$this->addJavaScript(JQUERY_FORM_ALIGN);
+		$this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
 	}
 	function addFieldset($fieldset)
 	{
@@ -352,9 +355,11 @@ class DateInput extends Input
 		parent::Input($label,$value,$name);
 		$this->type = "text";
 		$this->class = "textInput datepicker";
-		$this->addStyleSheet('/resources/shared/css/calendar.css');
-		//$this->addJavaScript('/resources/shared/js/jquery/jquery.js');
-		//$this->addJavaScript('/resources/shared/js/jquery/ui/jquery-ui.min.js');
+		$this->addJavaScript(JQUERY);
+		$this->addJavaScript(JQUERY_UI);
+		$this->addJsInit("$('input.datepicker').datepicker({ dateFormat:'yy-mm-dd',"
+			."buttonImage:'/resources/shared/img/calendar.gif',"
+			."buttonImageOnly: true, showOn: 'both' });");
 	}
 }
 class TimeInput extends Input

@@ -21,7 +21,7 @@ class Gallery extends ContentObject
     {
 		$this->addStyleSheet('/reusable/css/gallery/gallery.dev.css');
 
-		$this->addJavaScript('/resources/shared/js/jquery/jquery.js');
+		$this->addJavaScript(JQUERY);
 		$this->reflectionDependencies();
 		$this->lightboxDependencies();
 		$this->jcarouselDependencies();
@@ -30,16 +30,16 @@ class Gallery extends ContentObject
     }
     function reflectionDependencies()
     {
-		 $this->addJavaScript('/resources/shared/js/reflection/reflection.js');
+		 $this->addJavaScript(REFLECTION_JS);
     }
     function lightBoxDependencies()
     {
     	$this->addStyleSheet('/resources/shared/js/jquery/plugins/lightbox/css/jquery.lightbox.css');
-		$this->addJavaScript('/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
+		$this->addJavaScript(JQUERY_LIGHTBOX);
     }
     function jcarouselDependencies()
     {
-		$this->addJavaScript("/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js");
+		$this->addJavaScript(JCAROUSEL);
 		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css");
 		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/skins/tango/skin.css");
 
