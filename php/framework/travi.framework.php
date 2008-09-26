@@ -5,9 +5,11 @@
  */
 
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
+ // regex by Brian Holt
+ preg_match('/^([A-Za-z]:)?([\/\\\](\w|[-.])+)+[\/\\\]include[\/\\\]/',dirname(__FILE__),$matches);
+ define('INCLUDE_PATH',$matches[0]);
  define('PROCESS','/home/.tookie/travi/include/php/framework/controllers/displayProcess.php');
- 
- 
+  
  require_once('objects/dependantObject.class.php');
 
  //Page Objects
