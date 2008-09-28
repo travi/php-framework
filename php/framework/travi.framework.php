@@ -3,6 +3,8 @@
  * Created on May 6, 2007
  * By Matt Travi
  */
+ 
+ require_once($_SERVER['DOCUMENT_ROOT'].'/../config/framework/framework.conf');
 
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
  // regex by Brian Holt
