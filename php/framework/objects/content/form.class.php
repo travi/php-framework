@@ -258,7 +258,12 @@ class Input extends Field //abstract
 		if(!empty($name))
 			$this->name = $name;
 		else
-			$this->name = strtolower($label);
+		{
+			$this->name = str_replace(' ','_',strtolower($label));
+			//ensure value is not "name" or ...
+			if($this->name == 'name')
+				$this->name .= '_value';
+		}
 		$this->value = $value;
 	}
 	function addValidation($validation)
