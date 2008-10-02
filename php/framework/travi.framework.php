@@ -7,8 +7,7 @@
  require_once($_SERVER['DOCUMENT_ROOT'].'/../config/framework/framework.conf');
 
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
- // regex by Brian Holt
- preg_match('/^([A-Za-z]:)?([\/\\\](\w|[-.])+)+[\/\\\]include[\/\\\]/',dirname(__FILE__),$matches);
+ preg_match('/^([A-Za-z]:)?([\/\\\](\w|[-.])+)+[\/\\\]include[\/\\\]/',dirname(__FILE__),$matches); // regex by Brian Holt
  define('INCLUDE_PATH',$matches[0]);
  define('PROCESS','/home/.tookie/travi/include/php/framework/controllers/displayProcess.php');
   
@@ -50,6 +49,7 @@
  define('JQUERY_LIGHTBOX','/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
  define('JQUERY_FORM_ALIGN','/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js');
  define('JCAROUSEL','/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js');
+ define('JQUERY_WYMEDITOR','/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.pack.js');
  
  //reflection.js
  define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');

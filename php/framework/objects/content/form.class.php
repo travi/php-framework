@@ -27,7 +27,7 @@ class Form extends ContentObject
 		if(!empty($action))
 			$this->action = $action;
 		else
-			$this->action = $_SERVER['REQUEST_URI'] . "#Results";
+			$this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
 
 		$this->addStyleSheet('/resources/shared/css/travi.form.css');
 		$this->addJavaScript(JQUERY);
@@ -501,20 +501,21 @@ class RichTextArea extends TextArea
 	function RichTextArea($label,$value="",$name="",$rows=3)
 	{
 		parent::TextArea($label,$value,$name);
-		$this->class = "textInput mceEditor";
+		$this->class = "textInput richEditor";
 		$this->rows = $rows;
-		$this->addJavaScript('/reusable/js/tiny_mce/jscripts/tiny_mce/tiny_mce.js');
+		$this->addJavaScript(JQUERY);
+		$this->addJavaScript(JQUERY_WYMEDITOR);
+		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
 	}
 	function toString()
 	{
 		return '
-				<script language="javascript" type="text/javascript">
-					tinyMCE.init({
-						mode : "textareas",
-						theme : "advanced",
-						theme_advanced_toolbar_location : "top"
-					});
-				</script>'.parent::toString();
+				<label for="'.$this->name.'">'.$this->label.'</label>
+				<div class="formBlock">
+					<textarea name="'.$this->name.'" id="'.$this->name.'" class="'.$this->class.'">
+						'.htmlentities($this->value).'
+					</textarea>
+				</div>';
 	}
 }
 class SubmitButton extends Input
