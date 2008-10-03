@@ -466,7 +466,7 @@ class TextArea extends Input
 				'</textarea>';
 	}
 }
-class FormattedTextArea extends TextArea
+/*class FormattedTextArea extends TextArea
 {
 	function FormattedTextArea($label,$value="",$name="",$rows=3)
 	{
@@ -493,9 +493,7 @@ class FormattedTextArea extends TextArea
 					'</textarea>
 				</div>';
 	}
-}
-//Still need to get this working
-//Goal is to replace the FormattedTextArea with this one
+}*/
 class RichTextArea extends TextArea
 {
 	function RichTextArea($label,$value="",$name="",$rows=3)

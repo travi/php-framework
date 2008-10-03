@@ -27,6 +27,7 @@
  require_once('objects/content/gallery.class.php');
  require_once('objects/content/list.class.php');
  require_once('objects/content/previewWindow.class.php');
+ require_once('objects/content/accordion.class.php');
 
  //Ajax Content Objects
  require_once('objects/content/ajax/fileUpload.ajax.class.php');
