@@ -12,7 +12,10 @@ class Accordion extends ContentObject
 	
 	function Accordion($options=array())
 	{
-	
+		$this->addJavaScript(JQUERY);
+		$this->addJavaScript(JQUERY_UI);
+		$this->addJavaScript('/resources/shared/js/jquery/plugins/easing/jquery.easing.js');
+		$this->addJsInit('$(".accordion").accordion({animated: \'easeslide\',header: \'dt\'});');	
 	}
 	
 	function addSection($title,$content='')
