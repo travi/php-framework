@@ -196,31 +196,38 @@ class xhtmlPage
 
 	function Display()
 	{
-		if(!isset($this->smartyConfig))
-			$this->getSmartyConfig();
-
-        require_once($this->smartyConfig['pathToSmarty']);
-			
-		uksort($this->stylesheets, 'strnatcasecmp');
-
-		$smarty = new Smarty();
-
-		$smarty->template_dir = $this->smartyConfig['smartyTemplateDir'];
-		$smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
-		$smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
-		$smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
-
-		if($this->debug)
+		if($_GET['ajax'] == 'true')
 		{
-			$smarty->force_compile = true;
+			echo $this->content;
 		}
 		else
 		{
-			$smarty->compile_check = false;
+			if(!isset($this->smartyConfig))
+				$this->getSmartyConfig();
+	
+	        require_once($this->smartyConfig['pathToSmarty']);
+				
+			uksort($this->stylesheets, 'strnatcasecmp');
+	
+			$smarty = new Smarty();
+	
+			$smarty->template_dir = $this->smartyConfig['smartyTemplateDir'];
+			$smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
+			$smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
+			$smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
+	
+			if($this->debug)
+			{
+				$smarty->force_compile = true;
+			}
+			else
+			{
+				$smarty->compile_check = false;
+			}
+	
+			$smarty->assign('page',$this);
+			$smarty->display($this->smartyTemplate);
 		}
-
-		$smarty->assign('page',$this);
-		$smarty->display($this->smartyTemplate);
 	}
 }
 ?>
