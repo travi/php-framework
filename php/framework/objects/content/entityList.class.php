@@ -5,7 +5,9 @@
  * programmer@travi.org
  */
 
-class EntityList
+require_once('contentObject.class.php');
+
+class EntityList extends ContentObject
 {
 	var $entities = array();
 	var $actions = array();
@@ -16,19 +18,19 @@ class EntityList
 	}
 	function setEdit($script,$confirmation="")
 	{
-		$this->addAction("Edit",$script,$confirmation);
+		$this->addAction("Edit",$script,$confirmation,"/resources/shared/img/famfamfam/pencil.png");
 	}
 	function setRemove($script,$confirmation="")
 	{
-		$this->addAction("Remove",$script,$confirmation);
+		$this->addAction("Remove",$script,$confirmation,"/resources/shared/img/famfamfam/delete.png");
 	}
 	function addEntity($entity)
 	{
 		array_push($this->entities,$entity);
 	}
-    function addAction($text,$link,$confirmation="")
+    function addAction($text,$link,$confirmation="",$icon="")
     {
-		$this->actions["$text"] = array($link,$confirmation);
+		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation, 'icon' => $icon);
     }
 	function toString()
 	{
@@ -49,6 +51,7 @@ class EntityBlock
 	var $preConf;
 	var $details = array();
 	var $activeActions = array();
+	var $extraActionRows = array();
 
 	function EntityBlock()
     {
@@ -62,17 +65,25 @@ class EntityBlock
     {
     	$this->id = $id;
     }
-    function setType($type)
-    {
-    	$this->type = $type;
-    }
     function prependRemoveConfirmation($text)
     {
 		$this->preConf = $text;
     }
+    function setType($type)
+    {
+    	$this->type = $type;
+    }
     function addDetail($detail)
     {
     	array_push($this->details, $detail);
+    }
+    function addActionRow($actions=array())
+    {
+		array_push($this->extraActionRows,$actions);
+		foreach($actions as $action)
+		{
+			$this->disableAction($action,true);
+		}
     }
     function disableAction($text,$active)
     {
@@ -90,35 +101,66 @@ class EntityBlock
 						<dd>'.$detail.'</dd>';
 		}
 		$entity .= '
-      					<dd><div class="actions">
-      						<p>';
+						<dd>
+							<div class="actions">
+								<p>';
 		$i = 0;
+
+		$actionRows = array();
+		$primaryActionRow = array();
 
 		foreach($actions as $text => $details)
 		{
-			list($link,$confirmation) = $details;
-
 			if(empty($this->activeActions[$text]))
 			{
-				if($i != 0)
-					$entity .= ' | ';
-
-				$entity .= '
-								<a href="'.$link.$this->id.'"';
-				if(!empty($confirmation))
+				$action = '
+									<a href="'.$details['link'].$this->id.'"';
+				if(!empty($details['confirmation']))
 				{
-					$entity .= ' onclick="if (confirm('."'".$this->preConf.$confirmation."'".')) return true; else return false;"';
+					$action .= ' onclick="if (confirm('."'".$this->preConf.$details['confirmation']."'".')) return true; else return false;"';
 				}
 
-				$entity .= '>'.$text.'</a>';
+				$action .= '>';
+				
+				if(!empty($details['icon']))
+				{
+					$action .= '
+				<img src="'.$details['icon'].'" alt="add" />
+				';
+				}
+				
+				$action .= $text.'</a>';
 
-				$i++;
+				array_push($primaryActionRow,$action);
 			}
 		}
+		array_push($actionRows,implode(' | ',$primaryActionRow));
+		if(!empty($this->extraActionRows))
+		{
+			foreach($this->extraActionRows as $row)
+			{
+				$actionRow = array();
+				foreach($row as $action_text)
+				{
+					$action = '
+									<a href="'.$actions["$action_text"]['link'].$this->id.'"';
+					if(!empty($actions["$action_text"]['confirmation']))
+					{
+						$action .= ' onclick="if (confirm('."'".$this->preConf.$actions["$action_text"]['confirmation']."'".')) return true; else return false;"';
+					}
+
+					$action .= '>'.$action_text.'</a>';
+
+					array_push($actionRow,$action);
+				}
+				array_push($actionRows,implode(' | ',$actionRow));
+			}
+		}
+		$entity .= implode("<br/>\n",$actionRows);
 		$entity .= '
 							</p>
-      					</div>
-    				</dd>
+						</div>
+					</dd>
   				</dl>
   			</div>';
 
