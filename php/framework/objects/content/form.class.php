@@ -605,15 +605,17 @@ class Choices //abstract
 {
 	var $label;
 	var $name;
+	var $settings = array();
 	var $options = array(); 	//implemented as an n x 4 two-dimensional array
 
-	function Choices($label,$name)
+	function Choices($settings=array())
 	{
-		$this->label = $label;
-		if(!empty($name))
-			$this->name = $name;
+		$this->label = $settings['label'];
+		if(!empty($settings['name']))
+			$this->name = $settings['name'];
 		else
-			$this->name = strtolower($label);
+			$this->name = strtolower($settings['label']);
+		$this->settings = $settings;
 	}
 
 	function addOption($option,$selected=false,$value="",$disabled=false)
@@ -645,7 +647,7 @@ class Choices //abstract
 			{	
 				$form .= ' disabled';
 			}
-			if($option[2])
+			if($option[2]||($option[0]==$this->settings['value'])||($option[1]==$this->settings['value']))
 				$form .= ' checked ';
 			$form .= '/>'.$option[0].'
 					</label>';
@@ -660,9 +662,9 @@ class Choices //abstract
 
 class SelectionBox extends Choices
 {
-	function SelectionBox($label,$name="")
+	function SelectionBox($options=array())
 	{
-		parent::Choices($label,$name);
+		parent::Choices($options);
 		$this->addOption("Select One");
 	}
 	function toString()
@@ -681,7 +683,7 @@ class SelectionBox extends Choices
 				if($option[3])
 				{	$form .= ' disabled';
 				}
-				if($option[2])
+				if($option[2]||(!empty($this->settings['value'])&&(($option[0]==$this->settings['value'])||($option[1]==$this->settings['value']))))
 					$form .= ' selected';
 				$form .= '>'.$option[0].'</option>';
 			}
@@ -695,9 +697,9 @@ class RadioButtons extends Choices
 	var $type;
 	var $class;
 
-	function RadioButtons($label,$name="")
+	function RadioButtons($options=array())
 	{
-		parent::Choices($label,$name);
+		parent::Choices($options);
 		$this->type = "radio";
 		$this->class = "radioButton";
 	}
@@ -707,9 +709,9 @@ class CheckBoxes extends Choices
 	var $type;
 	var $class;
 
-	function CheckBoxes($label,$name="")
+	function CheckBoxes($options=array())
 	{
-		parent::Choices($label,$name);
+		parent::Choices($options);
 		$this->type = "checkbox";
 		$this->class = "checkbox";
 	}
