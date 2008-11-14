@@ -18,19 +18,19 @@ class EntityList extends ContentObject
 	}
 	function setEdit($script,$confirmation="")
 	{
-		$this->addAction("Edit",$script,$confirmation,"/resources/shared/img/famfamfam/pencil.png");
+		$this->addAction("Edit",$script,$confirmation);
 	}
 	function setRemove($script,$confirmation="")
 	{
-		$this->addAction("Remove",$script,$confirmation,"/resources/shared/img/famfamfam/delete.png");
+		$this->addAction("Remove",$script,$confirmation);
 	}
 	function addEntity($entity)
 	{
 		array_push($this->entities,$entity);
 	}
-    function addAction($text,$link,$confirmation="",$icon="")
+    function addAction($text,$link,$confirmation="")
     {
-		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation, 'icon' => $icon);
+		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
     }
 	function toString()
 	{
@@ -102,8 +102,7 @@ class EntityBlock
 		}
 		$entity .= '
 						<dd>
-							<div class="actions">
-								<p>';
+							<ul class="actions">';
 		$i = 0;
 
 		$actionRows = array();
@@ -114,7 +113,7 @@ class EntityBlock
 			if(empty($this->activeActions[$text]))
 			{
 				$action = '
-									<a href="'.$details['link'].$this->id.'"';
+									<li class="'.strtolower($text).'-item"><a class="item-action" href="'.$details['link'].$this->id.'"';
 				if(!empty($details['confirmation']))
 				{
 					$action .= ' onclick="if (confirm('."'".$this->preConf.$details['confirmation']."'".')) return true; else return false;"';
@@ -122,19 +121,13 @@ class EntityBlock
 
 				$action .= '>';
 				
-				if(!empty($details['icon']))
-				{
-					$action .= '
-				<img src="'.$details['icon'].'" alt="add" />
-				';
-				}
-				
-				$action .= $text.'</a>';
+				$action .= $text.'</a></li>';
 
 				array_push($primaryActionRow,$action);
 			}
 		}
-		array_push($actionRows,implode(' | ',$primaryActionRow));
+		array_push($actionRows,implode(' ',$primaryActionRow));
+		//array_push($actionRows,implode(' | ',$primaryActionRow));
 		if(!empty($this->extraActionRows))
 		{
 			foreach($this->extraActionRows as $row)
@@ -158,8 +151,7 @@ class EntityBlock
 		}
 		$entity .= implode("<br/>\n",$actionRows);
 		$entity .= '
-							</p>
-						</div>
+						</ul>
 					</dd>
   				</dl>
   			</div>';
