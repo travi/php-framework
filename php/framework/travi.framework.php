@@ -14,23 +14,14 @@
  require_once('objects/dependantObject.class.php');
 
  //Page Objects
- require_once('objects/page/xhtml.class.php');
  importObjects('objects/page/');
  importSiteObjects('page/');
 
  //Content Objects
- require_once('objects/content/contentObject.class.php');
- //importObjects('objects/content/'); //need to eliminate the duplicate unordered list from elements.class.php
- require_once('objects/content/form.class.php');
- require_once('objects/content/entityList.class.php');
- require_once('objects/content/feedcreator.class.php');
- require_once('objects/content/gallery.class.php');
- require_once('objects/content/list.class.php');
- require_once('objects/content/previewWindow.class.php');
- require_once('objects/content/accordion.class.php');
+ importObjects('objects/content/'); //need to eliminate the duplicate unordered list from elements.class.php
 
  //Ajax Content Objects
- require_once('objects/content/ajax/fileUpload.ajax.class.php');
+ //require_once('objects/content/ajax/fileUpload.ajax.class.php');
  
  //Client Objects )(intended to eventually help to resolve dependencies of client dependencies automatically)
  //require_once('objects/client/clientObject.class.php');
