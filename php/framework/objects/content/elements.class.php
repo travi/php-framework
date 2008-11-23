@@ -53,13 +53,13 @@ class HtmlList extends HtmlElement
 	}
 }
 
-class UnorderedList extends HtmlList
+/*class UnorderedList extends HtmlList
 {
 	function UnorderedList()
 	{
 		$this->tag = "ul";
 	}
-}
+}*/
 
 class Section extends ContentObject
 {
