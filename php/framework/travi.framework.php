@@ -4,12 +4,15 @@
  * By Matt Travi
  */
  
- require_once($_SERVER['DOCUMENT_ROOT'].'/../config/framework/framework.conf');
-
+ define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
+ define('SITE_ROOT', DOC_ROOT.'../');
+ define('WEB_ROOT',SITE_ROOT.'../');
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
- preg_match('/^([A-Za-z]:)?([\/\\\](\w|[-.])+)+[\/\\\]include[\/\\\]/',dirname(__FILE__),$matches); // regex by Brian Holt
- define('INCLUDE_PATH',$matches[0]);
- define('PROCESS','/home/.tookie/travi/include/php/framework/controllers/displayProcess.php');
+ define('INCLUDE_PATH',WEB_ROOT.'include/');
+ 
+ require_once(SITE_ROOT.'config/framework/framework.conf');
+ 
+ define('PROCESS',FRAMEWORK_PATH.'controllers/displayProcess.php');
   
  require_once('objects/dependantObject.class.php');
 
