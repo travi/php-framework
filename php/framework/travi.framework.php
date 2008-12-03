@@ -21,7 +21,7 @@
  importSiteObjects('page/');
 
  //Content Objects
- importObjects('objects/content/'); //need to eliminate the duplicate unordered list from elements.class.php
+ importObjects('objects/content/'); 
 
  //Ajax Content Objects
  //require_once('objects/content/ajax/fileUpload.ajax.class.php');
