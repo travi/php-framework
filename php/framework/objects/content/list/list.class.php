@@ -1,5 +1,4 @@
 <?php
-require_once('contentObject.class.php');
 
 class BaseList extends ContentObject
 {

@@ -4,8 +4,6 @@
  * By Matt Travi
  */
   
-require_once('contentObject.class.php');
-  
 class NavigationObject extends ContentObject
 {
 	var $sections = array();

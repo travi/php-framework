@@ -17,11 +17,11 @@
  require_once('objects/dependantObject.class.php');
 
  //Page Objects
- importObjects('objects/page/');
+ importFrameworkObjects('objects/page/');
  importSiteObjects('page/');
 
  //Content Objects
- importObjects('objects/content/'); 
+ importFrameworkObjects('objects/content/'); 
 
  //Ajax Content Objects
  //require_once('objects/content/ajax/fileUpload.ajax.class.php');
@@ -31,7 +31,7 @@
  //require_once('objects/client/jquery.class.php');
 
  //Utility Objects
- importObjects('objects/utility/');
+ importFrameworkObjects('objects/utility/');
  
  
  
@@ -51,21 +51,30 @@
 
 
 
-	function importObjects($relPath)
+	function importFrameworkObjects($relPath)
 	{
-		$objects = glob(FRAMEWORK_PATH.$relPath."*.class.php");
+		importObjectsFromDir(FRAMEWORK_PATH.$relPath);
+	}
+	function importSiteObjects($relPath)
+	{
+		importObjectsFromDir(SITE_OBJECTS.$relPath);
+	}
+	
+	function importObjectsFromDir($dir)
+	{
+		$objects = glob($dir."*.class.php");
 		foreach($objects as $object)
 		{
 			require_once($object);
 		}
-	}
-
-	function importSiteObjects($relPath)
-	{
-		$objects = glob(SITE_OBJECTS.$relPath."*.class.php");
-		foreach($objects as $object)
+		
+		$dirs = glob($dir."*");
+		foreach($dirs as $innerDir)
 		{
-			require_once($object);
+			if(is_dir($innerDir))
+			{
+				importObjectsFromDir($innerDir."/");			
+			}
 		}
 	}
 ?>

@@ -5,8 +5,6 @@
  * programmer@travi.org
  */
 
-require_once('contentObject.class.php');
-
 class EntityList extends ContentObject
 {
 	var $entities = array();
