@@ -5,60 +5,38 @@
  * programmer@travi.org
  */
 
-class xhtmlPage
+abstract class xhtmlPage
 {
-	var $title;
-	var $smartyTemplate;
-	var $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
-	var $stylesheets = array();
-	var $altStyles = array();
-	var $scripts = array();
-	var $jsInits = array();
-	var $feeds = array();
-	var $body;
- 	var $nav = array();
- 	var $content;
- 	var $debug = false;
- 	var $smartyConfig;
+	protected $title;
+	protected $smartyTemplate;
+	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
+	protected $stylesheets = array();
+	protected $altStyles = array();
+	protected $scripts = array();
+	protected $jsInits = array();
+	protected $feeds = array();
+	protected $body;
+ 	protected $nav = array();
+ 	protected $content;
+ 	protected $debug = false;
+ 	protected $smartyConfig;
 
- 	//this is meant to be an abstract class
- 	//therefore the constructor is
- 	//   purposefully left out of this file
-
- 	function setTitle($title)
+ 	public function setTitle($title)
  	{
  		$this->title = $title;
  	}
+	
+	public function getTitle()
+	{
+		return $this->title;
+	}
 
- 	function getSmartyConfig()
+ 	public function getSmartyConfig()
  	{
 		$this->smartyConfig = $this->keyValueFromFile(SMARTY_CONFIG);
  	}
 
- 	function importNavFile()
- 	{
-		
-		return $this->keyValueFromFile(NAV_FILE);
- 	}
-
- 	function keyValueFromFile($file)
- 	{
- 		$kvLines = file($file);
-
- 		foreach($kvLines as $kv)
-	 	{
-		 	$keyVals = explode('=',$kv);
-		 	if(count($keyVals) == 2)
-		 	{
-		 		$keyVals = array_map('trim',$keyVals);
-		 		list($key,$value) = $keyVals;
-		 		$assocArray["$key"] = $value;
-		 	}
-		}
-		return $assocArray;
- 	}
-
- 	function addToContent($content)
+ 	public function addToContent($content)
 	{
 		if(is_array($content))
 		{
@@ -67,20 +45,25 @@ class xhtmlPage
 		}
 		else if(is_object($content) && is_a($content,'ContentObject'))
 		{
-			$this->addToContent($content->toString());
+			$this->content .= $content;
 			$this->checkDependencies($content);
 		}
 		else $this->content .= $content;
 	}
 
-	function addContentSection($content="")
+	public function addContentSection($content="")
 	{
 		$this->addToContent('</div><div class="content">');
 		if(!empty($content))
 			$this->addToContent($content);
 	}
+	
+	public function getContent()
+	{
+		return $this->content;
+	}
 
-	function checkDependencies($object)
+	public function checkDependencies($object)
 	{
 		$jScripts = $object->getJavaScripts();
 		foreach($jScripts as $script)
@@ -101,7 +84,30 @@ class xhtmlPage
 		}
 	}
 
-	function setSubNav($section)
+ 	public function importNavFile()
+ 	{
+		
+		return $this->keyValueFromFile(NAV_FILE);
+ 	}
+
+ 	public function keyValueFromFile($file)
+ 	{
+ 		$kvLines = file($file);
+
+ 		foreach($kvLines as $kv)
+	 	{
+		 	$keyVals = explode('=',$kv);
+		 	if(count($keyVals) == 2)
+		 	{
+		 		$keyVals = array_map('trim',$keyVals);
+		 		list($key,$value) = $keyVals;
+		 		$assocArray["$key"] = $value;
+		 	}
+		}
+		return $assocArray;
+ 	}
+
+	public function setSubNav($section)
 	{
 		if(is_array($section))
 		{
@@ -111,22 +117,32 @@ class xhtmlPage
 		else if(is_object($section) && is_a($section,'ContentObject'))
 		{
 			$this->checkDependencies($section);
-			$this->nav['subNav'] .= $section->toString();
+			$this->nav['subNav'] .= $section;
 		}
 		else $this->nav['subNav'] .= $section;
 	}
 
-	function addNavSection($section)
+	public function addNavSection($section)
 	{
 		array_push($this->nav,$section);
 	}
+	
+	public function getNavSection($index)
+	{
+		return $this->nav[$index];
+	}
 
-	function addNavItem($index, $item)
+	public function addNavItem($index, $item)
 	{
 		$this->nav[$index] .= $item;
 	}
+	
+	public function getNav()
+	{
+		return $this->nav;
+	}
 
-	function addStyleSheet($sheet,$index="")
+	public function addStyleSheet($sheet,$index="")
 	{
 		if(!empty($index))
 		{
@@ -136,22 +152,32 @@ class xhtmlPage
 			array_push($this->stylesheets,$sheet);
 	}
 	
-	function setTheme($sheet)
+	public function getStyleSheets()
+	{
+		return $this->stylesheets;
+	}
+	
+	public function getAltStyles()
+	{
+		return $this->altStyles;
+	}
+	
+	public function setTheme($sheet)
 	{
 		$this->addStyleSheet($sheet,'siteTheme');
 	}
 	
-	function setPageStyle($sheet)
+	public function setPageStyle($sheet)
 	{
 		$this->addStyleSheet($sheet,'thisPage');		
 	}
 
-	function addAltStyle($sheet)
+	public function addAltStyle($sheet)
 	{
 		array_push($this->altStyles,$sheet);
 	}
 
-	function addJavaScript($script)
+	public function addJavaScript($script)
 	{
 		if(!in_array($script,$this->scripts))
 		{
@@ -159,17 +185,32 @@ class xhtmlPage
 		}
 	}
 	
-	function addJsInit($init)
+	public function getScripts()
+	{
+		return $this->scripts;
+	}
+	
+	public function addJsInit($init)
 	{
 		array_push($this->jsInits,$init);
 	}
+	
+	public function getJsInits()
+	{
+		return $this->jsInits;
+	}
 
-	function addFeed($feed)
+	public function addFeed($feed)
 	{
 		array_push($this->feeds,$feed);
 	}
+	
+	public function getFeeds()
+	{
+		return $this->feeds;
+	}
 
-	function redirect($status,$msg,$location)
+	public function redirect($status,$msg,$location)
 	{
 		$this->setTitle("Results");
 
@@ -194,7 +235,7 @@ class xhtmlPage
 		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
 	}
 
-	function Display()
+	public function Display()
 	{
 		if($_GET['ajax'] == 'true')
 		{

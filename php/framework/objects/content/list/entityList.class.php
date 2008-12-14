@@ -30,7 +30,7 @@ class EntityList extends ContentObject
     {
 		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
     }
-	function toString()
+	function __toString()
 	{
 		$list = "";
 		foreach($this->entities as $entity)

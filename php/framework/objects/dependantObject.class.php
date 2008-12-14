@@ -1,38 +1,38 @@
 <?php
 
-class DependantObject
+abstract class DependantObject
 {
-	var $styles = array();
-	var $scripts = array();
-	var $jsInits = array();
+	protected $styles = array();
+	protected $scripts = array();
+	protected $jsInits = array();
 
-    function getStyles()
+    public function getStyles()
     {
     	return $this->styles;
     }
-    function getJavaScripts()
+    public function getJavaScripts()
     {
     	return $this->scripts;
     }
-	function getJsInits()
+	public function getJsInits()
 	{
 		return $this->jsInits;
 	}
 	
-	function addStyleSheet($sheet)
+	public function addStyleSheet($sheet)
 	{
 		array_push($this->styles,$sheet);
 	}
-	function addJavaScript($script)
+	public function addJavaScript($script)
 	{
 		array_push($this->scripts,$script);
 	}
-	function addJsInit($init)
+	public function addJsInit($init)
 	{
 		array_push($this->jsInits,$init);
 	}
 	
-	function checkDependencies($object)
+	public function checkDependencies($object)
 	{
 		$jScripts = $object->getJavaScripts();
 		foreach($jScripts as $script)

@@ -13,7 +13,7 @@ class HtmlElement extends ContentObject
 		$this->contents .= $contents;
 	}
 
-	function toString()
+	function __toString()
 	{
 		return "<$this->tag>$this->contents</$this->tag>";
 	}
@@ -38,7 +38,7 @@ class HtmlList extends HtmlElement
 		array_push($this->listItems,$item);
 	}
 
-	function toString()
+	function __toString()
 	{
 		$list = "<$this->tag>";
 		foreach($this->listItems as $listItem)
@@ -76,7 +76,7 @@ class Section extends ContentObject
 	{
 		if(is_a($add,'HtmlElement'))
 		{
-			$this->body .= $add->toString();
+			$this->body .= $add;
 		}
 		else
 			$this->body .= $add;
@@ -119,11 +119,11 @@ class SecondaryNavigation extends Section
 		$this->appendToSection($body);
 	}
 
-	function toString()
+	function __toString()
 	{
 		return '
 	<div class="subNav">
-		'.parent::toString().'
+		'.parent::__toString().'
 	</div>';
 	}
 }
@@ -137,12 +137,12 @@ class Highlight extends Section
 		$this->appendToSection($body);
 	}
 
-	function toString()
+	function __toString()
 	{
 		return '
 	<div class="highlight">
 		<div class="highlightBottom">
-		'.parent::toString().'
+		'.parent::__toString().'
 		</div>
 	</div>';
 	}

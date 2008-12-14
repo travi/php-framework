@@ -14,7 +14,7 @@ class Tabs extends NavigationObject
 		$this->addJavaScript(JQUERY_UI);
 		$this->addJsInit("$('.tabs > ul').tabs({selected:0,fx:{opacity:'toggle',height:'toggle'}});");	
 	}
-	function toString()
+	function __toString()
 	{
 		$content = '	
 			<div class="flora tabs">

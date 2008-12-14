@@ -35,7 +35,7 @@ class BaseList extends ContentObject
 
 		return $list;
 	}
-	function toString()
+	function __toString()
 	{
 		$list = "
 				<$this->surroundingTag>";
@@ -45,7 +45,7 @@ class BaseList extends ContentObject
 			if(is_object($links) && is_a($links,'ContentObject'))
 			{
 				$list .= "
-				<$this->itemTag>".$links->toString()."</$this->itemTag>";
+				<$this->itemTag>".$links."</$this->itemTag>";
 				$this->checkDependencies($links);
 			}
 			else if(isset($links['text']) && isset($links['link']))
@@ -96,7 +96,7 @@ class DefinitionList extends BaseList
 		$this->surroundingTag = 'dl';
 		$this->itemTag = 'dd';
 	}
-	function toString()
+	function __toString()
 	{
 		$list = "
 			<$this->surroundingTag>";
@@ -129,7 +129,7 @@ class DefinitionList extends BaseList
 
 class ExpandableList extends BaseList
 {
-	function toString()
+	function __toString()
 	{
 		$nav = '';
 
@@ -192,11 +192,11 @@ class ExpandableDl extends ExpandableList
 		$this->itemTag = 'dd';
 		$this->addJavaScript('/reusable/js/formatting.js');
 	}
-	function toString()
+	function __toString()
 	{
 		$list = '
 		<dl>';
-		$list .= parent::toString();
+		$list .= parent::__toString();
 		$list .= '
 		</dl>';
 

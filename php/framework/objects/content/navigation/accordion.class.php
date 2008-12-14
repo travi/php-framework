@@ -7,10 +7,8 @@
 require_once('navigation.class.php');
  
 class Accordion extends NavigationObject
-{
-	var $sections = array();
-	
-	function Accordion($options=array())
+{	
+	public function __construct($options=array())
 	{
 		$this->addJavaScript(JQUERY);
 		$this->addJavaScript(JQUERY_UI);
@@ -18,7 +16,7 @@ class Accordion extends NavigationObject
 		$this->addJsInit("$('.accordion').accordion({animated: 'easeslide',header: 'dt'});");	
 	}
 	
-	function toString()
+	public function __toString()
 	{
 		$content = '			
 		<dl class="entry accordion contentNav">';

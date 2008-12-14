@@ -1,10 +1,6 @@
 <?php
 
-class ContentObject extends DependantObject
+abstract class ContentObject extends DependantObject
 {
-	function toString()
-    {
-    	return '';
-    }
 }
 ?>

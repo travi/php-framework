@@ -73,7 +73,7 @@ class Gallery extends ContentObject
 
 		return $carousel;
     }
-    function toString()
+    function __toString()
     {
     	return $this->menu().$this->jcarousel().'
 

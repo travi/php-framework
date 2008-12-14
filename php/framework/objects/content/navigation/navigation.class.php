@@ -4,25 +4,21 @@
  * By Matt Travi
  */
   
-class NavigationObject extends ContentObject
+abstract class NavigationObject extends ContentObject
 {
-	var $sections = array();
-
-	function NavigationObject()
-	{
-	}
+	protected $sections = array();
 	
-	function addSection($title,$content='')
+	public function addSection($title,$content='')
 	{
 		$this->sections[$title] = $content;
 	}
 	
-	function addSectionContent($title,$content)
+	public function addSectionContent($title,$content)
 	{
 		$this->sections[$title] .= $content;
 	}
 	
-	function addSectionContentLinks($title,$items=array())
+	public function addSectionContentLinks($title,$items=array())
 	{
 		$content = '
 						<ul>';

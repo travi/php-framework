@@ -104,7 +104,7 @@ class Form extends ContentObject
 	{
 		return $this->customValidations;
 	}
-	function toString()
+	function __toString()
 	{
 		$form = '
 		<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'"';
@@ -116,7 +116,7 @@ class Form extends ContentObject
 		$form .= '>';
 		foreach ($this->fieldsetArray as $fieldset)
 		{
-			$form .= $fieldset->toString();
+			$form .= $fieldset;
 			$this->checkDependencies($fieldset);
 		}
 		$form .= '
@@ -198,7 +198,7 @@ class Fieldset extends contentObject
 		}
 		return $list;
 	}
-	function toString()
+	function __toString()
 	{
 		$form = '
 			<fieldset>
@@ -206,7 +206,7 @@ class Fieldset extends contentObject
 				<ul class="fieldList">';
 		foreach ($this->fieldArray as $field)
 		{
-			$form .= '<li>'.$field->toString().'</li>';
+			$form .= '<li>'.$field.'</li>';
 			if(is_a($field,'ContentObject'))
 				$this->checkDependencies($field);
 		}
@@ -222,35 +222,25 @@ class Fieldset extends contentObject
 //						 	Field Interface							//
 //////////////////////////////////////////////////////////////////////
 
-class Field extends ContentObject//infterface
+interface Field //extends ContentObject//infterface
 {
-	var $label;					//label associated with this field
-	var $name;					//name attribute for this field
-	var $validations = array();	//list of validations that are to be applied to this field at submission time
-
-	function toString()
-	{
-
-	}
-	function getValidations()
-	{
-
-	}
-	function addValidation()
-	{
-
-	}
+	public function getValidations();
+	public function addValidation($validation);
 }
 
 //////////////////////////////////////////////////////////////////////
 //						 Single Input Fields						//
 //////////////////////////////////////////////////////////////////////
 
-class Input extends Field //abstract
+abstract class Input extends ContentObject implements Field
 {
-	var $type;					//type attribute for this field
-	var $value;					//value attribute for this field
-	var $class;					//class attribute for this field
+	protected $label;					//label associated with this field
+	protected $name;					//name attribute for this field
+	protected $validations = array();	//list of validations that are to be applied to this field at submission time
+	
+	protected $type;					//type attribute for this field
+	protected $value;					//value attribute for this field
+	protected $class;					//class attribute for this field
 
 	function Input($label,$value,$name)
 	{
@@ -280,7 +270,7 @@ class Input extends Field //abstract
 		}
 		return $validations;
 	}
-	function toString()
+	function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -323,7 +313,7 @@ class UrlInput extends Input
 		$this->class = "textInput";
 		$this->type = "text";
 	}
-	function toString()
+	function __toString()
 	{
 		$form = parent::toString();
 		$form .= ' ';
@@ -346,7 +336,7 @@ class HiddenInput extends Input
 		parent::Input("",$value,$name);
 		$this->type = "hidden";
 	}
-	function toString()
+	function __toString()
 	{
 		return '
 				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'"/>';
@@ -376,7 +366,7 @@ class TimeInput extends Input
 		$this->class = "textInput";
 		$this->addJavaScript('/reusable/js/time.js');
 	}
-	function toString()
+	function __toString()
 	{
 		$hour = substr($this->value,0,2);
 		if($hour >= 12)
@@ -434,7 +424,7 @@ class TimeInput extends Input
 }
 class CityStateZip
 {
-	function toString()
+	function __toString()
 	{
 		return '
 				<label for="city">City</label>
@@ -457,7 +447,7 @@ class TextArea extends Input
 		$this->class = "textInput";
 		$this->rows = $rows;
 	}
-	function toString()
+	function __toString()
 	{
 		return '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -466,34 +456,6 @@ class TextArea extends Input
 				'</textarea>';
 	}
 }
-/*class FormattedTextArea extends TextArea
-{
-	function FormattedTextArea($label,$value="",$name="",$rows=3)
-	{
-		parent::TextArea($label,$value,$name);
-		$this->class = "textInput";
-		$this->rows = $rows;
-		$this->addJavaScript('/reusable/js/formatting.js');
-	}
-	function toString()
-	{
-		$id = "'$this->name'";
-		return '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<div class="formBlock">
-					<img src="/reusable/images/formatButtons/bold.gif" alt="Add Bold Text" onclick="addBold('.$id.');" class="format_trigger" />
-			        <img src="/reusable/images/formatButtons/italic.gif" alt="Add Emphasized Text" onclick="addEm('.$id.');" class="format_trigger" />
-			        <img src="/reusable/images/formatButtons/hyperlink.gif" alt="Add Url" onclick="addURL('.$id.');" class="format_trigger" />
-			        <img src="/reusable/images/formatButtons/email.gif" alt="Add E-mail" onclick="addEmail('.$id.');" class="format_trigger" />
-					<img src="/reusable/images/formatButtons/list.gif" alt="Add Unordered list" onclick="addLi('.$id.')" class="format_trigger" />
-			        <img src="/reusable/images/formatButtons/numbered_list.gif" alt="Add Ordered List" onclick="addOl('.$id.')" class="format_trigger" />
-					<br />
-					<textarea name="'.$this->name.'" id="'.$this->name.'" rows="'.$this->rows.'" class="'.$this->class.'">'
-						.$this->value.
-					'</textarea>
-				</div>';
-	}
-}*/
 class RichTextArea extends TextArea
 {
 	function RichTextArea($label,$value="",$name="",$rows=3)
@@ -505,7 +467,7 @@ class RichTextArea extends TextArea
 		$this->addJavaScript(JQUERY_WYMEDITOR);
 		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
 	}
-	function toString()
+	function __toString()
 	{
 		return '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -531,7 +493,7 @@ class SubmitButton extends Input
 	{
 		$this->confirmation = $confirmation;
 	}
-	function toString()
+	function __toString()
 	{
 		$string = '
 				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.
@@ -564,7 +526,7 @@ class Button
 		return array();
 	}
 
-	function toString()
+	function __toString()
 	{
 		$string = '
 				<button type="'.$this->type.'" class="'.$this->class.'">'.$this->value.'</button>';
@@ -587,7 +549,7 @@ class NoteArea
 	{
 		return array();
 	}
-	function toString()
+	function __toString()
 	{
 		return '
 			<label>'.$this->label.'</label>
@@ -627,7 +589,7 @@ class Choices //abstract
 	{
 		return array();
 	}
-	function toString()
+	function __toString()
 	{
 		$form = '
 				<fieldset>
@@ -667,7 +629,7 @@ class SelectionBox extends Choices
 		parent::Choices($options);
 		$this->addOption("Select One");
 	}
-	function toString()
+	function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>

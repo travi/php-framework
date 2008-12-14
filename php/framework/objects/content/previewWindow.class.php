@@ -28,7 +28,7 @@ class PreviewWindow extends ContentObject
     {
     	$this->field = $field;
     }
-	function toString()
+	function __toString()
 	{
 		$link = '<a href="#" onclick="';
 		if(isset($this->field))
