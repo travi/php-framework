@@ -12,15 +12,15 @@ require_once('contentObject.class.php');
 
 class Form extends ContentObject
 {
-	var $name;						//form name attribute
-	var $method;					//form method attribute (GET or POST)
-	var $action;					//form action attribute (script that information is submitted to for processing)
-	var $encType;					//form encType attribute (needs to be changed to "multipart/form-data" for file uploads)
-	var $fieldsetArray = array();	//Fieldsets contained in this form
-	var $currentFieldset;			//Fieldset where new Fields are to be added
-	var $customValidations = array();
+	protected $name;						//form name attribute
+	protected $method;						//form method attribute (GET or POST)
+	protected $action;						//form action attribute (script that information is submitted to for processing)
+	protected $encType;						//form encType attribute (needs to be changed to "multipart/form-data" for file uploads)
+	protected $fieldsetArray = array();		//Fieldsets contained in this form
+	protected $currentFieldset;				//Fieldset where new Fields are to be added
+	protected $customValidations = array();
 
-	function Form($name,$action="",$method="post")
+	public function __construct($name,$action="",$method="post")
 	{
 		$this->name = $name;
 		$this->method = $method;
@@ -34,7 +34,7 @@ class Form extends ContentObject
 		$this->addJavaScript(JQUERY_FORM_ALIGN);
 		$this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
 	}
-	function addFieldset($fieldset)
+	public function addFieldset($fieldset)
 	{
 		array_push($this->fieldsetArray,$fieldset);
 		if(is_a($fieldset,"Fieldset"))
@@ -42,11 +42,11 @@ class Form extends ContentObject
 	}
 	//empties the currentFieldSet variable
 	//   so that the next fields will be added outside of a fieldset
-	function closeFieldset()
+	public function closeFieldset()
 	{
 		unset($this->currentFieldset);
 	}
-	function addField($field)
+	public function addField($field)
 	{
 		if(!isset($this->currentFieldset))
 			$this->AddFieldset($field);
@@ -55,7 +55,7 @@ class Form extends ContentObject
 			$this->fieldsetArray[$this->currentFieldset]->AddField($field);
 		}
 	}
-	function contains($type)
+	public function contains($type)
 	{
 		foreach ($this->fieldsetArray as $fieldset)
 		{
@@ -70,7 +70,7 @@ class Form extends ContentObject
 
 	//Can be used to list the $_GET or $_POST variables for use
 	//  in processing this form
-	function listVariables()
+	public function listVariables()
 	{
 		$type = '$_'.strtoupper($this->method);
 		foreach ($this->fieldsetArray as $fieldset)
@@ -85,7 +85,7 @@ class Form extends ContentObject
 			}
 		}
 	}
-	function getValidations()
+	public function getValidations()
 	{
 		$validations = array();
 
@@ -96,15 +96,15 @@ class Form extends ContentObject
 
 		return $validations;
 	}
-	function addCustomValidation($validation)
+	public function addCustomValidation($validation)
 	{
 		array_push($this->customValidations,$validation);
 	}
-	function getCustomValidations()
+	public function getCustomValidations()
 	{
 		return $this->customValidations;
 	}
-	function __toString()
+	public function __toString()
 	{
 		$form = '
 		<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'"';
@@ -160,18 +160,18 @@ class Form extends ContentObject
 
 class Fieldset extends contentObject
 {
-	var $legend;				//test that appears in the legend for this fieldset
-	var $fieldArray = array();	//Fields contained in this fieldset
+	protected $legend;				//test that appears in the legend for this fieldset
+	protected $fieldArray = array();	//Fields contained in this fieldset
 
-	function Fieldset($legend)
+	public function __construct($legend)
 	{
 		$this->legend = $legend;
 	}
-	function addField($field)
+	public function addField($field)
 	{
 		array_push($this->fieldArray,$field);
 	}
-	function getValidations()
+	public function getValidations()
 	{
 		$validations = array();
 		foreach ($this->fieldArray as $field)
@@ -180,7 +180,7 @@ class Fieldset extends contentObject
 		}
 		return $validations;
 	}
-	function contains($type)
+	public function contains($type)
 	{
 		foreach ($this->fieldArray as $field)
 		{
@@ -189,7 +189,7 @@ class Fieldset extends contentObject
 		}
 		return false;
 	}
-	function listVariables($method)
+	public function listVariables($method)
 	{
 		$list = "";
 		foreach ($this->fieldArray as $field)
@@ -198,7 +198,7 @@ class Fieldset extends contentObject
 		}
 		return $list;
 	}
-	function __toString()
+	public function __toString()
 	{
 		$form = '
 			<fieldset>
@@ -222,7 +222,7 @@ class Fieldset extends contentObject
 //						 	Field Interface							//
 //////////////////////////////////////////////////////////////////////
 
-interface Field //extends ContentObject//infterface
+interface Field
 {
 	public function getValidations();
 	public function addValidation($validation);
@@ -236,13 +236,12 @@ abstract class Input extends ContentObject implements Field
 {
 	protected $label;					//label associated with this field
 	protected $name;					//name attribute for this field
-	protected $validations = array();	//list of validations that are to be applied to this field at submission time
-	
+	protected $validations = array();	//list of validations that are to be applied to this field at submission time	
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
 
-	function Input($label,$value,$name)
+	public function __construct($label,$value,$name)
 	{
 		$this->label = $label;
 		if(!empty($name))
@@ -256,11 +255,11 @@ abstract class Input extends ContentObject implements Field
 		}
 		$this->value = $value;
 	}
-	function addValidation($validation)
+	public function addValidation($validation)
 	{
 		array_push($this->validations,$validation);
 	}
-	function getValidations()
+	public function getValidations()
 	{
 		$validations = array();
 		foreach($this->validations as $validation)
@@ -270,7 +269,7 @@ abstract class Input extends ContentObject implements Field
 		}
 		return $validations;
 	}
-	function __toString()
+	public function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -280,16 +279,16 @@ abstract class Input extends ContentObject implements Field
 }
 class TextInput extends Input
 {
-	function TextInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->class = "textInput";
 		$this->type = "text";
 	}
 }
 class PasswordInput extends Input
 {
-	function PasswordInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
 		parent::Input($label,$value,$name);
 		$this->class = "textInput";
@@ -298,7 +297,7 @@ class PasswordInput extends Input
 }
 class FileInput extends Input
 {
-	function FileInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
 		parent::Input($label,$value,$name);
 		$this->class = "fileInput";
@@ -307,13 +306,13 @@ class FileInput extends Input
 }
 class UrlInput extends Input
 {
-	function UrlInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
 		parent::Input($label,$value,$name);
 		$this->class = "textInput";
 		$this->type = "text";
 	}
-	function __toString()
+	public function __toString()
 	{
 		$form = parent::toString();
 		$form .= ' ';
@@ -331,12 +330,12 @@ class UrlInput extends Input
 }
 class HiddenInput extends Input
 {
-	function HiddenInput($name,$value="")
+	public function __construct($name,$value="")
 	{
-		parent::Input("",$value,$name);
+		parent::__construct("",$value,$name);
 		$this->type = "hidden";
 	}
-	function __toString()
+	public function __toString()
 	{
 		return '
 				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'"/>';
@@ -345,9 +344,9 @@ class HiddenInput extends Input
 
 class DateInput extends Input
 {
-	function DateInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->type = "text";
 		$this->class = "textInput datepicker";
 		$this->addJavaScript(JQUERY);
@@ -359,14 +358,14 @@ class DateInput extends Input
 }
 class TimeInput extends Input
 {
-	function TimeInput($label,$value="",$name="")
+	public function __construct($label,$value="",$name="")
 	{
 		parent::Input($label,$value,$name);
 		$this->type = "text";
 		$this->class = "textInput";
 		$this->addJavaScript('/reusable/js/time.js');
 	}
-	function __toString()
+	public function __toString()
 	{
 		$hour = substr($this->value,0,2);
 		if($hour >= 12)
@@ -424,7 +423,7 @@ class TimeInput extends Input
 }
 class CityStateZip
 {
-	function __toString()
+	public function __toString()
 	{
 		return '
 				<label for="city">City</label>
@@ -438,16 +437,16 @@ class CityStateZip
 }
 class TextArea extends Input
 {
-	var $class;
-	var $rows;
+	protected $class;
+	protected $rows;
 
-	function TextArea($label,$value="",$name="",$rows=3)
+	public function __construct($label,$value="",$name="",$rows=3)
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->class = "textInput";
 		$this->rows = $rows;
 	}
-	function __toString()
+	public function __toString()
 	{
 		return '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -458,16 +457,16 @@ class TextArea extends Input
 }
 class RichTextArea extends TextArea
 {
-	function RichTextArea($label,$value="",$name="",$rows=3)
+	public function __construct($label,$value="",$name="",$rows=3)
 	{
-		parent::TextArea($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->class = "textInput richEditor";
 		$this->rows = $rows;
 		$this->addJavaScript(JQUERY);
 		$this->addJavaScript(JQUERY_WYMEDITOR);
 		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
 	}
-	function __toString()
+	public function __toString()
 	{
 		return '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -480,20 +479,20 @@ class RichTextArea extends TextArea
 }
 class SubmitButton extends Input
 {
-	var $confirmation;
+	protected $confirmation;
 
-	function SubmitButton($value,$class="submitButton")
+	public function __construct($value,$class="submitButton")
 	{
 		$this->type = "submit";
 		$this->name = "Submit";
 		$this->class = $class;
 		$this->value = $value;
 	}
-	function setConfirmation($confirmation)
+	public function setConfirmation($confirmation)
 	{
 		$this->confirmation = $confirmation;
 	}
-	function __toString()
+	public function __toString()
 	{
 		$string = '
 				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.
@@ -508,12 +507,12 @@ class SubmitButton extends Input
 
 class Button
 {
-	var $type;
-	var $class;
-	var $value;
-	var $name;
+	protected $type;
+	protected $class;
+	protected $value;
+	protected $name;
 
-	function Button($value,$class="button")
+	public function __construct($value,$class="button")
 	{
 		$this->type = "submit";
 		$this->name = "Submit";
@@ -521,12 +520,12 @@ class Button
 		$this->value = $value;
 	}
 	
-	function getValidations()
+	public function getValidations()
 	{
 		return array();
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$string = '
 				<button type="'.$this->type.'" class="'.$this->class.'">'.$this->value.'</button>';
@@ -537,19 +536,19 @@ class Button
 
 class NoteArea
 {
-	var $label;
-	var $content;
+	protected $label;
+	protected $content;
 
-	function NoteArea($label,$content)
+	public function __construct($label,$content)
 	{
 		$this->label = $label;
 		$this->content = $content;
 	}
-	function getValidations()
+	public function getValidations()
 	{
 		return array();
 	}
-	function __toString()
+	public function __toString()
 	{
 		return '
 			<label>'.$this->label.'</label>
@@ -563,14 +562,19 @@ class NoteArea
 //					Fields Giving Numerous Choices					//
 //////////////////////////////////////////////////////////////////////
 
-class Choices //abstract
+abstract class Choices implements Field
 {
-	var $label;
-	var $name;
-	var $settings = array();
-	var $options = array(); 	//implemented as an n x 4 two-dimensional array
+	protected $label;					//label associated with this field
+	protected $name;					//name attribute for this field
+	protected $validations = array();	//list of validations that are to be applied to this field at submission time	
+	protected $type;					//type attribute for this field
+	protected $value;					//value attribute for this field
+	protected $class;					//class attribute for this field
+	
+	protected $settings = array();
+	protected $options = array(); 	//implemented as an n x 4 two-dimensional array
 
-	function Choices($settings=array())
+	public function __construct($settings=array())
 	{
 		$this->label = $settings['label'];
 		if(!empty($settings['name']))
@@ -580,16 +584,20 @@ class Choices //abstract
 		$this->settings = $settings;
 	}
 
-	function addOption($option,$selected=false,$value="",$disabled=false)
+	public function addOption($option,$selected=false,$value="",$disabled=false)
 	{
 		$optionAR = array($option,$value,$selected,$disabled);
 		array_push($this->options,$optionAR);
 	}
-	function getValidations()
+	public function getValidations()
 	{
 		return array();
 	}
-	function __toString()
+	public function addValidation($validation)
+	{
+		array_push($this->validations,$validation);
+	}
+	public function __toString()
 	{
 		$form = '
 				<fieldset>
@@ -624,12 +632,12 @@ class Choices //abstract
 
 class SelectionBox extends Choices
 {
-	function SelectionBox($options=array())
+	public function __construct($options=array())
 	{
-		parent::Choices($options);
+		parent::__construct($options);
 		$this->addOption("Select One");
 	}
-	function __toString()
+	public function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>
@@ -656,10 +664,7 @@ class SelectionBox extends Choices
 }
 class RadioButtons extends Choices
 {
-	var $type;
-	var $class;
-
-	function RadioButtons($options=array())
+	public function __construct($options=array())
 	{
 		parent::Choices($options);
 		$this->type = "radio";
@@ -668,10 +673,7 @@ class RadioButtons extends Choices
 }
 class CheckBoxes extends Choices
 {
-	var $type;
-	var $class;
-
-	function CheckBoxes($options=array())
+	public function __construct($options=array())
 	{
 		parent::Choices($options);
 		$this->type = "checkbox";
