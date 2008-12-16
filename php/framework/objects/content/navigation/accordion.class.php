@@ -21,14 +21,15 @@ class Accordion extends NavigationObject
 		$content = '			
 		<dl class="entry accordion contentNav">';
 		
-		foreach($this->sections as $title => $body)
+		foreach($this->sections as $title => $section)
 		{
 			$content .= '			
 			<dt class="entry-title">'.$title.'</dt>
 				<dd>
 					';
 					
-			$content .= (!empty($body))?$body:'&nbsp;';
+				$sectionContent = $section->getContent();
+			$content .= (!empty($sectionContent))?$section:'&nbsp;';
 			
 			$content .= '
 				</dd>';

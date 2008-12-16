@@ -16,7 +16,7 @@ abstract class xhtmlPage
 	protected $jsInits = array();
 	protected $feeds = array();
 	protected $body;
- 	protected $nav = array();
+ 	protected $nav;
  	protected $content;
  	protected $debug = false;
  	protected $smartyConfig;
@@ -85,8 +85,7 @@ abstract class xhtmlPage
 	}
 
  	public function importNavFile()
- 	{
-		
+ 	{		
 		return $this->keyValueFromFile(NAV_FILE);
  	}
 
@@ -122,14 +121,24 @@ abstract class xhtmlPage
 		else $this->nav['subNav'] .= $section;
 	}
 
-	public function addNavSection($section)
+	public function addNavSection($title,$section)
 	{
-		array_push($this->nav,$section);
+		$this->nav->addSection($title,$section);
 	}
 	
-	public function getNavSection($index)
+	public function getNavSection($title)
 	{
-		return $this->nav[$index];
+		return $this->nav->getSection($title);
+	}
+	
+	public function getNavSectionContent($title)
+	{
+		return $this->nav->getSection($title)->getContent();
+	}
+	
+	public function getNavContentArray()
+	{
+		return $this->nav->getContentArray();
 	}
 
 	public function addNavItem($index, $item)

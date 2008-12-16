@@ -19,7 +19,7 @@ class Tabs extends NavigationObject
 		$content = '	
 			<div class="flora tabs">
 				<ul class="ui-tabs-nav">';
-		foreach($this->sections as $title => $body)
+		foreach($this->sections as $title => $section)
 		{
 			$content .= '
 					<li class="ui-tabs-nav-item"><a href="#'.strtolower($title).'"><span>'.$title.'</span></a></li>';
@@ -27,11 +27,12 @@ class Tabs extends NavigationObject
 		$content .= '
 				</ul>';
 				
-		foreach($this->sections as $title => $body)
+		foreach($this->sections as $title => $section)
 		{
 			$content .= '
 				<div id="'.strtolower($title).'" class="ui-tabs-panel">';
-			$content .= $body;
+				$sectionContent = $section->getContent();
+			$content .= (!empty($sectionContent))?$section:'&nbsp;';
 			$content .= '
 				</div>';
 		}
