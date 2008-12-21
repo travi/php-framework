@@ -246,7 +246,7 @@ abstract class xhtmlPage
 
 	public function Display()
 	{
-		if($_SERVER['X-Requested-With'] == 'XMLHttpRequest')
+		if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
 		{
 			echo $this->content;
 		}

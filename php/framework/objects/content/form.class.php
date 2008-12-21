@@ -299,7 +299,7 @@ class FileInput extends Input
 {
 	public function __construct($label,$value="",$name="")
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->class = "fileInput";
 		$this->type = "file";
 	}
@@ -308,13 +308,13 @@ class UrlInput extends Input
 {
 	public function __construct($label,$value="",$name="")
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($label,$value,$name);
 		$this->class = "textInput";
 		$this->type = "text";
 	}
 	public function __toString()
 	{
-		$form = parent::toString();
+		$form = parent::__toString();
 		$form .= ' ';
 
 		$preview = new PreviewWindow();
@@ -323,7 +323,7 @@ class UrlInput extends Input
 
 		$this->checkDependencies($preview);
 
-		$form .= $preview->toString();
+		$form .= $preview->__toString();
 
 		return $form;
 	}
@@ -666,7 +666,7 @@ class RadioButtons extends Choices
 {
 	public function __construct($options=array())
 	{
-		parent::Choices($options);
+		parent::__construct($options);
 		$this->type = "radio";
 		$this->class = "radioButton";
 	}
