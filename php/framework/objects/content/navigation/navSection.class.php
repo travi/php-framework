@@ -4,7 +4,7 @@
  * By Matt Travi
  * programmer@travi.org
  */
-class NavSection
+class NavSection extends ContentObject
 {
 	private $sectionTitle;
 	private $sectionContent;
@@ -29,7 +29,7 @@ class NavSection
 	{				
 		if(is_array($this->sectionContent)){
 			$content .= '
-							<ul>';
+							<ul class="bulletNav">';
 			
 			foreach($this->sectionContent as $key => $value)
 			{
@@ -40,7 +40,7 @@ class NavSection
 				}
 				else if(!empty($value['link']))
 				{
-					if($key != "Admin")
+					if($key != "Admin" && $key != "Admin Home")
 					{
 						$content .= '
 								<li><a href="'.$value['link'].'">'.$key.'</a></li>';
@@ -68,6 +68,10 @@ class NavSection
 							</ul>';
 		}else{
 			$content .= $this->sectionContent;
+			if(is_object($this->sectionContent) && is_a($this->sectionContent,'ContentObject'))
+			{
+				$this->checkDependencies($this->sectionContent);
+			}
 		}
 						
 		return $content;

@@ -10,9 +10,9 @@ class EntityList extends ContentObject
 	var $entities = array();
 	var $actions = array();
 
-	function EntityList()
+	function __construct()
 	{
-
+		$this->addStyleSheet('/resources/shared/css/travi.entities.css');
 	}
 	function setEdit($script,$confirmation="")
 	{

@@ -4,27 +4,11 @@ img{
 dt{
 	font-weight: bold;
 }
-/*ENTITY LIST*/
-ul.actions li{
-	display: inline;
-}
 .item-action{
 	padding-left: 20px;	
 	background-position-x: 3px;
 	background-position-y: center;
 	background-repeat: no-repeat;
-}
-ul.actions li a.item-action{
-	border-left: 1px solid #000;
-}
-ul.actions li:first-child a.item-action{
-	border-left: 0;
-}
-ul.actions li.edit-item a{
-	background-image: url(/resources/shared/img/famfamfam/pencil.png);
-}
-ul.actions li.remove-item a{
-	background-image: url(/resources/shared/img/famfamfam/delete.png);
 }
 a.add-item{
 	background-image: url(/resources/shared/img/famfamfam/add.png);

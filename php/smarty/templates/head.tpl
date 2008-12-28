@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<title>{$page->getTitle()}</title>
-{*section name=tags loop=$page->getMetatags()}
-		{$page->metatags[tags]}
-{/section*}
+{foreach item=tag from=$page->getMetatags()}
+		{$tag}
+{/foreach}
 {foreach item=feed from=$page->getFeeds()}
 		<link rel="alternate" type="application/rss+xml" title="RSS" href="{$feed}" />
 {/foreach}

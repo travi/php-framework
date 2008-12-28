@@ -1,0 +1,16 @@
+/*ENTITY LIST*/
+ul.actions li{
+	display: inline;
+}
+ul.actions li a.item-action{
+	border-left: 1px solid #000;
+}
+ul.actions li:first-child a.item-action{
+	border-left: 0;
+}
+ul.actions li.edit-item a{
+	background-image: url(/resources/shared/img/famfamfam/pencil.png);
+}
+ul.actions li.remove-item a{
+	background-image: url(/resources/shared/img/famfamfam/delete.png);
+}

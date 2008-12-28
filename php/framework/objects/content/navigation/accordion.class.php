@@ -2,6 +2,7 @@
 /*
  * Created on Oct 2, 2008
  * By Matt Travi
+ * programmer@travi.org
  */
 
 require_once('navigation.class.php');
@@ -19,12 +20,12 @@ class Accordion extends NavigationObject
 	public function __toString()
 	{
 		$content = '			
-		<dl class="entry accordion contentNav">';
+		<dl class="accordion contentNav">';
 		
 		foreach($this->sections as $title => $section)
 		{
 			$content .= '			
-			<dt class="entry-title">'.$title.'</dt>
+			<dt>'.$title.'</dt>
 				<dd>
 					';
 					

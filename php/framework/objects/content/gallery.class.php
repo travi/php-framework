@@ -26,7 +26,7 @@ class Gallery extends ContentObject
 		$this->lightboxDependencies();
 		$this->jcarouselDependencies();
 
-		$this->addJavaScript('/reusable/js/gallery/gallery.js');
+		$this->addJavaScript('/resources/js/gallery.js');
     }
     function reflectionDependencies()
     {

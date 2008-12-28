@@ -208,6 +208,11 @@ abstract class xhtmlPage
 	{
 		return $this->jsInits;
 	}
+	
+	public function getMetatags()
+	{
+		return $this->metatags;
+	}
 
 	public function addFeed($feed)
 	{

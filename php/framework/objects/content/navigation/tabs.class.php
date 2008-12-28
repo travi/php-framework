@@ -5,9 +5,7 @@
  */
   
 class Tabs extends NavigationObject
-{
-	var $sections = array();
-	
+{	
 	function Tabs($options=array())
 	{
 		$this->addJavaScript(JQUERY);
@@ -16,6 +14,7 @@ class Tabs extends NavigationObject
 	}
 	function __toString()
 	{
+		
 		$content = '	
 			<div class="flora tabs">
 				<ul class="ui-tabs-nav">';
@@ -35,7 +34,10 @@ class Tabs extends NavigationObject
 			$content .= (!empty($sectionContent))?$section:'&nbsp;';
 			$content .= '
 				</div>';
+			$this->checkDependencies($section);
 		}
+		$content .= '
+			</div>';
 				
 		return $content;
 	}
