@@ -27,7 +27,7 @@ class NavSection extends ContentObject
 	
 	public function __toString()
 	{				
-		if(is_array($this->sectionContent)){
+		if(is_array($this->sectionContent) && empty($this->sectionContent[0])){
 			$content .= '
 							<ul class="bulletNav">';
 			
@@ -66,6 +66,15 @@ class NavSection extends ContentObject
 			
 			$content .= '
 							</ul>';
+		}else if(is_array($this->sectionContent)){
+			foreach($this->sectionContent as $contentPiece)
+			{
+				$content .= $contentPiece;
+				if(is_object($contentPiece) && is_a($contentPiece,'ContentObject'))
+				{
+					$this->checkDependencies($contentPiece);
+				}	
+			}
 		}else{
 			$content .= $this->sectionContent;
 			if(is_object($this->sectionContent) && is_a($this->sectionContent,'ContentObject'))
