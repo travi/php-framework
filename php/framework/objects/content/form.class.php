@@ -617,7 +617,7 @@ abstract class Choices implements Field
 			{	
 				$form .= ' disabled';
 			}
-			if($option[2]||($option[0]==$this->settings['value'])||($option[1]==$this->settings['value']))
+			if($option[2]||!empty($this->settings['value']) && (($option[0]==$this->settings['value'])||($option[1]==$this->settings['value'])))
 				$form .= ' checked ';
 			$form .= '/>'.$option[0].'
 					</label>';
@@ -675,7 +675,7 @@ class CheckBoxes extends Choices
 {
 	public function __construct($options=array())
 	{
-		parent::Choices($options);
+		parent::__construct($options);
 		$this->type = "checkbox";
 		$this->class = "checkbox";
 	}
