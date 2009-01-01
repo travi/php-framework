@@ -21,7 +21,7 @@ class Tabs extends NavigationObject
 		foreach($this->sections as $title => $section)
 		{
 			$content .= '
-					<li class="ui-tabs-nav-item"><a href="#'.strtolower($title).'"><span>'.$title.'</span></a></li>';
+					<li class="ui-tabs-nav-item"><a href="#'.str_replace(' ','_',strtolower($title)).'"><span>'.$title.'</span></a></li>';
 		}
 		$content .= '
 				</ul>';
@@ -29,7 +29,7 @@ class Tabs extends NavigationObject
 		foreach($this->sections as $title => $section)
 		{
 			$content .= '
-				<div id="'.strtolower($title).'" class="ui-tabs-panel">';
+				<div id="'.str_replace(' ','_',strtolower($title)).'" class="ui-tabs-panel">';
 				$sectionContent = $section->getContent();
 			$content .= (!empty($sectionContent))?$section:'&nbsp;';
 			$content .= '
