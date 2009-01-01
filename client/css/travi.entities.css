@@ -2,9 +2,9 @@
 ul.actions li{
 	display: inline;
 }
-ul.actions li a.item-action{
+/*ul.actions li a.item-action{
 	border-left: 1px solid #000;
-}
+}*/
 ul.actions li:first-child a.item-action{
 	border-left: 0;
 }
