@@ -208,11 +208,6 @@ abstract class xhtmlPage
 	{
 		return $this->jsInits;
 	}
-	
-	public function getMetatags()
-	{
-		return $this->metatags;
-	}
 
 	public function addFeed($feed)
 	{
@@ -222,6 +217,16 @@ abstract class xhtmlPage
 	public function getFeeds()
 	{
 		return $this->feeds;
+	}
+	
+	public function addMetaTag($tag)
+	{
+		array_push($this->metatags,$tag);
+	}
+	
+	public function getMetaTags()
+	{
+		return $this->metatags;
 	}
 
 	public function redirect($status,$msg,$location)
