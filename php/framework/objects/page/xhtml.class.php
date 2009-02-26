@@ -38,6 +38,8 @@ abstract class xhtmlPage
 			$this->title = '[dev] ';
  		else if(ENV == 'test')
 			$this->title = '[test] ';
+		else
+			$this->title = '';
  		$this->title .= $title;
 		if(isset($this->siteName))
 			$this->title .= ' | '.$this->getSiteName();
