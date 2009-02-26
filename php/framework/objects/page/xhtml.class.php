@@ -7,6 +7,7 @@
 
 abstract class xhtmlPage
 {
+	protected $siteName;
 	protected $title;
 	protected $smartyTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
@@ -20,10 +21,26 @@ abstract class xhtmlPage
  	protected $content;
  	protected $debug = false;
  	protected $smartyConfig;
+	
+	public function setSiteName($name)
+	{
+		$this->siteName = $name;
+	}
+	
+	public function getSiteName()
+	{
+		return $this->siteName;
+	}
 
  	public function setTitle($title)
  	{
- 		$this->title = $title;
+ 		if(ENV == 'development')
+			$this->title = '[dev] ';
+ 		else if(ENV == 'test')
+			$this->title = '[test] ';
+ 		$this->title .= $title;
+		if(isset($this->siteName))
+			$this->title .= ' | '.$this->getSiteName();
  	}
 	
 	public function getTitle()
