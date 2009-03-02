@@ -247,6 +247,14 @@ abstract class xhtmlPage
 	{
 		return $this->metatags;
 	}
+	
+	public function getWpHead()
+	{
+		if(function_exists('wp_head'))
+		{
+			wp_head();
+		}
+	}
 
 	public function redirect($status,$msg,$location)
 	{
