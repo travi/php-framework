@@ -10,18 +10,18 @@ class Tabs extends NavigationObject
 	{
 		$this->addJavaScript(JQUERY);
 		$this->addJavaScript(JQUERY_UI);
-		$this->addJsInit("$('.tabs > ul').tabs({selected:0,fx:{opacity:'toggle',height:'toggle'}});");	
+		$this->addJsInit("$('.ui-tabs').tabs({selected:0,fx:{opacity:'toggle',height:'toggle'}});");	
 	}
 	function __toString()
 	{
 		
 		$content = '	
-			<div class="flora tabs">
-				<ul class="ui-tabs-nav">';
+			<div class="ui-tabs">
+				<ul>';
 		foreach($this->sections as $title => $section)
 		{
 			$content .= '
-					<li class="ui-tabs-nav-item"><a href="#'.str_replace(' ','_',strtolower($title)).'"><span>'.$title.'</span></a></li>';
+					<li><a href="#'.str_replace(' ','_',strtolower($title)).'"><span>'.$title.'</span></a></li>';
 		}
 		$content .= '
 				</ul>';
@@ -29,7 +29,7 @@ class Tabs extends NavigationObject
 		foreach($this->sections as $title => $section)
 		{
 			$content .= '
-				<div id="'.str_replace(' ','_',strtolower($title)).'" class="ui-tabs-panel">';
+				<div id="'.str_replace(' ','_',strtolower($title)).'">';
 				$sectionContent = $section->getContent();
 			$content .= (!empty($sectionContent))?$section:'&nbsp;';
 			$content .= '
