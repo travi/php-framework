@@ -303,7 +303,7 @@ class ImageUploader extends Uploader
 
 	function ImageUploader($file_ref,$directoryToPutFile)
 	{
-		require_once('/home/.tookie/travi/travi.org/reusable/php/utilities/image.utilities.php');
+		require_once(DOC_ROOT.'/reusable/php/utilities/image.utilities.php');
 
 		parent::Uploader($file_ref,$directoryToPutFile);
 		$this->file_type = "image";
