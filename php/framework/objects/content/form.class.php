@@ -18,16 +18,26 @@ class Form extends ContentObject
 	protected $encType;						//form encType attribute (needs to be changed to "multipart/form-data" for file uploads)
 	protected $fieldsetArray = array();		//Fieldsets contained in this form
 	protected $currentFieldset;				//Fieldset where new Fields are to be added
+	protected $debug;
 	protected $customValidations = array();
 
-	public function __construct($name,$action="",$method="post")
+	public function __construct($options)
 	{
-		$this->name = $name;
-		$this->method = $method;
-		if(!empty($action))
-			$this->action = $action;
+		$this->debug = $options['debug'];
+		$this->name = $options['name'];
+		if(!empty($options['method']))
+			$this->method = $options['method'];
+		else
+			$this->method = 'post';
+		if(!empty($options['action']))
+			$this->action = $options['action'];
 		else
 			$this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
+			
+		foreach($options['fieldsets'] as $fieldset)
+		{
+			$this->addFieldset(new Fieldset($fieldset));
+		}
 
 		$this->addStyleSheet('/resources/shared/css/travi.form.css');
 		$this->addJavaScript(JQUERY);
@@ -104,6 +114,60 @@ class Form extends ContentObject
 	{
 		return $this->customValidations;
 	}
+	public function buildValidationInit($validations)
+	{
+		//print_r($validations);
+		
+		$valInit = "$('form[name=\"".$this->name."\"]').validate({";
+		
+		if($this->debug)
+			$valInit .= "
+					debug:true,";
+					
+		$valInit .= "
+					rules:{";
+					
+		foreach($validations as $field => $vals)
+		{
+			if(!empty($vals))
+			{
+				if($i > 0)
+					$valInit .= ",";
+				
+				$valInit .= "
+						".$field.":";
+						
+				//TODO: need to find a good way of conditionally adding commas between rules 
+						
+				if(sizeof($vals) == 1 && $vals[0] == 'required')
+					$valInit .= '"required"';
+				elseif(sizeof($vals) == 1)
+					$valInit .= '"required"'; //should this ever happen?
+				else
+				{
+					$valInit .= "{
+							required:true,";
+					
+					if(in_array('email',$vals))
+						$valInit .= '
+							email:true';
+					
+					$valInit .= "
+						}";
+				}
+				
+				$i++;
+			}
+		}
+					
+		$valInit .= "
+					}";
+						
+		$valInit .= "
+				});";
+		
+		return $valInit;
+	}
 	public function __toString()
 	{
 		$form = '
@@ -125,29 +189,10 @@ class Form extends ContentObject
 		$validations = $this->getValidations();
 		$customValidations = $this->getCustomValidations();
 
-		//Currently assumes that this is the only form on the page.
-		//To validate more than one form on a single page, use a unique name for each 'frmvalidator'
 		if(!empty($validations) || !empty($customValidations))
 		{
-			$this->addJavaScript('/reusable/js/gen_validatorv2.js');
-
-			$form .= '
-		<script language="JavaScript" type="text/javascript">
- 		var frmvalidator = new Validator("'.$this->name.'");';
-
-	 		foreach($validations as $validation)
-	 		{
- 				$form .= '
-			frmvalidator.addValidation('.$validation.')';
- 			}
- 			foreach($customValidations as $validation)
-	 		{
- 				$form .= '
-			frmvalidator.setAddnlValidationFunction('.$validation.')';
- 			}
-
- 			$form .= '
-		</script>';
+			$this->addJavaScript(JQUERY_VALIDATION);
+			$this->addJsInit($this->buildValidationInit($validations));
 		}
 
 		return $form;
@@ -160,12 +205,16 @@ class Form extends ContentObject
 
 class Fieldset extends contentObject
 {
-	protected $legend;				//test that appears in the legend for this fieldset
+	protected $legend;					//text that appears in the legend for this fieldset
 	protected $fieldArray = array();	//Fields contained in this fieldset
 
-	public function __construct($legend)
+	public function __construct($options)
 	{
-		$this->legend = $legend;
+		$this->legend = $options['legend'];
+		foreach($options['fields'] as $field)
+		{
+			$this->addField(new $field['type']($field));
+		}
 	}
 	public function addField($field)
 	{
@@ -176,7 +225,7 @@ class Fieldset extends contentObject
 		$validations = array();
 		foreach ($this->fieldArray as $field)
 		{
-			$validations = array_merge($validations,$field->getValidations());
+			$validations[$field->getName()] = $field->getValidations();
 		}
 		return $validations;
 	}
@@ -225,6 +274,7 @@ class Fieldset extends contentObject
 interface Field
 {
 	public function getValidations();
+	public function getName();
 	public function addValidation($validation);
 }
 
@@ -236,79 +286,84 @@ abstract class Input extends ContentObject implements Field
 {
 	protected $label;					//label associated with this field
 	protected $name;					//name attribute for this field
-	protected $validations = array();	//list of validations that are to be applied to this field at submission time	
+	protected $validations = array();	//list of validations	
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
 
-	public function __construct($label,$value,$name)
+	public function __construct($options)
 	{
-		$this->label = $label;
-		if(!empty($name))
-			$this->name = $name;
+		$this->label = $options['label'];
+		if(!empty($options['name']))
+			$this->name = $options['name'];
 		else
 		{
-			$this->name = str_replace(' ','_',strtolower($label));
+			$this->name = str_replace(' ','_',strtolower($options['label']));
 			//ensure value is not "name" or ...
 			if($this->name == 'name')
 				$this->name .= '_value';
 		}
-		$this->value = $value;
+		$this->value = $options['value'];
+		if(!empty($options['validations']))
+		{
+			foreach($options['validations'] as $validation)
+			{
+				$this->addValidation($validation);
+			}
+		}
 	}
 	public function addValidation($validation)
 	{
 		array_push($this->validations,$validation);
 	}
+	public function getName()
+	{
+		return $this->name;
+	}
 	public function getValidations()
 	{
-		$validations = array();
-		foreach($this->validations as $validation)
-		{
-			$check = '"'.$this->name.'","'.$validation.'"';
-			array_push($validations,$check);
-		}
-		return $validations;
+		return $this->validations;
 	}
 	public function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>
-				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'" class="'.$this->class.'"/>';
+				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'" class="'.$this->class.'	"/>';
 		return $form;
 	}
 }
 class TextInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "textInput";
 		$this->type = "text";
 	}
 }
 class PasswordInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::Input($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "textInput";
 		$this->type = "password";
 	}
 }
 class FileInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "fileInput";
 		$this->type = "file";
 	}
 }
 class UrlInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "textInput";
 		$this->type = "text";
 	}
@@ -330,9 +385,9 @@ class UrlInput extends Input
 }
 class HiddenInput extends Input
 {
-	public function __construct($name,$value="")
+	public function __construct($options)
 	{
-		parent::__construct("",$value,$name);
+		parent::__construct($options);
 		$this->type = "hidden";
 	}
 	public function __toString()
@@ -344,9 +399,9 @@ class HiddenInput extends Input
 
 class DateInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->type = "text";
 		$this->class = "textInput datepicker";
 		$this->addJavaScript(JQUERY);
@@ -358,9 +413,9 @@ class DateInput extends Input
 }
 class TimeInput extends Input
 {
-	public function __construct($label,$value="",$name="")
+	public function __construct($options)
 	{
-		parent::Input($label,$value,$name);
+		parent::Input($options);
 		$this->type = "text";
 		$this->class = "textInput";
 		$this->addJavaScript('/reusable/js/time.js');
@@ -440,11 +495,11 @@ class TextArea extends Input
 	protected $class;
 	protected $rows;
 
-	public function __construct($label,$value="",$name="",$rows=3)
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "textInput";
-		$this->rows = $rows;
+		$this->rows = $options['rows'];
 	}
 	public function __toString()
 	{
@@ -457,11 +512,10 @@ class TextArea extends Input
 }
 class RichTextArea extends TextArea
 {
-	public function __construct($label,$value="",$name="",$rows=3)
+	public function __construct($options)
 	{
-		parent::__construct($label,$value,$name);
+		parent::__construct($options);
 		$this->class = "textInput richEditor";
-		$this->rows = $rows;
 		$this->addJavaScript(JQUERY);
 		$this->addJavaScript(JQUERY_WYMEDITOR);
 		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
@@ -481,13 +535,17 @@ class SubmitButton extends Input
 {
 	protected $confirmation;
 
-	public function __construct($value,$class="submitButton")
+	public function __construct($options)
 	{
 		$this->type = "submit";
 		$this->name = "Submit";
-		$this->class = $class;
-		$this->value = $value;
+		if(!empty($options['class']))
+			$this->class = $options['class'];
+		else
+			$this->class = "submitButton";
+		$this->value = $options['label'];
 	}
+	//TODO need to replace this technique using UI dialog
 	public function setConfirmation($confirmation)
 	{
 		$this->confirmation = $confirmation;
@@ -566,7 +624,7 @@ abstract class Choices implements Field
 {
 	protected $label;					//label associated with this field
 	protected $name;					//name attribute for this field
-	protected $validations = array();	//list of validations that are to be applied to this field at submission time	
+	protected $validations = array();	//list of validations	
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
@@ -581,17 +639,45 @@ abstract class Choices implements Field
 			$this->name = $settings['name'];
 		else
 			$this->name = strtolower($settings['label']);
+		$this->value = $settings['value'];
 		$this->settings = $settings;
+		foreach($settings['options'] as $option)
+		{
+			if(is_array($option))
+			{
+				if(isset($this->value) && $this->value == $option['value'])
+					$selected = true;
+				elseif($option['selected'])
+					$selected = true;
+				else
+					$selected = false;
+					
+				$this->addOption($option['label'],$option['value'],$selected);
+			}
+			else
+				$this->addOption($option);
+		}
+		if(!empty($settings['validations']))
+		{
+			foreach($settings['validations'] as $validation)
+			{
+				$this->addValidation($validation);
+			}
+		}
 	}
 
-	public function addOption($option,$selected=false,$value="",$disabled=false)
+	public function addOption($option,$value="",$selected=false,$disabled=false)
 	{
 		$optionAR = array($option,$value,$selected,$disabled);
 		array_push($this->options,$optionAR);
 	}
+	public function getName()
+	{
+		return $this->name;
+	}
 	public function getValidations()
 	{
-		return array();
+		return $this->validations;
 	}
 	public function addValidation($validation)
 	{
@@ -634,8 +720,8 @@ class SelectionBox extends Choices
 {
 	public function __construct($options=array())
 	{
-		parent::__construct($options);
 		$this->addOption("Select One");
+		parent::__construct($options);
 	}
 	public function __toString()
 	{
@@ -646,7 +732,7 @@ class SelectionBox extends Choices
 			{
 				$form .= '
 					<option';
-				if(!empty($option[1]))
+				if(!empty($option[1]) || $option[0] == 'Select One')
 				{
 					$form .= ' value="'.$option[1].'"';
 				}

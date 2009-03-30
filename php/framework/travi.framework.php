@@ -43,6 +43,7 @@
  define('JQUERY_UI','/resources/shared/js/jquery/ui/jquery-ui.min.js');
  define('JQUERY_LIGHTBOX','/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
  define('JQUERY_FORM_ALIGN','/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js');
+ define('JQUERY_VALIDATION','/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js');
  define('JCAROUSEL','/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js');
  define('JQUERY_WYMEDITOR','/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.pack.js');
  

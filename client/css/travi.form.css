@@ -19,10 +19,25 @@ ul.fieldList{
 	padding:		5px;
 	margin:			0;
 }
+ul.fieldList li{
+    margin-bottom: 	10px;
+}
 ul.fieldList label{
 	width:			90px;
 	display:		inline-block;
 	vertical-align:	top;
+}
+ul.fieldList label.error{
+	width:			auto;
+	margin-left:	95px;
+}
+ul.fieldList fieldset label.error{
+	display:inline;
+	float:right;
+	padding-right: 200px;
+	margin-left:0;
+	padding-left:0;
+	vertical-align: top;
 }
 ul.fieldList button{
 	margin-left: 93px;
@@ -40,49 +55,17 @@ ul.fieldList fieldset legend{
 ul.fieldList fieldset label{
 	display: block;
 	padding-left: 90px;
+	width:auto;
 }
 ul.fieldList .formBlock{
 	display: block;
 	padding-left: 93px;
 }
-/*label.inlineLabel
-{
-	width:			50px;
-	float:			none;
-	clear: 			both;
-	vertical-align:	top;
-}
-.formBlock
-{
-	width:			450px;
-}
-
-.formBlock:after
-{
-	content: 			".";
-    display: 			block;
-    height: 			0;
-    clear: 				both;
-    visibility: 		hidden;
-}
-.radioButton
-{
-	margin-left:	0px;
-	margin-bottom:	10px;
-	vertical-align:	top;
-}
-.checkbox
-{
-	margin-left:	0px;
-	margin-bottom:	10px;
-	vertical-align:	top;
-}*/
 .textInput
 {
 	color: 			red;
 	background: 	#ccc;
 	border: 		red solid 1px;
-    margin-bottom: 	10px;
     padding-left: 	2px;
 }
 .fileInput
@@ -90,7 +73,6 @@ ul.fieldList .formBlock{
 	color: 			red;
 	background: 	#ccc;
 	border: 		red solid 1px;
-    margin-bottom: 	10px;
     padding-left: 	2px;
 }
 .city
