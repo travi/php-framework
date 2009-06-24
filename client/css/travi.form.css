@@ -30,6 +30,12 @@ ul.fieldList label{
 ul.fieldList label.error{
 	width:			auto;
 	margin-left:	95px;
+	/*
+	background-color:red;
+	margin:5px 5px -3px 95px;
+	padding:5px;
+	width:424px;
+	*/
 }
 ul.fieldList fieldset label.error{
 	display:inline;
@@ -122,4 +128,9 @@ ul.fieldList .formBlock{
 input.datepicker{
 	margin-right: 5px;
 	vertical-align: top;
+}
+ul.fieldList .notearea
+{
+	display: inline;
+	padding-left: 0;
 }
