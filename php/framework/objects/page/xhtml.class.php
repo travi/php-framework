@@ -172,12 +172,15 @@ abstract class xhtmlPage
 
 	public function addStyleSheet($sheet,$index="")
 	{
-		if(!empty($index))
+		if(!in_array($sheet,$this->stylesheets))
 		{
-			$this->stylesheets[$index] = $sheet;
+			if(!empty($index))
+			{
+				$this->stylesheets[$index] = $sheet;
+			}
+			else
+				array_push($this->stylesheets,$sheet);
 		}
-		else
-			array_push($this->stylesheets,$sheet);
 	}
 	
 	public function getStyleSheets()
