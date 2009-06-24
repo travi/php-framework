@@ -34,9 +34,18 @@ class Form extends ContentObject
 		else
 			$this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
 			
-		foreach($options['fieldsets'] as $fieldset)
+		if(!empty($options['fieldsets']))
 		{
-			$this->addFieldset(new Fieldset($fieldset));
+			foreach($options['fieldsets'] as $fieldset)
+			{
+				if(!empty($fieldset['fields']))
+					$this->addFieldset(new Fieldset($fieldset));
+				else
+				{
+					$this->closeFieldset();
+					$this->addFieldset(new $fieldset['type']($fieldset));
+				}
+			}
 		}
 
 		$this->addStyleSheet('/resources/shared/css/travi.form.css');
@@ -225,7 +234,10 @@ class Fieldset extends contentObject
 		$validations = array();
 		foreach ($this->fieldArray as $field)
 		{
-			$validations[$field->getName()] = $field->getValidations();
+			if(is_a($field,'Input'))
+			{
+				$validations[$field->getName()] = $field->getValidations();
+			}
 		}
 		return $validations;
 	}
@@ -597,10 +609,10 @@ class NoteArea
 	protected $label;
 	protected $content;
 
-	public function __construct($label,$content)
+	public function __construct($options)
 	{
-		$this->label = $label;
-		$this->content = $content;
+		$this->label = $options['label'];
+		$this->content = $options['content'];
 	}
 	public function getValidations()
 	{
