@@ -46,6 +46,7 @@
  define('JQUERY_VALIDATION','/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js');
  define('JCAROUSEL','/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js');
  define('JQUERY_WYMEDITOR','/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.pack.js');
+ define('JQUERY_URL_PARSER','/resources/shared/js/jquery/plugins/url/jquery.url.js');
  
  //reflection.js
  define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');
