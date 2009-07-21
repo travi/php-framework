@@ -18,5 +18,5 @@
 {foreach item=script from=$page->getScripts()}
 		<script src="{$script}" type="text/javascript" > </script>
 {/foreach}
-{include file='/home/.tookie/travi/include/php/smarty/templates/jsInit.tpl'}
+{include file='/home/travi/include/php/smarty/templates/jsInit.tpl'}
 	</head>
