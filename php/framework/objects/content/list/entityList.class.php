@@ -78,16 +78,16 @@ class EntityBlock
     function addActionRow($actions=array())
     {
 		array_push($this->extraActionRows,$actions);
-		foreach($actions as $action)
-		{
-			$this->disableAction($action,true);
-		}
+//		foreach($actions as $action)
+//		{
+//			$this->disableAction($action,true);
+//		}
     }
     function disableAction($text,$active)
     {
 		$this->activeActions["$text"] = "$active";
     }
-    function toString($actions=array())
+    function toString($primaryActions=array())
     {
     	$entity = '
 			<div class="entityBlock '.$this->type.'">
@@ -101,55 +101,54 @@ class EntityBlock
 		$entity .= '
 						<dd>
 							<ul class="actions">';
-		$i = 0;
 
-		$actionRows = array();
-		$primaryActionRow = array();
-
-		foreach($actions as $text => $details)
+		foreach($primaryActions as $text => $details)
 		{
 			if(empty($this->activeActions[$text]))
 			{
-				$action = '
-									<li class="'.strtolower($text).'-item"><a class="item-action" href="'.$details['link'].$this->id.'"';
+				$entity .= '
+								<li class="'.strtolower($text).'-item"><a class="item-action" href="'.$details['link'].$this->id.'"';
 				if(!empty($details['confirmation']))
 				{
-					$action .= ' onclick="if (confirm('."'".$this->preConf.$details['confirmation']."'".')) return true; else return false;"';
+					$entity .= ' onclick="if (confirm('."'".$this->preConf.$details['confirmation']."'".')) return true; else return false;"';
 				}
 
-				$action .= '>';
+				$entity .= '>';
 				
-				$action .= $text.'</a></li>';
-
-				array_push($primaryActionRow,$action);
+				$entity .= $text.'</a></li>';
 			}
 		}
-		array_push($actionRows,implode(' ',$primaryActionRow));
-		//array_push($actionRows,implode(' | ',$primaryActionRow));
+		
+		$entity .= '
+							</ul>';
+							
 		if(!empty($this->extraActionRows))
 		{
+			$entity .= '
+							<ul class="actions">';
+			
 			foreach($this->extraActionRows as $row)
 			{
-				$actionRow = array();
-				foreach($row as $action_text)
+				foreach($row as $actions)
 				{
-					$action = '
-									<a href="'.$actions["$action_text"]['link'].$this->id.'"';
-					if(!empty($actions["$action_text"]['confirmation']))
+					if(!isset($actions['active']) || $actions['active'] == TRUE)
 					{
-						$action .= ' onclick="if (confirm('."'".$this->preConf.$actions["$action_text"]['confirmation']."'".')) return true; else return false;"';
+						$entity .= '
+									<li class="item-action '.$actions['class'].'"><a href="'.$actions['link'].$this->id.'"';
+						if(!empty($actions["$action_text"]['confirmation']))
+						{
+							$entity .= ' onclick="if (confirm('."'".$this->preConf.$actions["$action_text"]['confirmation']."'".')) return true; else return false;"';
+						}
+	
+						$entity .= '>'.$actions['text'].'</a></li>';
 					}
-
-					$action .= '>'.$action_text.'</a>';
-
-					array_push($actionRow,$action);
 				}
-				array_push($actionRows,implode(' | ',$actionRow));
 			}
+			
+			$entity .= '
+						</ul>';
 		}
-		$entity .= implode("<br/>\n",$actionRows);
 		$entity .= '
-						</ul>
 					</dd>
   				</dl>
   			</div>';
