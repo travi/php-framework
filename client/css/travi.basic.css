@@ -6,8 +6,7 @@ dt{
 }
 .item-action{
 	padding-left: 20px;	
-	background-position-x: 3px;
-	background-position-y: center;
+	background-position: 0 4px;
 	background-repeat: no-repeat;
 }
 a.add-item{
