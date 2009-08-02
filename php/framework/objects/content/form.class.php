@@ -653,7 +653,19 @@ abstract class Choices implements Field
 			$this->name = strtolower($settings['label']);
 		$this->value = $settings['value'];
 		$this->settings = $settings;
-		foreach($settings['options'] as $option)
+		$this->optionAdder($settings['options']);
+		if(!empty($settings['validations']))
+		{
+			foreach($settings['validations'] as $validation)
+			{
+				$this->addValidation($validation);
+			}
+		}
+	}
+	
+	protected function optionAdder($options=array())
+	{
+		foreach($options as $option)
 		{
 			if(is_array($option))
 			{
@@ -669,20 +681,18 @@ abstract class Choices implements Field
 			else
 				$this->addOption($option);
 		}
-		if(!empty($settings['validations']))
-		{
-			foreach($settings['validations'] as $validation)
-			{
-				$this->addValidation($validation);
-			}
-		}
 	}
 
 	public function addOption($option,$value="",$selected=false,$disabled=false)
 	{
-		$optionAR = array($option,$value,$selected,$disabled);
+		$optionAR = array(	option		=> $option,
+							value		=> $value,
+							selected	=> $selected,
+							disabled	=> $disabled);
+							
 		array_push($this->options,$optionAR);
 	}
+	
 	public function getName()
 	{
 		return $this->name;
@@ -706,18 +716,18 @@ abstract class Choices implements Field
 			$form .= '
 					<label>
 						<input type="'.$this->type.'" name="'.$this->name.'" value="';
-			if(!empty($option[1]))
-				$form .= $option[1];
+			if(!empty($option['value']))
+				$form .= $option['value'];
 			else
-				$form .= $option[0];
+				$form .= $option['option'];
 			$form .= '" class="'.$this->class.'"';
-			if($option[3])
+			if($option['disabled'])
 			{	
 				$form .= ' disabled';
 			}
-			if($option[2]||!empty($this->settings['value']) && (($option[0]==$this->settings['value'])||($option[1]==$this->settings['value'])))
+			if($option['selected']||!empty($this->value) && (($option['option']==$this->value)||($option['value']==$this->value)))
 				$form .= ' checked ';
-			$form .= '/>'.$option[0].'
+			$form .= '/>'.$option['option'].'
 					</label>';
 		}
 				
@@ -730,33 +740,83 @@ abstract class Choices implements Field
 
 class SelectionBox extends Choices
 {
+	private $optGroups = array();
+	
 	public function __construct($options=array())
 	{
 		$this->addOption("Select One");
 		parent::__construct($options);
+	}
+	protected function optionAdder($options=array())
+	{
+		if($this->settings['optGroups'])
+		{
+			foreach($options as $optGroup => $values)
+			{				
+				$this->optGroups[$optGroup] = array();
+				foreach($values as $value)
+				{
+					$selected=false;
+					$disabled=false;
+				
+					$optionAR = array(	option		=> $value['label'],
+										value		=> $value['value'],
+										selected	=> $selected,
+										disabled	=> $disabled);
+										
+					array_push($this->optGroups[$optGroup],$optionAR);					
+				}
+			}
+		}
+		else
+		{
+			parent::optionAdder($options);
+		}
+		
 	}
 	public function __toString()
 	{
 		$form = '
 				<label for="'.$this->name.'">'.$this->label.'</label>
  				<select name="'.$this->name.'" id="'.$this->name.'" class="textInput">';
-			foreach ($this->options as $option)
-			{
+		$form .= $this->optionsToString($this->options);			
+		if(!empty($this->optGroups))
+		{
+			foreach($this->optGroups as $optGroup => $options)
+			{				
 				$form .= '
-					<option';
-				if(!empty($option[1]) || $option[0] == 'Select One')
-				{
-					$form .= ' value="'.$option[1].'"';
-				}
-				if($option[3])
-				{	$form .= ' disabled';
-				}
-				if($option[2]||(!empty($this->settings['value'])&&(($option[0]==$this->settings['value'])||($option[1]==$this->settings['value']))))
-					$form .= ' selected';
-				$form .= '>'.$option[0].'</option>';
+					<optgroup label="'.$optGroup.'">';
+					
+				$form .= $this->optionsToString($options);
+					
+				$form .= '
+					</optgroup>';
 			}
+		}
 		$form .= '
 				</select>';
+		return $form;
+	}
+	
+	private function optionsToString($options=array())
+	{
+		foreach ($options as $option)
+		{
+			$form .= '
+					<option';
+			if(!empty($option['value']) || $option['option'] == 'Select One')
+			{
+				$form .= ' value="'.$option['value'].'"';
+			}
+			if($option['disabled'])
+			{	
+				$form .= ' disabled';
+			}
+			if($option['selected']||(!empty($this->value)&&(($option['option']==$this->value)||($option['value']==$this->value))))
+					$form .= ' selected';
+			$form .= '>'.$option['option'].'</option>';
+		}
+		
 		return $form;
 	}
 }
