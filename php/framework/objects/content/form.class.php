@@ -40,7 +40,7 @@ class Form extends ContentObject
 			{
 				if(!empty($fieldset['fields']))
 					$this->addFieldset(new Fieldset($fieldset));
-				else
+				else if(!empty($fieldset['type']))
 				{
 					$this->closeFieldset();
 					$this->addFieldset(new $fieldset['type']($fieldset));
@@ -267,7 +267,9 @@ class Fieldset extends contentObject
 				<ul class="fieldList">';
 		foreach ($this->fieldArray as $field)
 		{
-			$form .= '<li>'.$field.'</li>';
+			$form .= '
+					<li>'.$field.'
+					</li>';
 			if(is_a($field,'ContentObject'))
 				$this->checkDependencies($field);
 		}
@@ -339,8 +341,8 @@ abstract class Input extends ContentObject implements Field
 	public function __toString()
 	{
 		$form = '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'" class="'.$this->class.'	"/>';
+						<label for="'.$this->name.'">'.$this->label.'</label>
+						<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'" class="'.$this->class.'	"/>';
 		return $form;
 	}
 }
@@ -405,7 +407,7 @@ class HiddenInput extends Input
 	public function __toString()
 	{
 		return '
-				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'"/>';
+						<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'"/>';
 	}
 }
 
@@ -535,12 +537,12 @@ class RichTextArea extends TextArea
 	public function __toString()
 	{
 		return '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<div class="formBlock">
-					<textarea name="'.$this->name.'" id="'.$this->name.'" class="'.$this->class.'">
-						'.htmlentities($this->value).'
-					</textarea>
-				</div>';
+						<label for="'.$this->name.'">'.$this->label.'</label>
+						<div class="formBlock">
+							<textarea name="'.$this->name.'" id="'.$this->name.'" class="'.$this->class.'">
+								'.htmlentities($this->value).'
+							</textarea>
+						</div>';
 	}
 }
 class SubmitButton extends Input
@@ -565,7 +567,7 @@ class SubmitButton extends Input
 	public function __toString()
 	{
 		$string = '
-				<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.
+						<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.
 					'" class="'.$this->class.'"';
 		if(!empty($this->confirmation))
 			$string .= ' onclick="if (confirm(\''.$this->confirmation.'\')) return true; else return false;"';
