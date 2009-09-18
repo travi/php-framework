@@ -20,3 +20,9 @@ ul.actions li.add-photo{
 ul.actions li.manage-photos{
 	background-image: url(/resources/shared/img/famfamfam/images.png);
 }
+ul.actions li.add-note{
+	background-image: url(/resources/shared/img/famfamfam/note_add.png);
+}
+ul.actions li.manage-notes{
+	background-image: url(/resources/shared/img/famfamfam/note.png);
+}
