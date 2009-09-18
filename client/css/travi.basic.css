@@ -1,16 +1,19 @@
+body{
+	/*font-size:			62.5%;*/ /*Setting this font size on the body makes 1em equal to 10px*/
+}
 img{
-	border: 0;
+	border: 			0;
 }
 dt{
-	font-weight: bold;
+	font-weight: 		bold;
 }
 .item-action{
-	padding-left: 20px;	
-	background-position: 0 4px;
-	background-repeat: no-repeat;
+	padding-left: 		20px;	
+	background-position:0 4px;
+	background-repeat: 	no-repeat;
 }
 a.add-item{
-	background-image: url(/resources/shared/img/famfamfam/add.png);
+	background-image: 	url(/resources/shared/img/famfamfam/add.png);
 }
 /*SUBMISSION RESULTS*/
 .good

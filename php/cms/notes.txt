@@ -1,0 +1,2 @@
+Should the entityList object reside here?
+Would include framework and user management during initialization, possibly workflow (although this probably makes more sense as an add-on)

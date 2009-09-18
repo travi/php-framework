@@ -47,6 +47,8 @@
  define('JCAROUSEL','/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js');
  define('JQUERY_WYMEDITOR','/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.pack.js');
  define('JQUERY_URL_PARSER','/resources/shared/js/jquery/plugins/url/jquery.url.js');
+ define('JQUERY_PXEM','/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js');
+ define('JQUERY_EQUAL_HEIGHTS','/resources/shared/js/jquery/plugins/equalHeights/jquery.equalHeights.js');
  
  //reflection.js
  define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');
