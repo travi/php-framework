@@ -123,12 +123,11 @@ class EntityBlock
 							</ul>';
 							
 		if(!empty($this->extraActionRows))
-		{
-			$entity .= '
-							<ul class="actions">';
-			
+		{			
 			foreach($this->extraActionRows as $row)
 			{
+				$entity .= '
+							<ul class="actions">';
 				foreach($row as $actions)
 				{
 					if(!isset($actions['active']) || $actions['active'] == TRUE)
@@ -143,10 +142,9 @@ class EntityBlock
 						$entity .= '>'.$actions['text'].'</a></li>';
 					}
 				}
-			}
-			
-			$entity .= '
+				$entity .= '
 						</ul>';
+			}			
 		}
 		$entity .= '
 					</dd>
