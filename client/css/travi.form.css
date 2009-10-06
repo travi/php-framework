@@ -1,10 +1,8 @@
 .form {
-	width:				627px;	/*This is here so that the transparency will render correctly in ie--height or width must be set*/
+	/*width:				627px;	/*This is here so that the transparency will render correctly in ie--height or width must be set*/
 	font-variant:		small-caps;
 	color:				#FFFFFF;
-	background-color:	rgb(0,0,0);
 	padding:			3px;
-	opacity:			.8;
 }
 fieldset{
 	margin:			0 0 5px 0;
