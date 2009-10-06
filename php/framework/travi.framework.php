@@ -52,6 +52,9 @@
  
  //reflection.js
  define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');
+ 
+ //png fix
+ define('PNG_FIX','/resources/shared/js/pngFix/DD_belatedPNG.js');
 
 
 
