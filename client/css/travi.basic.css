@@ -7,6 +7,9 @@ img{
 dt{
 	font-weight: 		bold;
 }
+cite{
+	font-size:x-small;
+}
 .item-action{
 	padding-left: 		20px;	
 	background-position:0 4px;
