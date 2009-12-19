@@ -19,4 +19,5 @@
 		<script src="{$script}" type="text/javascript" > </script>
 {/foreach}
 {include file='/home/travi/include/php/smarty/templates/jsInit.tpl'}
+{$page->goog_analytics()}
 	</head>
