@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<project name="framework" default="build">
+	<target name="build" depends="js.lint.test">
+		<echo message="test build target" />
+	</target>
+	
+    <target name="js.lint.test">
+		<echo message="JSLint target" />
+        <path id="js.lint.classpath">
+            <fileset dir="..//ant/">
+                <include name="jslint4java-1.3.3.jar"/>
+            </fileset>
+        </path>
+        <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
+            <classpath>
+                <path refid="js.lint.classpath"/>
+            </classpath>
+        </taskdef>
+        <jslint options="browser,white,onevar,undef,nomen,eqeqeq,plusplus,bitwise,regexp,strict,newcap,immed">
+            <predef>jQuery,$$</predef>            
+            <formatter type="plain" />
+            <formatter type="xml" destfile="jslint.xml" />
+            <fileset dir="../client/js/" >
+                <include name="**/*.js" />
+                <exclude name="date/**/*.js" />
+                <exclude name="jquery/**/*.js" />
+                <exclude name="pngFix/**/*.js" />
+                <exclude name="reflection/**/*.js" />
+                <exclude name="unit/**/*.js" />
+            </fileset>
+            <fileset dir="../client/js/" >
+            	<!-- My Plug-ins -->
+            	<include name="jquery/plugins/formAlign/*.js" />
+			</fileset>
+        </jslint>
+    </target>
+</project>
