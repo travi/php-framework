@@ -7,7 +7,7 @@
 
 class HelloWorld extends UnitTestCase {
 	function testHello(){
-		$this->assertTrue(true);
+		$this->assertTrue(false);
 	}
 }
 ?>

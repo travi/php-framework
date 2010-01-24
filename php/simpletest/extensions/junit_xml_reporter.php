@@ -20,12 +20,15 @@ require_once dirname(__FILE__).'/../reporter.php';
  * @subpackage    Extensions
  */
 class JUnitXMLReporter extends SimpleReporter {
-    function __construct() {
+	private $output;
+	
+    function __construct($output = NULL) {
         parent::__construct();
  
         $this->doc = new DOMDocument();
         $this->doc->loadXML('<testsuite/>');
         $this->root = $this->doc->documentElement;
+		$this->output = $output;
     }
  
     function paintHeader($test_name) {
@@ -60,6 +63,16 @@ class JUnitXMLReporter extends SimpleReporter {
         // Cut out XML declaration
         echo preg_replace('/<\?[^>]*\?>/', "", $xml);
         echo "\n";
+		
+		if ($this->output) {
+			$outputFile = fopen($this->output, "w+");
+			fputs($outputFile, $xml);
+			fclose($outputFile);
+		}
+		
+		if($this->getFailCount() != 0 || $this->getExceptionCount() != 0) {
+			exit(81);
+		}
     }
     
     function paintCaseStart($case) {
