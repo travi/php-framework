@@ -11,7 +11,7 @@ jQuery(function () {
 });
 
 function stylize_profilelink() {
-	jQuery("#commentform a[@href$='profile.php']").addClass('openid_link');
+	jQuery("#commentform a[href$='profile.php']").addClass('openid_link');
 }
 
 function add_openid_to_comment_form() {
@@ -35,7 +35,7 @@ function add_openid_to_comment_form() {
 		children.filter(':last').append(html);
 	}
 	else if (label.is(':hastext')) {
-		label.appendToText(html);
+		label.append(html);
 	} else {
 		label.append(html);
 	}

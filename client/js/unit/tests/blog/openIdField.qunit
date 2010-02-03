@@ -1,0 +1,49 @@
+"use strict";
+/*global add_openid_to_comment_form */
+
+module("OpenID");
+test("Field label addition", function () {
+	//Setup
+	$('body').append('<div id="scratch">');
+	$('#scratch').append('<form id="commentform">' +
+							'<input type="text" id="url">' +
+							'<label for="url">Website</label>' +
+						'</form>');
+	expect(6);
+	
+	//Exercise
+	add_openid_to_comment_form();
+	
+	//Verify
+	equal($('#url').attr('maxlength'), 100, "Max length set properly on openid field");
+	ok($('#commentform').hasClass('openid'), "OpenID class applied to comment form");
+	equal($('#commentform #openid_enabled_link').length, 1, "Toggle link added");
+	equal($('#commentform #openid_text').length, 1, "Explanation text added");
+	ok($('#commentform #openid_text').is(':hidden'), "Explanation hidden");
+	
+	//Exercise
+	$('#openid_enabled_link').click();
+	
+	//Verify
+	ok($('#commentform #openid_text').is(':visible'), "Explanation visible");
+	
+	//Teardown
+	$('#scratch').remove();
+});
+test("Profile Link", function () {
+	//Setup
+	$('body').append('<div id="scratch">');
+	$('#scratch').append('<form id="commentform">' +
+							'<a href="thisIsATestUrlprofile.php" id="openIdUserProfileLink>' +
+						'</form>');
+	expect(1);
+	
+	//Exercise
+	stylize_profilelink();
+	
+	//Verify
+	ok($('#openIdUserProfileLink').hasClass('openid_link'), "OpenID class applied");
+	
+	//Teardown
+	$('#scratch').remove();	
+});
