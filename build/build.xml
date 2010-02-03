@@ -25,11 +25,12 @@
 	
     <target name="js.lint.test">
         <jslint options="browser,white,onevar,undef,nomen,eqeqeq,plusplus,bitwise,regexp,strict,newcap,immed">
-            <predef>jQuery,$$</predef>            
+            <predef>jQuery,$$,module,test,ok,equal,expect</predef>            
             <formatter type="plain" />
             <formatter type="xml" destfile="jslint.xml" />
             <fileset dir="../client/js/" >
                 <include name="**/*.js" />
+				<include name="**/*.qunit" />
                 <exclude name="date/**/*.js" />
                 <exclude name="jquery/**/*.js" />
                 <exclude name="pngFix/**/*.js" />
