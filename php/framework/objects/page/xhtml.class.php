@@ -273,7 +273,7 @@ abstract class xhtmlPage
 	
 	public function getWpHead()
 	{
-		if(function_exists('wp_head'))
+		if(function_exists('wp_head') && strpos($_SERVER['REQUEST_URI'], 'blog'))
 		{
 			wp_head();
 		}
