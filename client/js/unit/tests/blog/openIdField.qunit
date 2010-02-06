@@ -1,5 +1,5 @@
 "use strict";
-/*global add_openid_to_comment_form */
+/*global add_openid_to_comment_form, stylize_profilelink */
 
 module("OpenID");
 test("Field label addition", function () {
