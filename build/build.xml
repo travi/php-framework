@@ -42,6 +42,7 @@
             	<include name="jquery/plugins/formAlign/*.js" />
 			</fileset>
         </jslint>
+		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
     </target>
 	
 	<target name="php.simpletest.test">
