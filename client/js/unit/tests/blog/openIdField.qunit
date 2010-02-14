@@ -15,10 +15,10 @@ test("Field label addition", function () {
 	add_openid_to_comment_form();
 	
 	//Verify
-	equal($('#url').attr('maxlength'), 100, "Max length set properly on openid field");
+	same($('#url').attr('maxlength'), 100, "Max length set properly on openid field");
 	ok($('#commentform').hasClass('openid'), "OpenID class applied to comment form");
-	equal($('#commentform #openid_enabled_link').length, 1, "Toggle link added");
-	equal($('#commentform #openid_text').length, 1, "Explanation text added");
+	same($('#commentform #openid_enabled_link').length, 1, "Toggle link added");
+	same($('#commentform #openid_text').length, 1, "Explanation text added");
 	ok($('#commentform #openid_text').is(':hidden'), "Explanation hidden");
 	
 	//Exercise

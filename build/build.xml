@@ -14,9 +14,8 @@
 	</target>
 	
     <target name="js.lint.test">
-        <jslint options="browser,white,onevar,undef,nomen,eqeqeq,plusplus,bitwise,regexp,strict,newcap,immed" 
-			haltonfailure="${not.on.teamcity}">
-            <predef>jQuery,$$,module,test,ok,equal,expect</predef>            
+        <jslint options="${jslint.goodparts}" haltonfailure="${not.on.teamcity}">
+            <predef>${jslint.predef.jquery},${jslint.predef.qunit}</predef>            
             <formatter type="plain" />
             <formatter type="xml" destfile="jslint.xml" />
             <fileset dir="../client/js/" >
