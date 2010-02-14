@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
+	<property file="/home/travi/include/build/build.properties" />
 	<exec executable="hostname" outputproperty="computer.hostname"/>
-	<property name="ant.lib" value="/home/travi/include/ant/" />
 	
 	<condition property="not.on.teamcity">
 		<not>
