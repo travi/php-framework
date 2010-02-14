@@ -38,7 +38,7 @@
 	<target name="php.simpletest.test">
 		<exec executable="php" failonerror="true">
 			<!-- For XML output from commandline: php framework.runner.test.php -xml -->
-			<arg line="/home/travi/include/php/framework/tests/framework.runner.test.php -junit" />
+			<arg line="/home/travi/include/php/framework/tests/framework.runner.test.php ${simpletest.report.format}" />
 		</exec>
 	</target>
 </project>
