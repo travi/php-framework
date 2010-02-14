@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<exec executable="hostname" outputproperty="computer.hostname"/>
+	<property name="ant.lib" value="/home/travi/include/ant/" />
+	
 	<condition property="not.on.teamcity">
 		<not>
 			<contains string="${computer.hostname}" substring="teamcity"/>
@@ -8,7 +10,7 @@
 	</condition>
 	
     <path id="js.lint.classpath">
-        <fileset dir="..//ant/">
+        <fileset dir="${ant.lib}">
             <include name="jslint4java-1.3.3.jar"/>
         </fileset>
     </path>
