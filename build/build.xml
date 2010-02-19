@@ -41,4 +41,14 @@
 			<arg line="/home/travi/include/php/framework/tests/framework.runner.test.php ${simpletest.report.format}" />
 		</exec>
 	</target>
+	
+	<target name="minify">		
+        <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
+            outputfolder="../client/min/" >
+            <fileset dir="../client/" >
+                <include name="**/*.js" />
+                <include name="**/*.css" />
+            </fileset>
+        </yuicompress>
+	</target>
 </project>

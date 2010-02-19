@@ -15,12 +15,24 @@
 	
     <path id="js.lint.classpath">
         <fileset dir="${ant.lib}">
-            <include name="jslint4java-1.3.3.jar"/>
+            <include name="${jslint4java.jar}"/>
         </fileset>
     </path>
     <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
         <classpath>
             <path refid="js.lint.classpath"/>
         </classpath>
+    </taskdef>
+	
+	<path id="yuicompressor.classpath">
+        <fileset dir="${ant.lib}">
+            <include name="${yuicompressor.jar}"/>
+            <include name="${yuiant.jar}"/>
+        </fileset>
+    </path>
+    <taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
+        <classpath>
+                <path refid="yuicompressor.classpath"/>
+            </classpath>
     </taskdef>
 </project>
