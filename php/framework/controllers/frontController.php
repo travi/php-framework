@@ -4,23 +4,42 @@
  * By Matt Travi
  * programmer@travi.org
  */
+ 
+ //This should use the singleton pattern
 
-$controller = new FrontController;
+//$controller = new FrontController;
 
-$controller->Display();
+//$controller->Display();
 
 class FrontController
 {
-	private $application;
+	/*private $application;		part of Request object
 	private $page;
 	private $id;
+	private $uri;*/
+	
+	private $Request;	//Object for abstracting uri processes, and variables like browser etc
+	private $Response;	//Object for building the list of content that will be sent as the response
+	
+	private $View;		//Object containining template, css, js, etc information
+	
+	public function __construct()
+	{
+		//$this->parseUri();
+		$this->uriParts();
+		
+		//importSiteSettings();
+		
+		//processRequest();
+	}
 		
 	public function processRequest()
 	{
-		
+		forwardToController();
+		sendResponse();
 	}
 	
-	private function getApplications()
+	/*private function getApplications()	Part of forward to controller process
 	{
 		
 	}
@@ -28,17 +47,32 @@ class FrontController
 	private function getPages($application)
 	{
 		
+	}*/
+	
+	/*private function parseUri()	Part of request object
+	{
+		$this->uri = parse_url();
+	}*/
+	
+	private function uriParts()
+	{
+		$navString = $_SERVER['REQUEST_URI'];
+		$parts = explode('/', $navString); // Break into an array
+		// Lets look at the array of items we have:
+		print_r($parts);
 	}
  
-	public function Display()
+	public function sendResponse()
 	{
+		//setMimeType based on type set in Response object (html, html fragement, xml)
 		if($_SERVER['X-Requested-With'] == 'XMLHttpRequest')
 		{
 			echo $this->content;
 		}
 		else
 		{
-			if(!isset($this->smartyConfig))
+			//echo $this->uri;
+		/*	if(!isset($this->smartyConfig))
 				$this->getSmartyConfig();
 	
 	        require_once($this->smartyConfig['pathToSmarty']);
@@ -62,7 +96,7 @@ class FrontController
 			}
 	
 			$smarty->assign('page',$this);
-			$smarty->display($this->smartyTemplate);
+			$smarty->display($this->smartyTemplate);*/
 		}
 	}
 }
