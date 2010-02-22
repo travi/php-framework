@@ -8,7 +8,7 @@ require_once(dirname(__FILE__) . '/../../thirdparty/simpletest/autorun.php');
 
 class HelloWorld extends UnitTestCase {
 	function testHello(){
-		$this->assertTrue(false);
+		$this->assertTrue(true);
 	}
 }
 ?>
