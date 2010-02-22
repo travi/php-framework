@@ -35,4 +35,6 @@
                 <path refid="yuicompressor.classpath"/>
             </classpath>
     </taskdef>
+	
+	<taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
 </project>

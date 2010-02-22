@@ -36,10 +36,15 @@
     </target>
 	
 	<target name="php.simpletest.test">
-		<exec executable="php" failonerror="true">
-			<!-- For XML output from commandline: php framework.runner.test.php -xml -->
-			<arg line="/home/travi/include/php/framework/tests/framework.runner.test.php ${simpletest.report.format}" />
-		</exec>
+		<exec executable="php" failonerror="false">
+			<arg line="/home/travi/include/php/framework/tests/framework.runner.test.php -junit" />
+		</exec>		
+        <groovy>
+            def xml = new XmlSlurper().parse("simpletest.xml")
+            def failures = xml.@failures
+            if (failures != 0) properties["simpletest-failure"] = true
+        </groovy>
+        <fail if='simpletest-failure' message="There were Simpletest failures"/>
 	</target>
 	
 	<target name="minify">		
