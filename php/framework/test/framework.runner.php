@@ -7,7 +7,7 @@ require_once(dirname(__FILE__) . '/../../thirdparty/simpletest/extensions/junit_
 class BigTestSuite extends TestSuite {
     function BigTestSuite() {
         $this->TestSuite('Framework Tests');
-        $this->addFile(dirname(__FILE__) . '/form.runner.test.php');
+        $this->addFile(dirname(__FILE__) . '/form.runner.php');
     }
 }
 
