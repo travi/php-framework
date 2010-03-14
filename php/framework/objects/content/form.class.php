@@ -125,13 +125,16 @@ class Form extends ContentObject
 	}
 	public function buildValidationInit($validations)
 	{
-		//print_r($validations);
+		$this->addStyleSheet(JQUERY_UI_THEME);
 		
 		$valInit = "$('form[name=\"".$this->name."\"]').validate({";
 		
 		if($this->debug)
 			$valInit .= "
 					debug:true,";
+			
+		$valInit .= "
+					errorClass: 'ui-state-error',";
 					
 		$valInit .= "
 					rules:{";
@@ -234,7 +237,7 @@ class Fieldset extends contentObject
 		$validations = array();
 		foreach ($this->fieldArray as $field)
 		{
-			if(is_a($field,'Input'))
+			if(is_a($field,'Input') || is_a($field,'Choices'))
 			{
 				$validations[$field->getName()] = $field->getValidations();
 			}
