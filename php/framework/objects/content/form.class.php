@@ -131,13 +131,13 @@ class Form extends ContentObject
 		
 		if($this->debug)
 			$valInit .= "
-					debug:true,";
+					debug: true,";
 			
 		$valInit .= "
 					errorClass: 'ui-state-error',";
 					
 		$valInit .= "
-					rules:{";
+					rules: {";
 					
 		foreach($validations as $field => $vals)
 		{
@@ -147,7 +147,7 @@ class Form extends ContentObject
 					$valInit .= ",";
 				
 				$valInit .= "
-						".$field.":";
+						".$field.": ";
 						
 				//TODO: need to find a good way of conditionally adding commas between rules 
 						
@@ -158,11 +158,11 @@ class Form extends ContentObject
 				else
 				{
 					$valInit .= "{
-							required:true,";
+							required: true,";
 					
 					if(in_array('email',$vals))
 						$valInit .= '
-							email:true';
+							email: true';
 					
 					$valInit .= "
 						}";
