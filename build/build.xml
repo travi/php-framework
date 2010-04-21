@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <project name="framework" default="build">
 	<import file="build-shared.xml"/>
+	<property file="/home/travi/include/build/build.properties" />
 	
 	<target name="build" depends="test">
 	</target>
@@ -34,6 +35,13 @@
         </jslint>
 		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
     </target>
+	
+	<target name="js.qunit.test">
+		<exec executable="/usr/local/bin/phpunit" failonerror="true" dir="${qunit.phpunit.runner.path}">
+			<arg line="	--log-junit         phpunit.xml
+              QUnit test.selenium.php"/>
+		</exec>
+	</target>
 	
 	<target name="php.simpletest.test">
 		<exec executable="php" failonerror="false">

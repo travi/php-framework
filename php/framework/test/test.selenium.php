@@ -1,22 +1,40 @@
 <?php
-
-require_once(dirname(__FILE__) . '/../../thirdparty/simpletest/autorun.php');
-
-class Example extends PHPUnit_Extensions_SeleniumTestCase
+require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
+ 
+class QUnit extends PHPUnit_Extensions_SeleniumTestCase
 {
-  function setUp()
-  {
-    $this->setBrowser("*firefox");
-    $this->setBrowserUrl("http://travi.org/");
-  }
-
-  function testMyTestCase()
-  {
-    $this->open("/admin/wiki/index.php?title=TeamCity#Continuous_Integration");
-    $this->click("link=PHP");
-    $this->waitForPageToLoad("30000");
-    $this->click("link=Continuous Integration");
-    $this->waitForPageToLoad("30000");
-  }
+	public static $browsers = array(
+		array(
+			'name' 		=> 'Firefox',
+			'browser'	=> '*firefox'
+		),
+		array(
+			'name'		=> 'Safari',
+			'browser'	=> '*safari'
+//		),
+//		array(
+//			'name'		=> 'Chrome',
+//			'browser'	=> '*googlechrome'
+//		),
+//		array(
+//			'name'		=> 'Opera',
+//			'browser'	=> '*opera'
+		)
+	);
+	
+    protected function setUp()
+    {
+//        $this->setBrowser('*firefox');
+        $this->setBrowserUrl('file:///home/travi/travi.org/test/js/testrunners/');
+    }
+ 
+    public function testFailures()
+    {
+        $this->open('announcementsPageTest.html');
+        $this->assertTitle('Announcements Page Test');
+        $this->waitForElementPresent('css=#qunit-testresult .failed');
+        $this->assertText('css=#qunit-testresult .failed', 'exact:0');
+        $this->assertEquals($this->getText('css=#qunit-testresult .passed'), $this->getText('css=#qunit-testresult .total'));
+    }
 }
 ?>
