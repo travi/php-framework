@@ -10,6 +10,10 @@ dt{
 cite{
 	font-size:x-small;
 }
+abbr,acronym{
+	cursor:				help;
+	border-bottom:		1px dotted;
+}
 .item-action{
 	padding-left: 		20px;	
 	background-position:0 4px;
