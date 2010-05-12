@@ -40,6 +40,7 @@
  
  //jQuery
  define('JQUERY','/resources/shared/js/jquery/jquery.js');
+// define('JQUERY','http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js');
  define('JQUERY_UI','/resources/shared/js/jquery/ui/jquery-ui.js');
  define('JQUERY_LIGHTBOX','/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
  define('JQUERY_FORM_ALIGN','/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js');
