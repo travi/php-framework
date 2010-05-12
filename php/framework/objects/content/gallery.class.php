@@ -65,7 +65,8 @@ class Gallery extends ContentObject
     function jcarousel()
     {
 		$carousel = '
-				<ul class="carousel jcarousel-skin-tango">';
+			<div id="thumbContainer" class="entry-message">
+				<ul class="carousel jcarousel-skin-tango" id="thumb-carousel">';
 
 //		foreach($this->thumbs as $thumb)
 //		{
@@ -74,13 +75,14 @@ class Gallery extends ContentObject
 //		}
 
 		$carousel .= '
-				</ul>';
+				</ul>
+			</div>';
 
 		return $carousel;
     }
     function __toString()
     {
-    	return $this->menu($this->albums).$this->jcarousel();
+    	return $this->menu($this->albums).'<div class="section">'.$this->jcarousel().'</div>';
     }
 }
 ?>

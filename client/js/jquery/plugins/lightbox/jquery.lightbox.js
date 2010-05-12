@@ -252,7 +252,7 @@
 			$('#lightbox-image').css({width:width,height:height}).fadeIn(function() {
 				_show_image_data();
 				_set_navigation();
-			});
+			}).trigger('lightboxImageLoaded');
 			_preload_neighbor_images();
 		};
 		/**
