@@ -43,7 +43,7 @@ class Gallery extends ContentObject
     {
 		$this->addJavaScript(JCAROUSEL);
 		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css");
-		$this->addStyleSheet("/resources/shared/js/jquery/plugins/jcarousel/skins/tango/skin.css");
+		$this->addStyleSheet("/resources/css/widgets/jcarousel-skin.css");
 
     }
 	function menu($albums=array())
@@ -66,7 +66,7 @@ class Gallery extends ContentObject
     {
 		$carousel = '
 			<div id="thumbContainer" class="entry-message">
-				<ul class="carousel jcarousel-skin-tango" id="thumb-carousel">';
+				<ul class="carousel jcarousel-skin-travi" id="thumb-carousel">';
 
 //		foreach($this->thumbs as $thumb)
 //		{
