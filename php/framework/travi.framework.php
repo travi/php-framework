@@ -50,6 +50,7 @@
  define('JQUERY_URL_PARSER','/resources/shared/js/jquery/plugins/url/jquery.url.js');
  define('JQUERY_PXEM','/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js');
  define('JQUERY_EQUAL_HEIGHTS','/resources/shared/js/jquery/plugins/equalHeights/jquery.equalHeights.js');
+ define('JQUERY_EQUALIZE_BOTTOMS','/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js');
  
  //reflection.js
  define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');
