@@ -210,6 +210,41 @@ abstract class xhtmlPage
 
 	public function addJavaScript($script)
 	{
+    	global $uiDeps;
+    	
+		if(!empty($uiDeps[$script]))
+		{
+			if(!empty($uiDeps[$script]['jsDependencies']))
+			{
+				foreach($uiDeps[$script]['jsDependencies'] as $dependency)
+				{
+					$this->addJavaScript($dependency);
+				}
+			}
+			if(!empty($uiDeps[$script]['cssDependencies']))
+			{
+				foreach($uiDeps[$script]['cssDependencies'] as $dependency)
+				{
+					if($dependency === 'jqueryUiTheme')
+					{
+						$this->addStyleSheet(JQUERY_UI_THEME);
+					} 
+					else if($dependency === 'jcarsouselSkin')
+					{
+						$this->addStyleSheet(JCAROUSEL_SKIN);
+					} 
+					else
+					{
+						$this->addStyleSheet($dependency);
+					}
+				}
+			}
+			if(!empty($uiDeps[$script]['local']))
+			{
+				$script = $uiDeps[$script]['local'];
+			}
+			else echo 'local is empty!'; //TODO: handle properly
+		}
 		if(!in_array($script,$this->scripts))
 		{
 			array_push($this->scripts,$script);

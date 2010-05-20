@@ -8,9 +8,7 @@ class Tabs extends NavigationObject
 {	
 	function Tabs($options=array())
 	{
-		$this->addJavaScript(JQUERY);
-		$this->addJavaScript(JQUERY_UI);
-		$this->addStyleSheet(JQUERY_UI_THEME);
+		$this->addJavaScript('jqueryUi');
 		$this->addJsInit("$('.ui-tabs').tabs({selected:0,fx:{opacity:'toggle',height:'toggle'}});");	
 	}
 	function __toString()

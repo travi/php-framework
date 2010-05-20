@@ -25,65 +25,41 @@
 
  //Ajax Content Objects
  //require_once('objects/content/ajax/fileUpload.ajax.class.php');
- 
- //Client Objects )(intended to eventually help to resolve dependencies of client dependencies automatically)
- //require_once('objects/client/clientObject.class.php');
- //require_once('objects/client/jquery.class.php');
 
  //Utility Objects
- importFrameworkObjects('objects/utility/');
+ importFrameworkObjects('objects/utility/'); 
  
  
- 
- 
- //Define JavaScript includes
- 
- //jQuery
- define('JQUERY','/resources/shared/js/jquery/jquery.js');
-// define('JQUERY','http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js');
- define('JQUERY_UI','/resources/shared/js/jquery/ui/jquery-ui.js');
- define('JQUERY_LIGHTBOX','/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js');
- define('JQUERY_FORM_ALIGN','/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js');
- define('JQUERY_VALIDATION','/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js');
- define('JCAROUSEL','/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js');
- define('JQUERY_WYMEDITOR','/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.pack.js');
- define('JQUERY_URL_PARSER','/resources/shared/js/jquery/plugins/url/jquery.url.js');
- define('JQUERY_PXEM','/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js');
- define('JQUERY_EQUAL_HEIGHTS','/resources/shared/js/jquery/plugins/equalHeights/jquery.equalHeights.js');
- define('JQUERY_EQUALIZE_BOTTOMS','/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js');
- 
- //reflection.js
- define('REFLECTION_JS','/resources/shared/js/reflection/reflection.js');
- 
- //png fix
- define('PNG_FIX','/resources/shared/js/pngFix/DD_belatedPNG.js');
+ //Define UI Dependencies
+ $uiDeps = parse_ini_file('uiDependencies.ini', true);
 
 
 
-	function importFrameworkObjects($relPath)
+function importFrameworkObjects($relPath)
+{
+	importObjectsFromDir(FRAMEWORK_PATH.$relPath);
+}
+
+function importSiteObjects($relPath)
+{
+	importObjectsFromDir(SITE_OBJECTS.$relPath);
+}
+
+function importObjectsFromDir($dir)
+{
+	$objects = glob($dir."*.class.php");
+	foreach($objects as $object)
 	{
-		importObjectsFromDir(FRAMEWORK_PATH.$relPath);
-	}
-	function importSiteObjects($relPath)
-	{
-		importObjectsFromDir(SITE_OBJECTS.$relPath);
+		require_once($object);
 	}
 	
-	function importObjectsFromDir($dir)
+	$dirs = glob($dir."*");
+	foreach($dirs as $innerDir)
 	{
-		$objects = glob($dir."*.class.php");
-		foreach($objects as $object)
+		if(is_dir($innerDir))
 		{
-			require_once($object);
-		}
-		
-		$dirs = glob($dir."*");
-		foreach($dirs as $innerDir)
-		{
-			if(is_dir($innerDir))
-			{
-				importObjectsFromDir($innerDir."/");			
-			}
+			importObjectsFromDir($innerDir."/");			
 		}
 	}
+}
 ?>

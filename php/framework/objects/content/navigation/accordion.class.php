@@ -11,10 +11,7 @@ class Accordion extends NavigationObject
 {	
 	public function __construct($options=array())
 	{
-		$this->addJavaScript(JQUERY);
-		$this->addJavaScript(JQUERY_UI);
-		$this->addStyleSheet(JQUERY_UI_THEME);
-		$this->addJavaScript('/resources/shared/js/jquery/plugins/easing/jquery.easing.js');
+		$this->addJavaScript('jqueryUi');
 		$this->addJsInit("$('.accordion').accordion({animated: 'easeslide',header: 'dt'});");	
 	}
 	

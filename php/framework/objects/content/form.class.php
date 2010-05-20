@@ -49,8 +49,7 @@ class Form extends ContentObject
 		}
 
 		$this->addStyleSheet('/resources/shared/css/travi.form.css');
-		$this->addJavaScript(JQUERY);
-		$this->addJavaScript(JQUERY_FORM_ALIGN);
+		$this->addJavaScript('formAlign');
 		$this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
 	}
 	public function addFieldset($fieldset)
@@ -124,9 +123,7 @@ class Form extends ContentObject
 		return $this->customValidations;
 	}
 	public function buildValidationInit($validations)
-	{
-		$this->addStyleSheet(JQUERY_UI_THEME);
-		
+	{		
 		$valInit = "$('form[name=\"".$this->name."\"]').validate({";
 		
 		if($this->debug)
@@ -203,7 +200,7 @@ class Form extends ContentObject
 
 		if(!empty($validations) || !empty($customValidations))
 		{
-			$this->addJavaScript(JQUERY_VALIDATION);
+			$this->addJavaScript('validation');
 			$this->addJsInit($this->buildValidationInit($validations));
 		}
 
@@ -421,8 +418,7 @@ class DateInput extends Input
 		parent::__construct($options);
 		$this->type = "text";
 		$this->class = "textInput datepicker";
-		$this->addJavaScript(JQUERY);
-		$this->addJavaScript(JQUERY_UI);
+		$this->addJavaScript('jqueryUi');
 		$this->addJsInit("$('input.datepicker').datepicker({ dateFormat:'yy-mm-dd',"
 			."buttonImage:'/resources/shared/img/calendar.gif',"
 			."buttonImageOnly: true, showOn: 'both' });");
@@ -533,8 +529,7 @@ class RichTextArea extends TextArea
 	{
 		parent::__construct($options);
 		$this->class = "textInput richEditor";
-		$this->addJavaScript(JQUERY);
-		$this->addJavaScript(JQUERY_WYMEDITOR);
+		$this->addJavaScript('wymEditor');
 		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
 	}
 	public function __toString()
@@ -690,10 +685,10 @@ abstract class Choices implements Field
 
 	public function addOption($option,$value="",$selected=false,$disabled=false)
 	{
-		$optionAR = array(	option		=> $option,
-							value		=> $value,
-							selected	=> $selected,
-							disabled	=> $disabled);
+		$optionAR = array(	'option'		=> $option,
+							'value'		=> $value,
+							'selected'	=> $selected,
+							'disabled'	=> $disabled);
 							
 		array_push($this->options,$optionAR);
 	}
