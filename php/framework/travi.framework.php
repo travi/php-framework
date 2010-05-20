@@ -32,6 +32,11 @@
  
  //Define UI Dependencies
  $uiDeps = parse_ini_file('uiDependencies.ini', true);
+ 
+ 
+ //Store SCM Revision number
+ $version = exec('svnversion');
+ $urlPrint = md5($version); 
 
 
 

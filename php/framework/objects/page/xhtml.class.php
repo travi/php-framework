@@ -21,6 +21,7 @@ abstract class xhtmlPage
  	protected $content;
  	protected $debug = false;
  	protected $smartyConfig;
+ 	protected $urlFingerprint;
 	
 	public function setSiteName($name)
 	{
@@ -168,6 +169,16 @@ abstract class xhtmlPage
 	public function getNav()
 	{
 		return $this->nav;
+	}
+	
+	public function setUrlFingerprint($fingerprint)
+	{
+		$this->urlFingerprint = $fingerprint;
+	}
+	
+	public function getUrlFingerprint()
+	{
+		return $this->urlFingerprint;
 	}
 
 	public function addStyleSheet($sheet,$index="")
