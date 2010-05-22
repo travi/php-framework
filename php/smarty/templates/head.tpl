@@ -9,11 +9,11 @@
 		<link rel="alternate" type="application/rss+xml" title="RSS" href="{$feed}" />
 {/foreach}
 {foreach item=alt from=$page->getAltStyles()}
-		<link href="{$alt}?{$page->getUrlFingerprint()}" rel="alternate stylesheet" type="text/css" media="screen" />
+		<link  href="{$alt}?{$page->getUrlFingerprint()}" rel="alternate stylesheet" type="text/css" media="screen" />
 {/foreach}
 {$page->getWpHead()}
 {foreach item=style from=$page->getStylesheets()}
-		<link href="{$style}?{$page->getUrlFingerprint()}" rel="stylesheet" type="text/css" media="screen" />
+		<link  href="{$style}?{$page->getUrlFingerprint()}" rel="stylesheet" type="text/css" media="screen" />
 {/foreach}
 {foreach item=script from=$page->getScripts()}
 		<script src="{$script}?{$page->getUrlFingerprint()}" type="text/javascript" > </script>
