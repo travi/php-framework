@@ -1,4 +1,4 @@
-<FilesMatch "\.(css|js)$">
+<FilesMatch "\.(css|js|png|jpe?g|gif)$">
 	ExpiresActive On
 	ExpiresDefault "access plus 10 years"
 </FilesMatch>
