@@ -1,3 +1,7 @@
+<FilesMatch "\.(css|js)$">
+	ExpiresActive On
+	ExpiresDefault "access plus 10 years"
+</FilesMatch>
 <IfModule mod_deflate.c>
 	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/javascript text/css application/javascript
 </IfModule>
