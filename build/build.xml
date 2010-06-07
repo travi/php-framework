@@ -36,13 +36,6 @@
 		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
     </target>
 	
-	<target name="js.qunit.test">
-		<exec executable="/usr/local/bin/phpunit" failonerror="true" dir="${qunit.phpunit.runner.path}">
-			<arg line="	--log-junit         phpunit.xml
-              QUnit test.selenium.php"/>
-		</exec>
-	</target>
-	
 	<target name="php.simpletest.test">
 		<exec executable="php" failonerror="false">
 			<arg line="/home/travi/include/php/framework/test/framework.runner.php -junit" />
@@ -57,8 +50,14 @@
 	
 	<target name="minify">		
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
-            outputfolder="../client/min/" >
-            <fileset dir="../client/" >
+            outputfolder="../client/min/css/" >
+            <fileset dir="../client/css/" >
+                <include name="**/*.css" />
+            </fileset>
+        </yuicompress>	
+        <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
+            outputfolder="../client/min/js/" >
+            <fileset dir="../client/js/" >
                 <include name="**/*.js" />
                 <include name="**/*.css" />
             </fileset>
