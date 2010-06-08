@@ -281,7 +281,7 @@ abstract class xhtmlPage
 	{
 		if(ENV === 'production')
 		{
-			return preg_replace('/\/(css|js)\//','/min/$1/',$file);
+			return preg_replace('/\/(css|js)\//','/min/$1/',$file,1);
 		}
 		else
 		{
