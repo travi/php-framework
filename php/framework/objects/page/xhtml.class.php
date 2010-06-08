@@ -185,7 +185,6 @@ abstract class xhtmlPage
 	{
 		if(!in_array($sheet,$this->stylesheets))
 		{
-			$sheet = $this->getProperFile($sheet);
 			if(!empty($index))
 			{
 				$this->stylesheets[$index] = $sheet;
@@ -259,7 +258,6 @@ abstract class xhtmlPage
 		}
 		if(!in_array($script,$this->scripts))
 		{
-			$script = $this->getProperFile($script);
 			array_push($this->scripts,$script);
 		}
 	}
@@ -279,7 +277,7 @@ abstract class xhtmlPage
 		return $this->jsInits;
 	}
 	
-	protected function getProperFile($file)
+	public function getProperFile($file)
 	{
 		if(ENV === 'production')
 		{
