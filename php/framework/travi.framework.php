@@ -3,6 +3,8 @@
  * Created on May 6, 2007
  * By Matt Travi
  */
+
+ date_default_timezone_set('America/Chicago');	//TODO: pull from config file
  
  define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
  define('SITE_ROOT', DOC_ROOT.'../');
