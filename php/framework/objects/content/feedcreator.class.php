@@ -709,7 +709,7 @@ class FeedDate {
 	 * @param mixed $dateString optional the date this FeedDate will represent. If not specified, the current date and time is used.
 	 */
 	function FeedDate($dateString="") {
-		if ($dateString=="") $dateString = date("r");
+		if ($dateString=="") $dateString = date(DATE_RSS);
 		
 		if (is_integer($dateString)) {
 			$this->unix = $dateString;
