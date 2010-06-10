@@ -19,7 +19,6 @@ abstract class xhtmlPage
 	protected $body;
  	protected $nav;
  	protected $content;
- 	protected $debug = false;
  	protected $smartyConfig;
  	protected $urlFingerprint;
 	
@@ -279,7 +278,9 @@ abstract class xhtmlPage
 	
 	public function getProperFile($file)
 	{
-		if(ENV === 'production')
+		global $config;
+		
+		if(ENV !== 'development' && $config['debug'] !== true)
 		{
 			return preg_replace('/\/(css|js)\//','/min/$1/',$file,1);
 		}
@@ -291,7 +292,7 @@ abstract class xhtmlPage
 	
 	public function goog_analytics() 
 	{
-		if(ENV == 'production')
+		if(ENV === 'production')
 		{
 			return "		<script type=\"text/javascript\">
 		
@@ -364,6 +365,8 @@ abstract class xhtmlPage
 
 	public function Display()
 	{
+		global $config;
+		
 		if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
 		{
 			echo $this->content;
@@ -384,7 +387,7 @@ abstract class xhtmlPage
 			$smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
 			$smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
 	
-			if($this->debug)
+			if($config['debug'])
 			{
 				$smarty->force_compile = true;
 			}
