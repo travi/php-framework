@@ -18,8 +18,12 @@
 // date_default_timezone_set('America/Chicago');	//TODO: pull from config file
  
  define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
- define('SITE_ROOT', DOC_ROOT.'../');
- define('WEB_ROOT',SITE_ROOT.'../');
+ $levels = preg_split("/\//", DOC_ROOT);
+ array_pop($levels);
+ array_pop($levels);
+ define('SITE_ROOT', join($levels,"/")."/");
+ array_pop($levels);
+ define('WEB_ROOT',join($levels,"/")."/");
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
  define('INCLUDE_PATH',WEB_ROOT.'include/');
  
