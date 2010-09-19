@@ -22,10 +22,7 @@ class jsonFormatter extends dataFormatter
 {
 	public function format()
 	{
-		require_once(INCLUDE_PATH.'php/utilities/JSON.php');
-		
-		$json = new Services_JSON();
-    	$output = $json->encode($this->data);
+    	$output = json_encode($this->data);
 		header('Content-Type: application/json');
 		
 		return $output;
