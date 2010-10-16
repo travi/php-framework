@@ -100,14 +100,7 @@ abstract class xhtmlPage
 	
 	public function getContent()
 	{
-        if(null !== $this->pageTemplate)
-        {
-            return 'template named';
-        }
-        else
-        {
-		    return $this->content;
-        }
+        return $this->content;
 	}
 
 	public function checkDependencies($object)
