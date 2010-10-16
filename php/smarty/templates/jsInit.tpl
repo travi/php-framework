@@ -1,4 +1,4 @@
-{php}$this->assign('initArray',$this->_tpl_vars[page]->getJsInits());{/php}
+{assign var='initArray' value=$page->getJsInits()}
 {if !empty($initArray)}
 		<script type="text/javascript" >
 			$(document).ready(function(){literal}{{/literal}
