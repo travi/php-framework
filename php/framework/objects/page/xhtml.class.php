@@ -9,7 +9,8 @@ abstract class xhtmlPage
 {
 	protected $siteName;
 	protected $title;
-	protected $smartyTemplate;
+	protected $layoutTemplate;
+    protected $pageTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
 	protected $stylesheets = array();
 	protected $altStyles = array();
@@ -21,6 +22,21 @@ abstract class xhtmlPage
  	protected $content;
  	protected $smartyConfig;
  	protected $urlFingerprint;
+
+    public function setLayoutTemplate($template)
+    {
+        $this->layoutTemplate = $template;
+    }
+
+    public function setPageTemplate($template)
+    {
+        $this->pageTemplate = $template;
+    }
+
+    public function getPageTemplate()
+    {
+        return $this->pageTemplate;
+    }
 	
 	public function setSiteName($name)
 	{
@@ -70,6 +86,11 @@ abstract class xhtmlPage
 		else $this->content .= $content;
 	}
 
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
 	public function addContentSection($content="")
 	{
 		$this->addToContent('</div><div class="content">');
@@ -79,7 +100,14 @@ abstract class xhtmlPage
 	
 	public function getContent()
 	{
-		return $this->content;
+        if(null !== $this->pageTemplate)
+        {
+            return 'template named';
+        }
+        else
+        {
+		    return $this->content;
+        }
 	}
 
 	public function checkDependencies($object)
@@ -363,30 +391,31 @@ abstract class xhtmlPage
 		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
 	}
 
-	public function Display()
-	{
+    protected function format()
+    {
 		global $config;
-		
-		if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
-		{
-			echo $this->content;
-		}
-		else
-		{
+		$acceptHeader = $_SERVER['HTTP_ACCEPT'];
+
+		if (strstr($acceptHeader,"application/json")){
+            header('Content-Type: application/json');
+            echo json_encode($this->content);
+		} else if (strstr($acceptHeader,"text/xml")){
+			return;
+		} else if (strstr($acceptHeader,"text/html")){
 			if(!isset($this->smartyConfig))
 				$this->getSmartyConfig();
-	
+
 	        require_once($this->smartyConfig['pathToSmarty']);
-				
+
 			uksort($this->stylesheets, 'strnatcasecmp');
-	
+
 			$smarty = new Smarty();
-	
+
 			$smarty->template_dir = $this->smartyConfig['smartyTemplateDir'];
 			$smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
 			$smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
 			$smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
-	
+
 			if($config['debug'])
 			{
 				$smarty->force_compile = true;
@@ -395,10 +424,15 @@ abstract class xhtmlPage
 			{
 				$smarty->compile_check = false;
 			}
-	
+
 			$smarty->assign('page',$this);
-			$smarty->display($this->smartyTemplate);
-		}
+			$smarty->display($this->layoutTemplate);
+        }
+    }
+
+	public function Display()
+	{
+		$this->format();
 	}
 }
 ?>
