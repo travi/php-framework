@@ -3,7 +3,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 3669 2010-09-17 18:10:10Z uwe.tews@googlemail.com $
+ * SVN:         $Id: Smarty.class.php 3624 2010-07-07 22:08:10Z Uwe.Tews $
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -108,7 +108,7 @@ if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR 
  */
 class Smarty extends Smarty_Internal_Data {
     // smarty version
-    const SMARTY_VERSION = 'Smarty3rc4'; 
+    const SMARTY_VERSION = 'Smarty3-RC3'; 
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variables
@@ -193,6 +193,8 @@ class Smarty extends Smarty_Internal_Data {
     public $properties = array(); 
     // config type
     public $default_config_type = 'file'; 
+    // exception handler: array('ExceptionClass','ExceptionMethod');
+    public $exception_handler = null; 
     // cached template objects
     public $template_objects = null; 
     // check If-Modified-Since headers
@@ -223,10 +225,11 @@ class Smarty extends Smarty_Internal_Data {
     public $_dir_perms = 0771; 
     // smarty object reference
     public $smarty = null; 
+    // block data at template inheritance
+    public $block_data = array();
+    public $block_data_stack = array(); 
     // block tag hierarchy
     public $_tag_stack = array(); 
-    // flag if {block} tag is compiled for template inheritance
-    public $inheritance = false;
     // plugins
     public $_plugins = array(); 
     // generate deprecated function call notices?
@@ -244,6 +247,9 @@ class Smarty extends Smarty_Internal_Data {
             mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
         $this->start_time = microtime(true); 
+        // set exception handler
+        if (!empty($this->exception_handler))
+            set_exception_handler($this->exception_handler); 
         // set default dirs
         $this->template_dir = array('.' . DS . 'templates' . DS);
         $this->compile_dir = '.' . DS . 'templates_c' . DS;
@@ -286,6 +292,9 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function __destruct()
     { 
+        // restore to previous exception handler, if any
+        if (!empty($this->exception_handler))
+            restore_exception_handler();
     } 
 
     /**
@@ -307,6 +316,8 @@ class Smarty extends Smarty_Internal_Data {
             // get default Smarty data object
             $parent = $this;
         } 
+        array_push($this->block_data_stack, $this->block_data);
+        $this->block_data = array(); 
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
         $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
@@ -349,9 +360,11 @@ class Smarty extends Smarty_Internal_Data {
             if ($this->debugging) {
                 Smarty_Internal_Debug::display_debug($this);
             } 
+            $this->block_data = array_pop($this->block_data_stack);
             return;
         } else {
             // return fetched content
+            $this->block_data = array_pop($this->block_data_stack);
             return $_output;
         } 
     } 
@@ -454,7 +467,7 @@ class Smarty extends Smarty_Internal_Data {
             $this->security_handler = new Smarty_Internal_Security_Handler($this);
             $this->security = true;
         } else {
-            throw new SmartyException('Property security_class is not defined');
+            throw new Exception('Property security_class is not defined');
         } 
     } 
 
@@ -498,13 +511,9 @@ class Smarty extends Smarty_Internal_Data {
     function templateExists($resource_name)
     { 
         // create template object
-        $save = $this->template_objects;
         $tpl = new $this->template_class($resource_name, $this); 
         // check if it does exists
-        $result = $tpl->isExisting();
-        $this->template_objects = $save;
-        unset ($tpl);
-        return $result;
+        return $tpl->isExisting();
     } 
 
     /**
@@ -525,7 +534,7 @@ class Smarty extends Smarty_Internal_Data {
         $_name_parts = explode('_', $_plugin_name, 3); 
         // class name must have three parts to be valid plugin
         if (count($_name_parts) < 3 || $_name_parts[0] !== 'smarty') {
-            throw new SmartyException("plugin {$plugin_name} is not a valid name format");
+            throw new Exception("plugin {$plugin_name} is not a valid name format");
             return false;
         } 
         // if type is "internal", get plugin from sysplugins
@@ -574,7 +583,7 @@ class Smarty extends Smarty_Internal_Data {
                 return $this->registered_filters[$type][$_filter_name] = $_plugin;
             } 
         } 
-        throw new SmartyException("{$type}filter \"{$name}\" not callable");
+        throw new Exception("{$type}filter \"{$name}\" not callable");
         return false;
     } 
 
@@ -598,7 +607,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING)
     {
-        throw new SmartyException("Smarty error: $error_msg");
+        throw new Exception("Smarty error: $error_msg");
     } 
 
     /**
@@ -664,10 +673,10 @@ class Smarty extends Smarty_Internal_Data {
     function getRegisteredObject($name)
     {
         if (!isset($this->registered_objects[$name]))
-            throw new SmartyException("'$name' is not a registered object");
+            throw new Exception("'$name' is not a registered object");
 
         if (!is_object($this->registered_objects[$name][0]))
-            throw new SmartyException("registered '$name' is not an object");
+            throw new Exception("registered '$name' is not an object");
 
         return $this->registered_objects[$name][0];
     } 
@@ -727,7 +736,7 @@ class Smarty extends Smarty_Internal_Data {
             $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);'); 
         // PHP4 call to constructor?
         if (strtolower($name) == 'smarty') {
-            throw new SmartyException('Please use parent::__construct() to call parent constuctor');
+            throw new Exception('Please use parent::__construct() to call parent constuctor');
             return false;
         } 
         // see if this is a set/get for a property
@@ -739,7 +748,7 @@ class Smarty extends Smarty_Internal_Data {
             // convert camel case to underscored name
             $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
             if (!property_exists($this, $property_name)) {
-                throw new SmartyException("property '$property_name' does not exist.");
+                throw new Exception("property '$property_name' does not exist.");
                 return false;
             } 
             if ($first3 == 'get')
@@ -755,9 +764,6 @@ class Smarty extends Smarty_Internal_Data {
     } 
 } 
 
-/**
- * Autoloader
- */
 function smartyAutoload($class)
 {
     $_class = strtolower($class);
@@ -765,17 +771,5 @@ function smartyAutoload($class)
         include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     } 
 } 
-
-/**
- * Smarty exception class
- */
-Class SmartyException extends Exception {
-}
-
-/**
- * Smarty compiler exception class
- */
-Class SmartyCompilerException extends SmartyException  {
-}
 
 ?>
