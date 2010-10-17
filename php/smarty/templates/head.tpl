@@ -18,6 +18,6 @@
 {foreach item=script from=$page->getScripts()}
 		<script src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" type="text/javascript" > </script>
 {/foreach}
-{include file='/home/travi/include/php/smarty/templates/jsInit.tpl'}
+{include file='jsInit.tpl'}
 {$page->goog_analytics()}
 	</head>
