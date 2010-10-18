@@ -124,6 +124,20 @@ abstract class xhtmlPage
 		}
 	}
 
+    protected function getDependencies()
+    {
+        if(is_array($this->getContent()))
+        {
+            foreach($this->getContent() as $component)
+            {
+                if(is_object($component))
+                {
+                    $this->checkDependencies($component);
+                }
+            }
+        }
+    }
+
  	public function importNavFile()
  	{		
 		return $this->keyValueFromFile(NAV_FILE);
@@ -417,6 +431,11 @@ abstract class xhtmlPage
 			{
 				$smarty->compile_check = false;
 			}
+
+            if(is_array($this->getContent()))
+            {
+                $this->getDependencies();
+            }
 
 			$smarty->assign('page',$this);
 			$smarty->display($this->layoutTemplate);
