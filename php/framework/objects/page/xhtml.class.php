@@ -391,7 +391,7 @@ abstract class xhtmlPage
 
 		if (strstr($acceptHeader,"application/json")){
             header('Content-Type: application/json');
-            echo json_encode($this->content);
+            echo json_encode($this->getContent());
 		} else if (strstr($acceptHeader,"text/xml")){
 			return;
 		} else if (strstr($acceptHeader,"text/html")){

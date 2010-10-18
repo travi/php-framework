@@ -7,7 +7,7 @@
 if(empty($_POST['Submit']))
 {
 	list($content,$title) = content();
-	if(isset($page))
+	if(isset($page) && isset($content))
 	{
 		$page->setTitle($title);
 		if($title == "Results")
