@@ -130,7 +130,7 @@ abstract class xhtmlPage
         {
             foreach($this->getContent() as $component)
             {
-                if(is_object($component))
+                if(is_object($component) && is_a($component,'DependantObject'))
                 {
                     $this->checkDependencies($component);
                 }
