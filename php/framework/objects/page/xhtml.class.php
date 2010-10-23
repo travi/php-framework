@@ -103,40 +103,49 @@ abstract class xhtmlPage
         return $this->content;
 	}
 
-	public function checkDependencies($object)
+	public function getDependencies()
 	{
-		$jScripts = $object->getJavaScripts();
-		foreach($jScripts as $script)
-		{
-			$this->addJavaScript($script);
-		}
-
-		$inits = $object->getJsInits();
-		foreach($inits as $init)
-		{
-			$this->addJsInit($init);
-		}
-
-		$styles = $object->getStyles();
-		foreach($styles as $style)
-		{
-			$this->addStyleSheet($style);
-		}
-	}
-
-    protected function getDependencies()
-    {
         if(is_array($this->getContent()))
         {
             foreach($this->getContent() as $component)
             {
                 if(is_object($component) && is_a($component,'DependantObject'))
                 {
-                    $this->checkDependencies($component);
+                    $this->addDependencies($component->getDependencies());
                 }
             }
         }
+	}
+
+    protected function addDependencies($dependencies = array())
+    {
+		foreach($dependencies['scripts'] as $script)
+		{
+			$this->addJavaScript($script);
+		}
+		foreach($dependencies['jsInits'] as $init)
+		{
+			$this->addJsInit($init);
+		}
+		foreach($dependencies['styles'] as $style)
+		{
+			$this->addStyleSheet($style);
+		}
     }
+
+//    protected function getDependencies()
+//    {
+//        if(is_array($this->getContent()))
+//        {
+//            foreach($this->getContent() as $component)
+//            {
+//                if(is_object($component) && is_a($component,'DependantObject'))
+//                {
+//                    $this->checkDependencies($component);
+//                }
+//            }
+//        }
+//    }
 
  	public function importNavFile()
  	{		

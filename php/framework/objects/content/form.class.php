@@ -52,6 +52,22 @@ class Form extends ContentObject
 		$this->addJavaScript('formAlign');
 		$this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
 	}
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function getMethod()
+    {
+        return $this->method;
+    }
+    public function getAction()
+    {
+        return $this->action;
+    }
+    public function getFieldsets()
+    {
+        return $this->fieldsetArray;
+    }
 	public function addFieldset($fieldset)
 	{
 		array_push($this->fieldsetArray,$fieldset);
@@ -103,7 +119,7 @@ class Form extends ContentObject
 			}
 		}
 	}
-	public function getValidations()
+	public function getInnerValidations()
 	{
 		$validations = array();
 
@@ -177,25 +193,20 @@ class Form extends ContentObject
 		
 		return $valInit;
 	}
-	public function __toString()
-	{
-		$form = '
-		<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'"';
-		if($this->contains("FileInput"))
-		{
-			$this->encType = "multipart/form-data";
-			$form .= ' enctype="'.$this->encType.'"';
-		}
-		$form .= '>';
+    public function getDependencies()
+    {
+        $this->getValidations();
 		foreach ($this->fieldsetArray as $fieldset)
 		{
-			$form .= $fieldset;
 			$this->checkDependencies($fieldset);
 		}
-		$form .= '
-		</form>';
-
-		$validations = $this->getValidations();
+        return array(   'scripts'   => $this->scripts,
+                        'jsInits'   => $this->jsInits,
+                        'styles'    => $this->styles);
+    }
+    public function getValidations()
+    {
+		$validations = $this->getInnerValidations();
 		$customValidations = $this->getCustomValidations();
 
 		if(!empty($validations) || !empty($customValidations))
@@ -203,9 +214,7 @@ class Form extends ContentObject
 			$this->addJavaScript('validation');
 			$this->addJsInit($this->buildValidationInit($validations));
 		}
-
-		return $form;
-	}
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -225,10 +234,18 @@ class Fieldset extends contentObject
 			$this->addField(new $field['type']($field));
 		}
 	}
+    public function getLegend()
+    {
+        return $this->legend;
+    }
 	public function addField($field)
 	{
 		array_push($this->fieldArray,$field);
 	}
+    public function getFields()
+    {
+        return $this->fieldArray;
+    }
 	public function getValidations()
 	{
 		$validations = array();
@@ -259,26 +276,13 @@ class Fieldset extends contentObject
 		}
 		return $list;
 	}
-	public function __toString()
-	{
-		$form = '
-			<fieldset>
-				<legend>'.$this->legend.'</legend>
-				<ul class="fieldList">';
+    public function getDependencies()
+    {
 		foreach ($this->fieldArray as $field)
 		{
-			$form .= '
-					<li>'.$field.'
-					</li>';
-			if(is_a($field,'ContentObject'))
-				$this->checkDependencies($field);
+			$this->checkDependencies($field);
 		}
-		$form .= '
-				</ul>
-			</fieldset>';
-
-		return $form;
-	}
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -334,16 +338,25 @@ abstract class Input extends ContentObject implements Field
 	{
 		return $this->name;
 	}
+    public function getLabel()
+    {
+        return $this->label;
+    }
+    public function getType()
+    {
+        return $this->type;
+    }
+    public function getValue()
+    {
+        return $this->value;
+    }
+    public function getClass()
+    {
+        return $this->class;
+    }
 	public function getValidations()
 	{
 		return $this->validations;
-	}
-	public function __toString()
-	{
-		$form = '
-						<label for="'.$this->name.'">'.$this->label.'</label>
-						<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.'" class="'.$this->class.'	"/>';
-		return $form;
 	}
 }
 class TextInput extends Input
@@ -514,14 +527,10 @@ class TextArea extends Input
 		$this->class = "textInput";
 		$this->rows = $options['rows'];
 	}
-	public function __toString()
-	{
-		return '
-				<label for="'.$this->name.'">'.$this->label.'</label>
-				<textarea name="'.$this->name.'" id="'.$this->name.'" rows="'.$this->rows.'" class="'.$this->class.'">'
-					.$this->value.
-				'</textarea>';
-	}
+	public function getRows()
+    {
+        return $this->rows;
+    }
 }
 class RichTextArea extends TextArea
 {
