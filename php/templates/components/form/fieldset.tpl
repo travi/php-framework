@@ -3,7 +3,6 @@
     <ul class="fieldList">
 		{foreach from=$fieldset->getFields() item=field}
 		<li>
-		    {*Need to handle hidden, button*}
 		    {if is_a($field,'Input')}
                 {if is_a($field,'TextArea')}
                     {include file="components/form/textArea.tpl" field=$field}
