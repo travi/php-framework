@@ -7,6 +7,8 @@
 		    {if is_a($field,'Input')}
                 {if is_a($field,'TextArea')}
                     {include file="components/form/textArea.tpl" field=$field}
+                {elseif is_a($field,'HiddenInput')}
+                    {include file="components/form/hiddenInput.tpl"}
                 {else}
                     {include file="components/form/input.tpl" field=$field}
                 {/if}

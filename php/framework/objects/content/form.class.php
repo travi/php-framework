@@ -554,6 +554,8 @@ class RichTextArea extends TextArea
 }
 class SubmitButton extends Input
 {
+//    TODO: use jQuery UI button styling
+
 	protected $confirmation;
 
 	public function __construct($options)
@@ -586,6 +588,8 @@ class SubmitButton extends Input
 
 class Button
 {
+//    TODO: use jQuery UI button styling
+
 	protected $type;
 	protected $class;
 	protected $value;
@@ -767,28 +771,6 @@ class SelectionBox extends Choices
 			parent::optionAdder($options);
 		}
 		
-	}
-	
-	private function optionsToString($options=array())
-	{
-		foreach ($options as $option)
-		{
-			$form .= '
-					<option';
-			if(!empty($option['value']) || $option['option'] == 'Select One')
-			{
-				$form .= ' value="'.$option['value'].'"';
-			}
-			if($option['disabled'])
-			{	
-				$form .= ' disabled';
-			}
-			if($option['selected']||(!empty($this->value)&&(($option['option']==$this->value)||($option['value']==$this->value))))
-					$form .= ' selected';
-			$form .= '>'.$option['option'].'</option>';
-		}
-		
-		return $form;
 	}
 }
 class RadioButtons extends Choices
