@@ -706,6 +706,22 @@ abstract class Choices implements Field
 	{
 		return $this->name;
 	}
+    public function getLabel()
+    {
+        return $this->label;
+    }
+    public function getOptions()
+    {
+        return $this->options;
+    }
+    public function getType()
+    {
+        return $this->type;
+    }
+    public function getClass()
+    {
+        return $this->class;
+    }
 	public function getValidations()
 	{
 		return $this->validations;
@@ -713,37 +729,6 @@ abstract class Choices implements Field
 	public function addValidation($validation)
 	{
 		array_push($this->validations,$validation);
-	}
-	public function __toString()
-	{
-		$form = '
-				<fieldset>
-					<legend>'.$this->label.'</legend>';
-					
-		foreach ($this->options as $option)
-		{				
-			$form .= '
-					<label>
-						<input type="'.$this->type.'" name="'.$this->name.'" value="';
-			if(!empty($option['value']))
-				$form .= $option['value'];
-			else
-				$form .= $option['option'];
-			$form .= '" class="'.$this->class.'"';
-			if($option['disabled'])
-			{	
-				$form .= ' disabled';
-			}
-			if($option['selected']||!empty($this->value) && (($option['option']==$this->value)||($option['value']==$this->value)))
-				$form .= ' checked ';
-			$form .= '/>'.$option['option'].'
-					</label>';
-		}
-				
-		$form .= '
-				</fieldset>';
-					
-		return $form;
 	}
 }
 
@@ -782,29 +767,6 @@ class SelectionBox extends Choices
 			parent::optionAdder($options);
 		}
 		
-	}
-	public function __toString()
-	{
-		$form = '
-				<label for="'.$this->name.'">'.$this->label.'</label>
- 				<select name="'.$this->name.'" id="'.$this->name.'" class="textInput">';
-		$form .= $this->optionsToString($this->options);			
-		if(!empty($this->optGroups))
-		{
-			foreach($this->optGroups as $optGroup => $options)
-			{				
-				$form .= '
-					<optgroup label="'.$optGroup.'">';
-					
-				$form .= $this->optionsToString($options);
-					
-				$form .= '
-					</optgroup>';
-			}
-		}
-		$form .= '
-				</select>';
-		return $form;
 	}
 	
 	private function optionsToString($options=array())
