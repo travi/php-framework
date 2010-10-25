@@ -438,6 +438,10 @@ abstract class xhtmlPage
 
     public function getSmarty()
     {
+        if(empty($this->smarty))
+        {
+            $this->smartyInit();
+        }
         return $this->smarty;
     }
 
@@ -458,8 +462,11 @@ abstract class xhtmlPage
                 $this->getDependencies();
             }
 
-			$this->getSmarty()->assign('page',$this);
-			$this->getSmarty()->display($this->layoutTemplate);
+            $smarty = $this->getSmarty();
+
+            $smarty->clear_all_assign();
+			$smarty->assign('page',$this);
+			$smarty->display($this->layoutTemplate);
         }
     }
 
