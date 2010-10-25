@@ -421,9 +421,9 @@ abstract class xhtmlPage
 			if(!isset($this->smartyConfig))
 				$this->getSmartyConfig();
 
-	        require_once($this->smartyConfig['pathToSmarty']);
-
 			uksort($this->stylesheets, 'strnatcasecmp');
+
+	        require_once($this->smartyConfig['pathToSmarty']);
 
 			$smarty = new Smarty();
 
