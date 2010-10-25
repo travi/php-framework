@@ -22,6 +22,7 @@ abstract class xhtmlPage
  	protected $content;
  	protected $smartyConfig;
  	protected $urlFingerprint;
+    protected $smarty;
 
     public function setLayoutTemplate($template)
     {
@@ -407,9 +408,41 @@ abstract class xhtmlPage
 		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
 	}
 
-    protected function format()
+    public function smartyInit()
     {
 		global $config;
+
+        if(!isset($this->smartyConfig))
+            $this->getSmartyConfig();
+        
+        require_once($this->smartyConfig['pathToSmarty']);
+
+        $smarty = new Smarty();
+
+        $smarty->template_dir = array($this->smartyConfig['siteTemplateDir'],$this->smartyConfig['sharedTemplateDir']);
+        $smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
+        $smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
+        $smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
+
+        if($config['debug'])
+        {
+            $smarty->force_compile = true;
+        }
+        else
+        {
+            $smarty->compile_check = false;
+        }
+
+        $this->smarty = $smarty;
+    }
+
+    public function getSmarty()
+    {
+        return $this->smarty;
+    }
+
+    protected function format()
+    {
 		$acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
 		if (strstr($acceptHeader,"application/json")){
@@ -418,36 +451,15 @@ abstract class xhtmlPage
 		} else if (strstr($acceptHeader,"text/xml")){
 			return;
 		} else if (strstr($acceptHeader,"text/html")){
-			if(!isset($this->smartyConfig))
-				$this->getSmartyConfig();
-
 			uksort($this->stylesheets, 'strnatcasecmp');
-
-	        require_once($this->smartyConfig['pathToSmarty']);
-
-			$smarty = new Smarty();
-
-			$smarty->template_dir = array($this->smartyConfig['siteTemplateDir'],$this->smartyConfig['sharedTemplateDir']);
-			$smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
-			$smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
-			$smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
-
-			if($config['debug'])
-			{
-				$smarty->force_compile = true;
-			}
-			else
-			{
-				$smarty->compile_check = false;
-			}
 
             if(is_array($this->getContent()))
             {
                 $this->getDependencies();
             }
 
-			$smarty->assign('page',$this);
-			$smarty->display($this->layoutTemplate);
+			$this->getSmarty()->assign('page',$this);
+			$this->getSmarty()->display($this->layoutTemplate);
         }
     }
 
