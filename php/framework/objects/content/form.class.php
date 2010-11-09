@@ -567,6 +567,8 @@ class SubmitButton extends Input
 
 	public function __construct($options)
 	{
+		parent::__construct($options);
+        $this->label = "";
 		$this->type = "submit";
 		$this->name = "Submit";
 		if(!empty($options['class']))
@@ -574,6 +576,7 @@ class SubmitButton extends Input
 		else
 			$this->class = "submitButton";
 		$this->value = $options['label'];
+        $this->setTemplate('components/form/submitButton.tpl');
 	}
 	//TODO need to replace this technique using UI dialog
 	public function setConfirmation($confirmation)
