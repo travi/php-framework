@@ -308,6 +308,7 @@ abstract class Input extends ContentObject implements Field
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
+    protected $template;                //template file to be used when rendering
 
 	public function __construct($options)
 	{
@@ -329,6 +330,7 @@ abstract class Input extends ContentObject implements Field
 				$this->addValidation($validation);
 			}
 		}
+        $this->setTemplate('components/form/input.tpl');
 	}
 	public function addValidation($validation)
 	{
@@ -358,6 +360,14 @@ abstract class Input extends ContentObject implements Field
 	{
 		return $this->validations;
 	}
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+    public function getTemplate()
+    {
+        return $this->template;
+    }
 }
 class TextInput extends Input
 {
@@ -416,6 +426,7 @@ class HiddenInput extends Input
 	{
 		parent::__construct($options);
 		$this->type = "hidden";
+        $this->setTemplate('components/form/hiddenInput.tpl');
 	}
 }
 
@@ -521,6 +532,7 @@ class TextArea extends Input
 		parent::__construct($options);
 		$this->class = "textInput";
 		$this->rows = $options['rows'];
+        $this->setTemplate('components/form/textArea.tpl');
 	}
 	public function getRows()
     {
@@ -648,6 +660,7 @@ abstract class Choices implements Field
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
+    protected $template;                //template file to be used when rendering
 	
 	protected $settings = array();
 	protected $options = array(); 	//implemented as an n x 4 two-dimensional array
@@ -669,6 +682,7 @@ abstract class Choices implements Field
 				$this->addValidation($validation);
 			}
 		}
+        $this->setTemplate('components/form/choices.tpl');
 	}
 	
 	protected function optionAdder($options=array())
@@ -729,6 +743,14 @@ abstract class Choices implements Field
 	{
 		array_push($this->validations,$validation);
 	}
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+    public function getTemplate()
+    {
+        return $this->template;
+    }
 }
 
 class SelectionBox extends Choices
@@ -739,6 +761,7 @@ class SelectionBox extends Choices
 	{
 		$this->addOption("Select One");
 		parent::__construct($options);
+        $this->setTemplate('components/form/selectionBox.tpl');
 	}
 	protected function optionAdder($options=array())
 	{

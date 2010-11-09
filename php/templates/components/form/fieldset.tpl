@@ -4,19 +4,9 @@
 		{foreach from=$fieldset->getFields() item=field}
 		<li>
 		    {if is_a($field,'Input')}
-                {if is_a($field,'TextArea')}
-                    {include file="components/form/textArea.tpl" field=$field}
-                {elseif is_a($field,'HiddenInput')}
-                    {include file="components/form/hiddenInput.tpl"}
-                {else}
-                    {include file="components/form/input.tpl" field=$field}
-                {/if}
+                {include file=$field->getTemplate() field=$field}
             {elseif is_a($field,'Choices')}
-                {if is_a($field,'SelectionBox')}
-                    {include file="components/form/selectionBox.tpl" field=$field}
-                {else}
-                    {include file="components/form/choices.tpl" field=$field}
-                {/if}
+                {include file=$field->getTemplate() field=$field}
             {else}
                 other
             {/if}
