@@ -455,12 +455,12 @@ abstract class xhtmlPage
 		} else if (strstr($acceptHeader,"text/xml")){
 			return;
 		} else if (strstr($acceptHeader,"text/html")){
-			uksort($this->stylesheets, 'strnatcasecmp');
-
             if(is_array($this->getContent()))
             {
                 $this->getDependencies();
             }
+            
+			uksort($this->stylesheets, 'strnatcasecmp');
 
             $smarty = $this->getSmarty();
 
