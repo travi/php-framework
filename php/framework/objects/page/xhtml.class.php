@@ -118,20 +118,36 @@ abstract class xhtmlPage
         }
 	}
 
-    protected function addDependencies($dependencies = array())
+    public function addDependencies($dependencies = array())
     {
-		foreach($dependencies['scripts'] as $script)
-		{
-			$this->addJavaScript($script);
-		}
-		foreach($dependencies['jsInits'] as $init)
-		{
-			$this->addJsInit($init);
-		}
-		foreach($dependencies['styles'] as $style)
-		{
-			$this->addStyleSheet($style);
-		}
+        if(!empty($dependencies['scripts']))
+        {
+            foreach($dependencies['scripts'] as $script)
+            {
+                $this->addJavaScript($script);
+            }
+        }
+        if(!empty($dependencies['jsInits']))
+        {
+            foreach($dependencies['jsInits'] as $init)
+            {
+                $this->addJsInit($init);
+            }
+        }
+        if(!empty($dependencies['styles']))
+        {
+            foreach($dependencies['styles'] as $style)
+            {
+                $this->addStyleSheet($style);
+            }
+        }
+        if(!empty($dependencies['feeds']))
+        {
+            foreach($dependencies['feeds'] as $feed)
+            {
+                $this->addFeed($feed);
+            }
+        }
     }
 
 //    protected function getDependencies()
