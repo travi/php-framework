@@ -328,7 +328,7 @@ abstract class Input extends ContentObject implements Field
 				$this->addValidation($validation);
 			}
 		}
-        $this->setTemplate('components/form/input.tpl');
+        $this->setTemplate('components/form/inputWithLabel.tpl');
 	}
 	public function addValidation($validation)
 	{
@@ -424,7 +424,7 @@ class HiddenInput extends Input
 	{
 		parent::__construct($options);
 		$this->type = "hidden";
-        $this->setTemplate('components/form/hiddenInput.tpl');
+        $this->setTemplate('components/form/input.tpl');
 	}
 }
 
@@ -574,7 +574,7 @@ class SubmitButton extends Input
 		else
 			$this->class = "submitButton";
 		$this->value = $options['label'];
-        $this->setTemplate('components/form/submitButton.tpl');
+        $this->setTemplate('components/form/input.tpl');
 	}
 	//TODO need to replace this technique using UI dialog
 	public function setConfirmation($confirmation)
