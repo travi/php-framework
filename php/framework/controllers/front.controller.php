@@ -4,6 +4,7 @@
  * By Matt Travi
  * programmer@travi.org
  */
+//Dispatcher
  
  //This should use the singleton pattern
 
@@ -17,7 +18,8 @@ class FrontController
 	private $page;
 	private $id;
 	private $uri;*/
-	
+
+    //these may make more sense to be attributes of the individual controller
 	private $Request;	//Object for abstracting uri processes, and variables like browser etc
 	private $Response;	//Object for building the list of content that will be sent as the response
 	
@@ -64,7 +66,7 @@ class FrontController
  
 	public function sendResponse()
 	{
-		//setMimeType based on type set in Response object (html, html fragement, xml)
+		//setMimeType based on type set in Response object (html, html fragment, xml, json)
 		if($_SERVER['X-Requested-With'] == 'XMLHttpRequest')
 		{
 			echo $this->content;
