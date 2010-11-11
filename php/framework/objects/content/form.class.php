@@ -200,9 +200,7 @@ class Form extends ContentObject
 		{
 			$this->checkDependencies($fieldset);
 		}
-        return array(   'scripts'   => $this->scripts,
-                        'jsInits'   => $this->jsInits,
-                        'styles'    => $this->styles);
+        return parent::getDependencies();
     }
     public function getValidations()
     {

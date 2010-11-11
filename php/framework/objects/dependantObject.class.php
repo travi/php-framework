@@ -52,5 +52,12 @@ abstract class DependantObject
 			$this->addStyleSheet($style);
 		}
 	}
+
+    public function getDependencies()
+    {
+        return array(   'scripts'   => $this->getJavaScripts(),
+                        'jsInits'   => $this->getJsInits(),
+                        'styles'    => $this->getStyles());
+    }
 }
 ?>
