@@ -3,6 +3,7 @@
  * Created on May 6, 2007
  * By Matt Travi
  */
+
  $config = array();
  session_start();
  if(isset($_SESSION['debug']))
@@ -26,7 +27,8 @@
  define('WEB_ROOT',join($levels,"/")."/");
  define('FRAMEWORK_PATH',dirname(__FILE__).'/');
  define('INCLUDE_PATH',WEB_ROOT.'include/');
- 
+
+require_once(FRAMEWORK_PATH.'../thirdparty/spyc/spyc.php');
  require_once(SITE_ROOT.'config/framework/framework.conf');
  
  define('PROCESS',FRAMEWORK_PATH.'controllers/displayProcess.php');
@@ -47,9 +49,8 @@
  importFrameworkObjects('objects/utility/'); 
  
  
- //Define UI Dependencies
- $uiDeps = parse_ini_file('uiDependencies.ini', true);
- 
+//Define UI Dependencies
+$uiDeps = Spyc::YAMLLoad(FRAMEWORK_PATH.'uiDependencies.yaml');
  
  //Store SCM Revision number
  $version = exec('svnversion');

@@ -1,0 +1,77 @@
+#=======Framework Components=======
+gallery:
+  local: "/resources/js/gallery.js"
+  jsDependencies:
+    - "lightbox"
+    - "jcarousel"
+    - "urlParser"
+    - "reflection"
+  cssDependencies:
+    - "/reusable/css/gallery/gallery.dev.css"
+
+#=======jQuery======
+jquery:
+  local: "/resources/shared/js/jquery/jquery.js"
+  cdn: "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+
+#------jQuery UI-----
+jqueryUi:
+  local: "/resources/shared/js/jquery/ui/jquery-ui.js"
+  jsDependencies:
+    - "jquery"
+  cssDependencies:
+    - "jqueryUiTheme"
+
+#------jQuery Plug-ins------
+
+equalizeBottoms:
+  local: "/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js"
+  jsDependencies:
+    - "jquery"
+
+formAlign:
+  local: "/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js"
+  jsDependencies:
+    - "jquery"
+
+jcarousel:
+  local: "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js"
+  jsDependencies
+    - "jquery"
+  cssDependencies:
+    - "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css"
+    - "jcarsouselSkin"
+
+lightbox:
+  local: "/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js"
+  jsDependencies:
+    - "jquery"
+  cssDependencies:
+    - "/resources/shared/js/jquery/plugins/lightbox/css/jquery.lightbox.css"
+
+pxem:
+  local: "/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js"
+  jsDependencies: "jquery"
+
+urlParser:
+  local: "/resources/shared/js/jquery/plugins/url/jquery.url.js"
+  jsDependencies: "jquery"
+
+validation:
+  local: "/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js"
+  jsDependencies:
+    - "jquery"
+  cssDependencies:
+    - "jqueryUiTheme"
+
+wymEditor:
+  local: "/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.js"
+  jsDependencies:
+    - "jquery"
+
+#=====Third Party JavaScript=====
+reflection:
+  local: "/resources/shared/js/reflection/reflection.js"
+
+pngFix:
+  local: "/resources/shared/js/pngFix/DD_belatedPNG.js"
