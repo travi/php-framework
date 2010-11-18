@@ -7,7 +7,7 @@ gallery:
     - "urlParser"
     - "reflection"
   cssDependencies:
-    - "/reusable/css/gallery/gallery.dev.css"
+    - "/resources/css/pages/gallery.dev.css"
 
 #=======jQuery======
 jquery:
