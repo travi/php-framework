@@ -69,7 +69,7 @@ abstract class xhtmlPage
 
  	public function getSmartyConfig()
  	{
-		$this->smartyConfig = $this->keyValueFromFile(SMARTY_CONFIG);
+		$this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
  	}
 
  	public function addToContent($content)
@@ -150,20 +150,6 @@ abstract class xhtmlPage
         }
     }
 
-//    protected function getDependencies()
-//    {
-//        if(is_array($this->getContent()))
-//        {
-//            foreach($this->getContent() as $component)
-//            {
-//                if(is_object($component) && is_a($component,'DependantObject'))
-//                {
-//                    $this->checkDependencies($component);
-//                }
-//            }
-//        }
-//    }
-
  	public function importNavFile()
  	{		
 		return $this->keyValueFromFile(NAV_FILE);
@@ -185,6 +171,11 @@ abstract class xhtmlPage
 		}
 		return $assocArray;
  	}
+
+    public function yaml2Array($file)
+    {
+        return Spyc::YAMLLoad($file);
+    }
 
 	public function setSubNav($section)
 	{
