@@ -152,7 +152,7 @@ abstract class xhtmlPage
 
  	public function importNavFile()
  	{		
-		return $this->keyValueFromFile(NAV_FILE);
+		return $this->yaml2Array(NAV_FILE);
  	}
 
  	public function keyValueFromFile($file)
@@ -194,6 +194,10 @@ abstract class xhtmlPage
 
 	public function addNavSection($title,$section)
 	{
+        if(is_string($section))
+        {
+            $section = $this->yaml2Array($section);
+        }
 		$this->nav->addSection($title,$section);
 	}
 	
