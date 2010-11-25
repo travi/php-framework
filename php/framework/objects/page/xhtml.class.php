@@ -20,6 +20,7 @@ abstract class xhtmlPage
 	protected $body;
  	protected $nav;
  	protected $content;
+    protected $currentSiteSection;
  	protected $smartyConfig;
  	protected $urlFingerprint;
     protected $smarty;
@@ -230,6 +231,17 @@ abstract class xhtmlPage
 	{
 		return $this->urlFingerprint;
 	}
+
+    public function getSiteSection()
+    {
+        if(empty($this->currentSiteSection))
+        {
+            $navString = $_SERVER['REQUEST_URI'];
+            $parts = explode('/', $navString);
+            $this->currentSiteSection = $parts[1];
+        }
+        return $this->currentSiteSection;
+    }
 
 	public function addStyleSheet($sheet,$index="")
 	{
