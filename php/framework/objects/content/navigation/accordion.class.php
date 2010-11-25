@@ -17,26 +17,26 @@ class Accordion extends NavigationObject
 	
 	public function __toString()
 	{
-		$content = '			
+		$content = '
 		<dl class="accordion contentNav">';
-		
+
 		foreach($this->sections as $title => $section)
 		{
-			$content .= '			
+			$content .= '
 			<dt>'.$title.'</dt>
 				<dd>
 					';
-					
+
 				$sectionContent = $section->getContent();
 			$content .= (!empty($sectionContent))?$section:'&nbsp;';
-			
+
 			$content .= '
 				</dd>';
 		}
-		
+
 		$content .= '
 		</dl>';
-		
+
 		return $content;
 	}
 }

@@ -22,6 +22,11 @@ class NavigationObject extends ContentObject
 	{
 		return $this->sections[$title];
 	}
+
+    public function getSections()
+    {
+        return $this->sections;
+    }
 	
 	public function addSectionContent($title,$content)
 	{
