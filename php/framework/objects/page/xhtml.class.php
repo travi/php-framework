@@ -179,17 +179,7 @@ abstract class xhtmlPage
 
 	public function setSubNav($section)
 	{
-		if(is_array($section))
-		{
-			foreach($section as $part)
-				$this->setSubNav($part);
-		}
-		else if(is_object($section) && is_a($section,'ContentObject'))
-		{
-			$this->checkDependencies($section);
-			$this->nav['subNav'] .= $section;
-		}
-		else $this->nav['subNav'] .= $section;
+        $this->nav->addSection('subNav', $section);
 	}
 
 	public function addNavSection($title,$section)
