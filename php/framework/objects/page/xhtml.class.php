@@ -177,10 +177,25 @@ abstract class xhtmlPage
         return Spyc::YAMLLoad($file);
     }
 
+	public function setMainNav($section)
+	{
+        $this->nav->setSection('main', $section);
+	}
+
+    public function getMainNav()
+    {
+        return $this->nav->getSection('main');
+    }
+
 	public function setSubNav($section)
 	{
-        $this->nav->addSection('subNav', $section);
+        $this->nav->setSection('subNav', $section);
 	}
+
+    public function getSubNav()
+    {
+        return $this->nav->getSection('subNav');
+    }
 
 	public function addNavSection($title,$section)
 	{
@@ -194,16 +209,6 @@ abstract class xhtmlPage
 	public function getNavSection($title)
 	{
 		return $this->nav->getSection($title);
-	}
-	
-	public function getNavSectionContent($title)
-	{
-		return $this->nav->getSection($title)->getContent();
-	}
-	
-	public function getNavContentArray()
-	{
-		return $this->nav->getContentArray();
 	}
 
 	public function addNavItem($index, $item)

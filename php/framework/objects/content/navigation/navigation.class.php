@@ -12,22 +12,15 @@ class NavigationObject extends ContentObject
 	{
 		$this->sections[$title] = new NavSection($title,$content);
 	}
+
+    public function setSection($title,$content='')
+    {
+        $this->sections[$title] = $content;
+    }
 	
 	public function getSection($title)
 	{
 		return $this->sections[$title];
-	}
-	
-	public function getContentArray()
-	{
-		$content = array();
-		
-		foreach($this->sections as $section)
-		{
-			array_push($content,$section->getContent());
-		}
-				
-		return $content;
 	}
 	
 	public function addSectionContent($title,$content)
