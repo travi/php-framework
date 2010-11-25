@@ -188,6 +188,21 @@ abstract class xhtmlPage
         return $this->nav->getSection('main');
     }
 
+    public function setAdminNav($section)
+	{
+        if(is_string($section))
+        {
+            $section = $this->yaml2Array($section);
+        }
+        $this->nav->setSection('admin', $section);
+	}
+
+    public function getAdminNav()
+    {
+        return $this->nav->getSection('admin');
+    }
+
+
 	public function setSubNav($section)
 	{
         $this->nav->setSection('subNav', $section);
