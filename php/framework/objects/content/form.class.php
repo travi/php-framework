@@ -306,7 +306,6 @@ abstract class Input extends ContentObject implements Field
 	protected $type;					//type attribute for this field
 	protected $value;					//value attribute for this field
 	protected $class;					//class attribute for this field
-    protected $template;                //template file to be used when rendering
 
 	public function __construct($options)
 	{
@@ -358,14 +357,6 @@ abstract class Input extends ContentObject implements Field
 	{
 		return $this->validations;
 	}
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-    }
-    public function getTemplate()
-    {
-        return $this->template;
-    }
 }
 class TextInput extends Input
 {

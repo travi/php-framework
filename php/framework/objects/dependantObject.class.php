@@ -5,6 +5,7 @@ abstract class DependantObject
 	protected $styles = array();
 	protected $scripts = array();
 	protected $jsInits = array();
+    protected $template;                //template file to be used when rendering
 
     public function getStyles()
     {
@@ -31,6 +32,14 @@ abstract class DependantObject
 	{
 		array_push($this->jsInits,$init);
 	}
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+    public function getTemplate()
+    {
+        return $this->template;
+    }
 	
 	public function checkDependencies($object)
 	{
