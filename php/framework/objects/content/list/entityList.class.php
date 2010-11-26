@@ -29,6 +29,32 @@ class EntityList extends ContentObject
     public function addAction($text,$link,$confirmation="")
     {
 		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
+        if(!empty($confirmation))
+        {
+            $this->addJavaScript('jqueryUi');
+            $this->addJsInit('$("li.'.strtolower($text).'-item").click(function(){
+                                    $(this).dialog({
+                                        title:      "Are you sure?",
+                                        modal:      true,
+                                        resizable:  false,
+                                        buttons:    [
+                                            {
+                                                text:   "'.$text.'",
+                                                click:  function(){
+                                                            $(this).dialog("close");
+                                                        }
+                                            },
+                                            {
+                                                text:   "Cancel",
+                                                click:  function(){
+                                                            return false;
+                                                        }
+                                            }
+                                        ]
+                                    });
+                                    return false;
+                                });');
+        }
     }
     public function getActions()
     {

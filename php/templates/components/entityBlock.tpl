@@ -10,7 +10,7 @@
 		{foreach key=text item=details from=$primaryActions}
 			{if empty($item->activeActions[$text])}
 								<li class="{$text|lower}-item">
-								    <a class="item-action" href="{$details['link']}{$entity->getId()}"{if !empty($details['confirmation'])} onclick="if (confirm('{$entity->getPrependedRemovalConfirmation()}{$details['confirmation']}')) return true; else return false;"{/if}>
+								    <a class="item-action" href="{$details['link']}{$entity->getId()}">
                                         {$text}
                                     </a>
                                 </li>
