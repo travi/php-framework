@@ -41,7 +41,7 @@ abstract class DependantObject
         return $this->template;
     }
 	
-	public function checkDependencies($object)
+	protected function checkDependencies($object)
 	{
 		$jScripts = $object->getJavaScripts();
 		foreach($jScripts as $script)

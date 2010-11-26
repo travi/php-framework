@@ -202,7 +202,18 @@ class Form extends ContentObject
 		}
         return parent::getDependencies();
     }
-    public function getValidations()
+    protected function checkDependencies($fieldset)
+    {
+        foreach($fieldset->getFields() as $field)
+        {
+            if(is_a($field,'ContentObject'))
+            {
+                $fieldset->checkDependencies($field);
+            }
+        }
+        parent::checkDependencies($fieldset);
+    }
+    private function getValidations()
     {
 		$validations = $this->getInnerValidations();
 		$customValidations = $this->getCustomValidations();
@@ -427,9 +438,11 @@ class DateInput extends Input
 		$this->type = "text";
 		$this->class = "textInput datepicker";
 		$this->addJavaScript('jqueryUi');
-		$this->addJsInit("$('input.datepicker').datepicker({ dateFormat:'yy-mm-dd',"
-			."buttonImage:'/resources/shared/img/calendar.gif',"
-			."buttonImageOnly: true, showOn: 'both' });");
+		$this->addJsInit("$('input.datepicker').datepicker({
+		                                            dateFormat:'yy-mm-dd',
+		                                            buttonImage:'/resources/shared/img/calendar.gif',
+		                                            buttonImageOnly: true, showOn: 'both'
+                                                });");
 	}
 }
 class TimeInput extends Input
