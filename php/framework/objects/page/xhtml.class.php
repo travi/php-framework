@@ -19,7 +19,7 @@ abstract class xhtmlPage
 	protected $feeds = array();
 	protected $body;
  	protected $nav;
- 	protected $content;
+ 	protected $content = array();
     protected $currentSiteSection;
  	protected $smartyConfig;
  	protected $urlFingerprint;
@@ -73,19 +73,19 @@ abstract class xhtmlPage
 		$this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
  	}
 
- 	public function addToContent($content)
+ 	public function addToResponse($desc, $content)
 	{
-		if(is_array($content))
-		{
-			foreach($content as $part)
-				$this->addToContent($part);
-		}
-		else if(is_object($content) && is_a($content,'ContentObject'))
-		{
-			$this->content .= $content;
-			$this->checkDependencies($content);
-		}
-		else $this->content .= $content;
+//		if(is_array($content))
+//		{
+//			foreach($content as $part)
+//				$this->addToContent($part);
+//		}
+//		else if(is_object($content) && is_a($content,'ContentObject'))
+//		{
+			$this->content[$desc] = $content;
+//			$this->checkDependencies($content);
+//		}
+//		else $this->content .= $content;
 	}
 
     public function setContent($content)
