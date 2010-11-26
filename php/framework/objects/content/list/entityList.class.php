@@ -33,7 +33,7 @@ class EntityList extends ContentObject
         {
             $this->addJavaScript('jqueryUi');
             $this->addJsInit('$("li.'.strtolower($text).'-item").click(function(){
-                                    $(this).dialog({
+                                    $("<div>'.$confirmation.'</div>").dialog({
                                         title:      "Are you sure?",
                                         modal:      true,
                                         resizable:  false,
