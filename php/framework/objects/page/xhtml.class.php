@@ -253,7 +253,14 @@ abstract class xhtmlPage
         {
             $navString = $_SERVER['REQUEST_URI'];
             $parts = explode('/', $navString);
-            $this->currentSiteSection = $parts[1];
+            if($parts[1] === 'admin')
+            {
+                $this->currentSiteSection = $parts[2];
+            }
+            else
+            {
+                $this->currentSiteSection = $parts[1];
+            }
         }
         return $this->currentSiteSection;
     }
