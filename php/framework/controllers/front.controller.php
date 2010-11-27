@@ -23,7 +23,7 @@ class FrontController
 	private $Request;	//Object for abstracting uri processes, and variables like browser etc
 	private $Response;	//Object for building the list of content that will be sent as the response
 	
-	private $View;		//Object containining template, css, js, etc information
+	private $View;		//Object containing template, css, js, etc information (Is this needed? $Response should handle this information. Maybe it is an attribute of $Response...
 	
 	public function __construct()
 	{
@@ -63,6 +63,11 @@ class FrontController
 		// Lets look at the array of items we have:
 		print_r($parts);
 	}
+
+    private function requestMethod()
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
  
 	public function sendResponse()
 	{
