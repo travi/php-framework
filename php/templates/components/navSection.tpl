@@ -5,7 +5,6 @@
 {/if}
 {if is_array($sectionContent)}{* && empty($section->getContent()[0])*}
 							<ul class="bulletNav">
-
 			{foreach key=key item=value from=$sectionContent}
 				{if !is_array($value)}
 								<li><a href="{$value}">{$key}</a></li>
