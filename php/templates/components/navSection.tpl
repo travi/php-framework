@@ -7,7 +7,9 @@
 							<ul class="bulletNav">
 			{foreach key=key item=value from=$sectionContent}
 				{if !is_array($value)}
+				    {if $key ne "Admin" && $key ne "Admin Home"}
 								<li><a href="{$value}">{$key}</a></li>
+                    {/if}
 				{elseif !empty($value['link'])}test
 				{*{*}
 					{*if($key != "Admin" && $key != "Admin Home")*}
