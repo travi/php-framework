@@ -37,7 +37,7 @@
 					{*$this->checkDependencies($contentPiece);*}
 				{*}*}
 			{*}*}
-		{*}else{*}
+{*}else{*}
 			{*$content .= $this->sectionContent;*}
 			{*if(is_object($this->sectionContent) && is_a($this->sectionContent,'ContentObject'))*}
 			{*{*}
