@@ -28,8 +28,6 @@
                                 </li>
 				{/if}
 			{/foreach}
-
-			{*$content .= '*}
 							</ul>
 {*}else if(is_array($this->sectionContent)){*}
 			{*foreach($this->sectionContent as $contentPiece)*}
