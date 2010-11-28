@@ -17,6 +17,6 @@
 {assign var="subNav" value=$page->getSubNav()}
 {if !empty($subNav)}
             <ul class="sideNav" id="subNav">
-                {include file='subNav.tpl' nav=$subNav sectionTitle='test'}
+                {include file='subNav.tpl' nav=$subNav sectionTitle=$page->getSiteSection()}
             </ul>
 {/if}
