@@ -1,11 +1,15 @@
-{*if(is_array($this->sectionContent) && empty($this->sectionContent[0])){*}
+{if is_a($section, 'NavSection')}
+    {assign var=sectionContent value=$section->getContent()}
+{else}
+    {assign var=sectionContent value=$section}
+{/if}
+{if is_array($sectionContent)}{* && empty($section->getContent()[0])*}
 							<ul class="bulletNav">
 
-			{foreach key=key item=value from=$section->getContent()}
+			{foreach key=key item=value from=$sectionContent}
 				{if !is_array($value)}
 								<li><a href="{$value}">{$key}</a></li>
-				{/if}
-				{*else if(!empty($value['link']))*}
+				{elseif !empty($value['link'])}test
 				{*{*}
 					{*if($key != "Admin" && $key != "Admin Home")*}
 					{*{*}
@@ -13,27 +17,21 @@
 								{*<li><a href="'.$value['link'].'">'.$key.'</a></li>';*}
 					{*}*}
 				{*}*}
-				{*else*}
-				{*{*}
-					{*$content .= '*}
-							{*<li>'.$key.'*}
-								{*<ul>';*}
+				{else}
+							    <li>{$key}
+								    <ul>
 
-					{*foreach($value as $text => $link)*}
-					{*{*}
-						{*$content .= '*}
-									{*<li><a href="'.$link.'">'.$text.'</a></li>';*}
-					{*}*}
-
-					{*$content .= '*}
-								{*</ul>*}
-							{*</li>';*}
-				{*}*}
-			{*}*}{/foreach}
+					{foreach key=text item=link from=$value}
+									    <li><a href="{$link}">{$text}</a></li>
+					{/foreach}
+                                    </ul>
+                                </li>
+				{/if}
+			{/foreach}
 
 			{*$content .= '*}
 							</ul>
-		{*}else if(is_array($this->sectionContent)){*}
+{*}else if(is_array($this->sectionContent)){*}
 			{*foreach($this->sectionContent as $contentPiece)*}
 			{*{*}
 				{*$content .= $contentPiece;*}
@@ -48,4 +46,4 @@
 			{*{*}
 				{*$this->checkDependencies($this->sectionContent);*}
 			{*}*}
-		
+{/if}
