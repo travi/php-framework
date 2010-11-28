@@ -7,7 +7,7 @@
 							<ul class="bulletNav">
 			{foreach key=key item=value from=$sectionContent}
 				{if !is_array($value)}
-				    {if $key ne "Admin" && $key ne "Admin Home"}
+				    {if $key ne "Admin" && $key ne "Admin Home"}{*TODO: This filter should probably be moved from teh view to the controller *}
 								<li><a href="{$value}">{$key}</a></li>
                     {/if}
 				{elseif !empty($value['link'])}test
