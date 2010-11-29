@@ -93,12 +93,13 @@ abstract class xhtmlPage
         $this->content = $content;
     }
 
-	public function addContentSection($content="")
-	{
-		$this->addToContent('</div><div class="content">');
-		if(!empty($content))
-			$this->addToContent($content);
-	}
+    //TODO: maybe use this (once modified to work with new flow) instead of arrays for adding a section
+//	public function addContentSection($content="")
+//	{
+//		$this->addToContent('</div><div class="content">');
+//		if(!empty($content))
+//			$this->addToContent($content);
+//	}
 	
 	public function getContent()
 	{
@@ -114,6 +115,16 @@ abstract class xhtmlPage
                 if(is_object($component) && is_a($component,'DependantObject'))
                 {
                     $this->addDependencies($component->getDependencies());
+                }
+                else if(is_array($component))//TODO: need to make this DRY
+                {
+                    foreach($component as $innerComponent)
+                    {
+                        if(is_object($innerComponent) && is_a($innerComponent,'DependantObject'))
+                        {
+                            $this->addDependencies($innerComponent->getDependencies());
+                        }
+                    }
                 }
             }
         }
