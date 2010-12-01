@@ -106,9 +106,6 @@ select.ui-state-error{
 }
 .submitButton
 {
-	color: 			#000;
-	background: 	#C80000;
-	border: 		2px #cc0000 outset;
 	margin-left: 	94px;
 	clear: 			both;
 	display:		block;

@@ -563,8 +563,6 @@ class RichTextArea extends TextArea
 }
 class SubmitButton extends Input
 {
-//    TODO: use jQuery UI button styling
-
 	protected $confirmation;
 
 	public function __construct($options)
@@ -579,6 +577,8 @@ class SubmitButton extends Input
 			$this->class = "submitButton";
 		$this->value = $options['label'];
         $this->setTemplate('components/form/input.tpl');
+        $this->addJavaScript('jqueryUi');
+        $this->addJsInit('$("input[type=submit]").button()');
 	}
 	//TODO need to replace this technique using UI dialog
 	public function setConfirmation($confirmation)
@@ -600,8 +600,6 @@ class SubmitButton extends Input
 
 class Button
 {
-//    TODO: use jQuery UI button styling
-
 	protected $type;
 	protected $class;
 	protected $value;
@@ -613,6 +611,8 @@ class Button
 		$this->name = "Submit";
 		$this->class = $class;
 		$this->value = $value;
+        $this->addJavaScript('jqueryUi');
+        $this->addJsInit('$("button").button()');
 	}
 	
 	public function getValidations()
