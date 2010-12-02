@@ -38,3 +38,7 @@ a.add-item{
 	border: 			1px solid white;
 	font-weight: 		bold;
 }
+.ui-widget{
+    font-size:          0.9em;
+}
+
