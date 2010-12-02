@@ -41,4 +41,7 @@ a.add-item{
 .ui-widget{
     font-size:          0.9em;
 }
+.ui-dialog .ui-dialog-titlebar-close{
+    display:            none;
+}
 

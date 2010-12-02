@@ -32,26 +32,23 @@ class EntityList extends ContentObject
         if(!empty($confirmation))
         {
             $this->addJavaScript('jqueryUi');
-            $this->addJsInit('$("li.'.strtolower($text).'-item").click(function(){
-                                    $("<div>'.$confirmation.'</div>").dialog({
-                                        title:      "Are you sure?",
-                                        modal:      true,
-                                        resizable:  false,
-                                        buttons:    [
-                                            {
-                                                text:   "'.$text.'",
-                                                click:  function(){
-                                                            $(this).dialog("close");
-                                                        }
-                                            },
-                                            {
-                                                text:   "Cancel",
-                                                click:  function(){
-                                                            return false;
-                                                        }
-                                            }
-                                        ]
+            $this->addJsInit('$("body").append("<div id=\"confirmation\" title=\"Are you sure?\">'.$confirmation.'</div>");
+                                $("#confirmation").dialog({
+                                    autoOpen:   false,
+                                    modal:      true,
+                                    resizable:  false
+                                });
+                                $("li.'.strtolower($text).'-item").click(function(){
+                                    confirmActionHref = $(this).find("a").attr("href");
+                                    $("#confirmation").dialog("option", "buttons", {
+                                        "'.$text.'":function(){
+                                                        window.location.href = confirmActionHref;
+                                                    },
+                                        "Cancel":   function(){
+                                                        $(this).dialog("close");
+                                                    }
                                     });
+                                    $("#confirmation").dialog("open");
                                     return false;
                                 });');
         }
