@@ -548,17 +548,15 @@ class RichTextArea extends TextArea
 		parent::__construct($options);
 		$this->class = "textInput richEditor";
 		$this->addJavaScript('wymEditor');
-		$this->addJsInit("$('textarea.richEditor').wymeditor({skin:'silver',updateSelector:'#Submit'});");
-	}
-	public function __toString()
-	{
-		return '
-						<label for="'.$this->name.'">'.$this->label.'</label>
-						<div class="formBlock">
-							<textarea name="'.$this->name.'" id="'.$this->name.'" class="'.$this->class.'">
-								'.htmlentities($this->value).'
-							</textarea>
-						</div>';
+        $this->addJavaScript('wymEditor-fullScreen');
+		$this->addJsInit("$('textarea.richEditor').wymeditor({
+                                                        skin:'silver',
+                                                        updateSelector:'#Submit',
+                                                        postInit: function(wym){
+                                                            wym.fullscreen();
+                                                        }
+                                                    });");
+        $this->setTemplate('components/form/richTextArea.tpl');
 	}
 }
 class SubmitButton extends Input

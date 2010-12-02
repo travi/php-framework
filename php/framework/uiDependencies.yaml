@@ -68,6 +68,10 @@ wymEditor:
   local: "/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.js"
   jsDependencies:
     - "jquery"
+wymEditor-fullScreen:
+  local: "/resources/shared/js/jquery/plugins/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js"
+  jsDependencies:
+    - "wymEditor"
 
 #=====Third Party JavaScript=====
 reflection:

@@ -1,1 +1,1 @@
-<input type="{$field->getType()}" name="{$field->getName()}" id="{$field->getName()}" value="{$field->getValue()}"{assign var='class' value=$field->getClass()}{if !empty($class)} class="{$class}{/if}"/>
+<input type="{$field->getType()}" name="{$field->getName()}" id="{$field->getName()}" value="{$field->getValue()}"{assign var='class' value=$field->getClass()}{if !empty($class)} class="{$class}"{/if}/>
