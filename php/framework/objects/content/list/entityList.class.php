@@ -13,6 +13,15 @@ class EntityList extends ContentObject
 	public function __construct()
 	{
 		$this->addStyleSheet('/resources/shared/css/travi.entities.css');
+        $this->addJavaScript('jquery');
+        $this->addJsInit('$("li.remove-item form")
+                                .hide()
+                                .after("<a class=\'item-action\' href=\'nothing\'>Remove<\/a>")
+                                    .next()
+                                    .click(function(){
+                                        $(this).prev("form").submit();
+                                        return false;
+                                    });');
 	}
 	public function setEdit($script,$confirmation="")
 	{
@@ -32,17 +41,17 @@ class EntityList extends ContentObject
         if(!empty($confirmation))
         {
             $this->addJavaScript('jqueryUi');
-            $this->addJsInit('$("body").append("<div id=\"confirmation\" title=\"Are you sure?\">'.$confirmation.'</div>");
+            $this->addJsInit('$("body").append("<div id=\'confirmation\' title=\'Are you sure?\'>'.$confirmation.'<\/div>");
                                 $("#confirmation").dialog({
                                     autoOpen:   false,
                                     modal:      true,
                                     resizable:  false
                                 });
                                 $("li.'.strtolower($text).'-item").click(function(){
-                                    confirmActionHref = $(this).find("a").attr("href");
+                                    $clickedLink = $(this).find("a");
                                     $("#confirmation").dialog("option", "buttons", {
                                         "'.$text.'":function(){
-                                                        window.location.href = confirmActionHref;
+                                                        $clickedLink.prev("form").submit();
                                                     },
                                         "Cancel":   function(){
                                                         $(this).dialog("close");
@@ -50,7 +59,8 @@ class EntityList extends ContentObject
                                     });
                                     $("#confirmation").dialog("open");
                                     return false;
-                                });');
+                                }).find("a")
+                                .unbind("click");');
         }
     }
     public function getActions()

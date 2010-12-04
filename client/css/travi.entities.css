@@ -1,5 +1,5 @@
 /*ENTITY LIST*/
-ul.actions li{
+ul.actions li, ul.actions form{
 	display: inline;
 }
 /*ul.actions li a.item-action{

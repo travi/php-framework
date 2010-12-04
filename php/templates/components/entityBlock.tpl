@@ -10,9 +10,15 @@
 		{foreach key=text item=details from=$primaryActions}
 			{if empty($item->activeActions[$text])}
 								<li class="{$text|lower}-item">
+                                {if $text eq 'Remove'}
+                                    <form action="index.php" class="item-action">
+                                        <input type="submit" value="Remove" />
+								    </form>
+                                {else}
 								    <a class="item-action" href="{$details['link']}{$entity->getId()}">
                                         {$text}
                                     </a>
+                                {/if}
                                 </li>
 			{/if}
 		{/foreach}
