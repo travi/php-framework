@@ -4,22 +4,11 @@
  * By Matt Travi
  */
 
-if(empty($_POST['Submit']))
+if($_SERVER['REQUEST_METHOD'] === 'GET')
 {
-	list($content,$title) = content();
-	if(isset($page) && isset($content))
-	{
-		$page->setTitle($title);
-		if($title == "Results")
-		{
-			list($status,$msg,$redirectTo) = $content;
-			$page->redirect($status,$msg,$redirectTo);
-		}
-		else
-			$page->addToContent($content);
-	}
+	content();
 }
-else
+else if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 	list($status,$msg,$redirectTo) = process();
 	$page->redirect($status,$msg,$redirectTo);

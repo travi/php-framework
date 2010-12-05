@@ -16,7 +16,7 @@ class EntityList extends ContentObject
         $this->addJavaScript('jquery');
         $this->addJsInit('$("li.remove-item form")
                                 .hide()
-                                .after("<a class=\'item-action\' href=\'nothing\'>Remove<\/a>")
+                                .after("<a class=\'item-action\' href=\'#\'>Remove<\/a>")
                                     .next()
                                     .click(function(){
                                         $(this).prev("form").submit();
@@ -47,11 +47,12 @@ class EntityList extends ContentObject
                                     modal:      true,
                                     resizable:  false
                                 });
-                                $("li.'.strtolower($text).'-item").click(function(){
-                                    $clickedLink = $(this).find("a");
+                                $("form.item-action").submit(function(){
+                                    $form = $(this);
                                     $("#confirmation").dialog("option", "buttons", {
                                         "'.$text.'":function(){
-                                                        $clickedLink.prev("form").submit();
+                                                        $(this).dialog("close");
+                                                        $form.unbind("submit").submit();
                                                     },
                                         "Cancel":   function(){
                                                         $(this).dialog("close");
@@ -59,8 +60,7 @@ class EntityList extends ContentObject
                                     });
                                     $("#confirmation").dialog("open");
                                     return false;
-                                }).find("a")
-                                .unbind("click");');
+                                });');
         }
     }
     public function getActions()

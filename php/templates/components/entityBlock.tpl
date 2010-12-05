@@ -11,7 +11,9 @@
 			{if empty($item->activeActions[$text])}
 								<li class="{$text|lower}-item">
                                 {if $text eq 'Remove'}
-                                    <form action="index.php" class="item-action">
+                                    <form action="index.php" class="item-action" method="post">
+                                        <input type="hidden" name="id" value="{$entity->getId()}" />
+                                        <input type="hidden" name="Submit" value="Remove" />
                                         <input type="submit" value="Remove" />
 								    </form>
                                 {else}
