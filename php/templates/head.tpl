@@ -11,7 +11,7 @@
 {foreach item=alt from=$page->getAltStyles()}
 		<link  href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" rel="alternate stylesheet" type="text/css" media="screen" />
 {/foreach}
-{$page->getWpHead()}
+{*{$page->getWpHead()}*}
 {foreach item=style from=$page->getStylesheets()}
 		<link  href="{$page->getProperFile($style)}?{$page->getUrlFingerprint()}" rel="stylesheet" type="text/css" media="screen" />
 {/foreach}
