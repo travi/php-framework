@@ -5,8 +5,8 @@
 {foreach item=tag from=$page->getMetatags()}
 		{$tag}
 {/foreach}
-{foreach item=feed from=$page->getFeeds()}
-		<link rel="alternate" type="application/rss+xml" title="RSS" href="{$feed}" />
+{foreach item=link from=$page->getLinkTags()}
+		<link rel="{$link['rel']}"{if !empty($link['type'])} type="{$link['type']}"{/if}{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
 {foreach item=alt from=$page->getAltStyles()}
 		<link  href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" rel="alternate stylesheet" type="text/css" media="screen" />

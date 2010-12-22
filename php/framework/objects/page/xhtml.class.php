@@ -16,7 +16,7 @@ abstract class xhtmlPage
 	protected $altStyles = array();
 	protected $scripts = array();
 	protected $jsInits = array();
-	protected $feeds = array();
+    protected $links = array();
 	protected $body;
  	protected $nav;
  	protected $content = array();
@@ -153,11 +153,18 @@ abstract class xhtmlPage
                 $this->addStyleSheet($style);
             }
         }
+        if(!empty($dependencies['links']))
+        {
+            foreach($dependencies['links'] as $link)
+            {
+                $this->addLinkTag($link['link'], $link['title'], $link['type'], $link['rel']);
+            }
+        }
         if(!empty($dependencies['feeds']))
         {
             foreach($dependencies['feeds'] as $feed)
             {
-                $this->addFeed($feed);
+                $this->addFeed($feed['link'], $feed['title']);
             }
         }
     }
@@ -371,6 +378,42 @@ abstract class xhtmlPage
 	{
 		return $this->jsInits;
 	}
+
+    public function addLinkTag($link,$title,$type,$rel)
+    {
+        array_push($this->links, array( 'link'  => $link,
+                                        'title' => $title,
+                                        'type'  => $type,
+                                        'rel'   => $rel));
+    }
+
+    public function getLinkTags()
+    {
+        return $this->links;
+    }
+
+	public function addFeed($feed, $title='RSS')
+	{
+        $this->addLinkTag($feed, $title, 'application/rss+xml', 'alternate');
+	}
+
+	public function addMetaTag($tag)
+	{
+		array_push($this->metatags,$tag);
+	}
+
+	public function getMetaTags()
+	{
+		return $this->metatags;
+	}
+
+	public function getWpHead()
+	{
+		if(function_exists('wp_head') && strpos($_SERVER['REQUEST_URI'], 'blog'))
+		{
+			wp_head();
+		}
+	}
 	
 	public function getProperFile($file)
 	{
@@ -403,34 +446,6 @@ abstract class xhtmlPage
 			})();
 		
 		</script>";
-		}
-	}
-
-	public function addFeed($feed)
-	{
-		array_push($this->feeds,$feed);
-	}
-	
-	public function getFeeds()
-	{
-		return $this->feeds;
-	}
-	
-	public function addMetaTag($tag)
-	{
-		array_push($this->metatags,$tag);
-	}
-	
-	public function getMetaTags()
-	{
-		return $this->metatags;
-	}
-	
-	public function getWpHead()
-	{
-		if(function_exists('wp_head') && strpos($_SERVER['REQUEST_URI'], 'blog'))
-		{
-			wp_head();
 		}
 	}
 
