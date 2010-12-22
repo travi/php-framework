@@ -157,7 +157,7 @@ abstract class xhtmlPage
         {
             foreach($dependencies['links'] as $link)
             {
-                $this->addLinkTag($link['link'], $link['title'], $link['type'], $link['rel']);
+                $this->addLinkTag($link['link'], $link['rel'], $link['title'], $link['type']);
             }
         }
         if(!empty($dependencies['feeds']))
@@ -379,7 +379,7 @@ abstract class xhtmlPage
 		return $this->jsInits;
 	}
 
-    public function addLinkTag($link,$title,$type,$rel)
+    public function addLinkTag($link,$rel,$title='',$type='')
     {
         array_push($this->links, array( 'link'  => $link,
                                         'title' => $title,
