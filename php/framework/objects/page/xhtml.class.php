@@ -406,14 +406,6 @@ abstract class xhtmlPage
 	{
 		return $this->metatags;
 	}
-
-	public function getWpHead()
-	{
-		if(function_exists('wp_head') && strpos($_SERVER['REQUEST_URI'], 'blog'))
-		{
-			wp_head();
-		}
-	}
 	
 	public function getProperFile($file)
 	{
