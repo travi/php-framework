@@ -6,16 +6,16 @@
 		{$tag}
 {/foreach}
 {foreach item=link from=$page->getLinkTags()}
-		<link rel="{$link['rel']}"{if !empty($link['type'])} type="{$link['type']}"{/if}{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
+		<link   {if !empty($link['type'])}type="{$link['type']}" {/if}rel="{$link['rel']}"{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
 {foreach item=alt from=$page->getAltStyles()}
-		<link  href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" rel="alternate stylesheet" type="text/css" media="screen" />
+		<link   type="text/css" rel="alternate stylesheet" media="screen" href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" />
 {/foreach}
 {foreach item=style from=$page->getStylesheets()}
-		<link  href="{$page->getProperFile($style)}?{$page->getUrlFingerprint()}" rel="stylesheet" type="text/css" media="screen" />
+		<link   type="text/css" rel="stylesheet" media="screen" href="{$page->getProperFile($style)}?{$page->getUrlFingerprint()}" />
 {/foreach}
 {foreach item=script from=$page->getScripts()}
-		<script src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" type="text/javascript" > </script>
+		<script type="text/javascript" src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" > </script>
 {/foreach}
 {include file='jsInit.tpl'}
 {$page->goog_analytics()}

@@ -394,7 +394,7 @@ abstract class xhtmlPage
 
 	public function addFeed($feed, $title='RSS')
 	{
-        $this->addLinkTag($feed, $title, 'application/rss+xml', 'alternate');
+        $this->addLinkTag($feed, 'alternate', $title, 'application/rss+xml');
 	}
 
 	public function addMetaTag($tag)
