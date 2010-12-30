@@ -16,7 +16,7 @@
 	
     <target name="js.lint.test">
         <jslint options="${jslint.goodparts}" haltonfailure="${not.on.teamcity}">
-            <predef>${jslint.predef.jquery},${jslint.predef.qunit}</predef>            
+            <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            
             <formatter type="plain" />
             <formatter type="xml" destfile="jslint.xml" />
             <fileset dir="../client/js/" >
@@ -32,6 +32,9 @@
             	<!-- My Plug-ins -->
             	<include name="jquery/plugins/formAlign/*.js" />
 			</fileset>
+            <fileset dir="../php/framework/test/js/tests/">
+				<include name="**/*.qunit" />
+            </fileset>
         </jslint>
 		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
     </target>

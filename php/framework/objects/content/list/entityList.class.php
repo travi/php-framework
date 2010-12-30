@@ -17,14 +17,7 @@ class EntityList extends ContentObject
 	{
 		$this->addStyleSheet('/resources/shared/css/travi.entities.css');
         $this->addJavaScript('jquery');
-        $this->addJsInit('$("li.remove-item form")
-                                .hide()
-                                .after("<a class=\'item-action\' href=\'#\'>Remove<\/a>")
-                                    .next()
-                                    .click(function(){
-                                        $(this).prev("form").submit();
-                                        return false;
-                                    });');
+        $this->addJavaScript('/resources/shared/js/list/entityList.js');
 	}
 	public function setEdit($script,$confirmation="")
 	{
@@ -44,26 +37,8 @@ class EntityList extends ContentObject
         if(!empty($confirmation))
         {
             $this->addJavaScript('jqueryUi');
-            $this->addJsInit('$("body").append("<div id=\'confirmation\' title=\'Are you sure?\'>'.$confirmation.'<\/div>");
-                                $("#confirmation").dialog({
-                                    autoOpen:   false,
-                                    modal:      true,
-                                    resizable:  false
-                                });
-                                $("form.item-action").submit(function(){
-                                    $form = $(this);
-                                    $("#confirmation").dialog("option", "buttons", {
-                                        "'.$text.'":function(){
-                                                        $(this).dialog("close");
-                                                        $form.unbind("submit").submit();
-                                                    },
-                                        "Cancel":   function(){
-                                                        $(this).dialog("close");
-                                                    }
-                                    });
-                                    $("#confirmation").dialog("open");
-                                    return false;
-                                });');
+            $this->addJsInit('travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");
+                                travi.framework.entityList.setButtonText("'.$text.'");');
         }
     }
     public function getActions()
