@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 
-module("'Remove' POST formatting", {
+module("POST handling for 'Remove' action", {
 	setup: function () {
 		$('body').append('<div id="scratch">');
         $('#scratch')
@@ -40,6 +40,9 @@ test("Form conversion to link", function () {
     ok($('form').is(':not(:visible)'), "form no longer visible");
     ok($("li.remove-item a.item-action").is(':visible'), "link visible");
     same($('#submitVerify').length, 1, "click submits form");
+});
+test("Ajax submittion", function () {
+    ok(false, 'missing functionality');
 });
 module("Remove Confirmation", {
 	setup: function () {
@@ -94,4 +97,32 @@ test("confirmation message", function () {
     same($('#confirmation').text(), 'Are you sure you wish to REMOVE this announcement?',
             "Confirmation message correct");
     same($('#confirmation').dialog('option', 'title'), 'Are you sure?', "Title text correct");
+});
+module("Paging", {
+	setup: function () {
+		$('body').append('<div id="scratch">');
+        $('#scratch')
+            .append('<li class="remove-item">' +
+                        '<form action="index.php" class="item-action" method="post">' +
+                            '<input type="hidden" name="id" value="45" />' +
+                            '<input type="hidden" name="Submit" value="Remove" />' +
+                            '<input type="submit" value="Remove" />' +
+                        '</form>' +
+                    '</li>');
+        travi.framework.entityList.init();
+    },
+    teardown: function () {
+        $('#scratch').remove();
+        $('#confirmation').dialog('destroy').remove();
+	}
+});
+test("Ajax load", function () {
+    ok(false, 'missing functionality');
+    ok(false, 'markup built properly from template');
+});
+test("'back' link visibility", function () {
+    ok(false, 'missing functionality');
+});
+test("'forward' link visibility", function () {
+    ok(false, 'missing functionality');
 });
