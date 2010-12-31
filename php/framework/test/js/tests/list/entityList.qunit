@@ -10,13 +10,15 @@ module("POST handling for 'Remove' action", {
 	setup: function () {
 		$('body').append('<div id="scratch">');
         $('#scratch')
-            .append('<li class="remove-item">' +
-                        '<form action="index.php" class="item-action" method="post">' +
-                            '<input type="hidden" name="id" value="45" />' +
-                            '<input type="hidden" name="Submit" value="Remove" />' +
-                            '<input type="submit" value="Remove" />' +
-                        '</form>' +
-                    '</li>');
+            .append('<ol class="entityList">' +
+                        '<li class="remove-item">' +
+                            '<form action="index.php" class="item-action" method="post">' +
+                                '<input type="hidden" name="id" value="45" />' +
+                                '<input type="hidden" name="Submit" value="Remove" />' +
+                                '<input type="submit" value="Remove" />' +
+                            '</form>' +
+                        '</li>' +
+                    '</ol>');
         travi.framework.entityList.init();
     },
     teardown: function () {
@@ -48,13 +50,15 @@ module("Remove Confirmation", {
 	setup: function () {
 		$('body').append('<div id="scratch">');
         $('#scratch')
-            .append('<li class="remove-item">' +
-                        '<form action="index.php" class="item-action" method="post">' +
-                            '<input type="hidden" name="id" value="45" />' +
-                            '<input type="hidden" name="Submit" value="Remove" />' +
-                            '<input type="submit" value="Remove" />' +
-                        '</form>' +
-                    '</li>');
+            .append('<ol class="entityList">' +
+                        '<li class="remove-item">' +
+                            '<form action="index.php" class="item-action" method="post">' +
+                                '<input type="hidden" name="id" value="45" />' +
+                                '<input type="hidden" name="Submit" value="Remove" />' +
+                                '<input type="submit" value="Remove" />' +
+                            '</form>' +
+                        '</li>' +
+                    '</ol>');
         travi.framework.entityList.init();
     },
     teardown: function () {
@@ -102,13 +106,15 @@ module("Paging", {
 	setup: function () {
 		$('body').append('<div id="scratch">');
         $('#scratch')
-            .append('<li class="remove-item">' +
-                        '<form action="index.php" class="item-action" method="post">' +
-                            '<input type="hidden" name="id" value="45" />' +
-                            '<input type="hidden" name="Submit" value="Remove" />' +
-                            '<input type="submit" value="Remove" />' +
-                        '</form>' +
-                    '</li>');
+            .append('<ol class="entityList">' +
+                        '<li class="remove-item">' +
+                            '<form action="index.php" class="item-action" method="post">' +
+                                '<input type="hidden" name="id" value="45" />' +
+                                '<input type="hidden" name="Submit" value="Remove" />' +
+                                '<input type="submit" value="Remove" />' +
+                            '</form>' +
+                        '</li>' +
+                    '</ol>');
         travi.framework.entityList.init();
     },
     teardown: function () {
