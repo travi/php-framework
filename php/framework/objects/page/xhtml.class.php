@@ -13,6 +13,7 @@ abstract class xhtmlPage
     protected $pageTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
 	protected $clientTemplates = array();
+    protected $clientDependencies;
     protected $stylesheets = array();
 	protected $altStyles = array();
 	protected $scripts = array();
@@ -25,6 +26,11 @@ abstract class xhtmlPage
  	protected $smartyConfig;
  	protected $urlFingerprint;
     protected $smarty;
+
+    protected function loadClientDependencies()
+    {
+        $this->clientDependencies = new clientDeps();
+    }
 
     public function setLayoutTemplate($template)
     {
@@ -335,19 +341,26 @@ abstract class xhtmlPage
 	public function addJavaScript($script)
 	{
     	global $uiDeps;
+
+        if(!isset($this->clientDependencies))
+        {
+            $this->loadClientDependencies();
+        }
+
+        $dependencies = $this->clientDependencies->getDependenciesFor($script);
     	
-		if(!empty($uiDeps[$script]))
+		if(!empty($dependencies))
 		{
-			if(!empty($uiDeps[$script]['jsDependencies']))
+			if(!empty($dependencies['jsDependencies']))
 			{
-				foreach($uiDeps[$script]['jsDependencies'] as $dependency)
+				foreach($dependencies['jsDependencies'] as $dependency)
 				{
 					$this->addJavaScript($dependency);
 				}
 			}
-			if(!empty($uiDeps[$script]['cssDependencies']))
+			if(!empty($dependencies['cssDependencies']))
 			{
-				foreach($uiDeps[$script]['cssDependencies'] as $dependency)
+				foreach($dependencies['cssDependencies'] as $dependency)
 				{
 					if($dependency === 'jqueryUiTheme')
 					{
@@ -363,9 +376,9 @@ abstract class xhtmlPage
 					}
 				}
 			}
-			if(!empty($uiDeps[$script]['local']))
+			if(!empty($dependencies['local']))
 			{
-				$script = $uiDeps[$script]['local'];
+				$script = $dependencies['local'];
 			}
 			else echo 'local is empty!'; //TODO: handle properly
 		}

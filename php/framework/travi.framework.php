@@ -35,6 +35,9 @@ require_once(FRAMEWORK_PATH.'../thirdparty/spyc/spyc.php');
   
  require_once('objects/dependantObject.class.php');
 
+
+ importFrameworkObjects('src/');
+
  //Page Objects
  importFrameworkObjects('objects/page/');
  importSiteObjects('page/');

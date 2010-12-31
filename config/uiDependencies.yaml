@@ -12,7 +12,7 @@ gallery:
 entityList:
   local: "/resources/shared/js/list/entityList.js"
   jsDependencies:
-    - "jquery"
+    - "jqueryUi"
   cssDependencies:
     - "/resources/shared/css/travi.entities.css"
 
@@ -20,72 +20,52 @@ entityList:
 jquery:
   local: "/resources/shared/js/jquery/jquery.js"
   cdn: "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+  plugins:
 
-#------jQuery UI-----
-jqueryUi:
-  local: "/resources/shared/js/jquery/ui/jquery-ui.js"
-  jsDependencies:
-    - "jquery"
-  cssDependencies:
-    - "jqueryUiTheme"
+    #------jQuery UI-----
+    jqueryUi:
+      local: "/resources/shared/js/jquery/ui/jquery-ui.js"
+      cssDependencies:
+        - "jqueryUiTheme"
 
-#------jQuery Plug-ins------
+    #------jQuery Plug-ins------
 
-equalizeBottoms:
-  local: "/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js"
-  jsDependencies:
-    - "jquery"
+    equalizeBottoms:
+      local: "/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js"
 
-formAlign:
-  local: "/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js"
-  jsDependencies:
-    - "jquery"
+    formAlign:
+      local: "/resources/shared/js/jquery/plugins/formAlign/jquery.formAlign.js"
 
-jcarousel:
-  local: "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js"
-  jsDependencies
-    - "jquery"
-  cssDependencies:
-    - "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css"
-    - "jcarsouselSkin"
+    jcarousel:
+      local: "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.js"
+      cssDependencies:
+        - "/resources/shared/js/jquery/plugins/jcarousel/jquery.jcarousel.css"
+        - "jcarsouselSkin"
 
-lightbox:
-  local: "/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js"
-  jsDependencies:
-    - "jquery"
-  cssDependencies:
-    - "/resources/shared/js/jquery/plugins/lightbox/css/jquery.lightbox.css"
+    lightbox:
+      local: "/resources/shared/js/jquery/plugins/lightbox/jquery.lightbox.js"
+      cssDependencies:
+        - "/resources/shared/js/jquery/plugins/lightbox/css/jquery.lightbox.css"
 
-pxem:
-  local: "/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js"
-  jsDependencies:
-    - "jquery"
+    pxem:
+      local: "/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js"
 
-template:
-  local: "/resources/shared/js/jquery/plugins/template/jquery.tmpl.js"
-  jsDependencies:
-    - "jquery"
+    template:
+      local: "/resources/shared/js/jquery/plugins/template/jquery.tmpl.js"
 
-urlParser:
-  local: "/resources/shared/js/jquery/plugins/url/jquery.url.js"
-  jsDependencies:
-    - "jquery"
+    urlParser:
+      local: "/resources/shared/js/jquery/plugins/url/jquery.url.js"
 
-validation:
-  local: "/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js"
-  jsDependencies:
-    - "jquery"
-  cssDependencies:
-    - "jqueryUiTheme"
+    validation:
+      local: "/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js"
+      cssDependencies:
+        - "jqueryUiTheme"
 
-wymEditor:
-  local: "/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.js"
-  jsDependencies:
-    - "jquery"
-wymEditor-fullScreen:
-  local: "/resources/shared/js/jquery/plugins/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js"
-  jsDependencies:
-    - "wymEditor"
+    wymEditor:
+      local: "/resources/shared/js/jquery/plugins/wymeditor/jquery.wymeditor.js"
+      plugins:
+        wymEditor-fullScreen:
+          local: "/resources/shared/js/jquery/plugins/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js"
 
 #=====Third Party JavaScript=====
 reflection:
