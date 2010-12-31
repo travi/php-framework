@@ -65,5 +65,8 @@
                 <include name="**/*.css" />
             </fileset>
         </yuicompress>
+        <copy todir="../client/min/js/jquery/plugins/wymeditor/skins/silver/images">
+            <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
+        </copy>
 	</target>
 </project>
