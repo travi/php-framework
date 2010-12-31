@@ -17,7 +17,7 @@
 {foreach item=script from=$page->getScripts()}
 		<script type="text/javascript" src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" > </script>
 {/foreach}
-{include file='jsInit.tpl'}
-{include file='clientTemplates.tpl'}
+{include file='head/jsInit.tpl'}
+{include file='head/clientTemplates.tpl'}
 {$page->goog_analytics()}
 	</head>
