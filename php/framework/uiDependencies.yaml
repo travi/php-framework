@@ -9,6 +9,13 @@ gallery:
   cssDependencies:
     - "/resources/css/pages/gallery.dev.css"
 
+entityList:
+  local: "/resources/shared/js/list/entityList.js"
+  jsDependencies:
+    - "jquery"
+  cssDependencies:
+    - "/resources/shared/css/travi.entities.css"
+
 #=======jQuery======
 jquery:
   local: "/resources/shared/js/jquery/jquery.js"
@@ -51,11 +58,18 @@ lightbox:
 
 pxem:
   local: "/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js"
-  jsDependencies: "jquery"
+  jsDependencies:
+    - "jquery"
+
+template:
+  local: "/resources/shared/js/jquery/plugins/template/jquery.tmpl.js"
+  jsDependencies:
+    - "jquery"
 
 urlParser:
   local: "/resources/shared/js/jquery/plugins/url/jquery.url.js"
-  jsDependencies: "jquery"
+  jsDependencies:
+    - "jquery"
 
 validation:
   local: "/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js"

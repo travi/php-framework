@@ -15,9 +15,7 @@ class EntityList extends ContentObject
 
 	public function __construct()
 	{
-		$this->addStyleSheet('/resources/shared/css/travi.entities.css');
-        $this->addJavaScript('jquery');
-        $this->addJavaScript('/resources/shared/js/list/entityList.js');
+        $this->addJavaScript('entityList');
 	}
 	public function setEdit($script,$confirmation="")
 	{
