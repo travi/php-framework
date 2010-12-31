@@ -12,7 +12,8 @@ abstract class xhtmlPage
 	protected $layoutTemplate;
     protected $pageTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
-	protected $stylesheets = array();
+	protected $clientTemplates = array();
+    protected $stylesheets = array();
 	protected $altStyles = array();
 	protected $scripts = array();
 	protected $jsInits = array();
@@ -281,6 +282,16 @@ abstract class xhtmlPage
             }
         }
         return $this->currentSiteSection;
+    }
+
+    public function addClientTemplate($name, $template)
+    {
+        $this->clientTemplates[$name] = $template;
+    }
+
+    public function getClientTemplates()
+    {
+        return $this->clientTemplates;
     }
 
 	public function addStyleSheet($sheet,$index="")

@@ -50,8 +50,8 @@ travi.framework.entityList = (function () {
             .hide()
             .after("<a class='item-action' href='#'>Remove</a>");
         $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
-                    $(this).prev("form").submit();
-                    return false;
+            $(this).prev("form").submit();
+            return false;
         });
         $("body").append("<div id='confirmation' title='Are you sure?'></div>");
         $("#confirmation").dialog({
