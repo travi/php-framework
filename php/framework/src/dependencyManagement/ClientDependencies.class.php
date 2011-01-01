@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
  
-class clientDeps
+class ClientDependencies
 {
     private $jsNeeds = array();
 
@@ -16,6 +16,9 @@ class clientDeps
     	global $uiDeps;
 
         $this->flattenDeps($uiDeps);
+
+        $this->jsNeeds['jqueryUiTheme']['local'] = JQUERY_UI_THEME;
+        $this->jsNeeds['jcarsouselSkin']['local'] = JCAROUSEL_SKIN;
 	}
 
     private function flattenDeps($deps, $requirement = '')
@@ -62,5 +65,10 @@ class clientDeps
     public function getDependenciesFor($item)
     {
         return $this->jsNeeds[$item];
+    }
+
+    public function resolveFileURI($resource)
+    {
+        return $this->jsNeeds[$resource]['local'];
     }
 }

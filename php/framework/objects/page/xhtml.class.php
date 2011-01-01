@@ -13,7 +13,7 @@ abstract class xhtmlPage
     protected $pageTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
 	protected $clientTemplates = array();
-    protected $clientDependencies;
+    protected $dependencyManager;
     protected $stylesheets = array();
 	protected $altStyles = array();
 	protected $scripts = array();
@@ -27,25 +27,47 @@ abstract class xhtmlPage
  	protected $urlFingerprint;
     protected $smarty;
 
-    protected function loadClientDependencies()
+
+//////////////////////////////////////////////////////////////////////////
+//                          Configuration                               //
+//////////////////////////////////////////////////////////////////////////
+
+ 	public function importNavFile()
+ 	{
+		return $this->yaml2Array(NAV_FILE);
+ 	}
+
+ 	public function keyValueFromFile($file)
+ 	{
+ 		$kvLines = file($file);
+
+ 		foreach($kvLines as $kv)
+	 	{
+		 	$keyVals = explode('=',$kv);
+		 	if(count($keyVals) == 2)
+		 	{
+		 		$keyVals = array_map('trim',$keyVals);
+		 		list($key,$value) = $keyVals;
+		 		$assocArray["$key"] = $value;
+		 	}
+		}
+		return $assocArray;
+ 	}
+
+    public function yaml2Array($file)
     {
-        $this->clientDependencies = new clientDeps();
+        return Spyc::YAMLLoad($file);
     }
 
-    public function setLayoutTemplate($template)
-    {
-        $this->layoutTemplate = $template;
-    }
+	public function setUrlFingerprint($fingerprint)
+	{
+		$this->urlFingerprint = $fingerprint;
+	}
 
-    public function setPageTemplate($template)
-    {
-        $this->pageTemplate = $template;
-    }
-
-    public function getPageTemplate()
-    {
-        return $this->pageTemplate;
-    }
+	public function getUrlFingerprint()
+	{
+		return $this->urlFingerprint;
+	}
 	
 	public function setSiteName($name)
 	{
@@ -80,19 +102,14 @@ abstract class xhtmlPage
 		$this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
  	}
 
+
+//////////////////////////////////////////////////////////////////////////
+//                              Content                                 //
+//////////////////////////////////////////////////////////////////////////
+
  	public function addToResponse($desc, $content)
 	{
-//		if(is_array($content))
-//		{
-//			foreach($content as $part)
-//				$this->addToContent($part);
-//		}
-//		else if(is_object($content) && is_a($content,'ContentObject'))
-//		{
 			$this->content[$desc] = $content;
-//			$this->checkDependencies($content);
-//		}
-//		else $this->content .= $content;
 	}
 
     public function setContent($content)
@@ -113,53 +130,31 @@ abstract class xhtmlPage
         return $this->content;
 	}
 
-	public function getDependencies()
-	{
-        if(is_array($this->getContent()))
-        {
-            foreach($this->getContent() as $component)
-            {
-                if(is_object($component) && is_a($component,'DependantObject'))
-                {
-                    $this->addDependencies($component->getDependencies());
-                }
-                else if(is_array($component))//TODO: need to make this DRY
-                {
-                    foreach($component as $innerComponent)
-                    {
-                        if(is_object($innerComponent) && is_a($innerComponent,'DependantObject'))
-                        {
-                            $this->addDependencies($innerComponent->getDependencies());
-                        }
-                    }
-                }
-            }
-        }
-	}
 
-    public function addDependencies($dependencies = array())
+//////////////////////////////////////////////////////////////////////////
+//                          Dependencies                                //
+//////////////////////////////////////////////////////////////////////////
+
+    public function addDependency($dependency, $category, $index="")
     {
-        if(!empty($dependencies['scripts']))
+        if(!isset($this->dependencyManager))
         {
-            foreach($dependencies['scripts'] as $script)
-            {
-                $this->addJavaScript($script);
-            }
+            $this->dependencyManager = new DependencyManager();
         }
-        if(!empty($dependencies['jsInits']))
-        {
-            foreach($dependencies['jsInits'] as $init)
-            {
-                $this->addJsInit($init);
-            }
-        }
-        if(!empty($dependencies['styles']))
-        {
-            foreach($dependencies['styles'] as $style)
-            {
-                $this->addStyleSheet($style);
-            }
-        }
+
+        $this->dependencyManager->addDependency($dependency, $category, $index);
+    }
+
+    public function getDependencyList($category)
+    {
+        return $this->dependencyManager->getDependencies($category);
+    }
+
+    public function addDependencies($dependencies)
+    {
+        $this->dependencyManager->addDependencies(array(    'scripts'   => $dependencies['scripts'],
+                                                            'styles'    => $dependencies['styles'],
+                                                            'jsInits'   => $dependencies['jsInits']));
         if(!empty($dependencies['links']))
         {
             foreach($dependencies['links'] as $link)
@@ -176,32 +171,107 @@ abstract class xhtmlPage
         }
     }
 
- 	public function importNavFile()
- 	{		
-		return $this->yaml2Array(NAV_FILE);
- 	}
+	public function addStyleSheet($sheet,$index="")
+	{
+        $this->addDependency($sheet, 'css', $index);
+	}
 
- 	public function keyValueFromFile($file)
- 	{
- 		$kvLines = file($file);
+	public function getStyleSheets()
+	{
+		return $this->getDependencyList('css');
+	}
 
- 		foreach($kvLines as $kv)
-	 	{
-		 	$keyVals = explode('=',$kv);
-		 	if(count($keyVals) == 2)
-		 	{
-		 		$keyVals = array_map('trim',$keyVals);
-		 		list($key,$value) = $keyVals;
-		 		$assocArray["$key"] = $value;
-		 	}
+	public function addAltStyle($sheet)
+	{
+		array_push($this->altStyles,$sheet);
+	}
+
+	public function getAltStyles()
+	{
+		return $this->altStyles;
+	}
+
+	public function setTheme($sheet)
+	{
+		$this->addStyleSheet($sheet,'siteTheme');
+	}
+
+	public function setPageStyle($sheet)
+	{
+		$this->addStyleSheet($sheet,'thisPage');
+	}
+
+	public function addJavaScript($script)
+	{
+        $this->addDependency($script, 'js');
+	}
+
+	public function getScripts()
+	{
+		return $this->getDependencyList('js');
+	}
+
+	public function addJsInit($init)
+	{
+		$this->addDependency($init, 'jsInit');
+	}
+
+	public function getJsInits()
+	{
+		return $this->getDependencyList('jsInit');
+	}
+
+	public function getProperFile($file)
+	{
+		global $config;
+
+		if(ENV !== 'development' && $config['debug'] !== true)
+		{
+			return preg_replace('/\/(css|js)\//','/min/$1/',$file,1);
 		}
-		return $assocArray;
- 	}
+		else
+		{
+			return $file;
+		}
+	}
 
-    public function yaml2Array($file)
+
+//////////////////////////////////////////////////////////////////////////
+//                          Other Tags                                  //
+//////////////////////////////////////////////////////////////////////////
+
+    public function addLinkTag($link,$rel,$title='',$type='')
     {
-        return Spyc::YAMLLoad($file);
+        array_push($this->links, array( 'link'  => $link,
+                                        'title' => $title,
+                                        'type'  => $type,
+                                        'rel'   => $rel));
     }
+
+    public function getLinkTags()
+    {
+        return $this->links;
+    }
+
+	public function addFeed($feed, $title='RSS')
+	{
+        $this->addLinkTag($feed, 'alternate', $title, 'application/rss+xml');
+	}
+
+	public function addMetaTag($tag)
+	{
+		array_push($this->metatags,$tag);
+	}
+
+	public function getMetaTags()
+	{
+		return $this->metatags;
+	}
+
+
+//////////////////////////////////////////////////////////////////////////
+//                          Navigation                                  //
+//////////////////////////////////////////////////////////////////////////
 
 	public function setMainNav($section)
 	{
@@ -261,16 +331,11 @@ abstract class xhtmlPage
 	{
 		return $this->nav;
 	}
-	
-	public function setUrlFingerprint($fingerprint)
-	{
-		$this->urlFingerprint = $fingerprint;
-	}
-	
-	public function getUrlFingerprint()
-	{
-		return $this->urlFingerprint;
-	}
+
+
+//////////////////////////////////////////////////////////////////////////
+//                              URL                                     //
+//////////////////////////////////////////////////////////////////////////
 
     public function getSiteSection()
     {
@@ -290,6 +355,26 @@ abstract class xhtmlPage
         return $this->currentSiteSection;
     }
 
+
+//////////////////////////////////////////////////////////////////////////
+//                          Templates                                   //
+//////////////////////////////////////////////////////////////////////////
+
+    public function setLayoutTemplate($template)
+    {
+        $this->layoutTemplate = $template;
+    }
+
+    public function setPageTemplate($template)
+    {
+        $this->pageTemplate = $template;
+    }
+
+    public function getPageTemplate()
+    {
+        return $this->pageTemplate;
+    }
+
     public function addClientTemplate($name, $template)
     {
         $this->clientTemplates[$name] = $template;
@@ -300,203 +385,13 @@ abstract class xhtmlPage
         return $this->clientTemplates;
     }
 
-	public function addStyleSheet($sheet,$index="")
-	{
-		if(!in_array($sheet,$this->stylesheets))
-		{
-			if(!empty($index))
-			{
-				$this->stylesheets[$index] = $sheet;
-			}
-			else
-				array_push($this->stylesheets,$sheet);
-		}
-	}
-	
-	public function getStyleSheets()
-	{
-		return $this->stylesheets;
-	}
-	
-	public function getAltStyles()
-	{
-		return $this->altStyles;
-	}
-	
-	public function setTheme($sheet)
-	{
-		$this->addStyleSheet($sheet,'siteTheme');
-	}
-	
-	public function setPageStyle($sheet)
-	{
-		$this->addStyleSheet($sheet,'thisPage');		
-	}
-
-	public function addAltStyle($sheet)
-	{
-		array_push($this->altStyles,$sheet);
-	}
-
-	public function addJavaScript($script)
-	{
-    	global $uiDeps;
-
-        if(!isset($this->clientDependencies))
-        {
-            $this->loadClientDependencies();
-        }
-
-        $dependencies = $this->clientDependencies->getDependenciesFor($script);
-    	
-		if(!empty($dependencies))
-		{
-			if(!empty($dependencies['jsDependencies']))
-			{
-				foreach($dependencies['jsDependencies'] as $dependency)
-				{
-					$this->addJavaScript($dependency);
-				}
-			}
-			if(!empty($dependencies['cssDependencies']))
-			{
-				foreach($dependencies['cssDependencies'] as $dependency)
-				{
-					if($dependency === 'jqueryUiTheme')
-					{
-						$this->addStyleSheet(JQUERY_UI_THEME);
-					} 
-					else if($dependency === 'jcarsouselSkin')
-					{
-						$this->addStyleSheet(JCAROUSEL_SKIN);
-					} 
-					else
-					{
-						$this->addStyleSheet($dependency);
-					}
-				}
-			}
-			if(!empty($dependencies['local']))
-			{
-				$script = $dependencies['local'];
-			}
-			else echo 'local is empty!'; //TODO: handle properly
-		}
-		if(!in_array($script,$this->scripts))
-		{
-			array_push($this->scripts,$script);
-		}
-	}
-	
-	public function getScripts()
-	{
-		return $this->scripts;
-	}
-	
-	public function addJsInit($init)
-	{
-		array_push($this->jsInits,$init);
-	}
-	
-	public function getJsInits()
-	{
-		return $this->jsInits;
-	}
-
-    public function addLinkTag($link,$rel,$title='',$type='')
-    {
-        array_push($this->links, array( 'link'  => $link,
-                                        'title' => $title,
-                                        'type'  => $type,
-                                        'rel'   => $rel));
-    }
-
-    public function getLinkTags()
-    {
-        return $this->links;
-    }
-
-	public function addFeed($feed, $title='RSS')
-	{
-        $this->addLinkTag($feed, 'alternate', $title, 'application/rss+xml');
-	}
-
-	public function addMetaTag($tag)
-	{
-		array_push($this->metatags,$tag);
-	}
-
-	public function getMetaTags()
-	{
-		return $this->metatags;
-	}
-	
-	public function getProperFile($file)
-	{
-		global $config;
-		
-		if(ENV !== 'development' && $config['debug'] !== true)
-		{
-			return preg_replace('/\/(css|js)\//','/min/$1/',$file,1);
-		}
-		else
-		{
-			return $file;
-		}
-	}
-	
-	public function goog_analytics() 
-	{
-		if(ENV === 'production')
-		{
-			return "		<script type=\"text/javascript\">
-		
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '".GOOGLE_ANALYTICS_KEY."']);
-			_gaq.push(['_trackPageview']);
-		
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-			})();
-		
-		</script>";
-		}
-	}
-
-	public function redirect($status,$msg,$location)
-	{
-		$this->setTitle("Results");
-
-		$this->content = '
-			<div class="entry">
-				<div class="entry-message">';
-		if ($status == "good")
-		{
-			$this->content .= '
-					<div class="good">'.$msg.'</div>';
-		}
-		else if ($status == "bad" || $status == "undo")
-		{
-			$this->content .= '
-					<div class="bad">'.$msg.'</div>';
-		}
-		$this->content .= '
-					<p>You will be redirected in 5 seconds.</p>
-					<p>Feel free to choose another option on the left if you do not want to wait.</p>
-				</div>
-			</div>';
-		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
-	}
-
     public function smartyInit()
     {
 		global $config;
 
         if(!isset($this->smartyConfig))
             $this->getSmartyConfig();
-        
+
         require_once($this->smartyConfig['pathToSmarty']);
 
         $smarty = new Smarty();
@@ -527,6 +422,11 @@ abstract class xhtmlPage
         return $this->smarty;
     }
 
+
+//////////////////////////////////////////////////////////////////////////
+//                          Render                                      //
+//////////////////////////////////////////////////////////////////////////
+
     protected function format()
     {
 		$acceptHeader = $_SERVER['HTTP_ACCEPT'];
@@ -537,12 +437,7 @@ abstract class xhtmlPage
 		} else if (strstr($acceptHeader,"text/xml")){
 			return;
 		} else if (strstr($acceptHeader,"text/html")){
-            if(is_array($this->getContent()))
-            {
-                $this->getDependencies();
-            }
-            
-			uksort($this->stylesheets, 'strnatcasecmp');
+            $this->dependencyManager->resolveContentDependencies($this->getContent());
 
             $smarty = $this->getSmarty();
 
@@ -555,6 +450,56 @@ abstract class xhtmlPage
 	public function Display()
 	{
 		$this->format();
+	}
+
+
+//////////////////////////////////////////////////////////////////////////
+//                          Need Refactoring                            //
+//////////////////////////////////////////////////////////////////////////
+
+	public function goog_analytics()
+	{
+		if(ENV === 'production')
+		{
+			return "		<script type=\"text/javascript\">
+
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', '".GOOGLE_ANALYTICS_KEY."']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+			})();
+
+		</script>";
+		}
+	}
+
+	public function redirect($status,$msg,$location)
+	{
+		$this->setTitle("Results");
+
+		$this->content = '
+			<div class="entry">
+				<div class="entry-message">';
+		if ($status == "good")
+		{
+			$this->content .= '
+					<div class="good">'.$msg.'</div>';
+		}
+		else if ($status == "bad" || $status == "undo")
+		{
+			$this->content .= '
+					<div class="bad">'.$msg.'</div>';
+		}
+		$this->content .= '
+					<p>You will be redirected in 5 seconds.</p>
+					<p>Feel free to choose another option on the left if you do not want to wait.</p>
+				</div>
+			</div>';
+		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
 	}
 }
 ?>
