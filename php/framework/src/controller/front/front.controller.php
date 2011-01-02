@@ -4,7 +4,11 @@
  * By Matt Travi
  * programmer@travi.org
  */
-//Dispatcher
+
+require_once(dirname(__FILE__).'/../../../objects/page/xhtml.class.php');
+require_once('../src/response/Response.class.php');
+require_once(dirname(__FILE__).'/../abstract.controller.php');
+
  
  //This should use the singleton pattern
 
@@ -14,10 +18,11 @@
 
 class FrontController
 {
-	/*private $application;		part of Request object
-	private $page;
-	private $id;
-	private $uri;*/
+	private $controller;
+//	private $page;
+//	private $id;
+	private $uriParts;
+    private $admin;     //boolean
 
     //these may make more sense to be attributes of the individual controller
 	private $Request;	//Object for abstracting uri processes, and variables like browser etc
@@ -27,19 +32,30 @@ class FrontController
 	
 	public function __construct()
 	{
-		//$this->parseUri();
-		$this->uriParts();
+		$this->Response = new Response();
+
+        $this->parseUriParts();
+        $this->resolveDataParts();
 		
-		//importSiteSettings();
+		$this->importSiteSettings();
 		
 		//processRequest();
 	}
 		
 	public function processRequest()
 	{
-		forwardToController();
-		sendResponse();
+		$this->forwardToController();
+//		sendResponse();
 	}
+
+    //Dispatch
+    private function forwardToController()
+    {
+        $controllerName = $this->controller;
+        require_once(DOC_ROOT.'../app/controller/'.$controllerName.'.controller.php');
+        $controller = new $controllerName($this->uriParts);
+        $controller->doAction($this->Request, $this->Response);
+    }
 	
 	/*private function getApplications()	Part of forward to controller process
 	{
@@ -51,18 +67,28 @@ class FrontController
 		
 	}*/
 	
-	/*private function parseUri()	Part of request object
-	{
-		$this->uri = parse_url();
-	}*/
-	
-	private function uriParts()
+	private function parseUriParts()
 	{
 		$navString = $_SERVER['REQUEST_URI'];
-		$parts = explode('/', $navString); // Break into an array
-		// Lets look at the array of items we have:
-		print_r($parts);
+		$parts = explode('/', $navString);
+
+		$this->uriParts = $parts;
 	}
+
+    private function resolveDataParts()
+    {
+        if($this->uriParts[1] === 'admin')
+        {
+            $this->admin = true;
+            $this->controller = $this->uriParts[2];
+            //trim the first item so positions align?
+        }
+        else
+        {
+            $this->admin = false;
+            $this->controller = $this->uriParts[1];
+        }
+    }
 
     private function requestMethod()
     {
@@ -106,5 +132,11 @@ class FrontController
 			$smarty->display($this->smartyTemplate);*/
 		}
 	}
+
+    private function importSiteSettings()
+    {
+        //Temp definition
+        define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
+    }
 }
 ?>
