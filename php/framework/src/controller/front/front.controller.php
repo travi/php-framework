@@ -6,6 +6,7 @@
  */
 
 require_once(dirname(__FILE__).'/../../../objects/page/xhtml.class.php');
+require_once(dirname(__FILE__).'/../../http/Request.class.php');
 require_once('../src/response/Response.class.php');
 require_once(dirname(__FILE__).'/../abstract.controller.php');
 require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
@@ -19,24 +20,15 @@ require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
 
 class FrontController
 {
-	private $controller;
-//	private $page;
-//	private $id;
-	private $uriParts;
-    private $admin;     //boolean
-
-    //these may make more sense to be attributes of the individual controller
-	private $Request;	//Object for abstracting uri processes, and variables like browser etc
-	private $Response;	//Object for building the list of content that will be sent as the response
+	private $Request;
+	private $Response;
 	
 	private $View;		//Object containing template, css, js, etc information (Is this needed? $Response should handle this information. Maybe it is an attribute of $Response...
 	
 	public function __construct()
 	{
+        $this->Request = new Request();
 		$this->Response = new Response();
-
-        $this->parseUriParts();
-        $this->resolveDataParts();
 		
 		$this->importSiteSettings();
 		
@@ -45,68 +37,30 @@ class FrontController
 		
 	public function processRequest()
 	{
-		$this->forwardToController();
+		$this->dispatchToController();
 //		sendResponse();
 	}
 
-    //Dispatch
-    private function forwardToController()
+    private function dispatchToController()
     {
-        $controllerName = $this->controller;
+        $controllerName = $this->Request->getController();
         $controllerPath = DOC_ROOT.'../app/controller/'.$controllerName.'.controller.php';
 
         try {
             if(is_file($controllerPath))
             {
                 require_once($controllerPath);
-                $controller = new $controllerName($this->uriParts);
+                $controller = new $controllerName();
                 $controller->doAction($this->Request, $this->Response);
             }
             else
             {
-                throw new NotFoundException('Controller Not Found');
+                throw new NotFoundException('Controller Not Found!');
             }
         } catch (NotFoundException $e) {
-            echo '404';
+            echo '<h2>404</h2>';
+            echo '<p>' . $e->getMessage() . '</p>'; //TODO: only show this in dev mode, but log it in other environments
         }
-    }
-	
-	/*private function getApplications()	Part of forward to controller process
-	{
-		
-	}
-	
-	private function getPages($application)
-	{
-		
-	}*/
-	
-	private function parseUriParts()
-	{
-		$navString = $_SERVER['REQUEST_URI'];
-		$parts = explode('/', $navString);
-
-		$this->uriParts = $parts;
-	}
-
-    private function resolveDataParts()
-    {
-        if($this->uriParts[1] === 'admin')
-        {
-            $this->admin = true;
-            $this->controller = $this->uriParts[2];
-            //trim the first item so positions align?
-        }
-        else
-        {
-            $this->admin = false;
-            $this->controller = $this->uriParts[1];
-        }
-    }
-
-    private function requestMethod()
-    {
-        return $_SERVER['REQUEST_METHOD'];
     }
  
 	public function sendResponse()
