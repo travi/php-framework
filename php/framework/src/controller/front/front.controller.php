@@ -8,6 +8,7 @@
 require_once(dirname(__FILE__).'/../../../objects/page/xhtml.class.php');
 require_once('../src/response/Response.class.php');
 require_once(dirname(__FILE__).'/../abstract.controller.php');
+require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
 
  
  //This should use the singleton pattern
@@ -52,9 +53,22 @@ class FrontController
     private function forwardToController()
     {
         $controllerName = $this->controller;
-        require_once(DOC_ROOT.'../app/controller/'.$controllerName.'.controller.php');
-        $controller = new $controllerName($this->uriParts);
-        $controller->doAction($this->Request, $this->Response);
+        $controllerPath = DOC_ROOT.'../app/controller/'.$controllerName.'.controller.php';
+
+        try {
+            if(is_file($controllerPath))
+            {
+                require_once($controllerPath);
+                $controller = new $controllerName($this->uriParts);
+                $controller->doAction($this->Request, $this->Response);
+            }
+            else
+            {
+                throw new NotFoundException('Controller Not Found');
+            }
+        } catch (NotFoundException $e) {
+            echo '404';
+        }
     }
 	
 	/*private function getApplications()	Part of forward to controller process
