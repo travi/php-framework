@@ -13,7 +13,7 @@ abstract class AbstractController
 
         if(method_exists($this, $action))
         {
-            $this->$action();
+            $this->$action($request, $response);
         }
         else
         {

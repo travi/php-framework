@@ -9,6 +9,8 @@ abstract class xhtmlPage
 {
 	protected $siteName;
 	protected $title;
+ 	protected $siteHeader;
+ 	protected $subHeader;
 	protected $layoutTemplate;
     protected $pageTemplate;
 	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
@@ -95,6 +97,33 @@ abstract class xhtmlPage
 	public function getTitle()
 	{
 		return $this->title;
+	}
+
+    public function setSiteHeader($header = '')
+    {
+        if(!empty($header))
+        {
+            $this->siteHeader = $header;
+        }
+        else
+        {
+            $this->siteHeader = $this->siteName;
+        }
+    }
+
+	public function getHeader()
+	{
+		return $this->siteHeader;
+	}
+
+    public function setSubHeader($subHeader)
+    {
+        $this->subHeader = $subHeader;
+    }
+
+	public function getSubHeader()
+	{
+		return $this->subHeader;
 	}
 
  	public function getSmartyConfig()
@@ -437,11 +466,15 @@ abstract class xhtmlPage
 		} else if (strstr($acceptHeader,"text/xml")){
 			return;
 		} else if (strstr($acceptHeader,"text/html")){
-            $this->dependencyManager->resolveContentDependencies($this->getContent());
+
+            if(isset($this->dependencyManager))
+            {
+                $this->dependencyManager->resolveContentDependencies($this->getContent());
+            }
 
             $smarty = $this->getSmarty();
 
-            $smarty->clear_all_assign();
+            $smarty->clearAllAssign();
 			$smarty->assign('page',$this);
 			$smarty->display($this->layoutTemplate);
         }
