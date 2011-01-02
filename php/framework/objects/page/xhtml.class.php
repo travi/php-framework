@@ -176,7 +176,10 @@ abstract class xhtmlPage
 
     public function getDependencyList($category)
     {
-        return $this->dependencyManager->getDependencies($category);
+        if(isset($this->dependencyManager))
+        {
+            return $this->dependencyManager->getDependencies($category);
+        }
     }
 
     public function addDependencies($dependencies)
