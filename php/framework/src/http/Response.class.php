@@ -5,7 +5,7 @@
  * Time: 6:27:18 PM
  */
 
-//require_once('../../include/')
+require_once(dirname(__FILE__).'/../dependencyManagement/DependencyManager.class.php');
 
 class Response extends xhtmlPage
 {
@@ -15,6 +15,7 @@ class Response extends xhtmlPage
     {
         $this->setSiteName($config['siteName']);
         $this->setSiteHeader($config['siteHeader']);
+        $this->setTheme('/resources/css/' . $config['theme']['site']);
 
         //temporarily set the layout template here until moving it to $View
         $this->layoutTemplate = $config['template']['layout'];
