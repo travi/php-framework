@@ -223,6 +223,27 @@ button {  width: auto; overflow: visible; }
  /* Primary Styles
     Author: travi
  */
+body{
+    font-size:			62.5%; /*Setting this font size on the body makes 1em equal to 10px http://www.webmasterworld.com/forum83/7781.htm*/
+}
+img{
+	border: 			0;
+}
+dt{
+	font-weight: 		bold;
+}
+cite{
+	font-size:x-small;
+}
+abbr,acronym{
+	cursor:				help;
+	border-bottom:		1px dotted;
+}
+#wrap{
+    background-color:   #ccc;
+	width: 				750px;
+	margin:				0 auto 0 auto;
+}
 
 
 
