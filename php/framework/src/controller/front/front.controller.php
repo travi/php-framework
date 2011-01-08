@@ -10,10 +10,10 @@ require_once(dirname(__FILE__).'/../../http/Request.class.php');
 require_once(dirname(__FILE__).'/../../http/Response.class.php');
 require_once(dirname(__FILE__).'/../abstract.controller.php');
 require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
-
-//TODO: temp work around
-$config = array();
-$config['debug'] = true;
+//
+////TODO: temp work around
+//$config = array();
+//$config['debug'] = true;
  
  //This should use the singleton pattern
 
@@ -28,17 +28,41 @@ class FrontController
 
     private $config;
 	
-	public function __construct()
-	{
-		$this->importSiteSettings();
+//	public function __construct()
+//	{
+////		$this->importSiteSettings();
+////
+////        $this->Request = new Request();
+////		$this->Response = new Response($this->config);
+//
+//
+//
+//		//processRequest();
+//	}
 
-        $this->Request = new Request();
-		$this->Response = new Response($this->config);
+    /**
+     * @PdInject config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
 
+    /**
+     * @PdInject request
+     */
+    public function setRequest($request)
+    {
+        $this->Request = $request;
+    }
 
-		
-		//processRequest();
-	}
+    /**
+     * @PdInject response
+     */
+    public function setResponse($response)
+    {
+        $this->Response = $response;
+    }
 		
 	public function processRequest()
 	{
@@ -49,7 +73,9 @@ class FrontController
     private function dispatchToController()
     {
         $controllerName = $this->Request->getController();
-        $controllerPath = DOC_ROOT.'../app/controller/'.$controllerName.'.controller.php';
+        $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
+
+        echo 'Controller Path: ' . realpath($controllerPath) . "\n";
 
         try {
             if(is_file($controllerPath))
@@ -73,7 +99,7 @@ class FrontController
         }
     }
  
-	public function sendResponse()
+	private function sendResponse()
 	{
 		$this->Response->respond();
 	}
