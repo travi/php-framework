@@ -224,7 +224,6 @@ button {  width: auto; overflow: visible; }
     Author: travi
  */
 body{
-    font-size:			62.5%; /*Setting this font size on the body makes 1em equal to 10px http://www.webmasterworld.com/forum83/7781.htm*/
 }
 img{
 	border: 			0;
