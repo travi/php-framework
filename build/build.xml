@@ -15,7 +15,7 @@
 		<antcall target="jsLint" />
 	</target>
 
-    <target name="phpUnit">
+    <target name="phpUnit" description="PHPUnit Test Runner">
         <mkdir dir="${build.logs}"/>
         <exec dir="${framework.php.tests.dir}" executable="phpunit" failonerror="true">
             <arg line=" --log-junit         ${build.logs}/phpunit.xml
@@ -25,7 +25,7 @@
         </exec>
     </target>
 	
-    <target name="jsLint">
+    <target name="jsLint" description="JSLint">
         <mkdir dir="${build.logs}"/>
         <jslint options="${jslint.goodparts}" haltonfailure="${not.on.teamcity}">
             <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            
@@ -81,4 +81,9 @@
             <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
 	</target>
+
+    <target name="clean">
+        <delete dir="${build.logs}"/>
+        <delete dir="${build.dir}/coverage"/>
+    </target>
 </project>
