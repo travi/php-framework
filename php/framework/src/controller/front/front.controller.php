@@ -13,7 +13,9 @@ require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
 
 class FrontController
 {
+    /** @var $Request Request */
 	private $Request;
+    /** @var $Response Response */
 	private $Response;
 
     private $config;
@@ -46,14 +48,14 @@ class FrontController
 	{
 		$this->dispatchToController();
 		$this->sendResponse();
+
+        return $this->Response;
 	}
 
     private function dispatchToController()
     {
         $controllerName = $this->Request->getController();
         $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
-
-//        echo 'Controller Path: ' . realpath($controllerPath) . "\n";
 
         try {
             if(is_file($controllerPath))
