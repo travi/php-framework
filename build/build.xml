@@ -21,7 +21,7 @@
             <arg line=" --log-junit         ${build.logs}/phpunit.xml
                         --coverage-clover   ${build.logs}/clover.xml
                         --coverage-html     ${build.dir}/coverage
-                        framework" />
+                        php" />
         </exec>
     </target>
 	

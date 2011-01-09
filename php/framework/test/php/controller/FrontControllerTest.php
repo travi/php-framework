@@ -24,7 +24,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->object = new FrontController;
 
-        $config = array('docRoot' => dirname(__FILE__) . '/../../../../../../../wedding/doc_root/');
+        $config = array('docRoot' => dirname(__FILE__) . '/../../../../../../wedding/doc_root/');
 
         $responseStub = $this->getMock('Response', array('respond'));
 
