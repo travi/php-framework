@@ -46,7 +46,15 @@ class Request
         {
             $this->admin = false;
         }
-        $this->controller = $this->uriParts[1];
+
+        if(empty($this->uriParts[1]))
+        {
+            $this->controller = 'home';
+        }
+        else
+        {
+            $this->controller = $this->uriParts[1];
+        }
 
         if(empty($this->uriParts[2]))
         {

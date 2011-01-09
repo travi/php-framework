@@ -41,6 +41,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('about', $this->request->getController());
     }
 
+    public function testRoot()
+    {
+        $this->request->setURI('/');
+        $this->assertSame(false, $this->request->isAdmin());
+        $this->assertSame('home', $this->request->getController());
+    }
+
     public function testGetAction()
     {
         $this->assertSame(false, $this->request->isAdmin());
@@ -68,6 +75,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $this->request->setURI('/admin/about/webmaster');
         $this->assertSame(true, $this->request->isAdmin());
+    }
+
+    public function testAdminRoot()
+    {
+        $this->request->setURI('/admin/');
+        $this->assertSame(true, $this->request->isAdmin());
+        $this->assertSame('home', $this->request->getController());
     }
 
     public function testGetAdminController()
