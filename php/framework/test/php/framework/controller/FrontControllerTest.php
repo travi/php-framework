@@ -59,5 +59,29 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $response = $this->object->processRequest();
         $this->assertSame($response->getTitle(), 'Test');
     }
+
+    /**
+     * @todo Implement testDoAction().
+     */
+    public function test404()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
+    }
+
+    /**
+     * @todo Implement testDoAction().
+     */
+    public function testRoot()
+    {
+        //This test may be more appropriate for the Request object
+
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
+    }
 }
 ?>

@@ -4,6 +4,7 @@
 	<property file="/home/travi/include/build/build.properties" />
 	
 	<target name="build" depends="test">
+        <antcall target="phpUnit"/>
 	</target>
 	
 	<target name="test" depends="checkstyle">
@@ -11,14 +12,25 @@
 	</target>
 	
 	<target name="checkstyle">
-		<antcall target="js.lint.test" />
+		<antcall target="jsLint" />
 	</target>
+
+    <target name="phpUnit">
+        <mkdir dir="${build.logs}"/>
+        <exec dir="${framework.php.tests.dir}" executable="phpunit" failonerror="true">
+            <arg line=" --log-junit         ${build.logs}/phpunit.xml
+                        --coverage-clover   ${build.logs}/clover.xml
+                        --coverage-html     ${build.dir}/coverage
+                        controller" />
+        </exec>
+    </target>
 	
-    <target name="js.lint.test">
+    <target name="jsLint">
+        <mkdir dir="${build.logs}"/>
         <jslint options="${jslint.goodparts}" haltonfailure="${not.on.teamcity}">
             <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            
             <formatter type="plain" />
-            <formatter type="xml" destfile="jslint.xml" />
+            <formatter type="xml" destfile="${build.logs}/jslint.xml" />
             <fileset dir="../client/js/" >
                 <include name="**/*.js" />
 				<include name="**/*.qunit" />
