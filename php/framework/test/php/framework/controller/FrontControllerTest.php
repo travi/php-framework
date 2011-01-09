@@ -2,6 +2,8 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once '/home/travi/include/php/framework/src/controller/front/front.controller.php';
+require_once '/home/travi/include/php/framework/src/http/Request.class.php';
+require_once '/home/travi/include/php/framework/src/http/Response.class.php';
 
 /**
  * Test class for FrontController.

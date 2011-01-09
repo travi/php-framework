@@ -6,8 +6,6 @@
  */
 
 require_once(dirname(__FILE__).'/../../../objects/page/xhtml.class.php');
-require_once(dirname(__FILE__).'/../../http/Request.class.php');
-require_once(dirname(__FILE__).'/../../http/Response.class.php');
 require_once(dirname(__FILE__).'/../abstract.controller.php');
 require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
 
