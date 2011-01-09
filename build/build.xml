@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <project name="framework" default="build">
 	<import file="build-shared.xml"/>
-	<property file="/home/travi/include/build/build.properties" />
+	<property file="build.properties" />
 	
 	<target name="build" depends="test">
         <antcall target="phpUnit"/>
@@ -14,16 +14,6 @@
 	<target name="checkstyle">
 		<antcall target="jsLint" />
 	</target>
-
-    <target name="phpUnit" description="PHPUnit Test Runner">
-        <mkdir dir="${build.logs}"/>
-        <exec dir="${framework.php.tests.dir}" executable="phpunit" failonerror="true">
-            <arg line=" --log-junit         ${build.logs}/phpunit.xml
-                        --coverage-clover   ${build.logs}/clover.xml
-                        --coverage-html     ${build.dir}/coverage
-                        php" />
-        </exec>
-    </target>
 	
     <target name="jsLint" description="JSLint">
         <mkdir dir="${build.logs}"/>

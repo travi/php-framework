@@ -37,4 +37,14 @@
     </taskdef>
 	
 	<taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
+
+    <target name="phpUnit" description="PHPUnit Test Runner">
+        <mkdir dir="${build.logs}"/>
+        <exec dir="${tests.dir}" executable="phpunit" failonerror="true">
+            <arg line=" --log-junit         ${build.logs}/phpunit.xml
+                        --coverage-clover   ${build.logs}/clover.xml
+                        --coverage-html     ${build.dir}/coverage
+                        php" />
+        </exec>
+    </target>
 </project>
