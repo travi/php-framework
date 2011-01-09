@@ -34,7 +34,9 @@ $config['docRoot'] = DOC_ROOT;
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
-$container->dependencies()->set('request', new Request());
+$container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);
+$container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
+$container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', new Response($config));
 
 //Handle request

@@ -26,23 +26,10 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
         $config = array('docRoot' => dirname(__FILE__) . '/../../../../../../../wedding/doc_root/');
 
-        $requestStub = $this->getMock('Request');
-        $requestStub->expects($this->any())
-                ->method('getController')
-                ->will($this->returnValue('test'));
-        $requestStub->expects($this->any())
-                ->method('getAction')
-                ->will($this->returnValue('index'));
-
         $responseStub = $this->getMock('Response', array('respond'));
-//        $responseStub->expects($this->any())
-//                ->method('getTitle')
-//                ->will($this->returnValue('index'));
 
         $this->object->setConfig($config);
-        $this->object->setRequest($requestStub);
         $this->object->setResponse($responseStub);
-//        $this->object->setResponse(new Response($config));
     }
 
     /**
@@ -55,16 +42,55 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     
     public function testProcessRequest()
     {
+        $requestStub = $this->getMock('Request');
+        $requestStub->expects($this->any())
+                ->method('getController')
+                ->will($this->returnValue('test'));
+        $requestStub->expects($this->any())
+                ->method('getAction')
+                ->will($this->returnValue('index'));
+
+        $this->object->setRequest($requestStub);
+
         /** @var $response Response */
         $response = $this->object->processRequest();
         $this->assertSame($response->getTitle(), 'Test');
     }
 
     /**
-     * @todo Implement testDoAction().
+     * @todo Implement test404().
      */
     public function test404()
     {
+        $requestStub = $this->getMock('Request');
+        $requestStub->expects($this->any())
+                ->method('getController')
+                ->will($this->returnValue('nonExistantPage'));
+
+        $this->object->setRequest($requestStub);        
+
+        $response = $this->object->processRequest();
+        
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );
+    }
+
+    /**
+     * @todo Implement test500().
+     */
+    public function test500()
+    {
+        $requestStub = $this->getMock('Request');
+//        $requestStub->expects($this->any())
+//                ->method('getController')
+//                ->will($this->returnValue('nonExistantPage'));
+
+        $this->object->setRequest($requestStub);
+
+//        $response = $this->object->processRequest();
+        
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
           'This test has not been implemented yet.'

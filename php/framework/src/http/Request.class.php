@@ -7,24 +7,32 @@
  
 class Request
 {
+    /** @var string */
     private $requestMethod;
+    /** @var string */
+    private $uri;
+    /** @var array */
 	private $uriParts;
-    private $admin;     //boolean
+    /** @var boolean */
+    private $admin;
+    /** @var string */
 	private $controller;
+    /** @var string */
     private $action;
 
-    public function __construct()
+    /**
+     * @PdInject uri
+     */
+    public function setURI($uri)
     {
+        $this->uri = $uri;
         $this->parseUriParts();
         $this->resolveDataParts();
     }
 
 	private function parseUriParts()
 	{
-		$navString = $_SERVER['REQUEST_URI'];
-		$parts = explode('/', $navString);
-
-		$this->uriParts = $parts;
+		$this->uriParts = explode('/', $this->uri);
 	}
 
     private function resolveDataParts()
@@ -32,14 +40,13 @@ class Request
         if($this->uriParts[1] === 'admin')
         {
             $this->admin = true;
-            $this->controller = $this->uriParts[2];
-            //trim the first item so positions align?
+            array_shift($this->uriParts);
         }
         else
         {
             $this->admin = false;
-            $this->controller = $this->uriParts[1];
         }
+        $this->controller = $this->uriParts[1];
 
         if(empty($this->uriParts[2]))
         {
@@ -61,19 +68,29 @@ class Request
         return $this->action;
     }
 
-    private function setRequestMethod()
+    /**
+     * @param  $method
+     * @return void
+     * @PdInject request_method
+     */
+    public function setRequestMethod($method)
     {
-        $this->requestMethod = $_SERVER['REQUEST_METHOD'];
+        $this->requestMethod = $method;
     }
 
+    /**
+     * @return string
+     */
     public function getRequestMethod()
     {
-        if(!isset($this->requestMethod))
-        {
-            $this->setRequestMethod();
-        }
-
         return $this->requestMethod;
     }
 
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
 }
