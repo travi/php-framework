@@ -33,12 +33,9 @@ $config['debug'] = true;
 $config['docRoot'] = DOC_ROOT;
 
 //Add Dependencies
-$request = new Request();
-$response = new Response($config);
-
 $container->dependencies()->set('config', $config);
-$container->dependencies()->set('request', $request);
-$container->dependencies()->set('response', $response);
+$container->dependencies()->set('request', new Request());
+$container->dependencies()->set('response', new Response($config));
 
 //Handle request
 
