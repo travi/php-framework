@@ -10,16 +10,6 @@ require_once(dirname(__FILE__).'/../../http/Request.class.php');
 require_once(dirname(__FILE__).'/../../http/Response.class.php');
 require_once(dirname(__FILE__).'/../abstract.controller.php');
 require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
-//
-////TODO: temp work around
-//$config = array();
-//$config['debug'] = true;
- 
- //This should use the singleton pattern
-
-//$controller = new FrontController;
-
-//$controller->Display();
 
 class FrontController
 {
@@ -27,18 +17,6 @@ class FrontController
 	private $Response;
 
     private $config;
-	
-//	public function __construct()
-//	{
-////		$this->importSiteSettings();
-////
-////        $this->Request = new Request();
-////		$this->Response = new Response($this->config);
-//
-//
-//
-//		//processRequest();
-//	}
 
     /**
      * @PdInject config
@@ -75,7 +53,7 @@ class FrontController
         $controllerName = $this->Request->getController();
         $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
 
-        echo 'Controller Path: ' . realpath($controllerPath) . "\n";
+//        echo 'Controller Path: ' . realpath($controllerPath) . "\n";
 
         try {
             if(is_file($controllerPath))
@@ -90,7 +68,7 @@ class FrontController
             }
         } catch (NotFoundException $e) {
             //TODO: Use actual 404 status code and hand off to custom error page
-            //TODO: also link to contact page...
+            //TODO: also include link to contact page...
             echo '<h2>404</h2>';
             echo '<p>' . $e->getMessage() . '</p>';//TODO: only show this in dev mode, but log it in other environments
 
@@ -103,15 +81,5 @@ class FrontController
 	{
 		$this->Response->respond();
 	}
-
-    private function importSiteSettings()
-    {
-        //Temp definition
-        define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
-        define('SITE_ROOT', DOC_ROOT.'../');
-        require_once(dirname(__FILE__).'/../../../../thirdparty/spyc/spyc.php');
-
-        $this->config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yaml');
-    }
 }
 ?>
