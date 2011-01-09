@@ -47,4 +47,9 @@
                         php" />
         </exec>
     </target>
+
+    <target name="clean">
+        <delete dir="${build.logs}"/>
+        <delete dir="${build.dir}/coverage"/>
+    </target>
 </project>

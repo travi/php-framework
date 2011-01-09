@@ -4,11 +4,10 @@
 	<property file="build.properties" />
 	
 	<target name="build" depends="test">
-        <antcall target="phpUnit"/>
 	</target>
 	
 	<target name="test" depends="checkstyle">
-		<antcall target="php.simpletest.test" />
+        <antcall target="phpUnit"/>
 	</target>
 	
 	<target name="checkstyle">
@@ -41,18 +40,6 @@
 		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
     </target>
 	
-	<target name="php.simpletest.test">
-		<exec executable="php" failonerror="false">
-			<arg line="/home/travi/include/php/framework/test/framework.runner.php -junit" />
-		</exec>		
-        <groovy>
-            def xml = new XmlSlurper().parse("/home/travi/include/build/simpletest.xml")
-            def failures = xml.@failures
-            if (failures != 0) properties["simpletest-failure"] = true
-        </groovy>
-        <fail if='simpletest-failure' message="There were Simpletest failures"/>
-	</target>
-	
 	<target name="minify">		
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
             outputfolder="../client/min/css/" >
@@ -71,9 +58,4 @@
             <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
 	</target>
-
-    <target name="clean">
-        <delete dir="${build.logs}"/>
-        <delete dir="${build.dir}/coverage"/>
-    </target>
 </project>
