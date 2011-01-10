@@ -253,6 +253,9 @@ header, footer{
 header h1{
     font-size:          197%; /*developer.yahoo.com/yui/3/cssfonts/ */
 }
+header h2{
+    font-size:          167%
+}
 footer{
     text-align:         right;
     padding-top:        3px;
