@@ -79,6 +79,18 @@ class FrontController
  
 	private function sendResponse()
 	{
+        $template = $this->Response->getPageTemplate();
+        $templateByConvention = '/'
+                    . $this->Request->getController() . '/'
+                    . $this->Request->getAction()
+                    . '.tpl';
+        
+        if(empty($template) && file_exists($this->config['sitePath']
+                . '/app/view/pages'
+                . $templateByConvention))
+        {
+            $this->Response->setPageTemplate($templateByConvention);
+        }
 		$this->Response->respond();
 	}
 }
