@@ -1,4 +1,9 @@
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
     <head>
         <title>{$page->getTitle()}</title>
 {foreach item=tag from=$page->getMetatags()}
@@ -7,12 +12,16 @@
 {foreach item=link from=$page->getLinkTags()}
         <link   {if !empty($link['type'])}type="{$link['type']}" {/if}rel="{$link['rel']}"{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 {foreach item=alt from=$page->getAltStyles()}
         <link   type="text/css" rel="alternate stylesheet" media="screen" href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" />
 {/foreach}
 {foreach item=style from=$page->getStylesheets()}
         <link   type="text/css" rel="stylesheet" media="screen" href="{$page->getProperFile($style)}?{$page->getUrlFingerprint()}" />
 {/foreach}
+        <script type="text/javascript" src="/resources/shared/js/modernizr/modernizr.min.js"> </script>
 {foreach item=script from=$page->getScripts()}
         <script type="text/javascript" src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" > </script>
 {/foreach}

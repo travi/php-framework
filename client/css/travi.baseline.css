@@ -239,9 +239,40 @@ abbr,acronym{
 	border-bottom:		1px dotted;
 }
 #wrap{
-    background-color:   #ccc;
-	width: 				750px;
-	margin:				0 auto 0 auto;
+    background-color:   #ddd;
+	width: 				960px;
+	margin:				0 auto;
+}
+#wrap p{
+    padding:            10px;
+}
+header, footer{
+    padding:            10px;
+    background-color:   #bbb;
+}
+header h1{
+    font-size:          197%; /*developer.yahoo.com/yui/3/cssfonts/ */
+}
+footer{
+    text-align:         right;
+    padding-top:        3px;
+    padding-bottom:     3px;
+    font-size:          smaller;
+    font-variant:       small-caps;
+}
+footer dl{
+    display:            inline;
+}
+footer dt{
+    font-weight:        normal;
+}
+footer dt, footer dd{
+    display:            inline;
+    margin:             0;
+    padding:            0;
+}
+p{
+    line-height:        160%; /*http://twitter.com/#!/smashingmag/status/1863079509*/
 }
 
 
