@@ -305,7 +305,7 @@ abstract class xhtmlPage
 //                          Navigation                                  //
 //////////////////////////////////////////////////////////////////////////
 
-	public function setMainNav($section)
+	public function setPrimaryNav($section)
 	{
         $this->nav->setSection('main', $section);
 	}
