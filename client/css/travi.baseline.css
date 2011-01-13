@@ -246,8 +246,10 @@ abbr,acronym{
 #wrap p{
     padding:            10px;
 }
-header, footer{
+header, footer, #content {
     padding:            10px;
+}
+header, footer {                 
     background-color:   #bbb;
 }
 header h1{

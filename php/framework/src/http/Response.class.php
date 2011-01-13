@@ -5,11 +5,15 @@
  * Time: 6:27:18 PM
  */
 
+require_once(dirname(__FILE__).'/../../objects/dependantObject.class.php');
+require_once(dirname(__FILE__).'/../../objects/content/contentObject.class.php');
+require_once(dirname(__FILE__).'/../../objects/content/navigation/navigation.class.php');
+require_once(dirname(__FILE__).'/../../objects/page/xhtml.class.php');
 require_once(dirname(__FILE__).'/../dependencyManagement/DependencyManager.class.php');
 
 class Response extends xhtmlPage
 {
-	private $View;		//Object containing template, css, js, etc information
+	private $View;		//TODO: Object containing template, css, js, etc information
 
     /** @var string */
     private $tagLine;
@@ -20,6 +24,8 @@ class Response extends xhtmlPage
         $this->setSiteHeader($config['siteHeader']);
         $this->setTagLine($config['tagLine']);
         $this->setTheme('/resources/css/' . $config['theme']['site']);
+		$this->nav = new NavigationObject();  //TODO: need to refactor this
+        $this->setPrimaryNav($config['nav']);
 
         if(!empty($config['customFonts']))
         {

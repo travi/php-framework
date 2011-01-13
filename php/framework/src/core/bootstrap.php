@@ -28,7 +28,8 @@ define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 define('SITE_ROOT', DOC_ROOT.'../');
 require_once(dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php');
 
-$config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yaml');
+$config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
+$config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
 $config['debug'] = true;
 $config['docRoot'] = DOC_ROOT;
 
