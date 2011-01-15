@@ -3,14 +3,16 @@
  * Created on Nov 27, 2008
  * By Matt Travi
  */
+require_once(dirname(__FILE__).'/../../dependantObject.class.php');
+require_once(dirname(__FILE__).'/../contentObject.class.php');
   
 class NavigationObject extends ContentObject
 {
-	protected $sections = array();
+	private $sections = array();
 	
 	public function addSection($title,$content='')
 	{
-		$this->sections[$title] = new NavSection($title,$content);
+		$this->setSection($title, $content);
 	}
 
     public function setSection($title,$content='')
@@ -30,12 +32,12 @@ class NavigationObject extends ContentObject
 	
 	public function addSectionContent($title,$content)
 	{
-		$this->sections[$title]->setContent($content);
+		$this->setSection($title, $content);
 	}
 	
 	public function addSectionContentLinks($title,$items=array())
 	{
-		$this->sections[$title]->setContent($items);
+		$this->setSection($title, $items);
 	}
 }
 ?>
