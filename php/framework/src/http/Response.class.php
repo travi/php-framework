@@ -33,7 +33,7 @@ class Response extends xhtmlPage
         }
 
         //temporarily set the layout template here until moving it to $View
-        $this->layoutTemplate = $config['template']['layout'];
+        $this->setLayoutTemplate($config['template']['layout']);
 
         //temporarily set smartyConfig to work around the fact that xhtml.class is currently being used
         $this->smartyConfig = $config['smarty'];

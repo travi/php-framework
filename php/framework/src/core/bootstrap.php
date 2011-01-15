@@ -30,7 +30,7 @@ require_once(dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php');
 
 $config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
 $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
-$config['debug'] = true;
+$config['debug'] = true;         //TODO: make this automated based on environment
 $config['docRoot'] = DOC_ROOT;
 
 //Add Dependencies

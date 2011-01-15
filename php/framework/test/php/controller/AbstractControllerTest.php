@@ -12,7 +12,7 @@ require_once '/home/travi/include/php/framework/src/exception/NotFound.exception
 class AbstractControllerTest extends PHPUnit_Framework_TestCase
 {
     /** @var AbstractController */
-    protected $object;
+    protected $controller;
     /** @var Request */
     protected $requestStub;
     /** @var Response */
@@ -24,9 +24,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('AbstractController');
-
-        $config = array('docRoot' => dirname(__FILE__) . '/../../../../../../../wedding/doc_root/');
+        $this->controller = $this->getMockForAbstractClass('AbstractController');
 
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
@@ -53,7 +51,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      */
     public function testDoAction()
     {
-        $this->object->doAction($this->requestStub, $this->responseStub);
+        $this->controller->doAction($this->requestStub, $this->responseStub);
     }
 }
 ?>

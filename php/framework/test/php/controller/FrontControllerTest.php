@@ -24,9 +24,10 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->object = new FrontController;
 
-        $config = array('docRoot' => dirname(__FILE__) . '/../../../../../../wedding/doc_root/');
+        $config = array('docRoot' => dirname(__FILE__) . '/../mockProject/doc_root/');
+        echo $config['docRoot'];
 
-        $responseStub = $this->getMock('Response', array('respond'));
+        $responseStub = $this->getMock('Response', array('respond'));  //TODO: should properly mock this instead of trying to stub improperly
 
         $this->object->setConfig($config);
         $this->object->setResponse($responseStub);

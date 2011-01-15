@@ -2,10 +2,10 @@
 
 abstract class DependantObject
 {
-	protected $styles = array();
-	protected $scripts = array();
-	protected $jsInits = array();
-    protected $template;                //template file to be used when rendering
+	private $styles = array();
+	private $scripts = array();
+	private $jsInits = array();
+    private $template;                //template file to be used when rendering
 
     public function getStyles()
     {

@@ -397,6 +397,11 @@ abstract class xhtmlPage
         $this->layoutTemplate = $template;
     }
 
+    public function getLayoutTemplate()
+    {
+        return $this->layoutTemplate;
+    }
+
     public function setPageTemplate($template)
     {
         $this->pageTemplate = $template;
@@ -479,7 +484,7 @@ abstract class xhtmlPage
 
             $smarty->clearAllAssign();
 			$smarty->assign('page',$this);
-			$smarty->display($this->layoutTemplate);
+			$smarty->display($this->getLayoutTemplate());
         }
     }
 
