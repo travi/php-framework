@@ -31,22 +31,12 @@ class TabsTest extends PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @todo Implement test__toString().
-     */
-    public function test__toString()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
     public function testClientDependencies()
     {
         $this->assertSame(array('scripts'   => array('jqueryUi'),
                                 'jsInits'   => array("$('.ui-tabs').tabs({selected:0,fx:{opacity:'toggle', height:'toggle'}});"),
                                 'styles'    => array()), $this->object->getDependencies());
+        $this->assertSame('components/tabs.tpl', $this->object->getTemplate());
     }
 }
 ?>
