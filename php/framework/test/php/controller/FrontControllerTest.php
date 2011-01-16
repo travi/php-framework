@@ -27,10 +27,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $config = array('docRoot' => dirname(__FILE__) . '/../mockProject/doc_root/');
         echo $config['docRoot'];
 
-        $responseStub = $this->getMock('Response', array('respond'));  //TODO: should properly mock this instead of trying to stub improperly
-
         $this->object->setConfig($config);
-        $this->object->setResponse($responseStub);
     }
 
     /**
@@ -51,16 +48,18 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
                 ->method('getAction')
                 ->will($this->returnValue('index'));
 
+        $responseStub = $this->getMock('Response');
+        $responseStub->expects($this->once())
+                    ->method('setTitle')
+                    ->with($this->equalTo('Test'));
+
         $this->object->setRequest($requestStub);
+        $this->object->setResponse($responseStub);
 
         /** @var $response Response */
         $response = $this->object->processRequest();
-        $this->assertSame($response->getTitle(), 'Test');
     }
 
-    /**
-     * @todo Implement test404().
-     */
     public function test404()
     {
         $requestStub = $this->getMock('Request');
@@ -68,14 +67,19 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
                 ->method('getController')
                 ->will($this->returnValue('nonExistantPage'));
 
-        $this->object->setRequest($requestStub);        
+        $responseStub = $this->getMock('Response');
+        //TODO: figure out a way to test the 404 header
+        $responseStub->expects($this->once())
+                    ->method('setTitle')
+                    ->with($this->equalTo('Page Could Not Be Found'));
+        $responseStub->expects($this->once())
+                    ->method('setPageTemplate')
+                    ->with($this->equalTo('../error/404.tpl'));
+
+        $this->object->setRequest($requestStub);
+        $this->object->setResponse($responseStub);     
 
         $response = $this->object->processRequest();
-        
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
     }
 
     /**

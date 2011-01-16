@@ -67,13 +67,14 @@ class FrontController
                 throw new NotFoundException('Controller Not Found!');
             }
         } catch (NotFoundException $e) {
-            //TODO: Use actual 404 status code and hand off to custom error page
-            //TODO: also include link to contact page...
-            echo '<h2>404</h2>';
-            echo '<p>' . $e->getMessage() . '</p>';//TODO: only show this in dev mode, but log it in other environments
-
+            require_once(dirname(__FILE__).'/../error.controller.php');
+            $error = new ErrorController();
+            $error->error404($this->Request, $this->Response, $e);
         } catch (Exception $e) {
             echo '<h2>Exception: ' . $e . '</h2>';
+            require_once(dirname(__FILE__).'/../error.controller.php');
+            $error = new ErrorController();
+            $error->error500($this->Request, $this->Response, $e);
         }
     }
  
