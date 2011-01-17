@@ -258,24 +258,6 @@ header h1{
 header h2{
     font-size:          167%
 }
-footer{
-    text-align:         right;
-    padding-top:        3px;
-    padding-bottom:     3px;
-    font-size:          smaller;
-    font-variant:       small-caps;
-}
-footer dl{
-    display:            inline;
-}
-footer dt{
-    font-weight:        normal;
-}
-footer dt, footer dd{
-    display:            inline;
-    margin:             0;
-    padding:            0;
-}
 p{
     line-height:        160%; /*http://twitter.com/#!/smashingmag/status/1863079509*/
 }
@@ -307,16 +289,6 @@ p{
 @media all and (orientation:landscape) {
   /* Style adjustments for landscape mode goes here */
 
-}
-
-/* Grade-A Mobile Browsers (Opera Mobile, iPhone Safari, Android Chrome)
-   Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
-@media screen and (max-device-width: 480px) {
-
-
-  /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you
-     j.mp/textsizeadjust
-  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
 }
 
 /*
