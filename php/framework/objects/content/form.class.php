@@ -4,6 +4,7 @@
  * By Matt Travi
  */
 
+require_once(dirname(__FILE__).'/../dependantObject.class.php');
 require_once('contentObject.class.php');
 
 //////////////////////////////////////////////////////////////////////
