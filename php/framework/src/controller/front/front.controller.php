@@ -71,7 +71,6 @@ class FrontController
             $error = new ErrorController();
             $error->error404($this->Request, $this->Response, $e);
         } catch (Exception $e) {
-            echo '<h2>Exception: ' . $e . '</h2>';
             require_once(dirname(__FILE__).'/../error.controller.php');
             $error = new ErrorController();
             $error->error500($this->Request, $this->Response, $e);
@@ -92,6 +91,7 @@ class FrontController
         {
             $this->Response->setPageTemplate($templateByConvention);
         }
+        $this->Response->addMetaTag('<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">');
 		$this->Response->respond();
 	}
 }
