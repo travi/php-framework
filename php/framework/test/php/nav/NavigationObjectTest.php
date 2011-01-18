@@ -80,5 +80,13 @@ class NavigationObjectTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(array($title => $links), $this->object->getSections());
     }
+
+    public function testSectionTemplate()
+    {
+        $template = 'template';
+
+        $this->object->setSectionTemplate($template);
+        $this->assertSame($template, $this->object->getSectionTemplate());
+    }
 }
 ?>

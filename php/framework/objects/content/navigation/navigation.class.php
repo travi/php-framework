@@ -9,6 +9,8 @@ require_once(dirname(__FILE__).'/../contentObject.class.php');
 class NavigationObject extends ContentObject
 {
 	private $sections = array();
+    /** @var string */
+    private $sectionTemplate;
 	
 	public function addSection($title,$content='')
 	{
@@ -19,6 +21,11 @@ class NavigationObject extends ContentObject
     {
         $this->sections[$title] = $content;
     }
+
+    public function setSectionTemplate($template)
+    {
+        $this->sectionTemplate = $template;
+    }
 	
 	public function getSection($title)
 	{
@@ -28,6 +35,11 @@ class NavigationObject extends ContentObject
     public function getSections()
     {
         return $this->sections;
+    }
+
+    public function getSectionTemplate()
+    {
+        return $this->sectionTemplate;
     }
 	
 	public function addSectionContent($title,$content)
