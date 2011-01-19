@@ -55,7 +55,10 @@ class NavigationObject extends ContentObject
     {
 		foreach ($this->sections as $section)
 		{
-			$this->checkDependencies($section);
+            if(is_a($section, 'DependantObject'))
+            {
+			    $this->checkDependencies($section);
+            }
 		}
         return parent::getDependencies();
     }
