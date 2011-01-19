@@ -21,6 +21,29 @@ abbr,acronym{
 a.add-item{
 	background-image: 	url(/resources/shared/img/famfamfam/add.png);
 }
+/*ENTITY LIST*/
+ol.entityList{
+    list-style-type: none;
+    padding:        0;
+}
+.entityBlock dl
+{
+	margin:			0;
+}
+.entityBlock dl dt
+{
+	font-size:			1.5em;
+	font-weight:		bold;
+}
+.entityBlock .actions
+{
+	border: 		1px solid #cccccc;
+	margin: 		4px 0 0 0;
+	padding: 		2px;
+	background: 	#eaeaea;
+	color:			#000;
+	width: 			90%;
+}
 /*SUBMISSION RESULTS*/
 .good
 {

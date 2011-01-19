@@ -155,6 +155,10 @@ class DependencyManager
         }
     }
 
+    /**
+     * @param  $component ContentObject
+     * @return void
+     */
     public function resolveComponentDependencies($component)
     {
         if(is_object($component) && is_a($component,'DependantObject'))

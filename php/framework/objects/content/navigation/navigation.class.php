@@ -51,5 +51,13 @@ class NavigationObject extends ContentObject
 	{
 		$this->setSection($title, $items);
 	}
+    public function getDependencies()
+    {
+		foreach ($this->sections as $section)
+		{
+			$this->checkDependencies($section);
+		}
+        return parent::getDependencies();
+    }
 }
 ?>
