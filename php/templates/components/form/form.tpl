@@ -5,6 +5,10 @@
 			{*$form .= ' enctype="'.$this->encType.'"';*}
 		{*}*}
 {foreach from=$form->getFieldsets() item=fieldset}
-    {include file="components/form/fieldset.tpl" fieldset=$fieldset}
+    {if is_a($fieldset, 'Fieldset')}
+        {include file="components/form/fieldset.tpl" fieldset=$fieldset}
+    {elseif is_a($fieldset,'Input')}
+        {include file=$fieldset->getTemplate() field=$fieldset}
+    {/if}
 {/foreach}
 </form>

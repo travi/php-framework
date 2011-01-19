@@ -7,6 +7,8 @@
                 {include file=$field->getTemplate() field=$field}
             {elseif is_a($field,'Choices')}
                 {include file=$field->getTemplate() field=$field}
+            {elseif is_a($field,'NoteArea')}
+                {include file=$field->getTemplate() field=$field}
             {else}
                 other
             {/if}

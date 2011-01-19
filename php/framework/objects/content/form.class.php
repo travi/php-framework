@@ -203,16 +203,19 @@ class Form extends ContentObject
 		}
         return parent::getDependencies();
     }
-    protected function checkDependencies($fieldset)
+    protected function checkDependencies($fieldSet)
     {
-        foreach($fieldset->getFields() as $field)
+        if(is_a($fieldSet, 'Fieldset'))
         {
-            if(is_a($field,'ContentObject'))
+            foreach($fieldSet->getFields() as $field)
             {
-                $fieldset->checkDependencies($field);
+                if(is_a($field,'ContentObject'))
+                {
+                    $fieldSet->checkDependencies($field);
+                }
             }
         }
-        parent::checkDependencies($fieldset);
+        parent::checkDependencies($fieldSet);
     }
     private function getValidations()
     {
@@ -628,16 +631,25 @@ class Button
 	}
 }
 
-class NoteArea
+class NoteArea extends ContentObject
 {
-	protected $label;
-	protected $content;
+	private $label;
+	private $content;
 
 	public function __construct($options)
 	{
 		$this->label = $options['label'];
 		$this->content = $options['content'];
+        $this->setTemplate('components/form/noteArea.tpl');
 	}
+    public function getLabel()
+    {
+        return $this->label;
+    }
+    public function getContent()
+    {
+        return $this->content;
+    }
 	public function getValidations()
 	{
 		return array();
