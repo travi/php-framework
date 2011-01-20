@@ -26,6 +26,10 @@ ol.entityList{
     list-style-type: none;
     padding:        0;
 }
+.entityBlock
+{
+	padding:		3px;
+}
 .entityBlock dl
 {
 	margin:			0;
