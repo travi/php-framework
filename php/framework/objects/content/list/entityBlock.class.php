@@ -68,6 +68,10 @@ class EntityBlock
 //			$this->disableAction($action,true);
 //		}
     }
+    public function getExtraActionRows()
+    {
+        return $this->extraActionRows;
+    }
     private function disableAction($text,$active)
     {
 		$this->activeActions["$text"] = "$active";

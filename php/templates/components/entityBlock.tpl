@@ -26,31 +26,21 @@
 		{/foreach}
 
 							</ul>
-
-		{if !empty($this->extraActionRows)}
-		    extra row
-		{*{*}
-			{*foreach($this->extraActionRows as $row)*}
-			{*{*}
-				{*$entity .= '*}
-							{*<ul class="actions">';*}
-				{*foreach($row as $actions)*}
-				{*{*}
-					{*if(!isset($actions['active']) || $actions['active'] == TRUE)*}
-					{*{*}
-						{*$entity .= '*}
-									{*<li class="item-action '.$actions['class'].'"><a href="'.$actions['link'].$this->id.'"';*}
+        {assign var="extraRows" value=$entity->getExtraActionRows()}
+		{if !empty($extraRows)}
+			{foreach from=$extraRows item=row}
+							<ul class="actions">
+				{foreach from=$row item=actions}
+					{if !isset($actions['active']) || $actions['active'] == TRUE}
+									<li class="item-action {$actions['class']}"><a href="{$actions['link']}{$entity->getId()}"
 						{*if(!empty($actions["$action_text"]['confirmation']))*}
 						{*{*}
 							{*$entity .= ' onclick="if (confirm('."'".$this->preConf.$actions["$action_text"]['confirmation']."'".')) return true; else return false;"';*}
-						{*}*}
-
-						{*$entity .= '>'.$actions['text'].'</a></li>';*}
-					{*}*}
-				{*}*}
-				{*$entity .= '*}
-						{*</ul>';*}
-			{*}*}
+						{*}*}>{$actions['text']}</a></li>
+					{/if}
+				{/foreach}
+						</ul>
+			{/foreach}
 		{/if}
 					</dd>
   				</dl>
