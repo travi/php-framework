@@ -60,6 +60,7 @@ travi.framework.entityList = (function () {
             resizable:  false
         });
         $("form.item-action").submit(confirm);
+        $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
     };
 
     $(document).ready(function () {

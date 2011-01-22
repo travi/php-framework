@@ -19,7 +19,16 @@ abbr,acronym{
 	background-repeat: 	no-repeat;
 }
 a.add-item{
+    background-position:5px 50%;
+    background-repeat:  repeat-x;
+    margin-bottom:      5px;
+}
+a.add-item span.ui-icon{
 	background-image: 	url(/resources/shared/img/famfamfam/add.png);
+    background-position:0 0;
+}
+a.add-item span.ui-button-text{
+    padding:            0.4em 0.6em;
 }
 /*ENTITY LIST*/
 ol.entityList{
