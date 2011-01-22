@@ -8,6 +8,7 @@ require_once(dirname(__FILE__).'/../contentObject.class.php');
   
 class NavigationObject extends ContentObject
 {
+    /** @var array */
 	private $sections = array();
     /** @var string */
     private $sectionTemplate;
