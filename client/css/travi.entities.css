@@ -1,3 +1,17 @@
+/*ADD BUTTON*/ 
+a.add-item{
+    background-position:5px 50%;
+    background-repeat:  repeat-x;
+    margin-bottom:      5px;
+}
+a.add-item span.ui-icon{
+	background-image: 	url(/resources/shared/img/famfamfam/add.png);
+    background-position:0 0;
+}
+a.add-item span.ui-button-text{
+    padding:            0.4em 0.6em;
+}
+
 /*ENTITY LIST*/
 ul.actions li, ul.actions form{
 	display: inline;
@@ -25,4 +39,30 @@ ul.actions li.add-note{
 }
 ul.actions li.manage-notes{
 	background-image: url(/resources/shared/img/famfamfam/note.png);
+}    
+ol.entityList{
+    list-style-type: none;
+    padding:        0;
+}
+.entityBlock
+{
+	padding:		3px;
+}
+.entityBlock dl
+{
+	margin:			0;
+}
+.entityBlock dl dt
+{
+	font-size:			1.5em;
+	font-weight:		bold;
+}
+.entityBlock .actions
+{
+	border: 		1px solid #cccccc;
+	margin: 		4px 0 0 0;
+	padding: 		2px;
+	background: 	#eaeaea;
+	color:			#000;
+	width: 			90%;
 }
