@@ -79,6 +79,11 @@ class FrontController
  
 	private function sendResponse()
 	{
+        /**
+         * TODO: this feels like the wrong place for this
+         * should it go in the doAction of the abstract controller?
+         * or the Response object?
+         */
         $template = $this->Response->getPageTemplate();
         $templateByConvention = '/'
                     . $this->Request->getController() . '/'
