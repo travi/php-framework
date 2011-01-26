@@ -28,6 +28,7 @@
                 <exclude name="pngFix/**/*.js" />
                 <exclude name="reflection/**/*.js" />
                 <exclude name="unit/**/*.js" />
+                <exclude name="modernizr/**/*.js" />
             </fileset>
             <fileset dir="../client/js/" >
             	<!-- My Plug-ins -->
@@ -37,7 +38,7 @@
 				<include name="**/*.qunit" />
             </fileset>
         </jslint>
-		<xslt in="jslint.xml" out="jslint-junit.xml" style="jslint.xsl" />
+		<xslt in="${build.logs}/jslint.xml" out="${build.logs}/jslint-junit.xml" style="jslint.xsl" />
     </target>
 	
 	<target name="minify">		
