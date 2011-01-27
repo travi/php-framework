@@ -8,7 +8,7 @@ class TextInput extends Input
 	public function __construct($options)
 	{
 		parent::__construct($options);
-		$this->class = "textInput";
-		$this->type = "text";
+		$this->setClass("textInput");
+		$this->setType("text");
 	}
 }

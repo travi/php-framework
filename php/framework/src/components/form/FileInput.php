@@ -13,7 +13,7 @@ class FileInput extends Input
 	public function __construct($options)
 	{
 		parent::__construct($options);
-		$this->class = "fileInput";
-		$this->type = "file";
+		$this->setClass("fileInput");
+		$this->setType("file");
 	}
 }

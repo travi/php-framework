@@ -11,6 +11,11 @@ require_once(dirname(__FILE__).'/../../src/components/form/Input.php');
 require_once(dirname(__FILE__).'/../../src/components/form/TextInput.php');
 require_once(dirname(__FILE__).'/../../src/components/form/FileInput.php');
 require_once(dirname(__FILE__).'/../../src/components/form/PasswordInput.php');
+require_once(dirname(__FILE__).'/../../src/components/form/HiddenInput.php');
+require_once(dirname(__FILE__).'/../../src/components/form/TextArea.php');
+require_once(dirname(__FILE__).'/../../src/components/form/RichTextArea.php');
+require_once(dirname(__FILE__).'/../../src/components/form/SubmitButton.php');
+require_once(dirname(__FILE__).'/../../src/components/form/DateInput.php');
 
 //////////////////////////////////////////////////////////////////////
 //						 		Form								//
@@ -56,31 +61,6 @@ class UrlInput extends Input
 		$form .= $preview->__toString();
 
 		return $form;
-	}
-}
-class HiddenInput extends Input
-{
-	public function __construct($options)
-	{
-		parent::__construct($options);
-		$this->type = "hidden";
-        $this->setTemplate('components/form/input.tpl');
-	}
-}
-
-class DateInput extends Input
-{
-	public function __construct($options)
-	{
-		parent::__construct($options);
-		$this->type = "text";
-		$this->class = "textInput datepicker";
-		$this->addJavaScript('jqueryUi');
-		$this->addJsInit("$('input.datepicker').datepicker({
-		                                            dateFormat:'yy-mm-dd',
-		                                            buttonImage:'/resources/shared/img/calendar.gif',
-		                                            buttonImageOnly: true, showOn: 'both'
-                                                });");
 	}
 }
 class TimeInput extends Input
@@ -161,77 +141,6 @@ class CityStateZip
 				<input type="text" name="zip" id="zip" value="'.$this->zip.'" class="textInput zip" size="5" maxlength="5"/>
 				<br />';
 	}
-}
-class TextArea extends Input
-{
-	protected $class;
-	protected $rows;
-
-	public function __construct($options)
-	{
-		parent::__construct($options);
-		$this->class = "textInput";
-		$this->rows = $options['rows'];
-        $this->setTemplate('components/form/textArea.tpl');
-	}
-	public function getRows()
-    {
-        return $this->rows;
-    }
-}
-class RichTextArea extends TextArea
-{
-	public function __construct($options)
-	{
-		parent::__construct($options);
-		$this->class = "textInput richEditor";
-		$this->addJavaScript('wymEditor');
-        $this->addJavaScript('wymEditor-fullScreen');
-		$this->addJsInit("$('textarea.richEditor').wymeditor({
-                                                        skin:'silver',
-                                                        updateSelector:'#Submit',
-                                                        postInit: function(wym){
-                                                            wym.fullscreen();
-                                                        }
-                                                    });");
-        $this->setTemplate('components/form/richTextArea.tpl');
-	}
-}
-class SubmitButton extends Input
-{
-	protected $confirmation;
-
-	public function __construct($options)
-	{
-		parent::__construct($options);
-        $this->label = "";
-		$this->type = "submit";
-		$this->name = "Submit";
-		if(!empty($options['class']))
-			$this->class = $options['class'];
-		else
-			$this->class = "submitButton";
-		$this->value = $options['label'];
-        $this->setTemplate('components/form/input.tpl');
-        $this->addJavaScript('jqueryUi');
-        $this->addJsInit('$("input[type=submit]").button()');
-	}
-	//TODO need to replace this technique using UI dialog
-	public function setConfirmation($confirmation)
-	{
-		$this->confirmation = $confirmation;
-	}
-//	public function __toString()
-//	{
-//		$string = '
-//						<input type="'.$this->type.'" name="'.$this->name.'" id="'.$this->name.'" value="'.$this->value.
-//					'" class="'.$this->class.'"';
-//		if(!empty($this->confirmation))
-//			$string .= ' onclick="if (confirm(\''.$this->confirmation.'\')) return true; else return false;"';
-//		$string .= '/>';
-//
-//		return $string;
-//	}
 }
 
 class Button

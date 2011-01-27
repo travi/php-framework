@@ -4,12 +4,12 @@ require_once(dirname(__FILE__).'/Field.php');
 
 abstract class Input extends ContentObject implements Field
 {
-	protected $label;					//label associated with this field
-	protected $name;					//name attribute for this field
+	private $label;					//label associated with this field
+	private $name;					//name attribute for this field
 	protected $validations = array();	//list of validations
-	protected $type;					//type attribute for this field
-	protected $value;					//value attribute for this field
-	protected $class;					//class attribute for this field
+	private $type;					//type attribute for this field
+	private $value;					//value attribute for this field
+	private $class;					//class attribute for this field
 
 	public function __construct($options)
 	{
@@ -37,6 +37,10 @@ abstract class Input extends ContentObject implements Field
 	{
 		array_push($this->validations,$validation);
 	}
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 	public function getName()
 	{
 		return $this->name;
@@ -45,6 +49,10 @@ abstract class Input extends ContentObject implements Field
     {
         return $this->label;
     }
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
     public function getType()
     {
         return $this->type;
@@ -52,6 +60,10 @@ abstract class Input extends ContentObject implements Field
     public function getValue()
     {
         return $this->value;
+    }
+    public function setClass($class)
+    {
+        $this->class = $class;
     }
     public function getClass()
     {
