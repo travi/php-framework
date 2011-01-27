@@ -16,6 +16,7 @@ require_once(dirname(__FILE__).'/../../src/components/form/TextArea.php');
 require_once(dirname(__FILE__).'/../../src/components/form/RichTextArea.php');
 require_once(dirname(__FILE__).'/../../src/components/form/SubmitButton.php');
 require_once(dirname(__FILE__).'/../../src/components/form/DateInput.php');
+require_once(dirname(__FILE__).'/../../src/components/form/NoteArea.php');
 
 //////////////////////////////////////////////////////////////////////
 //						 		Form								//
@@ -171,39 +172,6 @@ class Button
 				<button type="'.$this->type.'" class="'.$this->class.'">'.$this->value.'</button>';
 	
 		return $string;
-	}
-}
-
-class NoteArea extends ContentObject
-{
-	private $label;
-	private $content;
-
-	public function __construct($options)
-	{
-		$this->label = $options['label'];
-		$this->content = $options['content'];
-        $this->setTemplate('components/form/noteArea.tpl');
-	}
-    public function getLabel()
-    {
-        return $this->label;
-    }
-    public function getContent()
-    {
-        return $this->content;
-    }
-	public function getValidations()
-	{
-		return array();
-	}
-	public function __toString()
-	{
-		return '
-			<label>'.$this->label.'</label>
-			<div class="formBlock notearea">
-				'.$this->content.'
-			</div>';
 	}
 }
 
