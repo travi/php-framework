@@ -17,10 +17,10 @@
 	
     <target name="jsLint" description="JSLint">
         <mkdir dir="${build.logs}"/>
-        <jslint options="${jslint.goodparts}" haltonfailure="${not.on.teamcity}">
+        <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
             <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            
             <formatter type="plain" />
-            <formatter type="xml" destfile="${build.logs}/jslint.xml" />
+            <formatter type="junit" destfile="${build.logs}/jslint" />
             <fileset dir="../client/js/" >
                 <include name="**/*.js" />
 				<include name="**/*.qunit" />
@@ -39,7 +39,7 @@
 				<include name="**/*.qunit" />
             </fileset>
         </jslint>
-		<xslt in="${build.logs}/jslint.xml" out="${build.logs}/jslint-junit.xml" style="jslint.xsl" />
+        <fail if="jsLintResult" message="There were JSLint failures"/>
     </target>
 	
 	<target name="minify">		
