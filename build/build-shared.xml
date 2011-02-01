@@ -48,6 +48,23 @@
         </exec>
     </target>
 
+    <target name="phpcs" description="PHP Code Sniffer">
+        <exec dir="${src.dir}"
+            executable="phpcs"
+            output="${build.logs}/checkstyle.xml"
+            failonerror="false">
+                <arg line="--report=checkstyle ."/>
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="PHP Copy/Paste Detector">
+        <exec dir="${src.dir}"
+            executable="phpcpd"
+            failonerror="false">
+                <arg line="--log-pmd ${build.logs}/pmd-cpd.xml ."/>
+        </exec>
+     </target>
+
     <target name="clean">
         <delete dir="${build.logs}"/>
         <delete dir="${build.dir}/coverage"/>

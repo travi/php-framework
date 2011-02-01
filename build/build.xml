@@ -12,6 +12,7 @@
 	
 	<target name="checkstyle">
 		<antcall target="jsLint" />
+        <antcall target="phpcpd" />
 	</target>
 	
     <target name="jsLint" description="JSLint">
