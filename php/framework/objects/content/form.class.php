@@ -180,16 +180,6 @@ class Button
 //////////////////////////////////////////////////////////////////////
 //					Fields Giving Numerous Choices					//
 //////////////////////////////////////////////////////////////////////
-
-class RadioButtons extends Choices
-{
-	public function __construct($options=array())
-	{
-		parent::__construct($options);
-		$this->type = "radio";
-		$this->class = "radioButton";
-	}
-}
 class CheckBoxes extends Choices
 {
 	public function __construct($options=array())
