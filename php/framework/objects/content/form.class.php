@@ -19,6 +19,8 @@ require_once(dirname(__FILE__).'/../../src/components/form/DateInput.php');
 require_once(dirname(__FILE__).'/../../src/components/form/NoteArea.php');
 require_once(dirname(__FILE__).'/../../src/components/form/Choices.php');
 require_once(dirname(__FILE__).'/../../src/components/form/SelectionBox.php');
+require_once(dirname(__FILE__).'/../../src/components/form/RadioButtons.php');
+require_once(dirname(__FILE__).'/../../src/components/form/CheckBoxes.php');
 
 //////////////////////////////////////////////////////////////////////
 //						 		Form								//
