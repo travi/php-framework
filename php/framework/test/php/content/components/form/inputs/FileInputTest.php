@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/FileInput.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/FileInput.php';
 
 /**
  * Test class for FileInput.

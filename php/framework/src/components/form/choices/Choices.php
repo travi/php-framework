@@ -5,7 +5,7 @@
  * programmer@travi.org
  */
 
-require_once('Field.php');
+require_once(dirname(__FILE__).'/../Field.php');
 
 abstract class Choices implements Field
 {

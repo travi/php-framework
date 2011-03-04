@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/Choices.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/choices/Choices.php';
 
 /**
  * Test class for Choices.

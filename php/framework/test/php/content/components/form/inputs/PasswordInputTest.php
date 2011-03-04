@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/PasswordInput.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/PasswordInput.php';
 
 /**
  * Test class for PasswordInput.
