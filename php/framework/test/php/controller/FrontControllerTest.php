@@ -25,7 +25,6 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->object = new FrontController;
 
         $config = array('docRoot' => dirname(__FILE__) . '/../mockProject/doc_root/');
-        echo $config['docRoot'];
 
         $this->object->setConfig($config);
     }
