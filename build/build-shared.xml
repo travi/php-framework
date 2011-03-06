@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<property file="/home/travi/include/build/shared.properties" />
+	<property file="shared.properties" />
 	<exec executable="hostname" outputproperty="computer.hostname"/>
 	
 	<condition property="not.on.teamcity">
@@ -52,7 +52,7 @@
         <exec dir="${src.dir}"
             executable="phpcs"
             output="${build.logs}/checkstyle.xml"
-            failonerror="false">
+            failonerror="true">
                 <arg line="--report=checkstyle ."/>
         </exec>
     </target>
@@ -60,7 +60,7 @@
     <target name="phpcpd" description="PHP Copy/Paste Detector">
         <exec dir="${src.dir}"
             executable="phpcpd"
-            failonerror="false">
+            failonerror="true">
                 <arg line="--log-pmd ${build.logs}/pmd-cpd.xml ."/>
         </exec>
      </target>
