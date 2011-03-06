@@ -28,10 +28,10 @@ class SelectionBox extends Choices
 					$selected=false;
 					$disabled=false;
 
-					$optionAR = array(	option		=> $value['label'],
-										value		=> $value['value'],
-										selected	=> $selected,
-										disabled	=> $disabled);
+					$optionAR = array(	'option'		=> $value['label'],
+										'value'		=> $value['value'],
+										'selected'	=> $selected,
+										'disabled'	=> $disabled);
 
 					array_push($this->optGroups[$optGroup],$optionAR);
 				}
