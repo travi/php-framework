@@ -1,50 +1,51 @@
-"use strict";
-// use yuicompress (http://developer.yahoo.com/yui/compressor/) to generate openid.min.js
+(function () {
+    "use strict";
 
-jQuery(function () {
-	jQuery('#openid_system_status').hide();
+    // use yuicompress (http://developer.yahoo.com/yui/compressor/) to generate openid.min.js
 
-	jQuery('#openid_status_link').click(function () {
-		jQuery('#openid_system_status').toggle();
-		return false;
-	});
-});
+    jQuery(function () {
+        jQuery('#openid_system_status').hide();
 
-function stylize_profilelink() {
-	jQuery("#commentform a[href$='profile.php']").addClass('openid_link');
-}
+        jQuery('#openid_status_link').click(function () {
+            jQuery('#openid_system_status').toggle();
+            return false;
+        });
+    });
 
-function add_openid_to_comment_form() {
-	var html, label, children;
+    function stylize_profilelink() {
+        jQuery("#commentform a[href$='profile.php']").addClass('openid_link');
+    }
 
-	jQuery('#commentform').addClass('openid');
+    function add_openid_to_comment_form() {
+        var html, label, children;
 
-	html = ' <a id="openid_enabled_link" href="http://openid.net">(OpenID Enabled)</a> ' +
-				'<div id="openid_text">' +
-					'If you have an OpenID, you may fill it in here.  If your OpenID provider provides ' + 
-					'a name and email, those values will be used instead of the values here.  ' + 
-					'<a href="http://openid.net/what/">Learn more about OpenID</a> or ' + 
-					'<a href="http://openid.net/get/">find an OpenID provider</a>.' +
-				'</div> ';
+        jQuery('#commentform').addClass('openid');
 
-	jQuery('#commentform #url').attr('maxlength', '100');
-	label = jQuery('#commentform label[for=url]');
-	children = jQuery(':visible', label);
+        html = ' <a id="openid_enabled_link" href="http://openid.net">(OpenID Enabled)</a> ' +
+                    '<div id="openid_text">' +
+                        'If you have an OpenID, you may fill it in here.  If your OpenID provider provides ' +
+                        'a name and email, those values will be used instead of the values here.  ' +
+                        '<a href="http://openid.net/what/">Learn more about OpenID</a> or ' +
+                        '<a href="http://openid.net/get/">find an OpenID provider</a>.' +
+                    '</div> ';
 
-	if (children.length > 0) {
-		children.filter(':last').append(html);
-	}
-	else if (label.is(':hastext')) {
-		label.append(html);
-	} else {
-		label.append(html);
-	}
+        jQuery('#commentform #url').attr('maxlength', '100');
+        label = jQuery('#commentform label[for=url]');
+        children = jQuery(':visible', label);
 
-	// setup action
-	jQuery('#openid_text').hide();
-	jQuery('#openid_enabled_link').click(function () {
-		jQuery('#openid_text').toggle(200); 
-		return false;
-	});
-}
+        if (children.length > 0) {
+            children.filter(':last').append(html);
+        } else if (label.is(':hastext')) {
+            label.append(html);
+        } else {
+            label.append(html);
+        }
 
+        // setup action
+        jQuery('#openid_text').hide();
+        jQuery('#openid_enabled_link').click(function () {
+            jQuery('#openid_text').toggle(200);
+            return false;
+        });
+    }
+}());

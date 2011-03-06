@@ -1,76 +1,79 @@
-"use strict";
+(function () {
+    "use strict";
 
-if (typeof travi !== 'object') {
-	var travi = {};
-}
-if (typeof travi.framework !== 'object') {
-    travi.framework = {};
-}
 
-travi.framework.entityList = (function () {
-    var  buttonText,
+    if (typeof travi !== 'object') {
+        document.travi = {};
+    }
+    if (typeof travi.framework !== 'object') {
+        travi.framework = {};
+    }
 
-    setMessage = function (confirmation) {
-        $("#confirmation").text(confirmation);
-    },
+    travi.framework.entityList = (function () {
+        var  buttonText,
 
-    setText = function (text) {
-        this.buttonText = text;
-    },
+        setMessage = function (confirmation) {
+            $("#confirmation").text(confirmation);
+        },
 
-    getText = function () {
-        return this.buttonText;
-    },
+        setText = function (text) {
+            this.buttonText = text;
+        },
 
-    confirm = function () {
-        var $form = $(this);
+        getText = function () {
+            return this.buttonText;
+        },
 
-        $("#confirmation").dialog("option", "buttons", [
-            {
-                text:   travi.framework.entityList.getButtonText(),
-                click:  function () {
-                    $(this).dialog("close");
-                    $form.unbind("submit").submit();
+        confirm = function () {
+            var $form = $(this);
+
+            $("#confirmation").dialog("option", "buttons", [
+                {
+                    text:   travi.framework.entityList.getButtonText(),
+                    click:  function () {
+                        $(this).dialog("close");
+                        $form.unbind("submit").submit();
+                    }
+                },
+                {
+                    text:   "Cancel",
+                    click:  function () {
+                        $(this).dialog("close");
+                    }
                 }
-            },
-            {
-                text:   "Cancel",
-                click:  function () {
-                    $(this).dialog("close");
-                }
-            }
-        ]);
-        $("#confirmation").dialog("open");
-        
-        return false;
-    },
+            ]);
+            $("#confirmation").dialog("open");
 
-    init = function () {
-        $("li.remove-item form")
-            .hide()
-            .after("<a class='item-action' href='#'>Remove</a>");
-        $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
-            $(this).prev("form").submit();
             return false;
-        });
-        $("body").append("<div id='confirmation' title='Are you sure?'></div>");
-        $("#confirmation").dialog({
-            autoOpen:   false,
-            modal:      true,
-            resizable:  false
-        });
-        $("form.item-action").submit(confirm);
-        $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-    };
+        },
 
-    $(document).ready(function () {
-        init();
-    });
+        init = function () {
+            $("li.remove-item form")
+                .hide()
+                .after("<a class='item-action' href='#'>Remove</a>");
+            $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
+                $(this).prev("form").submit();
+                return false;
+            });
+            $("body").append("<div id='confirmation' title='Are you sure?'></div>");
+            $("#confirmation").dialog({
+                autoOpen:   false,
+                modal:      true,
+                resizable:  false
+            });
+            $("form.item-action").submit(confirm);
+            $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
+        };
 
-    return {
-        init                    : init,
-        setConfirmationMessage  : setMessage,
-        setButtonText           : setText,
-        getButtonText           : getText
-    };
+        $(document).ready(function () {
+            init();
+        });
+
+        return {
+            init                    : init,
+            setConfirmationMessage  : setMessage,
+            setButtonText           : setText,
+            getButtonText           : getText
+        };
+    }());
 }());
