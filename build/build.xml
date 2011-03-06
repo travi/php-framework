@@ -21,6 +21,7 @@
             <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            
             <formatter type="plain" />
             <formatter type="junit" destfile="${build.logs}/jslint" />
+            <formatter type="checkstyle" destfile="${build.logs}/jslint.xml" />
             <fileset dir="../client/js/" >
                 <include name="**/*.js" />
 				<include name="**/*.qunit" />
