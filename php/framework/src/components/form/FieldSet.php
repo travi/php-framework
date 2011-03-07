@@ -10,7 +10,7 @@ class FieldSet extends contentObject
 	public function __construct($options)
 	{
 		$this->legend = $options['legend'];
-		foreach($options['fields'] as $field){
+		foreach($options['fields'] as $field) {
 			$this->addField(new $field['type']($field));
 		}
 	}
@@ -31,7 +31,7 @@ class FieldSet extends contentObject
 		$validations = array();
 		foreach ($this->fieldArray as $field)
 		{
-			if(is_a($field,'Input') || is_a($field,'Choices')){
+			if(is_a($field,'Input') || is_a($field,'Choices')) {
 				$validations[$field->getName()] = $field->getValidations();
 			}
 		}
