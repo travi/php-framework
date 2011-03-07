@@ -29,8 +29,7 @@ class FieldSet extends contentObject
 	public function getValidations()
 	{
 		$validations = array();
-		foreach ($this->fieldArray as $field)
-		{
+		foreach ($this->fieldArray as $field) {
 			if (is_a($field,'Input') || is_a($field,'Choices')) {
 				$validations[$field->getName()] = $field->getValidations();
 			}
@@ -39,8 +38,7 @@ class FieldSet extends contentObject
 	}
 	public function contains($type)
 	{
-		foreach ($this->fieldArray as $field)
-		{
+		foreach ($this->fieldArray as $field) {
 			if(is_a($field,$type))
 				return true;
 		}
@@ -57,8 +55,7 @@ class FieldSet extends contentObject
 //	}
     public function getDependencies()
     {
-		foreach ($this->fieldArray as $field)
-		{
+		foreach ($this->fieldArray as $field) {
 			$this->checkDependencies($field);
 		}
     }
