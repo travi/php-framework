@@ -30,10 +30,8 @@ abstract class Choices implements Field
 		$this->value = $settings['value'];
 		$this->settings = $settings;
 		$this->optionAdder($settings['options']);
-		if(!empty($settings['validations']))
-		{
-			foreach($settings['validations'] as $validation)
-			{
+		if (!empty($settings['validations'])) {
+			foreach ($settings['validations'] as $validation) {
 				$this->addValidation($validation);
 			}
 		}
@@ -42,10 +40,8 @@ abstract class Choices implements Field
 
 	protected function optionAdder($options=array())
 	{
-		foreach($options as $option)
-		{
-			if(is_array($option))
-			{
+		foreach ($options as $option) {
+			if (is_array($option)) {
 				if(isset($this->value) && $this->value == $option['value'])
 					$selected = true;
 				elseif($option['selected'])
