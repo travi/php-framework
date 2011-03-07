@@ -87,10 +87,11 @@ class FrontController
                     . $this->Request->getAction()
                     . '.tpl';
         
-        if (empty($template)
-                && file_exists($this->config['sitePath']
-                        . '/app/view/pages' . $templateByConvention)
-        ) {
+        if (
+            empty($template)
+            && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
+        )
+        {
             $this->Response->setPageTemplate($templateByConvention);
         }
         //TODO: this should be moved out to the head template once the other sites support mobile
