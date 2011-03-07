@@ -87,7 +87,7 @@ class FrontController
                     . $this->Request->getAction()
                     . '.tpl';
         
-        if(empty($template) && file_exists($this->config['sitePath']
+        if (empty($template) && file_exists($this->config['sitePath']
                 . '/app/view/pages'
                 . $templateByConvention)) {
             $this->Response->setPageTemplate($templateByConvention);

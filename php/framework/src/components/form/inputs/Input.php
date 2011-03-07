@@ -14,7 +14,7 @@ abstract class Input extends ContentObject implements Field
 	public function __construct($options)
 	{
 		$this->label = $options['label'];
-		if(!empty($options['name']))
+		if (!empty($options['name']))
 			$this->name = $options['name'];
 		else
 		{
@@ -25,7 +25,7 @@ abstract class Input extends ContentObject implements Field
 		}
 		$this->value = $options['value'];
 		if (!empty($options['validations'])) {
-			foreach ($options['validations'] as $validation)	{
+			foreach ($options['validations'] as $validation) {
 				$this->addValidation($validation);
 			}
 		}
