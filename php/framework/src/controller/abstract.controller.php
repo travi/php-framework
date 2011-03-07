@@ -11,12 +11,9 @@ abstract class AbstractController
     {
         $action = $request->getAction();
 
-        if(method_exists($this, $action))
-        {
+        if (method_exists($this, $action)) {
             $this->$action($request, $response);
-        }
-        else
-        {
+        } else {
             throw new NotFoundException($action . ' Action Not Found!');
         }
     }

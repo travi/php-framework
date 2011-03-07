@@ -18,13 +18,10 @@ class SelectionBox extends Choices
 	}
 	protected function optionAdder($options=array())
 	{
-		if($this->settings['optGroups'])
-		{
-			foreach($options as $optGroup => $values)
-			{
+		if ($this->settings['optGroups']) {
+			foreach ($options as $optGroup => $values) {
 				$this->optGroups[$optGroup] = array();
-				foreach($values as $value)
-				{
+				foreach ($values as $value) {
 					$selected=false;
 					$disabled=false;
 
@@ -36,9 +33,7 @@ class SelectionBox extends Choices
 					array_push($this->optGroups[$optGroup],$optionAR);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			parent::optionAdder($options);
 		}
 

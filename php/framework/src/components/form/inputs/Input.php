@@ -24,10 +24,8 @@ abstract class Input extends ContentObject implements Field
 				$this->name .= '_value';
 		}
 		$this->value = $options['value'];
-		if(!empty($options['validations']))
-		{
-			foreach($options['validations'] as $validation)
-			{
+		if (!empty($options['validations'])) {
+			foreach ($options['validations'] as $validation)	{
 				$this->addValidation($validation);
 			}
 		}

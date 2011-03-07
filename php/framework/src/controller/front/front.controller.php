@@ -56,14 +56,11 @@ class FrontController
         $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
 
         try {
-            if(is_file($controllerPath))
-            {
+            if (is_file($controllerPath)) {
                 require_once($controllerPath);
                 $controller = new $controllerName();
                 $controller->doAction($this->Request, $this->Response);
-            }
-            else
-            {
+            } else {
                 throw new NotFoundException('Controller Not Found!');
             }
         } catch (NotFoundException $e) {
@@ -92,8 +89,7 @@ class FrontController
         
         if(empty($template) && file_exists($this->config['sitePath']
                 . '/app/view/pages'
-                . $templateByConvention))
-        {
+                . $templateByConvention)) {
             $this->Response->setPageTemplate($templateByConvention);
         }
         //TODO: this should be moved out to the head template once the other sites support mobile
