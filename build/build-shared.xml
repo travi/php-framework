@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<property file="shared.properties" />
+	<property file="${shared.dir}/shared.properties" />
 	<exec executable="hostname" outputproperty="computer.hostname"/>
 	
 	<condition property="not.on.teamcity">

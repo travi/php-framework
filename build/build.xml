@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <project name="framework" default="build">
+    <property name="shared.dir" value="."/>
 	<import file="build-shared.xml"/>
 	<property file="build.properties" />
 	
