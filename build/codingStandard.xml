@@ -6,4 +6,10 @@
         <exclude name="PEAR.Commenting.FileComment"/>
         <exclude name="PEAR.Commenting.FunctionComment"/>
     </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="110"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
 </ruleset>
