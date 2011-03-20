@@ -54,7 +54,7 @@
             executable="phpcs"
             output="${build.logs}/checkstyle.xml"
             failonerror="true">
-                <arg line="--standard=${build.dir}/codingStandard.xml"/>
+                <arg line="--standard=${shared.dir}/codingStandard.xml"/>
                 <arg line="--report=checkstyle ."/>
         </exec>
     </target>
