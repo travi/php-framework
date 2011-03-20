@@ -38,6 +38,15 @@
 	
 	<taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
 
+	<target name="gates">
+        <antcall target="checkstyle"/>
+        <antcall target="test"/>
+	</target>
+
+	<target name="test">
+        <antcall target="phpUnit"/>
+	</target>
+
     <target name="phpUnit" description="PHPUnit Test Runner">
         <mkdir dir="${build.logs}"/>
         <exec dir="${tests.dir}" executable="phpunit" failonerror="true">
