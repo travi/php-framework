@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<property file="${shared.dir}/shared.properties" />
-	<exec executable="hostname" outputproperty="computer.hostname"/>
-	
-	<condition property="not.on.teamcity">
-		<not>
-			<contains string="${computer.hostname}" substring="teamcity"/>
-		</not>
-	</condition>
-	
-	<condition property="simpletest.report.format" value="-junit">
-		<contains string="${computer.hostname}" substring="teamcity"/>		
-	</condition>
-	
+    <property file="${shared.dir}/shared.properties" />
+    <exec executable="hostname" outputproperty="computer.hostname"/>
+
+    <condition property="not.on.teamcity">
+        <not>
+            <contains string="${computer.hostname}" substring="teamcity"/>
+        </not>
+    </condition>
+
+    <condition property="simpletest.report.format" value="-junit">
+        <contains string="${computer.hostname}" substring="teamcity"/>
+    </condition>
+
+
     <path id="js.lint.classpath">
         <fileset dir="${ant.lib}">
             <include name="${jslint4java.jar}"/>
@@ -23,8 +24,8 @@
             <path refid="js.lint.classpath"/>
         </classpath>
     </taskdef>
-	
-	<path id="yuicompressor.classpath">
+
+    <path id="yuicompressor.classpath">
         <fileset dir="${ant.lib}">
             <include name="${yuicompressor.jar}"/>
             <include name="${yuiant.jar}"/>
@@ -32,21 +33,27 @@
     </path>
     <taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
         <classpath>
-                <path refid="yuicompressor.classpath"/>
-            </classpath>
+            <path refid="yuicompressor.classpath"/>
+        </classpath>
     </taskdef>
-	
-	<taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
 
-	<target name="gates">
+    <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
+
+    <!--This is defined to be an empty fileset to keep jsLint from breaking
+        when a project does not define any overrides-->
+    <fileset id="js.exclude.overrides" dir=".">
+        <include/>
+    </fileset>
+
+    <target name="gates">
         <antcall target="checkstyle"/>
         <antcall target="test"/>
         <antcall target="messDetect"/>
-	</target>
+    </target>
 
-	<target name="test">
+    <target name="test">
         <antcall target="phpUnit"/>
-	</target>
+    </target>
 
     <target name="messDetect" description="Mess Detection">
         <antcall target="phpcpd"/>
@@ -62,27 +69,40 @@
         </exec>
     </target>
 
+    <target name="jsLint">
+        <mkdir dir="${build.logs}"/>
+        <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
+            <predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>
+            <formatter type="plain" />
+            <formatter type="checkstyle" destfile="${build.logs}/jslint.xml" />
+            <fileset refid="js.files"/>
+            <fileset refid="js.tests"/>
+            <fileset refid="js.exclude.overrides"/>
+        </jslint>
+        <fail if="jsLintResult" message="There were JSLint failures"/>
+    </target>
+
     <target name="phpcs" description="PHP Code Sniffer">
         <mkdir dir="${build.logs}"/>
         <exec executable="phpcs">
             <arg line="--version"/>
         </exec>
         <exec dir="${src.dir}"
-            executable="phpcs"
-            output="${build.logs}/checkstyle.xml"
-            failonerror="true">
-                <arg line="--standard=${shared.dir}/codingStandard.xml"/>
-                <arg line="--report=checkstyle ."/>
+              executable="phpcs"
+              output="${build.logs}/checkstyle.xml"
+              failonerror="true">
+            <arg line="--standard=${shared.dir}/codingStandard.xml"/>
+            <arg line="--report=checkstyle ."/>
         </exec>
     </target>
 
     <target name="phpcpd" description="PHP Copy/Paste Detector">
         <exec dir="${src.dir}"
-            executable="phpcpd"
-            failonerror="true">
-                <arg line="--log-pmd ${build.logs}/pmd-cpd.xml ."/>
+              executable="phpcpd"
+              failonerror="true">
+            <arg line="--log-pmd ${build.logs}/pmd-cpd.xml ."/>
         </exec>
-     </target>
+    </target>
 
     <target name="clean">
         <delete dir="${build.logs}"/>
