@@ -50,6 +50,9 @@
 
     <target name="phpcs" description="PHP Code Sniffer">
         <mkdir dir="${build.logs}"/>
+        <exec executable="phpcs">
+            <arg line="--version"/>
+        </exec>
         <exec dir="${src.dir}"
             executable="phpcs"
             output="${build.logs}/checkstyle.xml"
