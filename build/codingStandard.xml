@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <ruleset name="Travi Standard">
+    <description>Travi's Coding Standard</description>
     <rule ref="PEAR">
-        <exclude name="PEAR.Commenting"/>
+        <exclude name="PEAR.Commenting.ClassComment"/>
+        <exclude name="PEAR.Commenting.FileComment"/>
+        <exclude name="PEAR.Commenting.FunctionComment"/>
     </rule>
 </ruleset>
