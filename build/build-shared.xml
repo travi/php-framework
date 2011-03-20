@@ -62,6 +62,7 @@
             executable="phpcpd"
             failonerror="true">
                 <arg line="--log-pmd ${build.logs}/pmd-cpd.xml ."/>
+                <arg line="--standard=${build.dir}/codingStandard.xml"/>
         </exec>
      </target>
 
