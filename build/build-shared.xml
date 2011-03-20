@@ -41,11 +41,16 @@
 	<target name="gates">
         <antcall target="checkstyle"/>
         <antcall target="test"/>
+        <antcall target="messDetect"/>
 	</target>
 
 	<target name="test">
         <antcall target="phpUnit"/>
 	</target>
+
+    <target name="messDetect" description="Mess Detection">
+        <antcall target="phpcpd"/>
+    </target>
 
     <target name="phpUnit" description="PHPUnit Test Runner">
         <mkdir dir="${build.logs}"/>
