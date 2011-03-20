@@ -15,7 +15,7 @@
         <exclude name="jquery/**/*.js" />
         <exclude name="pngFix/**/*.js" />
         <exclude name="reflection/**/*.js" />
-        <exclude name="unit/**/*.js" />
+        <exclude name="qunit/**/*.js" />
         <exclude name="modernizr/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
@@ -23,21 +23,9 @@
         <include name="jquery/plugins/formAlign/*.js" />
     </fileset>
     <fileset id="js.tests" dir="../php/framework/test/js/tests/">
+        <include name="**/*.js" />
         <include name="**/*.qunit" />
     </fileset>
-	
-    <!--<target name="jsLint" description="JSLint">-->
-        <!--<mkdir dir="${build.logs}"/>-->
-        <!--<jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">-->
-            <!--<predef>${jslint.predef.jquery},${jslint.predef.qunit},travi</predef>            -->
-            <!--<formatter type="plain" />-->
-            <!--<formatter type="checkstyle" destfile="${build.logs}/jslint.xml" />-->
-            <!--<fileset refid="js.files"/>-->
-            <!--<fileset refid="js.qunit"/>-->
-            <!--<fileset refid="js.exclude.overrides"/>-->
-        <!--</jslint>-->
-        <!--<fail if="jsLintResult" message="There were JSLint failures"/>-->
-    <!--</target>-->
 	
 	<target name="minify">		
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
