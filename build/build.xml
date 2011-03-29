@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <project name="framework" default="gates">
-    <property name="shared.dir" value="."/>
+    <property name="shared.dir" value="${basedir}"/>
 	<import file="build-shared.xml"/>
 	<property file="build.properties" />
 	
