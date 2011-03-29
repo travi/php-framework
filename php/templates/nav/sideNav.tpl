@@ -2,7 +2,11 @@
 {if !empty($mainNav)}
             <ul class="sideNav" id="mainNav">
 {foreach key=navItem item=navLink from=$mainNav}
-				<li><a href="{$navLink}">{$navItem}</a></li>
+    {if is_array($navLink)}
+                <li><a href="{$navLink['link']}">{$navItem}</a></li>    
+    {else}
+                <li><a href="{$navLink}">{$navItem}</a></li>
+    {/if}
 {/foreach}
             </ul>
 {/if}
@@ -10,7 +14,7 @@
 {if !empty($adminNav)}
             <ul class="sideNav" id="adminNav">
 {foreach key=navItem item=navLink from=$adminNav}
-				<li><a href="{$navLink}">{$navItem}</a></li>
+                <li><a href="{$navLink}">{$navItem}</a></li>
 {/foreach}
             </ul>
 {/if}

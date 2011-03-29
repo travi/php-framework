@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../dependencyManagement/DependencyManager.class
 
 class Response extends xhtmlPage
 {
-	private $View;		//TODO: Object containing template, css, js, etc information
+    private $View;      //TODO: Object containing template, css, js, etc information
 
     /** @var string */
     private $tagLine;
@@ -24,7 +24,7 @@ class Response extends xhtmlPage
         $this->setSiteHeader($config['siteHeader']);
         $this->setTagLine($config['tagLine']);
         $this->setTheme('/resources/css/' . $config['theme']['site']);
-		$this->nav = new NavigationObject();  //TODO: need to refactor this
+        $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
 
         if(!empty($config['customFonts']))

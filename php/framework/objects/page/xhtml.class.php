@@ -34,10 +34,10 @@ abstract class xhtmlPage
 //                          Configuration                               //
 //////////////////////////////////////////////////////////////////////////
 
- 	public function importNavFile()
- 	{
-		return $this->yaml2Array(NAV_FILE);
- 	}
+    public function importNavFile()
+    {
+        return $this->yaml2Array(NAV_FILE);
+    }
 
  	public function keyValueFromFile($file)
  	{
@@ -305,10 +305,18 @@ abstract class xhtmlPage
 //                          Navigation                                  //
 //////////////////////////////////////////////////////////////////////////
 
-	public function setPrimaryNav($section)
-	{
-        $this->nav->setSection('main', $section);
-	}
+    public function setPrimaryNav($section)
+    {
+        $navArray = $section;
+
+//        foreach($navArray as &$navItem){
+//            if(is_array($navItem)){
+//                $navItem = $navItem['link'];
+//            }
+//        }
+
+        $this->nav->setSection('main', $navArray);
+    }
 
     public function getMainNav()
     {
