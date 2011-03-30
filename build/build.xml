@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <project name="framework" default="gates">
     <property name="shared.dir" value="${basedir}"/>
-	<import file="build-shared.xml"/>
-	<property file="build.properties" />
-	
-	<target name="checkstyle">
-		<antcall target="jsLint" />
-	</target>
+    <import file="build-shared.xml"/>
+    <property file="build.properties" />
+
+    <target name="checkstyle">
+        <antcall target="jsLint" />
+    </target>
 
     <fileset id="js.files" dir="../client/js/" >
         <include name="**/*.js" />
@@ -26,14 +26,14 @@
         <include name="**/*.js" />
         <include name="**/*.qunit" />
     </fileset>
-	
-	<target name="minify">		
+
+    <target name="minify">
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
             outputfolder="../client/min/css/" >
             <fileset dir="../client/css/" >
                 <include name="**/*.css" />
             </fileset>
-        </yuicompress>	
+        </yuicompress>
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
             outputfolder="../client/min/js/" >
             <fileset dir="../client/js/" >
@@ -44,5 +44,5 @@
         <copy todir="../client/min/js/jquery/plugins/wymeditor/skins/silver/images">
             <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
-	</target>
+    </target>
 </project>
