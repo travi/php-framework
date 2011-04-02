@@ -5,6 +5,7 @@
         <exclude name="PEAR.Commenting.ClassComment"/>
         <exclude name="PEAR.Commenting.FileComment"/>
         <exclude name="PEAR.Commenting.FunctionComment"/>
+        <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
     </rule>
     <rule ref="Generic.Files.LineLength">
         <properties>

@@ -158,7 +158,8 @@ class Form extends ContentObject
         parent::checkDependencies($fieldSet);
     }
 
-    private function getValidations() {
+    private function getValidations()
+    {
         $validations = $this->getInnerValidations();
 
         if (!empty($validations)) {

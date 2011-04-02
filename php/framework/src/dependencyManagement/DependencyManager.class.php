@@ -69,19 +69,14 @@ class DependencyManager
 
         $resolved = $this->clientDependencyDefinitions->resolveFileURI($sheet);
 
-        if(!empty($resolved))
-        {
+        if (!empty($resolved)) {
             $sheet = $resolved;
         }
 
-        if(!in_array($sheet, $this->requirementLists['css']))
-        {
-            if(!empty($index))
-            {
+        if (!in_array($sheet, $this->requirementLists['css'])) {
+            if (!empty($index)) {
                 $this->requirementLists['css'][$index] = $sheet;
-            }
-            else
-            {
+            } else {
                 array_push($this->requirementLists['css'], $sheet);
             }
         }
@@ -142,7 +137,7 @@ class DependencyManager
         return $this->requirementLists['validations'];
     }
 
-    public function addDependencies($dependencies = array(), $component)
+    public function addDependencies($dependencies = array(), $component = null)
     {
         if(!empty($dependencies['scripts']))
         {
