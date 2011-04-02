@@ -30,7 +30,7 @@ class Form extends ContentObject
             foreach ($options['fieldsets'] as $formElement) {
                 if (!empty($formElement['fields'])) {
                     $this->addFormElement(new Fieldset($formElement));
-                } else if(!empty($formElement['type'])) {
+                } else if (!empty($formElement['type'])) {
                     $this->addFormElement(new $formElement['type']($formElement));
                 }
             }
@@ -142,24 +142,22 @@ class Form extends ContentObject
         $valInit .= "
                     rules: {";
 
-        foreach($validations as $field => $vals)
-        {
-            if(!empty($vals))
-            {
-                if($i > 0)
+        foreach ($validations as $field => $vals) {
+            if (!empty($vals)) {
+                if ($i > 0) {
                     $valInit .= ",";
+                }
 
                 $valInit .= "
                         ".$field.": ";
 
                 //TODO: need to find a good way of conditionally adding commas between rules
 
-                if(sizeof($vals) == 1 && $vals[0] == 'required')
+                if (sizeof($vals) == 1 && $vals[0] == 'required') {
                     $valInit .= '"required"';
-                elseif(sizeof($vals) == 1)
+                } elseif (sizeof($vals) == 1) {
                     $valInit .= '"required"'; //should this ever happen?
-                else
-                {
+                } else {
                     $valInit .= "{
                             required: true,";
 
