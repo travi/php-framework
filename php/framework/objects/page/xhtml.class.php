@@ -7,26 +7,26 @@
 
 abstract class xhtmlPage
 {
-	protected $siteName;
-	protected $title;
- 	protected $siteHeader;
- 	protected $subHeader;
-	protected $layoutTemplate;
+    protected $siteName;
+    protected $title;
+    protected $siteHeader;
+    protected $subHeader;
+    protected $layoutTemplate;
     protected $pageTemplate;
-	protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
-	protected $clientTemplates = array();
+    protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
+    protected $clientTemplates = array();
     protected $dependencyManager;
     protected $stylesheets = array();
-	protected $altStyles = array();
-	protected $scripts = array();
-	protected $jsInits = array();
+    protected $altStyles = array();
+    protected $scripts = array();
+    protected $jsInits = array();
     protected $links = array();
-	protected $body;
- 	protected $nav;
- 	protected $content = array();
+    protected $body;
+    protected $nav;
+    protected $content = array();
     protected $currentSiteSection;
- 	protected $smartyConfig;
- 	protected $urlFingerprint;
+    protected $smartyConfig;
+    protected $urlFingerprint;
     protected $smarty;
 
 

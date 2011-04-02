@@ -88,7 +88,7 @@ class Form extends ContentObject
         return false;
     }
 
-//    //Can between used to list the $_GET or $_POST variables for use
+//    //Can be used to list the $_GET or $_POST variables for use
 //    //  in processing this form
 //    // Not true....was it at some point?
 //    public function listVariables()
@@ -107,13 +107,13 @@ class Form extends ContentObject
 //        }
 //    }
 
-    public function getInnerValidations()
+    private function getInnerValidations()
     {
         $validations = array();
 
-        foreach ($this->formElements as $fieldset)
+        foreach ($this->formElements as $formElement)
         {
-            $validations = array_merge($validations,$fieldset->getValidations());
+            $validations = array_merge($validations,$formElement->getValidations());
         }
 
         return $validations;
@@ -184,12 +184,17 @@ class Form extends ContentObject
 
     public function getDependencies()
     {
-        $this->getValidations();
+        $validations = $this->getValidations();
+        $this->initValidations($validations);
         foreach ($this->formElements as $formElement)
         {
             $this->checkDependencies($formElement);
         }
-        return parent::getDependencies();
+        $deps = parent::getDependencies();
+        if (!empty($validations)) {
+            $deps['validations'] = $validations;
+        }
+        return $deps;
     }
 
     protected function checkDependencies($fieldSet)
@@ -207,10 +212,12 @@ class Form extends ContentObject
         parent::checkDependencies($fieldSet);
     }
 
-    private function getValidations()
-    {
-        $validations = $this->getInnerValidations();
+    private function getValidations() {
+        return $this->getInnerValidations();
+    }
 
+    private function initValidations($validations)
+    {
         if(!empty($validations))
         {
             $this->addJavaScript('validation');

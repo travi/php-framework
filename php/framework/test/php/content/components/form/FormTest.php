@@ -114,26 +114,28 @@ class FormTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @todo Implement testGetInnerValidations().
-     */
-    public function testGetInnerValidations()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetDependencies().
-     */
     public function testGetDependencies()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $validations = array('required');
+
+        $anyField = $this->getMock('TextInput');
+        $anyField->expects($this->any())
+                ->method('getValidations')
+                ->will($this->returnValue($validations));
+
+        $this->form->addFormElement($anyField);
+
+        $this->assertSame(array(    'scripts'       => array('formAlign', 'validation'),
+                                    'jsInits'       => array("$('form[name=\"name\"]').alignFields();",
+                                                            "$('form[name=\"name\"]').validate({
+                    errorClass: 'ui-state-error',
+                    rules: {
+                        0: \"required\"
+                    }
+                });"),
+                                    'styles'        => array('/resources/shared/css/travi.form.css'),
+                                    'validations'   => $validations),
+            $this->form->getDependencies());
     }
 }
 ?>
