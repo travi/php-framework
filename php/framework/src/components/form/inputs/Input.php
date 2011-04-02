@@ -55,6 +55,9 @@ abstract class Input extends ContentObject implements Field
     {
         return $this->type;
     }
+    public function setValue($value){
+        $this->value = $value;
+    }
     public function getValue()
     {
         return $this->value;
