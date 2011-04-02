@@ -15,6 +15,7 @@ abstract class xhtmlPage
     protected $pageTemplate;
     protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
     protected $clientTemplates = array();
+    /** @var DependencyManager */
     protected $dependencyManager;
     protected $stylesheets = array();
     protected $altStyles = array();
@@ -203,15 +204,15 @@ abstract class xhtmlPage
         }
     }
 
-	public function addStyleSheet($sheet,$index="")
-	{
+    public function addStyleSheet($sheet,$index="")
+    {
         $this->addDependency($sheet, 'css', $index);
-	}
+    }
 
-	public function getStyleSheets()
-	{
-		return $this->getDependencyList('css');
-	}
+    public function getStyleSheets()
+    {
+        return $this->getDependencyList('css');
+    }
 
 	public function addAltStyle($sheet)
 	{
@@ -252,6 +253,10 @@ abstract class xhtmlPage
 	{
 		return $this->getDependencyList('jsInit');
 	}
+
+    public function getValidations() {
+        return $this->getDependencyList('validations');
+    }
 
 	public function getProperFile($file)
 	{

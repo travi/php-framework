@@ -126,13 +126,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->form->addFormElement($anyField);
 
         $this->assertSame(array(    'scripts'       => array('formAlign', 'validation'),
-                                    'jsInits'       => array("$('form[name=\"name\"]').alignFields();",
-                                                            "$('form[name=\"name\"]').validate({
-                    errorClass: 'ui-state-error',
-                    rules: {
-                        0: \"required\"
-                    }
-                });"),
+                                    'jsInits'       => array("$('form[name=\"name\"]').alignFields();"),
                                     'styles'        => array('/resources/shared/css/travi.form.css'),
                                     'validations'   => $validations),
             $this->form->getDependencies());

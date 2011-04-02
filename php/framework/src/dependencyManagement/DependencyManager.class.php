@@ -14,24 +14,21 @@ class DependencyManager
     private $clientDependencyDefinitions;
     private $requirementLists = array();
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         $this->clientDependencyDefinitions = new ClientDependencies();
-	}
+    }
 
     public function addDependency($dep, $category, $index)
     {
-        if($category === 'js' || $category === 'JavaScript' || $category === 'javascript')
-        {
+        if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
             $this->addJavaScript($dep);
-        }
-        else if($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet')
-        {
+        } else if ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
             $this->addStyleSheet($dep, $index);
-        }
-        else if($category === 'jsInit' || $category === 'jsinit')
-        {
+        } else if ($category === 'jsInit' || $category === 'jsinit') {
             $this->addJsInit($dep);
+        } elseif ($category === 'validations') {
+            $this->addValidations($dep, $index);
         }
     }
 
@@ -41,33 +38,33 @@ class DependencyManager
 
         $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
 
-		if(!empty($dependencies))
-		{
-			if(!empty($dependencies['jsDependencies']))
-			{
-				foreach($dependencies['jsDependencies'] as $dependency)
-				{
-					$this->addJavaScript($dependency);
-				}
-			}
-			if(!empty($dependencies['cssDependencies']))
-			{
-				foreach($dependencies['cssDependencies'] as $dependency)
-				{
+        if(!empty($dependencies))
+        {
+            if(!empty($dependencies['jsDependencies']))
+            {
+                foreach($dependencies['jsDependencies'] as $dependency)
+                {
+                    $this->addJavaScript($dependency);
+                }
+            }
+            if(!empty($dependencies['cssDependencies']))
+            {
+                foreach($dependencies['cssDependencies'] as $dependency)
+                {
                     $this->addStyleSheet($dependency);
-				}
-			}
+                }
+            }
             $script = $this->clientDependencyDefinitions->resolveFileURI($script);
-		}
-		if(!in_array($script,$this->requirementLists['js']))
-		{
+        }
+        if(!in_array($script,$this->requirementLists['js']))
+        {
             array_push($this->requirementLists['js'], $script);
-		}
+        }
 
     }
 
-	public function addStyleSheet($sheet, $index="")
-	{
+    public function addStyleSheet($sheet, $index="")
+    {
         $this->lazyInitializeList('css');
 
         $resolved = $this->clientDependencyDefinitions->resolveFileURI($sheet);
@@ -77,39 +74,50 @@ class DependencyManager
             $sheet = $resolved;
         }
 
-		if(!in_array($sheet, $this->requirementLists['css']))
-		{
-			if(!empty($index))
-			{
-				$this->requirementLists['css'][$index] = $sheet;
-			}
-			else
+        if(!in_array($sheet, $this->requirementLists['css']))
+        {
+            if(!empty($index))
+            {
+                $this->requirementLists['css'][$index] = $sheet;
+            }
+            else
             {
                 array_push($this->requirementLists['css'], $sheet);
             }
-		}
-	}
+        }
+    }
 
-	public function addJsInit($init)
-	{
+    public function addJsInit($init)
+    {
         $this->lazyInitializeList('jsInit');
 
         array_push($this->requirementLists['jsInit'], $init);
-	}
+    }
+
+    public function addValidations($list, $form) {
+        $validations = array();
+
+        $this->lazyInitializeList('validations');
+
+        foreach ($list as $field => $rules) {
+            if (!empty($rules)) {
+                $validations[$field] = $rules;
+            }
+        }
+
+        $this->requirementLists['validations'][$form] = $validations;
+    }
 
     public function getDependencies($category)
     {
-        if($category === 'js' || $category === 'JavaScript' || $category === 'javascript')
-        {
+        if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
             return $this->getScripts();
-        }
-        else if($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet')
-        {
+        } else if ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
             return $this->getStyleSheets();
-        }
-        else if($category === 'jsInit' || $category === 'jsinit')
-        {
+        } else if ($category === 'jsInit' || $category === 'jsinit') {
             return $this->getJsInits();
+        } elseif ($category === 'validations') {
+            return $this->getValidations();
         }
     }
 
@@ -118,19 +126,23 @@ class DependencyManager
         return $this->requirementLists['js'];
     }
 
-	public function getStyleSheets()
-	{
+    public function getStyleSheets()
+    {
         uksort($this->requirementLists['css'], 'strnatcasecmp');
 
-		return $this->requirementLists['css'];
-	}
+        return $this->requirementLists['css'];
+    }
 
-	public function getJsInits()
-	{
-		return $this->requirementLists['jsInit'];
-	}
+    public function getJsInits()
+    {
+        return $this->requirementLists['jsInit'];
+    }
 
-    public function addDependencies($dependencies = array())
+    public function getValidations() {
+        return $this->requirementLists['validations'];
+    }
+
+    public function addDependencies($dependencies = array(), $component)
     {
         if(!empty($dependencies['scripts']))
         {
@@ -153,6 +165,9 @@ class DependencyManager
                 $this->addStyleSheet($style);
             }
         }
+        if (!empty($dependencies['validations'])) {
+                $this->addValidations($dependencies['validations'], $component->getName());
+        }
     }
 
     /**
@@ -163,7 +178,7 @@ class DependencyManager
     {
         if(is_object($component) && is_a($component,'DependantObject'))
         {
-            $this->addDependencies($component->getDependencies());
+            $this->addDependencies($component->getDependencies(), $component);
         }
         else if(is_array($component))//TODO: need to make this DRY
         {
@@ -174,8 +189,8 @@ class DependencyManager
         }
     }
 
-	public function resolveContentDependencies($content)
-	{
+    public function resolveContentDependencies($content)
+    {
         if(is_array($content))
         {
             foreach($content as $component)
@@ -187,7 +202,7 @@ class DependencyManager
         {
             $this->resolveComponentDependencies($content);
         }
-	}
+    }
 
     private function lazyInitializeList($category)
     {

@@ -128,64 +128,9 @@ class Form extends ContentObject
 //		return $this->customValidations;
 //	}
 
-    private function buildValidationInit($validations)
-    {
-        $valInit = "$('form[name=\"".$this->name."\"]').validate({";
-
-        if($this->debug)
-            $valInit .= "
-                    debug: true,";
-
-        $valInit .= "
-                    errorClass: 'ui-state-error',";
-
-        $valInit .= "
-                    rules: {";
-
-        foreach ($validations as $field => $vals) {
-            if (!empty($vals)) {
-                if ($i > 0) {
-                    $valInit .= ",";
-                }
-
-                $valInit .= "
-                        ".$field.": ";
-
-                //TODO: need to find a good way of conditionally adding commas between rules
-
-                if (sizeof($vals) == 1 && $vals[0] == 'required') {
-                    $valInit .= '"required"';
-                } elseif (sizeof($vals) == 1) {
-                    $valInit .= '"required"'; //should this ever happen?
-                } else {
-                    $valInit .= "{
-                            required: true,";
-
-                    if(in_array('email',$vals))
-                        $valInit .= '
-                            email: true';
-
-                    $valInit .= "
-                        }";
-                }
-
-                $i++;
-            }
-        }
-
-        $valInit .= "
-                    }";
-
-        $valInit .= "
-                });";
-
-        return $valInit;
-    }
-
     public function getDependencies()
     {
         $validations = $this->getValidations();
-        $this->initValidations($validations);
         foreach ($this->formElements as $formElement)
         {
             $this->checkDependencies($formElement);
@@ -193,6 +138,7 @@ class Form extends ContentObject
         $deps = parent::getDependencies();
         if (!empty($validations)) {
             $deps['validations'] = $validations;
+            $this->addJavaScript('validation');
         }
         return $deps;
     }
@@ -213,15 +159,12 @@ class Form extends ContentObject
     }
 
     private function getValidations() {
-        return $this->getInnerValidations();
-    }
+        $validations = $this->getInnerValidations();
 
-    private function initValidations($validations)
-    {
-        if(!empty($validations))
-        {
+        if (!empty($validations)) {
             $this->addJavaScript('validation');
-            $this->addJsInit($this->buildValidationInit($validations));
         }
+
+        return $validations;
     }
 }
