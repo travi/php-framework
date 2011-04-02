@@ -1,7 +1,9 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/Form.php'; 
+require_once '/Users/travi/development/include/php/framework/src/components/form/Form.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/FieldSet.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/TextInput.php';
 
 /**
  * Test class for Form.
@@ -83,29 +85,22 @@ class FormTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testAddFieldset()
+    public function testFormAcceptsFieldSets()
     {
-        $this->form->addFieldset('fieldset');
+        $fieldSet = new FieldSet('fieldset');
 
-        $this->assertSame(array('fieldset'), $this->form->getFieldsets());
+        $this->form->addFormElement($fieldSet);
+
+        $this->assertSame(array($fieldSet), $this->form->getFormElements());
     }
 
-    /**
-     * @todo Implement testCloseFieldset().
-     */
-    public function testCloseFieldset()
+    public function testFormAcceptsFields()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+        $anyField = $this->getMock('TextInput');
 
-    public function testAddField()
-    {
-        $this->form->addField('field');
+        $this->form->addFormElement($anyField);
 
-        $this->assertSame(array('field'), $this->form->getFieldsets());
+        $this->assertSame(array($anyField), $this->form->getFormElements());
     }
 
     /**

@@ -4,9 +4,9 @@
  * By Matt Travi
  */
 
-require_once(dirname(__FILE__).'/../../src/components/form/Form.php');
-require_once(dirname(__FILE__).'/../../src/components/form/FieldSet.php');
-require_once(dirname(__FILE__).'/../../src/components/form/Field.php');
+require_once(dirname(__FILE__) . '/../../src/components/form/Form.php');
+require_once(dirname(__FILE__) . '/../../src/components/form/FieldSet.php');
+require_once(dirname(__FILE__) . '/../../src/components/form/Field.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/Input.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/TextInput.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/FileInput.php');
@@ -14,9 +14,9 @@ require_once(dirname(__FILE__) . '/../../src/components/form/inputs/PasswordInpu
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/HiddenInput.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/TextArea.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/RichTextArea.php');
-require_once(dirname(__FILE__).'/../../src/components/form/SubmitButton.php');
+require_once(dirname(__FILE__) . '/../../src/components/form/SubmitButton.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/inputs/DateInput.php');
-require_once(dirname(__FILE__).'/../../src/components/form/NoteArea.php');
+require_once(dirname(__FILE__) . '/../../src/components/form/NoteArea.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/choices/Choices.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/choices/SelectionBox.php');
 require_once(dirname(__FILE__) . '/../../src/components/form/choices/RadioButtons.php');
@@ -178,8 +178,4 @@ class Button
 		return $string;
 	}
 }
-
-//////////////////////////////////////////////////////////////////////
-//					Fields Giving Numerous Choices					//
-//////////////////////////////////////////////////////////////////////
 ?>

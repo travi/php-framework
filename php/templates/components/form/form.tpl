@@ -4,11 +4,11 @@
 			{*$this->encType = "multipart/form-data";*}
 			{*$form .= ' enctype="'.$this->encType.'"';*}
 		{*}*}
-{foreach from=$form->getFieldsets() item=fieldset}
-    {if is_a($fieldset, 'Fieldset')}
-        {include file="components/form/fieldset.tpl" fieldset=$fieldset}
-    {elseif is_a($fieldset,'Input')}
-        {include file=$fieldset->getTemplate() field=$fieldset}
+{foreach from=$form->getFormElements() item=formElement}
+    {if is_a($formElement, 'Fieldset')}
+        {include file="components/form/fieldset.tpl" fieldset=$formElement}
+    {elseif is_a($formElement,'Input')}
+        {include file=$formElement->getTemplate() field=$formElement}
     {/if}
 {/foreach}
 </form>

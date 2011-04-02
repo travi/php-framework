@@ -19,7 +19,7 @@ abstract class Input extends ContentObject implements Field
 		else
 		{
 			$this->name = str_replace(' ','_',strtolower($options['label']));
-			//ensure value is not "name" or ... (expandos)
+			//ensure value is not "name" or "id" (expandos)
 			if($this->name == 'name')
 				$this->name .= '_value';
 		}

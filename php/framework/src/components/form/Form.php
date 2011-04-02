@@ -4,45 +4,42 @@ require_once(dirname(__FILE__).'/../../../objects/content/contentObject.class.ph
 
 class Form extends ContentObject
 {
-	private $name;                          //form name attribute
-	private $method;						//form method attribute (GET or POST)
-	private $action;						//form action attribute (script that information is submitted to for processing)
-	private $encodingType;                  //form encType attribute (needs to be changed to "multipart/form-data" for file uploads)
-	private $fieldsetArray = array();		//FieldSets contained in this form
-	private $currentFieldset;				//FieldSet where new Fields are to be added
-	private $debug;
+    private $name;
+    private $method;
+    private $action;
+    private $encodingType;
+    private $formElements = array();
+    private $debug;
 
-	public function __construct($options)
-	{
-		$this->debug = $options['debug'];
-		$this->name = $options['name'];
-		if(!empty($options['method']))
-			$this->setMethod($options['method']);
-		else
-			$this->method = 'post';
-		if(!empty($options['action']))
-			$this->action = $options['action'];
-		else
-			$this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
+    public function __construct($options)
+    {
+        $this->debug = $options['debug'];
+        $this->name = $options['name'];
+        if (!empty($options['method'])) {
+            $this->setMethod($options['method']);
+        } else {
+            $this->method = 'post';
+        }
+        if (!empty($options['action'])) {
+            $this->action = $options['action'];
+        } else {
+            $this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
+        }
 
-		if(!empty($options['fieldsets']))
-		{
-			foreach($options['fieldsets'] as $fieldset)
-			{
-				if(!empty($fieldset['fields']))
-					$this->addFieldset(new Fieldset($fieldset));
-				else if(!empty($fieldset['type']))
-				{
-					$this->closeFieldset();
-					$this->addFieldset(new $fieldset['type']($fieldset));
-				}
-			}
-		}
+        if (!empty($options['fieldsets'])) {
+            foreach ($options['fieldsets'] as $formElement) {
+                if (!empty($formElement['fields'])) {
+                    $this->addFormElement(new Fieldset($formElement));
+                } else if(!empty($formElement['type'])) {
+                    $this->addFormElement(new $formElement['type']($formElement));
+                }
+            }
+        }
 
-		$this->addStyleSheet('/resources/shared/css/travi.form.css');
-		$this->addJavaScript('formAlign');
-		$this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
-	}
+        $this->addStyleSheet('/resources/shared/css/travi.form.css');
+        $this->addJavaScript('formAlign');
+        $this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
+    }
 
     public function getName()
     {
@@ -69,78 +66,58 @@ class Form extends ContentObject
         return $this->encodingType;
     }
 
-    public function getFieldsets()
+    public function getFormElements()
     {
-        return $this->fieldsetArray;
+        return $this->formElements;
     }
 
-	public function addFieldset($fieldset)
-	{
-		array_push($this->fieldsetArray,$fieldset);
-		if(is_a($fieldset,"Fieldset"))
-			$this->currentFieldset = (count($this->fieldsetArray) - 1);
-	}
+    public function addFormElement($formElement)
+    {
+        array_push($this->formElements, $formElement);
+    }
 
-	//empties the currentFieldSet variable
-	//   so that the next fields will be added outside of a fieldset
-	public function closeFieldset()
-	{
-		unset($this->currentFieldset);
-	}
+    public function contains($type)
+    {
+        foreach ($this->formElements as $formElement) {
+            if (is_a($formElement, "Fieldset")) {
+                if ($formElement->contains($type)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-	public function addField($field)
-	{
-		if(!isset($this->currentFieldset))
-			$this->addFieldset($field);
-		else
-		{
-			$this->fieldsetArray[$this->currentFieldset]->AddField($field);
-		}
-	}
+//    //Can between used to list the $_GET or $_POST variables for use
+//    //  in processing this form
+//    // Not true....was it at some point?
+//    public function listVariables()
+//    {
+//        $type = '$_'.strtoupper($this->method);
+//        foreach ($this->fieldsetArray as $fieldset)
+//        {
+//            if(is_a($fieldset,"Fieldset"))
+//            {
+//                echo $fieldset->listVariables($type) . "\n";
+//            }
+//            else
+//            {
+//                 echo '$'.$fieldset->name.' = addslashes(fixSmartQuotes('.$type."['".$fieldset->name."']));\n";
+//            }
+//        }
+//    }
 
-	public function contains($type)
-	{
-		foreach ($this->fieldsetArray as $fieldset)
-		{
-			if(is_a($fieldset,"Fieldset"))
-			{
-				if($fieldset->contains($type))
-					return true;
-			}
-		}
-		return false;
-	}
+    public function getInnerValidations()
+    {
+        $validations = array();
 
-//	//Can be used to list the $_GET or $_POST variables for use
-//	//  in processing this form
-//  // Not true....was it at some point?
-//	public function listVariables()
-//	{
-//		$type = '$_'.strtoupper($this->method);
-//		foreach ($this->fieldsetArray as $fieldset)
-//		{
-//			if(is_a($fieldset,"Fieldset"))
-//			{
-//				echo $fieldset->listVariables($type) . "\n";
-//			}
-//			else
-//			{
-//				 echo '$'.$fieldset->name.' = addslashes(fixSmartQuotes('.$type."['".$fieldset->name."']));\n";
-//			}
-//		}
-//	}
+        foreach ($this->formElements as $fieldset)
+        {
+            $validations = array_merge($validations,$fieldset->getValidations());
+        }
 
-	public function getInnerValidations()
-	{
-		$validations = array();
-
-		foreach ($this->fieldsetArray as $fieldset)
-		{
-			$validations = array_merge($validations,$fieldset->getValidations());
-		}
-
-		return $validations;
-	}
+        return $validations;
+    }
 
 //	public function addCustomValidation($validation)
 //	{
@@ -151,69 +128,69 @@ class Form extends ContentObject
 //		return $this->customValidations;
 //	}
 
-	private function buildValidationInit($validations)
-	{
-		$valInit = "$('form[name=\"".$this->name."\"]').validate({";
+    private function buildValidationInit($validations)
+    {
+        $valInit = "$('form[name=\"".$this->name."\"]').validate({";
 
-		if($this->debug)
-			$valInit .= "
-					debug: true,";
+        if($this->debug)
+            $valInit .= "
+                    debug: true,";
 
-		$valInit .= "
-					errorClass: 'ui-state-error',";
+        $valInit .= "
+                    errorClass: 'ui-state-error',";
 
-		$valInit .= "
-					rules: {";
+        $valInit .= "
+                    rules: {";
 
-		foreach($validations as $field => $vals)
-		{
-			if(!empty($vals))
-			{
-				if($i > 0)
-					$valInit .= ",";
+        foreach($validations as $field => $vals)
+        {
+            if(!empty($vals))
+            {
+                if($i > 0)
+                    $valInit .= ",";
 
-				$valInit .= "
-						".$field.": ";
+                $valInit .= "
+                        ".$field.": ";
 
-				//TODO: need to find a good way of conditionally adding commas between rules
+                //TODO: need to find a good way of conditionally adding commas between rules
 
-				if(sizeof($vals) == 1 && $vals[0] == 'required')
-					$valInit .= '"required"';
-				elseif(sizeof($vals) == 1)
-					$valInit .= '"required"'; //should this ever happen?
-				else
-				{
-					$valInit .= "{
-							required: true,";
+                if(sizeof($vals) == 1 && $vals[0] == 'required')
+                    $valInit .= '"required"';
+                elseif(sizeof($vals) == 1)
+                    $valInit .= '"required"'; //should this ever happen?
+                else
+                {
+                    $valInit .= "{
+                            required: true,";
 
-					if(in_array('email',$vals))
-						$valInit .= '
-							email: true';
+                    if(in_array('email',$vals))
+                        $valInit .= '
+                            email: true';
 
-					$valInit .= "
-						}";
-				}
+                    $valInit .= "
+                        }";
+                }
 
-				$i++;
-			}
-		}
+                $i++;
+            }
+        }
 
-		$valInit .= "
-					}";
+        $valInit .= "
+                    }";
 
-		$valInit .= "
-				});";
+        $valInit .= "
+                });";
 
-		return $valInit;
-	}
+        return $valInit;
+    }
 
     public function getDependencies()
     {
         $this->getValidations();
-		foreach ($this->fieldsetArray as $fieldset)
-		{
-			$this->checkDependencies($fieldset);
-		}
+        foreach ($this->formElements as $formElement)
+        {
+            $this->checkDependencies($formElement);
+        }
         return parent::getDependencies();
     }
 
@@ -234,12 +211,12 @@ class Form extends ContentObject
 
     private function getValidations()
     {
-		$validations = $this->getInnerValidations();
+        $validations = $this->getInnerValidations();
 
-		if(!empty($validations))
-		{
-			$this->addJavaScript('validation');
-			$this->addJsInit($this->buildValidationInit($validations));
-		}
+        if(!empty($validations))
+        {
+            $this->addJavaScript('validation');
+            $this->addJsInit($this->buildValidationInit($validations));
+        }
     }
 }
