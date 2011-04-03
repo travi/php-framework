@@ -12,9 +12,9 @@ require_once(dirname(__FILE__).'/../../exception/NotFound.exception.php');
 class FrontController
 {
     /** @var $Request Request */
-	private $Request;
+    private $Request;
     /** @var $Response Response */
-	private $Response;
+    private $Response;
 
     private $config;
 
@@ -41,14 +41,14 @@ class FrontController
     {
         $this->Response = $response;
     }
-		
-	public function processRequest()
-	{
-		$this->dispatchToController();
-		$this->sendResponse();
+
+    public function processRequest()
+    {
+        $this->dispatchToController();
+        $this->sendResponse();
 
         return $this->Response;
-	}
+    }
 
     private function dispatchToController()
     {
@@ -74,8 +74,8 @@ class FrontController
         }
     }
  
-	private function sendResponse()
-	{
+    private function sendResponse()
+    {
         /**
          * TODO: this feels like the wrong place for this
          * should it go in the doAction of the abstract controller?
@@ -95,8 +95,10 @@ class FrontController
             $this->Response->setPageTemplate($templateByConvention);
         }
         //TODO: this should be moved out to the head template once the other sites support mobile
-        $this->Response->addMetaTag('<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">');
-		$this->Response->respond();
-	}
+        $this->Response->addMetaTag(
+            '<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">'
+        );
+        $this->Response->respond();
+    }
 }
 ?>

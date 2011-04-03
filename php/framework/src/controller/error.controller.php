@@ -20,7 +20,8 @@ class ErrorController extends AbstractController
         header('HTTP/1.1 404 Not Found');
         $response->setTitle('Page Could Not Be Found');
         $response->setPageTemplate('../error/404.tpl');
-        $response->addToResponse('errorMessage', $error->getMessage());  //TODO: only show this in dev mode, but log it in other environments
+        //TODO: only show this in dev mode, but log it in other environments
+        $response->addToResponse('errorMessage', $error->getMessage());
     }
 
     /**
@@ -35,6 +36,7 @@ class ErrorController extends AbstractController
         header('HTTP/1.1 500 Internal Server Error');
         $response->setTitle('Internal Server Error');
         $response->setPageTemplate('../error/500.tpl');
-        $response->addToResponse('errorMessage', $error->getMessage());  //TODO: only show this in dev mode, but log it in other environments
+        //TODO: only show this in dev mode, but log it in other environments
+        $response->addToResponse('errorMessage', $error->getMessage());
     }
 }

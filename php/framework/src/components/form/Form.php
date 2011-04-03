@@ -108,19 +108,19 @@ class Form extends ContentObject
         return $deps;
     }
 
-    protected function checkDependencies($fieldSet)
+    protected function checkDependencies($formElement)
     {
-        if(is_a($fieldSet, 'Fieldset'))
+        if(is_a($formElement, 'Fieldset'))
         {
-            foreach($fieldSet->getFields() as $field)
+            foreach($formElement->getFields() as $field)
             {
                 if(is_a($field,'ContentObject'))
                 {
-                    $fieldSet->checkDependencies($field);
+                    $formElement->checkDependencies($field);
                 }
             }
         }
-        parent::checkDependencies($fieldSet);
+        parent::checkDependencies($formElement);
     }
 
     private function getValidations()
