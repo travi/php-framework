@@ -37,7 +37,7 @@ abstract class FormElementGroup extends contentObject implements FormElement
 
         foreach ($this->formElements as $formElement) {
             if (is_a($formElement, "FormElementGroup")) {
-                $validations = array_merge($validations,$formElement->getValidations());
+                $validations = array_merge($validations, $formElement->getValidations());
             } else {
                 $validations[$formElement->getName()] = $formElement->getValidations();            
             }
