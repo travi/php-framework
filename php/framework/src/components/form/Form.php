@@ -71,26 +71,11 @@ class Form extends FormElementGroup
     public function getDependencies()
     {
         $validations = $this->getValidations();
-        foreach ($this->getFormElements() as $formElement) {
-            $this->checkDependencies($formElement);
-        }
         $deps = parent::getDependencies();
         if (!empty($validations)) {
             $deps['validations'] = $validations;
         }
         return $deps;
-    }
-
-    protected function checkDependencies($formElement)
-    {
-        if (is_a($formElement, 'FormElementGroup')) {
-            foreach ($formElement->getFormElements() as $field) {
-                if (is_a($field,'ContentObject')) {
-                    $formElement->checkDependencies($field);
-                }
-            }
-        }
-        parent::checkDependencies($formElement);
     }
 
     public function getValidations()
