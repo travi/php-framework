@@ -114,12 +114,13 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testValidationsArePassedInGetDependencies()
     {
         $validations = $this->getAnyValidations();
+        /** @var $anyField TextInput */
         $anyField = $this->getAnyFieldWithValidations($validations);
 
         $this->form->addFormElement($anyField);
 
-        $dependencies = $this->form->getDependencies(); 
-        $this->assertSame($validations, $dependencies['validations']);
+        $dependencies = $this->form->getDependencies();
+        $this->assertSame($validations, $dependencies['validations'][$anyField->getName()]);
     }
 
     private function getAnyValidations()
@@ -129,7 +130,13 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     private function getAnyField()
     {
-        return $this->getMock('TextInput');
+        $field = $this->getMock('TextInput');
+
+        $field->expects($this->any())
+                ->method('getName')
+                ->will($this->returnValue('fieldName'));
+
+        return $field;
     }
 
     private function getAnyFieldWithValidations($validations = array())

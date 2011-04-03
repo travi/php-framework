@@ -1,9 +1,9 @@
 <fieldset>
     <legend>{$fieldset->getLegend()}</legend>
     <ul class="fieldList">
-		{foreach from=$fieldset->getFields() item=field}
-		<li>
-		    {if is_a($field,'Input')}
+        {foreach from=$fieldset->getFormElements() item=field}
+        <li>
+            {if is_a($field,'Input')}
                 {include file=$field->getTemplate() field=$field}
             {elseif is_a($field,'Choices')}
                 {include file=$field->getTemplate() field=$field}
@@ -13,6 +13,6 @@
                 other
             {/if}
         </li>
-		{/foreach}
+        {/foreach}
     </ul>
 </fieldset>

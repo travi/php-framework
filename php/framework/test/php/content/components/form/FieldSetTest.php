@@ -22,7 +22,6 @@ class FieldSetTest extends PHPUnit_Framework_TestCase
     {
         $options = array();
         $options['legend'] = 'legend';
-//        $options['fields'] = array('field1', 'field2', 'field3');
 
         $this->fieldSet = new FieldSet($options);
     }
@@ -38,46 +37,6 @@ class FieldSetTest extends PHPUnit_Framework_TestCase
     public function testGetLegend()
     {
         $this->assertSame('legend', $this->fieldSet->getLegend());
-    }
-
-    public function testAddField()
-    {
-        $this->fieldSet->addField('field');
-
-        $this->assertSame(array('field'), $this->fieldSet->getFields());
-    }
-
-    /**
-     * @todo Implement testGetValidations().
-     */
-    public function testGetValidations()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testContains().
-     */
-    public function testContains()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetDependencies().
-     */
-    public function testGetDependencies()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
     }
 }
 ?>

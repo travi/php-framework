@@ -1,14 +1,13 @@
 <?php
 
-require_once(dirname(__FILE__).'/../../../objects/content/contentObject.class.php');
+require_once(dirname(__FILE__).'/FormElementGroup.php');
 
-class Form extends ContentObject
+class Form extends FormElementGroup
 {
     private $name;
     private $method;
     private $action;
     private $encodingType;
-    private $formElements = array();
     private $debug;
 
     public function __construct($options)
@@ -63,59 +62,30 @@ class Form extends ContentObject
 
     public function getEncType()
     {
-        if ($this->contains("FileInput")) {
+        if ($this->containsFormElementType("FileInput")) {
             $this->encodingType = "multipart/form-data";
         }
         return $this->encodingType;
     }
 
-    public function getFormElements()
-    {
-        return $this->formElements;
-    }
-
-    public function addFormElement($formElement)
-    {
-        array_push($this->formElements, $formElement);
-    }
-
-    private function contains($type)
-    {
-        foreach ($this->formElements as $formElement) {
-            if (is_a($formElement, $type)) {
-                return true;
-            } elseif (is_a($formElement, "Fieldset")) {
-                if ($formElement->contains($type)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public function getDependencies()
     {
         $validations = $this->getValidations();
-        foreach ($this->formElements as $formElement)
-        {
+        foreach ($this->getFormElements() as $formElement) {
             $this->checkDependencies($formElement);
         }
         $deps = parent::getDependencies();
         if (!empty($validations)) {
             $deps['validations'] = $validations;
-            $this->addJavaScript('validation');
         }
         return $deps;
     }
 
     protected function checkDependencies($formElement)
     {
-        if(is_a($formElement, 'Fieldset'))
-        {
-            foreach($formElement->getFields() as $field)
-            {
-                if(is_a($field,'ContentObject'))
-                {
+        if (is_a($formElement, 'FormElementGroup')) {
+            foreach ($formElement->getFormElements() as $field) {
+                if (is_a($field,'ContentObject')) {
                     $formElement->checkDependencies($field);
                 }
             }
@@ -123,9 +93,9 @@ class Form extends ContentObject
         parent::checkDependencies($formElement);
     }
 
-    private function getValidations()
+    public function getValidations()
     {
-        $validations = $this->getInnerValidations();
+        $validations = parent::getValidations();
 
         if (!empty($validations)) {
             $this->addJavaScript('validation');
@@ -133,45 +103,4 @@ class Form extends ContentObject
 
         return $validations;
     }
-
-    private function getInnerValidations()
-    {
-        $validations = array();
-
-        foreach ($this->formElements as $formElement)
-        {
-            $validations = array_merge($validations,$formElement->getValidations());
-        }
-
-        return $validations;
-    }
-
-//    public function addCustomValidation($validation)
-//    {
-//        array_push($this->customValidations,$validation);
-//    }
-//    public function getCustomValidations()
-//    {
-//        return $this->customValidations;
-//    }
-
-//    //Can be used to list the $_GET or $_POST variables for use
-//    //  in processing this form
-//    // Not true....was it at some point?
-//    public function listVariables()
-//    {
-//        $type = '$_'.strtoupper($this->method);
-//        foreach ($this->fieldsetArray as $fieldset)
-//        {
-//            if(is_a($fieldset,"Fieldset"))
-//            {
-//                echo $fieldset->listVariables($type) . "\n";
-//            }
-//            else
-//            {
-//                 echo '$'.$fieldset->name.' = addslashes(
-//fixSmartQuotes('.$type."['".$fieldset->name."']));\n";
-//            }
-//        }
-//    }
 }
