@@ -89,7 +89,8 @@ class DependencyManager
         array_push($this->requirementLists['jsInit'], $init);
     }
 
-    public function addValidations($list, $form) {
+    public function addValidations($list, $form)
+    {
         $validations = array();
 
         $this->lazyInitializeList('validations');
@@ -133,7 +134,8 @@ class DependencyManager
         return $this->requirementLists['jsInit'];
     }
 
-    public function getValidations() {
+    public function getValidations()
+    {
         return $this->requirementLists['validations'];
     }
 
