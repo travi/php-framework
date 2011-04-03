@@ -88,46 +88,6 @@ class Form extends ContentObject
         return false;
     }
 
-//    //Can be used to list the $_GET or $_POST variables for use
-//    //  in processing this form
-//    // Not true....was it at some point?
-//    public function listVariables()
-//    {
-//        $type = '$_'.strtoupper($this->method);
-//        foreach ($this->fieldsetArray as $fieldset)
-//        {
-//            if(is_a($fieldset,"Fieldset"))
-//            {
-//                echo $fieldset->listVariables($type) . "\n";
-//            }
-//            else
-//            {
-//                 echo '$'.$fieldset->name.' = addslashes(fixSmartQuotes('.$type."['".$fieldset->name."']));\n";
-//            }
-//        }
-//    }
-
-    private function getInnerValidations()
-    {
-        $validations = array();
-
-        foreach ($this->formElements as $formElement)
-        {
-            $validations = array_merge($validations,$formElement->getValidations());
-        }
-
-        return $validations;
-    }
-
-//	public function addCustomValidation($validation)
-//	{
-//		array_push($this->customValidations,$validation);
-//	}
-//	public function getCustomValidations()
-//	{
-//		return $this->customValidations;
-//	}
-
     public function getDependencies()
     {
         $validations = $this->getValidations();
@@ -168,4 +128,45 @@ class Form extends ContentObject
 
         return $validations;
     }
+
+    private function getInnerValidations()
+    {
+        $validations = array();
+
+        foreach ($this->formElements as $formElement)
+        {
+            $validations = array_merge($validations,$formElement->getValidations());
+        }
+
+        return $validations;
+    }
+
+//    public function addCustomValidation($validation)
+//    {
+//        array_push($this->customValidations,$validation);
+//    }
+//    public function getCustomValidations()
+//    {
+//        return $this->customValidations;
+//    }
+
+//    //Can be used to list the $_GET or $_POST variables for use
+//    //  in processing this form
+//    // Not true....was it at some point?
+//    public function listVariables()
+//    {
+//        $type = '$_'.strtoupper($this->method);
+//        foreach ($this->fieldsetArray as $fieldset)
+//        {
+//            if(is_a($fieldset,"Fieldset"))
+//            {
+//                echo $fieldset->listVariables($type) . "\n";
+//            }
+//            else
+//            {
+//                 echo '$'.$fieldset->name.' = addslashes(
+//fixSmartQuotes('.$type."['".$fieldset->name."']));\n";
+//            }
+//        }
+//    }
 }

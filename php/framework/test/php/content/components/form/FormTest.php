@@ -114,22 +114,59 @@ class FormTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetDependencies()
+    public function testDependencyInitialization()
     {
-        $validations = array('required');
+        $dependencies = $this->form->getDependencies();
+        $this->assertContains('formAlign', $dependencies['scripts']);
+        $this->assertContains('/resources/shared/css/travi.form.css', $dependencies['styles']);
+        $this->assertContains("$('form[name=\"name\"]').alignFields();", $dependencies['jsInits']);
+    }
 
-        $anyField = $this->getMock('TextInput');
-        $anyField->expects($this->any())
-                ->method('getValidations')
-                ->will($this->returnValue($validations));
+    public function testValidationScriptAddedToDependencyList()
+    {
+        $validations = $this->getAnyValidations();
+        $anyField = $this->getAnyFieldWithValidations($validations);
 
         $this->form->addFormElement($anyField);
 
-        $this->assertSame(array(    'scripts'       => array('formAlign', 'validation'),
-                                    'jsInits'       => array("$('form[name=\"name\"]').alignFields();"),
-                                    'styles'        => array('/resources/shared/css/travi.form.css'),
-                                    'validations'   => $validations),
-            $this->form->getDependencies());
+        $dependencies = $this->form->getDependencies();
+        $this->assertContains('validation', $dependencies['scripts']);
+
+    }
+
+    public function testValidationsArePassedInGetDependencies()
+    {
+        $validations = $this->getAnyValidations();
+        $anyField = $this->getAnyFieldWithValidations($validations);
+
+        $this->form->addFormElement($anyField);
+
+        $dependencies = $this->form->getDependencies(); 
+        $this->assertSame($validations, $dependencies['validations']);
+    }
+
+    private function getAnyValidations()
+    {
+        return array('required');
+    }
+
+    private function getAnyField()
+    {
+        return $this->getMock('TextInput');
+    }
+
+    private function getAnyFieldWithValidations($validations = array())
+    {
+        $field = $this->getAnyField();
+        if (empty($validations)) {
+            $validations = $this->getAnyValidations();
+        }
+
+        $field->expects($this->any())
+                ->method('getValidations')
+                ->will($this->returnValue($validations));
+
+        return $field;
     }
 }
 ?>
