@@ -1,9 +1,6 @@
-<form name="{$form->getName()}" method="{$form->getMethod()}" action="{$form->getAction()}">
-		{*if($this->contains("FileInput"))*}
-		{*{*}
-			{*$this->encType = "multipart/form-data";*}
-			{*$form .= ' enctype="'.$this->encType.'"';*}
-		{*}*}
+{assign var="encType" value=$form->getEncType()}
+<form name="{$form->getName()}" method="{$form->getMethod()}" action="{$form->getAction()}"{if !empty($encType)}
+ enctype="{$encType}"{/if}>
 {foreach from=$form->getFormElements() item=formElement}
     {if is_a($formElement, 'Fieldset')}
         {include file="components/form/fieldset.tpl" fieldset=$formElement}

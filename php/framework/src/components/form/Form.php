@@ -63,6 +63,9 @@ class Form extends ContentObject
 
     public function getEncType()
     {
+        if ($this->contains("FileInput")) {
+            $this->encodingType = "multipart/form-data";
+        }
         return $this->encodingType;
     }
 
@@ -76,10 +79,12 @@ class Form extends ContentObject
         array_push($this->formElements, $formElement);
     }
 
-    public function contains($type)
+    private function contains($type)
     {
         foreach ($this->formElements as $formElement) {
-            if (is_a($formElement, "Fieldset")) {
+            if (is_a($formElement, $type)) {
+                return true;
+            } elseif (is_a($formElement, "Fieldset")) {
                 if ($formElement->contains($type)) {
                     return true;
                 }

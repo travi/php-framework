@@ -4,6 +4,7 @@ require_once 'PHPUnit/Framework.php';
 require_once '/Users/travi/development/include/php/framework/src/components/form/Form.php';
 require_once '/Users/travi/development/include/php/framework/src/components/form/FieldSet.php';
 require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/TextInput.php';
+require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/FileInput.php';
 
 /**
  * Test class for Form.
@@ -58,31 +59,18 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertSame('action', $this->form->getAction());
     }
 
-    public function testGetEncType()
+    public function testNormalEncType()
     {
         $this->assertSame(null, $this->form->getEncType());
     }
 
-    /**
-     * @todo Implement testGetEncTypeFileUpload().
-     */
-    public function testGetEncTypeFileUpload()
+    public function testGetEncTypeWithFileInputPresent()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+        $anyField = $this->getMock('FileInput');
 
-    /**
-     * @todo Implement testGetFieldsets().
-     */
-    public function testGetFieldsets()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->form->addFormElement($anyField);
+
+        $this->assertSame("multipart/form-data", $this->form->getEncType());
     }
 
     public function testFormAcceptsFieldSets()
@@ -101,17 +89,6 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->form->addFormElement($anyField);
 
         $this->assertSame(array($anyField), $this->form->getFormElements());
-    }
-
-    /**
-     * @todo Implement testContains().
-     */
-    public function testContains()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
     }
 
     public function testDependencyInitialization()
