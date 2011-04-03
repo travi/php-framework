@@ -44,6 +44,12 @@ class FieldSet extends contentObject
         }
         return false;
     }
+    public function getDependencies()
+    {
+        foreach ($this->fieldArray as $field) {
+            $this->checkDependencies($field);
+        }
+    }
 //    public function listVariables($method)
 //    {
 //        $list = "";
@@ -53,10 +59,4 @@ class FieldSet extends contentObject
 //        }
 //        return $list;
 //    }
-    public function getDependencies()
-    {
-        foreach ($this->fieldArray as $field) {
-            $this->checkDependencies($field);
-        }
-    }
 }
