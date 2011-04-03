@@ -5,10 +5,10 @@
  * Time: 10:08:35 AM
  */
 
-require_once(dirname(__FILE__).'/../../objects/page/xhtml.class.php');
-require_once(dirname(__FILE__).'/../http/Request.class.php');
-require_once(dirname(__FILE__).'/../http/Response.class.php');
-require_once(dirname(__FILE__).'/../controller/front/front.controller.php');
+require_once dirname(__FILE__).'/../../objects/page/xhtml.class.php';
+require_once dirname(__FILE__).'/../http/Request.class.php';
+require_once dirname(__FILE__).'/../http/Response.class.php';
+require_once dirname(__FILE__).'/../controller/front/front.controller.php';
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
@@ -17,7 +17,7 @@ set_include_path(
 
 function __autoload($class_name)
 {
-    require_once(str_replace('_', '/', $class_name) . '.php');
+    include_once str_replace('_', '/', $class_name) . '.php';
 }
 
 //Initialize Dependency Injection Container
@@ -27,7 +27,7 @@ $container = Pd_Container::get();
 //Temp definition
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 define('SITE_ROOT', DOC_ROOT.'../');
-require_once(dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php');
+require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
 
 $config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
 $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');

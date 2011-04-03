@@ -57,18 +57,18 @@ class FrontController
 
         try {
             if (is_file($controllerPath)) {
-                require_once($controllerPath);
+                include_once $controllerPath;
                 $controller = new $controllerName();
                 $controller->doAction($this->Request, $this->Response);
             } else {
                 throw new NotFoundException('Controller Not Found!');
             }
         } catch (NotFoundException $e) {
-            require_once(dirname(__FILE__).'/../error.controller.php');
+            include_once dirname(__FILE__).'/../error.controller.php';
             $error = new ErrorController();
             $error->error404($this->Request, $this->Response, $e);
         } catch (Exception $e) {
-            require_once(dirname(__FILE__).'/../error.controller.php');
+            include_once dirname(__FILE__).'/../error.controller.php';
             $error = new ErrorController();
             $error->error500($this->Request, $this->Response, $e);
         }
