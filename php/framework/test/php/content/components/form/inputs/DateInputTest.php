@@ -37,9 +37,9 @@ class DateInputTest extends PHPUnit_Framework_TestCase
         $this->assertSame('textInput datepicker', $this->object->getClass());
         $this->assertSame(array('jqueryUi'), $this->object->getJavaScripts());
         $this->assertSame(array("$('input.datepicker').datepicker({
-		                                            dateFormat: 'yy-mm-dd',
-		                                            buttonImage: '/resources/shared/img/calendar.gif',
-		                                            buttonImageOnly: true, showOn: 'both'
+                                                    dateFormat: 'yy-mm-dd',
+                                                    buttonImage: '/resources/shared/img/calendar.gif',
+                                                    buttonImageOnly: true, showOn: 'both'
                                                 });"), $this->object->getJsInits());
     }
 }
