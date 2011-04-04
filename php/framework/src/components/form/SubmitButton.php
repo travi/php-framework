@@ -29,17 +29,17 @@ class SubmitButton extends Input
         $this->confirmation = $confirmation;
     }
 
-//public function __toString()
-//{
-//    $string = '
-//                    <input type="'.$this->type.'" name="'.$this->name.'"
-//id="'.$this->name.'" value="'.$this->value.
-//                '" class="'.$this->class.'"';
-//    if(!empty($this->confirmation))
-//        $string .= ' onclick="if (confirm(\''.$this->confirmation.'\'))
-//    return true; else return false;"';
-//    $string .= '/>';
-//
-//    return $string;
-//}
+    //public function __toString()
+    //{
+    //    $string = '
+    //                    <input type="'.$this->type.'" name="'.$this->name.'"
+    //id="'.$this->name.'" value="'.$this->value.
+    //                '" class="'.$this->class.'"';
+    //    if(!empty($this->confirmation))
+    //        $string .= ' onclick="if (confirm(\''.$this->confirmation.'\'))
+    //    return true; else return false;"';
+    //    $string .= '/>';
+    //
+    //    return $string;
+    //}
 }
