@@ -1,9 +1,4 @@
 <?php
-/**
- * User: travi
- * Date: Jan 1, 2011
- * Time: 6:27:18 PM
- */
 
 require_once(dirname(__FILE__).'/../../objects/dependantObject.class.php');
 require_once(dirname(__FILE__).'/../../objects/content/contentObject.class.php');
@@ -27,8 +22,7 @@ class Response extends xhtmlPage
         $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
 
-        if(!empty($config['customFonts']))
-        {
+        if (!empty($config['customFonts'])) {
             $this->loadCustomFonts($config);
         }
 
@@ -42,8 +36,7 @@ class Response extends xhtmlPage
 
     private function loadCustomFonts($config)
     {
-        foreach($config['customFonts'] as $font)
-        {
+        foreach ($config['customFonts'] as $font) {
             $this->addStyleSheet($font);
         }
     }

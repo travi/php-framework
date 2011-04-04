@@ -32,31 +32,22 @@ class Request
 
     private function resolveDataParts()
     {
-        if($this->uriParts[1] === 'admin')
-        {
+        if ($this->uriParts[1] === 'admin') {
             $this->admin = true;
             array_shift($this->uriParts);
-        }
-        else
-        {
+        } else {
             $this->admin = false;
         }
 
-        if(empty($this->uriParts[1]))
-        {
+        if (empty($this->uriParts[1])) {
             $this->controller = 'home';
-        }
-        else
-        {
+        } else {
             $this->controller = $this->uriParts[1];
         }
 
-        if(empty($this->uriParts[2]))
-        {
+        if (empty($this->uriParts[2])) {
             $this->action = 'index';
-        }
-        else
-        {
+        } else {
             $this->action = $this->uriParts[2];
         }
     }

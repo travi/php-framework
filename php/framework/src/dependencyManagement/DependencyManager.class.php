@@ -164,8 +164,7 @@ class DependencyManager
         if (is_object($component) && is_a($component, 'DependantObject')) {
             $this->addDependencies($component->getDependencies(), $component);
         } else if (is_array($component)) { //TODO: need to make this DRY
-            foreach($component as $innerComponent)
-            {
+            foreach ($component as $innerComponent) {
                 $this->resolveComponentDependencies($innerComponent);
             }
         }
