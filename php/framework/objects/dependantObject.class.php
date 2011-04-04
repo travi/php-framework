@@ -5,7 +5,7 @@ abstract class DependantObject
     private $styles = array();
     private $scripts = array();
     private $jsInits = array();
-    private $template;                //template file to be used when rendering
+    private $template;
 
     public function getStyles()
     {
@@ -41,6 +41,10 @@ abstract class DependantObject
         return $this->template;
     }
 
+    /**
+     * @param  $object DependantObject
+     * @return void
+     */
     protected function checkDependencies($object)
     {
         $jScripts = $object->getJavaScripts();
