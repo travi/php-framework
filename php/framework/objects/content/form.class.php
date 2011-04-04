@@ -59,7 +59,7 @@ class UrlInput extends Input
 
 		$preview = new PreviewWindow();
 		$preview->setLinkText('Preview');
-		$preview->setField($this->name);
+		$preview->setField($this->getName());
 
 		$this->checkDependencies($preview);
 
@@ -79,7 +79,7 @@ class TimeInput extends Input
 	}
 	public function __toString()
 	{
-		$hour = substr($this->value,0,2);
+		$hour = substr($this->getValue(),0,2);
 		if($hour >= 12)
 		{
 			$ampm = 'pm';
@@ -87,11 +87,11 @@ class TimeInput extends Input
 				$hour -= 12;
 		}
 		else $ampm = 'am';
-		$minute = substr($this->value,3,2);
+		$minute = substr($this->getValue(),3,2);
 
 		$form = '
-				<label for="'.$this->name.'">'.$this->label.'</label>
- 				<select name="'.$this->name.'_hour" id="'.$this->name.'_hour" onchange="javascript:updateHiddenField('."'".$this->name."'".')" class="timeInput hour">';
+				<label for="'.$this->getName().'">'.$this->getLabel().'</label>
+ 				<select name="'.$this->getName().'_hour" id="'.$this->getName().'_hour" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput hour">';
 		for ($i = 1; $i <= 12; $i++)
 		{
 			$form .= '
@@ -102,7 +102,7 @@ class TimeInput extends Input
 		}
 		$form .= '
 				</select>
-				<select name="'.$this->name.'_minute" id="'.$this->name.'_minute" onchange="javascript:updateHiddenField('."'".$this->name."'".')" class="timeInput minute">';
+				<select name="'.$this->getName().'_minute" id="'.$this->getName().'_minute" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput minute">';
 		for ($i = 0; $i <= 60; $i += 5)
 		{
 			if(strlen($i) == 1)
@@ -115,7 +115,7 @@ class TimeInput extends Input
 		}
 		$form .= '
 				</select>
-				<select name="'.$this->name.'_ampm" id="'.$this->name.'_ampm" onchange="javascript:updateHiddenField('."'".$this->name."'".')" class="timeInput ampm">';
+				<select name="'.$this->getName().'_ampm" id="'.$this->getName().'_ampm" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput ampm">';
 		$form .= '
 					<option';
 			if($ampm == 'am')
@@ -126,7 +126,7 @@ class TimeInput extends Input
 				$form .= ' selected';
 			$form .= '>pm</option>
 				</select>';
-		$hidden = new HiddenInput($this->name,$this->value);
+		$hidden = new HiddenInput($this->getName(),$this->getValue());
 		$form .= $hidden->toString();
 		$form .= '
 				<br />';
