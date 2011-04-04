@@ -1,7 +1,7 @@
 <?php
 
-require_once(dirname(__FILE__).'/../../../objects/content/contentObject.class.php');
-require_once(dirname(__FILE__).'/FormElement.php');
+require_once dirname(__FILE__).'/../../../objects/content/contentObject.class.php';
+require_once dirname(__FILE__).'/FormElement.php';
  
 abstract class FormElementGroup extends contentObject implements FormElement
 {

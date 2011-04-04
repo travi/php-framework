@@ -1,6 +1,6 @@
 <?php
 
-require_once('inputs/Input.php');
+require_once 'inputs/Input.php';
 
 class SubmitButton extends Input
 {

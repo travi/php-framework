@@ -52,9 +52,9 @@ abstract class Choices implements Field
                 }
 
                 $this->addOption($option['label'], $option['value'], $selected);
-            }
-            else
+            } else {
                 $this->addOption($option);
+            }
         }
     }
 

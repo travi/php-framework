@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/FormElementGroup.php');
+require_once dirname(__FILE__).'/FormElementGroup.php';
 
 class Form extends FormElementGroup
 {
