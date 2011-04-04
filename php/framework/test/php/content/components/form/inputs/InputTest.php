@@ -46,9 +46,59 @@ class InputTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array('validation1', 'validation2', 'validation3'), $this->input->getValidations());
     }
 
-    public function testGetName()
+    public function testConstructorSetNameWhenNameIncluded()
+    {
+        $options = array();
+        $options['name'] = 'input_name';
+        $options['label'] = 'label';
+        $options['value'] = 'value';
+        $options['validations'] = array('validation1', 'validation2');
+
+        /** @var $input Input */
+        $input = $this->getMockForAbstractClass('Input', array($options));
+
+        $this->assertSame('input_name', $input->getName());
+    }
+
+    public function testConstructorSetNameToLabelWhenNameNotIncluded()
     {
         $this->assertSame('label', $this->input->getName());
+    }
+
+    public function testSetNameLowerCased()
+    {
+        $nameWithCapitals = 'NameWithCapitals';
+
+        $this->input->setName($nameWithCapitals);
+
+        $this->assertSame(strtolower($nameWithCapitals), $this->input->getName());
+    }
+
+    public function testSetNameSpacesToUnderscores()
+    {
+        $nameWithSpaces = 'name with spaces';
+
+        $this->input->setName($nameWithSpaces);
+
+        $this->assertSame(str_replace(' ', '_', $nameWithSpaces), $this->input->getName());
+    }
+
+    public function testSetNameWithNameExpando()
+    {
+        $nameExpando = 'name';
+
+        $this->input->setName($nameExpando);
+
+        $this->assertSame($nameExpando . '_value', $this->input->getName());
+    }
+
+    public function testSetNameWithIdExpando()
+    {
+        $idExpando = 'id';
+
+        $this->input->setName($idExpando);
+
+        $this->assertSame($idExpando . '_value', $this->input->getName());
     }
 
     public function testGetLabel()
