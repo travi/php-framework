@@ -88,7 +88,7 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
 
     public function testGetName()
     {
-        $this->assertSame('Submit', $this->object->getName());
+        $this->assertSame('submit', $this->object->getName());
     }
 }
 ?>
