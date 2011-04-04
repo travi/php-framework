@@ -57,19 +57,6 @@ abstract class FormElementGroup extends contentObject implements FormElement
         return parent::getDependencies();
     }
 
-    private function addDependencies($dependencies = array())
-    {
-        foreach ($dependencies['scripts'] as $jsDependency) {
-            $this->addJavaScript($jsDependency);
-        }
-        foreach ($dependencies['jsInits'] as $jsInit) {
-            $this->addJsInit($jsInit);
-        }
-        foreach ($dependencies['styles'] as $styleDependency) {
-            $this->addStyleSheet($styleDependency);
-        }
-    }
-
 //    public function checkDependencies($object)
 //    {
 //        foreach ($this->getFormElements() as $formElement) {

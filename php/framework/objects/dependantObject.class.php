@@ -41,36 +41,24 @@ abstract class DependantObject
         return $this->template;
     }
 
-    /**
-     * @param  $object DependantObject
-     * @return void
-     */
-    protected function checkDependencies($object)
-    {
-        $jScripts = $object->getJavaScripts();
-        foreach($jScripts as $script)
-        {
-            $this->addJavaScript($script);
-        }
-
-        $inits = $object->getJsInits();
-        foreach($inits as $init)
-        {
-            $this->addJsInit($init);
-        }
-
-        $styles = $object->getStyles();
-        foreach($styles as $style)
-        {
-            $this->addStyleSheet($style);
-        }
-    }
-
     public function getDependencies()
     {
         return array(   'scripts'   => $this->getJavaScripts(),
                         'jsInits'   => $this->getJsInits(),
                         'styles'    => $this->getStyles());
+    }
+
+    protected function addDependencies($dependencies = array())
+    {
+        foreach ($dependencies['scripts'] as $jsDependency) {
+            $this->addJavaScript($jsDependency);
+        }
+        foreach ($dependencies['jsInits'] as $jsInit) {
+            $this->addJsInit($jsInit);
+        }
+        foreach ($dependencies['styles'] as $styleDependency) {
+            $this->addStyleSheet($styleDependency);
+        }
     }
 }
 ?>
