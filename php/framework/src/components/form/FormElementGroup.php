@@ -5,6 +5,7 @@ require_once(dirname(__FILE__).'/FormElement.php');
  
 abstract class FormElementGroup extends contentObject implements FormElement
 {
+    /** @var FormElement[] */
     private $formElements = array();
 
     public function addFormElement($formElement)
@@ -23,6 +24,7 @@ abstract class FormElementGroup extends contentObject implements FormElement
             if (is_a($formElement, $type)) {
                 return true;
             } elseif (is_a($formElement, 'FormElementGroup')) {
+                /** @var $formElement FormElementGroup */
                 if ($formElement->containsFormElementType($type)) {
                     return true;
                 }

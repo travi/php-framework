@@ -4,7 +4,8 @@ require_once(dirname(__FILE__).'/FormElementGroup.php');
 
 class FieldSet extends FormElementGroup
 {
-    private $legend;                //text that appears in the legend for this fieldSet
+    /** @var string */
+    private $legend;
 
     public function __construct($options)
     {
@@ -13,6 +14,7 @@ class FieldSet extends FormElementGroup
             $this->addFormElement(new $field['type']($field));
         }
     }
+
     public function getLegend()
     {
         return $this->legend;

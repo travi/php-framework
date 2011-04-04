@@ -4,10 +4,15 @@ require_once(dirname(__FILE__).'/FormElementGroup.php');
 
 class Form extends FormElementGroup
 {
+    /** @var string */
     private $name;
+    /** @var string */
     private $method;
+    /** @var string */
     private $action;
+    /** @var string */
     private $encodingType;
+    /** @var boolean */
     private $debug;
 
     public function __construct($options)
