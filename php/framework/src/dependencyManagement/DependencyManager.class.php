@@ -38,26 +38,20 @@ class DependencyManager
 
         $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
 
-        if(!empty($dependencies))
-        {
-            if(!empty($dependencies['jsDependencies']))
-            {
-                foreach($dependencies['jsDependencies'] as $dependency)
-                {
+        if (!empty($dependencies)) {
+            if (!empty($dependencies['jsDependencies'])) {
+                foreach ($dependencies['jsDependencies'] as $dependency) {
                     $this->addJavaScript($dependency);
                 }
             }
-            if(!empty($dependencies['cssDependencies']))
-            {
-                foreach($dependencies['cssDependencies'] as $dependency)
-                {
+            if (!empty($dependencies['cssDependencies'])) {
+                foreach ($dependencies['cssDependencies'] as $dependency) {
                     $this->addStyleSheet($dependency);
                 }
             }
             $script = $this->clientDependencyDefinitions->resolveFileURI($script);
         }
-        if(!in_array($script, $this->requirementLists['js']))
-        {
+        if (!in_array($script, $this->requirementLists['js'])) {
             array_push($this->requirementLists['js'], $script);
         }
 
@@ -141,24 +135,18 @@ class DependencyManager
 
     public function addDependencies($dependencies = array(), $component = null)
     {
-        if(!empty($dependencies['scripts']))
-        {
-            foreach($dependencies['scripts'] as $script)
-            {
+        if (!empty($dependencies['scripts'])) {
+            foreach ($dependencies['scripts'] as $script) {
                 $this->addJavaScript($script);
             }
         }
-        if(!empty($dependencies['jsInits']))
-        {
-            foreach($dependencies['jsInits'] as $init)
-            {
+        if (!empty($dependencies['jsInits'])) {
+            foreach ($dependencies['jsInits'] as $init) {
                 $this->addJsInit($init);
             }
         }
-        if(!empty($dependencies['styles']))
-        {
-            foreach($dependencies['styles'] as $style)
-            {
+        if (!empty($dependencies['styles'])) {
+            foreach ($dependencies['styles'] as $style) {
                 $this->addStyleSheet($style);
             }
         }
@@ -185,23 +173,18 @@ class DependencyManager
 
     public function resolveContentDependencies($content)
     {
-        if(is_array($content))
-        {
-            foreach($content as $component)
-            {
+        if (is_array($content)) {
+            foreach ($content as $component) {
                 $this->resolveComponentDependencies($component);
             }
-        }
-        else
-        {
+        } else {
             $this->resolveComponentDependencies($content);
         }
     }
 
     private function lazyInitializeList($category)
     {
-        if(!isset($this->requirementLists[$category]))
-        {
+        if (!isset($this->requirementLists[$category])) {
             $this->requirementLists[$category] = array();
         }
     }

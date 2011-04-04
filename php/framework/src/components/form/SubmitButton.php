@@ -1,12 +1,6 @@
 <?php
-/**
- * Created on Jan 26, 2011
- * By Matt Travi
- * programmer@travi.org
- */
 
 require_once('inputs/Input.php');
-
 
 class SubmitButton extends Input
 {
@@ -34,17 +28,17 @@ class SubmitButton extends Input
         $this->confirmation = $confirmation;
     }
 
-//    public function __toString()
-//    {
-//        $string = '
-//                        <input type="'.$this->type.'" name="'.$this->name.'"
+//public function __toString()
+//{
+//    $string = '
+//                    <input type="'.$this->type.'" name="'.$this->name.'"
 //id="'.$this->name.'" value="'.$this->value.
-//                    '" class="'.$this->class.'"';
-//        if(!empty($this->confirmation))
-//            $string .= ' onclick="if (confirm(\''.$this->confirmation.'\'))
-//        return true; else return false;"';
-//        $string .= '/>';
+//                '" class="'.$this->class.'"';
+//    if(!empty($this->confirmation))
+//        $string .= ' onclick="if (confirm(\''.$this->confirmation.'\'))
+//    return true; else return false;"';
+//    $string .= '/>';
 //
-//        return $string;
-//    }
+//    return $string;
+//}
 }

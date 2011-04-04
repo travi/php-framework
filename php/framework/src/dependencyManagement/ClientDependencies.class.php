@@ -16,38 +16,29 @@ class ClientDependencies
 
     private function flattenDeps($deps, $requirement = '')
     {
-        foreach($deps as $name => $dep)
-        {
+        foreach ($deps as $name => $dep) {
             $item = array();
 
-            if(!empty($dep['local']))
-            {
+            if (!empty($dep['local'])) {
                 $item['local'] = $dep['local'];
-            }
-            else
-            {
+            } else {
                 throw new Exception('Local URI required for '.$name);
             }
 
             $item['cdn'] = $dep['cdn'];
 
-            if(!empty($dep['jsDependencies']))
-            {
+            if (!empty($dep['jsDependencies'])) {
                 $item['jsDependencies'] = $dep['jsDependencies'];
-            }
-            else
-            {
+            } else {
                 $item['jsDependencies'] = array();
             }
             $item['cssDependencies'] = $dep['cssDependencies'];
 
-            if(!empty($requirement))
-            {
+            if (!empty($requirement)) {
                 array_push($item['jsDependencies'], $requirement);
             }
 
-            if(!empty($dep['plugins']))
-            {
+            if (!empty($dep['plugins'])) {
                 $this->flattenDeps($dep['plugins'], $name);
             }
 
