@@ -12,10 +12,11 @@ class SubmitButton extends Input
         $this->label = "";
         $this->setType("submit");
         $this->setName("Submit");
-        if(!empty($options['class']))
+        if (!empty($options['class'])) {
             $this->setClass($options['class']);
-        else
+        } else {
             $this->setClass("submitButton");
+        }
         $this->setValue($options['label']);
         $this->setTemplate('components/form/input.tpl');
         $this->addJavaScript('jqueryUi');

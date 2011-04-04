@@ -23,10 +23,11 @@ abstract class Choices implements Field
     public function __construct($settings=array())
     {
         $this->label = $settings['label'];
-        if(!empty($settings['name']))
+        if (!empty($settings['name'])) {
             $this->name = $settings['name'];
-        else
+        } else {
             $this->name = strtolower($settings['label']);
+        }
         $this->value = $settings['value'];
         $this->settings = $settings;
         $this->optionAdder($settings['options']);
@@ -42,12 +43,13 @@ abstract class Choices implements Field
     {
         foreach ($options as $option) {
             if (is_array($option)) {
-                if(isset($this->value) && $this->value == $option['value'])
+                if (isset($this->value) && $this->value == $option['value']) {
                     $selected = true;
-                elseif($option['selected'])
+                } elseif ($option['selected']) {
                     $selected = true;
-                else
+                } else {
                     $selected = false;
+                }
 
                 $this->addOption($option['label'], $option['value'], $selected);
             }
