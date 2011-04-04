@@ -76,11 +76,11 @@ class Form extends FormElementGroup
     public function getDependencies()
     {
         $validations = $this->getValidations();
-        $deps = parent::getDependencies();
+        $dependencies = parent::getDependencies();
         if (!empty($validations)) {
-            $deps['validations'] = $validations;
+            $dependencies['validations'] = $validations;
         }
-        return $deps;
+        return $dependencies;
     }
 
     public function getValidations()

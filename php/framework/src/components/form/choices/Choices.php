@@ -7,7 +7,7 @@
 
 require_once(dirname(__FILE__).'/../Field.php');
 
-abstract class Choices implements Field
+abstract class Choices extends DependantObject implements Field
 {
     protected $label;					//label associated with this field
     protected $name;					//name attribute for this field

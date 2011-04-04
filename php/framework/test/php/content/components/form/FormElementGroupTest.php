@@ -112,6 +112,34 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         $this->assertSame($validations, $vals[$inputName]);
     }
 
+    public function testDependenciesReturnedFromContainedField()
+    {
+        $anyField = $this->getAnyField();
+        $anyField->expects($this->once())
+                ->method('getDependencies')
+                ->will($this->returnValue(array('scripts' => array('jsDep'))));
+
+        $this->group->addFormElement($anyField);
+
+        $dependencies = $this->group->getDependencies();
+        $this->assertContains('jsDep', $dependencies['scripts']);
+    }
+
+    public function testDependenciesReturnedFromContainedGroup()
+    {
+        $anyGroup = $this->getAnyField();
+        $anyGroup->expects($this->once())
+                ->method('getDependencies')
+                ->will($this->returnValue(array('scripts' => array('jsDep'))));
+
+        $this->group->addFormElement($anyGroup);
+
+        $dependencies = $this->group->getDependencies();
+        $this->assertContains('jsDep', $dependencies['scripts']);
+
+        $this->markTestIncomplete();
+    }
+
     private function getAnyValidations()
     {
         return array('required');
