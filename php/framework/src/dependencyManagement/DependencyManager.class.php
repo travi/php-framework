@@ -56,7 +56,7 @@ class DependencyManager
             }
             $script = $this->clientDependencyDefinitions->resolveFileURI($script);
         }
-        if(!in_array($script,$this->requirementLists['js']))
+        if(!in_array($script, $this->requirementLists['js']))
         {
             array_push($this->requirementLists['js'], $script);
         }
@@ -173,7 +173,7 @@ class DependencyManager
      */
     public function resolveComponentDependencies($component)
     {
-        if (is_object($component) && is_a($component,'DependantObject')) {
+        if (is_object($component) && is_a($component, 'DependantObject')) {
             $this->addDependencies($component->getDependencies(), $component);
         } else if (is_array($component)) { //TODO: need to make this DRY
             foreach($component as $innerComponent)

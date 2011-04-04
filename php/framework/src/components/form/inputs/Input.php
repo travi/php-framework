@@ -14,14 +14,10 @@ abstract class Input extends ContentObject implements Field
     public function __construct($options)
     {
         $this->label = $options['label'];
-        if (!empty($options['name']))
-            $this->name = $options['name'];
-        else
-        {
-            $this->name = str_replace(' ','_',strtolower($options['label']));
-            //ensure value is not "name" or "id" (expandos)
-            if($this->name == 'name')
-                $this->name .= '_value';
+        if (!empty($options['name'])) {
+            $this->setName($options['name']);
+        } else {
+            $this->setName($options['label']);
         }
         $this->value = $options['value'];
         if (!empty($options['validations'])) {
@@ -33,10 +29,17 @@ abstract class Input extends ContentObject implements Field
     }
     public function addValidation($validation)
     {
-        array_push($this->validations,$validation);
+        array_push($this->validations, $validation);
     }
     public function setName($name)
     {
+        $name = str_replace(' ', '_', strtolower($name));
+
+        //ensure value is not "name" or "id" (expandos)
+        if ($name === 'name' || $name === 'id') {
+            $name .= '_value';
+        }
+
         $this->name = $name;
     }
     public function getName()
