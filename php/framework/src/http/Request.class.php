@@ -1,9 +1,4 @@
 <?php
-/**
- * User: travi
- * Date: Jan 2, 2011
- * Time: 12:38:52 PM
- */
  
 class Request
 {
@@ -12,11 +7,11 @@ class Request
     /** @var string */
     private $uri;
     /** @var array */
-	private $uriParts;
+    private $uriParts;
     /** @var boolean */
     private $admin;
     /** @var string */
-	private $controller;
+    private $controller;
     /** @var string */
     private $action;
 
@@ -30,10 +25,10 @@ class Request
         $this->resolveDataParts();
     }
 
-	private function parseUriParts()
-	{
-		$this->uriParts = explode('/', $this->uri);
-	}
+    private function parseUriParts()
+    {
+        $this->uriParts = explode('/', $this->uri);
+    }
 
     private function resolveDataParts()
     {

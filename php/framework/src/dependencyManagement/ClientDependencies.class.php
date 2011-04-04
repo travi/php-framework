@@ -1,25 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: travi
- * Date: Dec 31, 2010
- * Time: 12:00:20 PM
- * To change this template use File | Settings | File Templates.
- */
  
 class ClientDependencies
 {
     private $jsNeeds = array();
 
-	public function __construct()
-	{
-    	global $uiDeps;
+    public function __construct()
+    {
+        global $uiDeps;
 
         $this->flattenDeps($uiDeps);
 
         $this->jsNeeds['jqueryUiTheme']['local'] = JQUERY_UI_THEME;
         $this->jsNeeds['jcarsouselSkin']['local'] = JCAROUSEL_SKIN;
-	}
+    }
 
     private function flattenDeps($deps, $requirement = '')
     {
