@@ -1,4 +1,6 @@
 var travi = (function () {
+    "use strict";
+
     var loadTemplate = function (templateUrl, templateName) {
         var deferred = $.Deferred();
 
