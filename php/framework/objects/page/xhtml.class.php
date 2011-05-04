@@ -15,6 +15,7 @@ abstract class xhtmlPage
     protected $pageTemplate;
     protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
     protected $clientTemplates = array();
+    private   $externalClientTemplates = array();
     /** @var DependencyManager */
     protected $dependencyManager;
     protected $stylesheets = array();
@@ -430,9 +431,17 @@ abstract class xhtmlPage
         $this->clientTemplates[$name] = $template;
     }
 
+    public function addExternalClientTemplate($name, $path) {
+        $this->externalClientTemplates[$name] = $path;
+    }
+
     public function getClientTemplates()
     {
         return $this->clientTemplates;
+    }
+
+    public function getExternalClientTemplates() {
+        return $this->externalClientTemplates;
     }
 
     public function smartyInit()

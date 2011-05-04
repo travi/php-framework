@@ -1,4 +1,7 @@
 #=======Framework Components=======
+travi:
+  local: "/resources/shared/js/travi.js"
+
 gallery:
   local: "/resources/js/gallery.js"
   jsDependencies:
