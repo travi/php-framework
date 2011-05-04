@@ -7,31 +7,31 @@
 
 class EntityList extends ContentObject
 {
-	private $entities = array();
-	private $actions = array();
+    private $entities = array();
+    private $actions = array();
     private $limit;
     private $offset;
     private $totalEntities;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         $this->addJavaScript('entityList');
-	}
-	public function setEdit($script,$confirmation="")
-	{
-		$this->addAction("Edit",$script,$confirmation);
-	}
-	public function setRemove($script,$confirmation="")
-	{
-		$this->addAction("Remove",$script,$confirmation);
-	}
-	public function addEntity($entity)
-	{
-		array_push($this->entities,$entity);
-	}
+    }
+    public function setEdit($script,$confirmation="")
+    {
+        $this->addAction("Edit",$script,$confirmation);
+    }
+    public function setRemove($script,$confirmation="")
+    {
+        $this->addAction("Remove",$script,$confirmation);
+    }
+    public function addEntity($entity)
+    {
+        array_push($this->entities,$entity);
+    }
     public function addAction($text,$link,$confirmation="")
     {
-		$this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
+        $this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
         if(!empty($confirmation))
         {
             $this->addJsInit('travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");

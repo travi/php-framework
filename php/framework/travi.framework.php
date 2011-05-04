@@ -54,6 +54,8 @@ require_once(FRAMEWORK_PATH.'../thirdparty/spyc/spyc.php');
  
 //Define UI Dependencies
 $uiDeps = Spyc::YAMLLoad(INCLUDE_PATH.'config/uiDependencies.yaml');
+$siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
+$uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
  
  //Store SCM Revision number
  $version = exec('svnversion');
