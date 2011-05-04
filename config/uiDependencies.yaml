@@ -76,3 +76,6 @@ reflection:
 
 pngFix:
   local: "/resources/shared/js/pngFix/DD_belatedPNG.js"
+
+dateFormat:
+  local: "/resources/shared/js/date/date.format.js"
