@@ -49,6 +49,12 @@ class DependencyManager
                     $this->addStyleSheet($dependency);
                 }
             }
+            if (!empty($dependencies['clientTemplates'])) {
+                foreach ($dependencies['clientTemplates'] as $name => $dependency) {
+                    $this->addClientTemplate($name, $dependency);
+                }
+//                print_r($dependencies['clientTemplates']);
+            }
             $script = $this->clientDependencyDefinitions->resolveFileURI($script);
         }
         if (!in_array($script, $this->requirementLists['js'])) {
@@ -73,6 +79,15 @@ class DependencyManager
             } else {
                 array_push($this->requirementLists['css'], $sheet);
             }
+        }
+    }
+
+    public function addClientTemplate($name, $template)
+    {
+        $this->lazyInitializeList('clientTemplates');
+
+        if (!in_array($name, $this->requirementLists['clientTemplates'])) {
+            $this->requirementLists['clientTemplates'][$name] = $template;
         }
     }
 
@@ -102,12 +117,14 @@ class DependencyManager
     {
         if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
             return $this->getScripts();
-        } else if ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
+        } elseif ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
             return $this->getStyleSheets();
-        } else if ($category === 'jsInit' || $category === 'jsinit') {
+        } elseif ($category === 'jsInit' || $category === 'jsinit') {
             return $this->getJsInits();
         } elseif ($category === 'validations') {
             return $this->getValidations();
+        } elseif ($category === 'clientTemplates') {
+            return $this->getClientTemplates();
         }
     }
 
@@ -121,6 +138,11 @@ class DependencyManager
         uksort($this->requirementLists['css'], 'strnatcasecmp');
 
         return $this->requirementLists['css'];
+    }
+
+    public function getClientTemplates()
+    {
+        return $this->requirementLists['clientTemplates'];
     }
 
     public function getJsInits()

@@ -431,17 +431,13 @@ abstract class xhtmlPage
         $this->clientTemplates[$name] = $template;
     }
 
-    public function addExternalClientTemplate($name, $path) {
-        $this->externalClientTemplates[$name] = $path;
-    }
-
     public function getClientTemplates()
     {
         return $this->clientTemplates;
     }
 
     public function getExternalClientTemplates() {
-        return $this->externalClientTemplates;
+        return $this->getDependencyList('clientTemplates');
     }
 
     public function smartyInit()

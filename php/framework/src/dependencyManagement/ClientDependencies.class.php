@@ -22,7 +22,7 @@ class ClientDependencies
             if (!empty($dep['local'])) {
                 $item['local'] = $dep['local'];
             } else {
-                throw new Exception('Local URI required for '.$name);
+                throw new Exception('Local URI required for ' . $name);
             }
 
             $item['cdn'] = $dep['cdn'];
@@ -40,6 +40,10 @@ class ClientDependencies
 
             if (!empty($dep['plugins'])) {
                 $this->flattenDeps($dep['plugins'], $name);
+            }
+
+            if (!empty($dep['clientTemplates'])) {
+                $item['clientTemplates'] = $dep['clientTemplates'];
             }
 
             $this->jsNeeds[$name] = $item;
