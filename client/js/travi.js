@@ -10,9 +10,20 @@ var travi = (function () {
         });
 
         return deferred.promise();
+    },
+
+    getStyleSheet = function (sheetUrl) {
+        var link = document.createElement("link");
+
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("type", "text/css");
+        link.setAttribute("href", sheetUrl);
+
+        document.getElementsByTagName("head")[0].appendChild(link);
     };
 
     return {
-        loadTemplate : loadTemplate
+        loadTemplate    : loadTemplate,
+        getStyleSheet   : getStyleSheet
     };
 }());
