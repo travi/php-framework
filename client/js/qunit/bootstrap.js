@@ -11,6 +11,10 @@ var $testEnvironmentLoader = null,
             local: '/resources/shared/js/qunit/qunit.js',
             remote: 'http://code.jquery.com/qunit/git/qunit.js'
         },
+        QUnitStyle: {
+            local: '/resources/shared/js/qunit/qunit.css',
+            remote: 'http://code.jquery.com/qunit/git/qunit.css'
+        },
         mockjax: {
             local: '/resources/shared/js/jquery/plugins/mockjax/jquery.mockjax.js',
             remote: 'http://code.appendto.com/plugins/jquery-mockjax/jquery.mockjax.js'
@@ -22,7 +26,6 @@ var $testEnvironmentLoader = null,
         travi: '/resources/shared/js/travi.js'
     };
 
-
 $LAB
     .script(resources.jQuery[resourcesLocation])
     .wait()
@@ -30,4 +33,7 @@ $LAB
     .script(resources.mockjax[resourcesLocation])
     .script(resources.templates[resourcesLocation])
     .script(resources.travi)
-    .wait(loadRunnerDependencies);
+    .wait(function () {
+        travi.getStyleSheet(resources.QUnitStyle[resourcesLocation]);
+        loadRunnerDependencies();
+    });
