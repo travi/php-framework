@@ -1,3 +1,5 @@
+/*global loadRunnerDependencies*/
+
 var $testEnvironmentLoader = null,
     resourcesLocation = 'remote',
     resources = {

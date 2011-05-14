@@ -17,6 +17,7 @@
         <exclude name="reflection/**/*.js" />
         <exclude name="qunit/**/*.js" />
         <exclude name="modernizr/**/*.js" />
+        <exclude name="LABjs/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />
