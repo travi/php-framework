@@ -31,8 +31,3 @@ $LAB
     .script(resources.templates[resourcesLocation])
     .script(resources.travi)
     .wait(loadRunnerDependencies);
-
-
-
-
-
