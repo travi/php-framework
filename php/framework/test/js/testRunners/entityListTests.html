@@ -1,42 +1,44 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<title>Entity List Component Tests</title>
-		<link  	type="text/css" rel="stylesheet" href="../../../../../client/js/qunit/qunit.css">
-		<script type="application/javascript" src="../../../../../client/js/jquery/jquery.js"> </script>
-		<script type="application/javascript" src="../../../../../client/js/qunit/qunit.js"> </script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <title>Entity List Component Tests</title>
 
-		<!--<link 	type="text/css" rel="stylesheet" 	href="../../../../include/client/js/jquery/plugins/jcarousel/jquery.jcarousel.css"/>-->
-		<!--<link 	type="text/css" rel="stylesheet" 	href="../../../../include/client/js/jquery/plugins/jcarousel/skins/tango/skin.css"/>-->
-		<!--<link 	type="text/css" rel="stylesheet" 	href="../../../../travi.org/doc_root/resources/css/pages/gallery.css"/>-->
-		<!---->
-		<script type="application/javascript" src="../../../../../client/js/jquery/ui/jquery-ui.js"> </script>
-		<!--<script type="application/javascript" src="../../../../include/client/js/jquery/plugins/lightbox/jquery.lightbox.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/jquery/plugins/jcarousel/jquery.jcarousel.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/jquery/plugins/url/jquery.url.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/reflection/reflection.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/jquery/plugins/pxem/jquery.pxem.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../../include/client/js/date/date.format.js"> </script>-->
-				<!---->
-		<!--<script type="application/javascript" src="../tests/gallery/data.js"> </script>		-->
-		<!--<script type="application/javascript" src="../tests/announcements/data.js"> </script>-->
-		<!--<script type="application/javascript" src="../tests/ajaxMock.js"> </script>-->
-		<!---->
-		<script type="application/javascript" src="../../../../../client/js/list/entityList.js"> </script>
-		<!--<script type="application/javascript" src="../../../doc_root/resources/js/announcements.js"> </script>-->
-		<!--<script type="application/javascript" src="../../../doc_root/resources/js/gallery.js"> </script>-->
-				<!---->
-		<script type="application/javascript" src="../tests/list/entityList.qunit"> </script>
-		<!--<script type="application/javascript" src="../tests/announcements/loadMoreAnnouncements.qunit"> </script>-->
-		<!--<script type="application/javascript" src="../tests/home/thumbCarousel.qunit"> </script>-->
-		<!--<script type="application/javascript" src="../tests/home/lightbox.qunit"> </script>-->
-	</head>
-	<body>
-		<h1 id="qunit-header">Entity List Component Tests</h1>
-	 	<h2 id="qunit-banner"></h2>
-		<h2 id="qunit-userAgent"></h2>
-		<ol id="qunit-tests"></ol>
-	</body>
+        <script src="/resources/shared/js/LABjs/LAB.js"> </script>
+        <script type="application/javascript">
+            function loadRunnerDependencies() {
+                $LAB
+                    .script('/resources/shared/js/jquery/ui/jquery-ui.js')
+                    .script('/resources/shared/js/jquery/plugins/ajaxForm/jquery.form.js')
+                    .wait()
+                    .script('/resources/shared/js/list/entityList.js')
+                    .wait()
+                    .script('/tests/list/entityList.qunit')
+                    .wait();
+            };
+        </script>
+        <script src="/resources/shared/js/qunit/bootstrap.js"> </script>
+
+        <script type="text/x-jquery-tmpl" id="entity-list">
+            <ol class="entityList">
+                <li>
+                    <ul class="actions">
+                        <li class="remove-item">
+                            <form action="index.php" class="item-action" method="post">
+                                <input type="hidden" name="id" value="45" />
+                                <input type="hidden" name="Submit" value="Remove" />
+                                <input type="submit" value="Remove" />
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </script>
+    </head>
+    <body>
+        <h1 id="qunit-header">Entity List Component Tests</h1>
+        <h2 id="qunit-banner"></h2>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+    </body>
 </html>

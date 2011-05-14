@@ -30,7 +30,17 @@ travi.framework.entityList = (function () {
                 text:   travi.framework.entityList.getButtonText(),
                 click:  function () {
                     $(this).dialog("close");
-                    $form.unbind("submit").submit();
+                    $form.ajaxSubmit({
+                        success: function (data, testStatus, xhr, $form) {
+                            var $containingList = $form.closest('ol');
+                            $form
+                                .closest('li')
+                                .parent()
+                                .closest('li')
+                                .remove();
+                            $containingList.trigger('entityRemoved');
+                        }
+                    });
                 }
             },
             {

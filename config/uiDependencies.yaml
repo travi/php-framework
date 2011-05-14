@@ -16,6 +16,7 @@ entityList:
   local: "/resources/shared/js/list/entityList.js"
   jsDependencies:
     - "jqueryUi"
+    - "ajaxForm"
   cssDependencies:
     - "/resources/shared/css/travi.entities.css"
 
@@ -32,6 +33,9 @@ jquery:
         - "jqueryUiTheme"
 
     #------jQuery Plug-ins------
+
+    ajaxForm:
+      local: "/resources/shared/js/jquery/plugins/ajaxForm/jquery.form.js"
 
     equalizeBottoms:
       local: "/resources/shared/js/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js"
