@@ -19,6 +19,7 @@
         <exclude name="modernizr/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
+        <include name="qunit/**/bootstrap.js" />
         <!-- My Plug-ins -->
         <include name="jquery/plugins/formAlign/*.js" />
     </fileset>
