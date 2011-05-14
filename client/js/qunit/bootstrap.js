@@ -34,6 +34,8 @@ $LAB
     .script(resources.templates[resourcesLocation])
     .script(resources.travi)
     .wait(function () {
+        "use strict";
+
         travi.getStyleSheet(resources.QUnitStyle[resourcesLocation]);
         loadRunnerDependencies();
     });
