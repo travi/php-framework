@@ -66,3 +66,7 @@ ol.entityList{
 	color:			#000;
 	width: 			90%;
 }
+ul.actions img{
+    height:         13px;
+    width:          13px;
+}

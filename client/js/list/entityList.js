@@ -31,14 +31,23 @@ travi.framework.entityList = (function () {
                 click:  function () {
                     $(this).dialog("close");
                     $form.ajaxSubmit({
+                        beforeSubmit: function (data, $form) {
+                            $form
+                                .closest('li')
+//                                    .find('a').hide().end()
+                                    .append('<img src="/resources/shared/img/progress/ajax-spinner.gif" class="loading-indicator"/>');
+                        },
                         success: function (data, testStatus, xhr, $form) {
                             var $containingList = $form.closest('ol');
+
                             $form
                                 .closest('li')
                                 .parent()
                                 .closest('li')
-                                .remove();
-                            $containingList.trigger('entityRemoved');
+                                .slideUp('slow', function () {
+                                    $(this).remove();
+                                    $containingList.trigger('entityRemoved');
+                                });
                         }
                     });
                 }
