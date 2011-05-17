@@ -21,7 +21,7 @@
             travi.framework.entityList.init();
         },
         teardown: function () {
-//            $('#scratch').remove();
+            $('#scratch').remove();
             $('#confirmation').dialog('destroy').remove();
         }
     });
