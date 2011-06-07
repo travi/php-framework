@@ -83,23 +83,34 @@ abstract class xhtmlPage
 		return $this->siteName;
 	}
 
- 	public function setTitle($title)
- 	{
- 		if(ENV == 'development')
-			$this->title = '[dev] ';
- 		else if(ENV == 'test')
-			$this->title = '[test] ';
-		else
-			$this->title = '';
- 		$this->title .= $title;
-		if(isset($this->siteName))
-			$this->title .= ' | '.$this->getSiteName();
- 	}
-	
-	public function getTitle()
-	{
-		return $this->title;
-	}
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getDecoratedTitle()
+    {
+        if(ENV == 'development') {
+            $decoratedTitle = '[dev] ';
+        } else if(ENV == 'test') {
+            $decoratedTitle = '[test] ';
+        } else {
+            $decoratedTitle = '';
+        }
+
+        $decoratedTitle .= $this->title;
+
+        if(isset($this->siteName)) {
+            $decoratedTitle .= ' | ' . $this->getSiteName();
+        }
+
+        return $decoratedTitle;
+    }
 
     public function setSiteHeader($header = '')
     {

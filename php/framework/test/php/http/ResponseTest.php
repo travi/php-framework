@@ -9,6 +9,8 @@ require_once '/Users/travi/development/include/php/framework/src/http/Response.c
  */
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
+    private $someTitle = "some title";
+    private $someSiteName = 'some site name';
     /**
      * @var Response
      */
@@ -21,6 +23,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->response = new Response;
+        $this->response->setSiteName($this->someSiteName);
     }
 
     /**
@@ -30,6 +33,45 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
+
+    public function testTitle() {
+        $this->response->setTitle($this->someTitle);
+
+        $this->assertSame($this->someTitle, $this->response->getTitle());
+    }
+
+    public function testDecoratedTitle() {
+        $this->response->setTitle($this->someTitle);
+
+        $this->assertSame(
+            $this->someTitle . ' | ' . $this->someSiteName,
+            $this->response->getDecoratedTitle()
+        );
+    }
+
+    /**
+     * cannot test these two properly because of the use of constants
+     *
+    public function testDecoratedTitleDevEnvironment() {
+        define('ENV', 'development');
+        $this->response->setTitle($this->someTitle);
+
+        $this->assertSame(
+            '[dev] ' . $this->someTitle . ' | ' . $this->someSiteName,
+            $this->response->getDecoratedTitle()
+        );
+    }
+
+    public function testDecoratedTitleTestEnvironment() {
+        define('ENV', 'test');
+        $this->response->setTitle($this->someTitle);
+
+        $this->assertSame(
+            '[test] ' . $this->someTitle . ' | ' . $this->someSiteName,
+            $this->response->getDecoratedTitle()
+        );
+    }
+     */
 
     public function testTagLine()
     {
