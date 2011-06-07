@@ -92,7 +92,7 @@ class xhtmlPageTest extends PHPUnit_Framework_TestCase
         $siteName = 'siteName';
         $this->object->setSiteName($siteName);
         $this->object->setTitle($title);
-        $this->assertSame($title.' | '.$siteName, $this->object->getTitle());
+        $this->assertSame($title.' | '.$siteName, $this->object->getDecoratedTitle());
     }
 
     /**
