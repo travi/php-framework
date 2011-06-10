@@ -58,7 +58,10 @@ class FrontController
         try {
             if (is_file($controllerPath)) {
                 include_once $controllerPath;
+
+                /** @var $controller AbstractController */
                 $controller = new $controllerName();
+
                 $controller->doAction($this->Request, $this->Response);
             } else {
                 throw new NotFoundException('Controller Not Found!');
@@ -87,8 +90,7 @@ class FrontController
                     . $this->Request->getAction()
                     . '.tpl';
         
-        if (
-            empty($template)
+        if (empty($template)
             && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
         ) {
             $this->Response->setPageTemplate($templateByConvention);

@@ -1,5 +1,6 @@
 <?php
 
-interface FormElement {
+interface FormElement
+{
     public function getValidations();
 }
