@@ -17,11 +17,11 @@ class DateInput extends Input
         $this->setClass("textInput datepicker");
         $this->addJavaScript('jqueryUi');
         $this->addJsInit(
-                                                "$('input.datepicker').datepicker({
-                                                    dateFormat: 'yy-mm-dd',
-                                                    buttonImage: '/resources/shared/img/calendar.gif',
-                                                    buttonImageOnly: true, showOn: 'both'
-                                                });"
+            "$('input.datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                buttonImage: '/resources/shared/img/calendar.gif',
+                buttonImageOnly: true, showOn: 'both'
+            });"
         );
     }
 }
