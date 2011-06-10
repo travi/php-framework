@@ -53,7 +53,6 @@ class DependencyManager
                 foreach ($dependencies['clientTemplates'] as $name => $dependency) {
                     $this->addClientTemplate($name, $dependency);
                 }
-//                print_r($dependencies['clientTemplates']);
             }
             $script = $this->clientDependencyDefinitions->resolveFileURI($script);
         }
