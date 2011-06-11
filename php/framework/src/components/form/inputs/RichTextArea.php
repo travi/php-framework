@@ -5,7 +5,7 @@
  * programmer@travi.org
  */
 
-require_once('TextArea.php');
+require_once 'TextArea.php';
  
 
 class RichTextArea extends TextArea

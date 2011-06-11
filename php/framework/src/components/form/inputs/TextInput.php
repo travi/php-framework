@@ -1,6 +1,6 @@
 <?php
 
-require_once('Input.php');
+require_once 'Input.php';
 
 class TextInput extends Input
 {

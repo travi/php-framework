@@ -1,6 +1,6 @@
 <?php
 
-require_once('Choices.php');
+require_once 'Choices.php';
 
 class CheckBoxes extends Choices
 {

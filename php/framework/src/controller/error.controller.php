@@ -4,7 +4,7 @@
  * By Matt Travi
  * programmer@travi.org
  */
-require_once(dirname(__FILE__).'/abstract.controller.php');
+require_once dirname(__FILE__).'/abstract.controller.php';
  
 class ErrorController extends AbstractController
 {
