@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require_once(dirname(__FILE__).'/ClientDependencies.class.php');
+require_once dirname(__FILE__).'/ClientDependencies.class.php';
  
 class DependencyManager
 {
