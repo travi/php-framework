@@ -48,4 +48,18 @@
             <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
     </target>
+
+    <target name="phpcs-legacy" description="PHP Code Sniffer">
+        <mkdir dir="${build.logs}"/>
+        <exec executable="phpcs">
+            <arg line="--version"/>
+        </exec>
+        <exec dir="${framework.dir}"
+              executable="phpcs"
+              output="${build.logs}/checkstyle-legacy.xml"
+              failonerror="true">
+            <arg line="--standard=${shared.dir}/codingStandard.xml"/>
+            <arg line="--report=checkstyle ."/>
+        </exec>
+    </target>
 </project>
