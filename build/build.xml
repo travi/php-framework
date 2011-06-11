@@ -6,6 +6,7 @@
 
     <target name="checkstyle">
         <antcall target="jsLint" />
+        <antcall target="phpcs" />
     </target>
 
     <fileset id="js.files" dir="../client/js/" >
