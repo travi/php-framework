@@ -57,11 +57,11 @@ abstract class FormElementGroup extends contentObject implements FormElement
         return parent::getDependencies();
     }
 
-//    public function checkDependencies($object)
-//    {
-//        foreach ($this->getFormElements() as $formElement) {
-//            $this->checkDependencies($formElement);
-//        }
-//        return parent::checkDependencies($object);
-//    }
+    //    public function checkDependencies($object)
+    //    {
+    //        foreach ($this->getFormElements() as $formElement) {
+    //            $this->checkDependencies($formElement);
+    //        }
+    //        return parent::checkDependencies($object);
+    //    }
 }
