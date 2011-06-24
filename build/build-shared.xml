@@ -51,6 +51,11 @@
         <antcall target="messDetect"/>
     </target>
 
+    <target name="checkstyle">
+        <antcall target="jsLint" />
+        <antcall target="phpcs"/>
+    </target>
+
     <target name="test">
         <antcall target="phpUnit"/>
     </target>

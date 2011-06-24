@@ -4,11 +4,6 @@
     <import file="build-shared.xml"/>
     <property file="build.properties" />
 
-    <target name="checkstyle">
-        <antcall target="jsLint" />
-        <antcall target="phpcs" />
-    </target>
-
     <fileset id="js.files" dir="../client/js/" >
         <include name="**/*.js" />
         <include name="**/*.qunit" />
