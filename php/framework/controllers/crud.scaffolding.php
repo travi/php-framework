@@ -1,7 +1,8 @@
 <?php
 
 //Create, Read, Update, Delete
-abstract class Crud {
+abstract class Crud
+{
     protected $name;
     protected $redirectTo;
 
@@ -57,4 +58,3 @@ abstract class Crud {
 
     public abstract function adminList();
 }
-?>
