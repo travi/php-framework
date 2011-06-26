@@ -45,8 +45,7 @@ abstract class xhtmlPage
     {
         $kvLines = file($file);
 
-        foreach($kvLines as $kv)
-        {
+        foreach ($kvLines as $kv) {
             $keyVals = explode('=', $kv);
             if(count($keyVals) == 2)
             {
@@ -544,8 +543,10 @@ abstract class xhtmlPage
 
             (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+                    'http://www') + '.google-analytics.com/ga.js';
+                (document.getElementsByTagName('head')[0]
+                    || document.getElementsByTagName('body')[0]).appendChild(ga);
             })();
 
         </script>";
@@ -559,13 +560,10 @@ abstract class xhtmlPage
         $this->content = '
             <div class="entry">
                 <div class="entry-message">';
-        if ($status == "good")
-        {
+        if ($status == "good") {
             $this->content .= '
                     <div class="good">'.$msg.'</div>';
-        }
-        else if ($status == "bad" || $status == "undo")
-        {
+        } elseif ($status == "bad" || $status == "undo") {
             $this->content .= '
                     <div class="bad">'.$msg.'</div>';
         }
