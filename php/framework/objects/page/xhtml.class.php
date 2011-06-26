@@ -41,22 +41,22 @@ abstract class xhtmlPage
         return $this->yaml2Array(NAV_FILE);
     }
 
- 	public function keyValueFromFile($file)
- 	{
- 		$kvLines = file($file);
+    public function keyValueFromFile($file)
+    {
+        $kvLines = file($file);
 
- 		foreach($kvLines as $kv)
-	 	{
-		 	$keyVals = explode('=',$kv);
-		 	if(count($keyVals) == 2)
-		 	{
-		 		$keyVals = array_map('trim',$keyVals);
-		 		list($key,$value) = $keyVals;
-		 		$assocArray["$key"] = $value;
-		 	}
-		}
-		return $assocArray;
- 	}
+        foreach($kvLines as $kv)
+        {
+            $keyVals = explode('=', $kv);
+            if(count($keyVals) == 2)
+            {
+                $keyVals = array_map('trim', $keyVals);
+                list($key,$value) = $keyVals;
+                $assocArray["$key"] = $value;
+            }
+        }
+        return $assocArray;
+    }
 
     public function yaml2Array($file)
     {
@@ -226,63 +226,63 @@ abstract class xhtmlPage
         return $this->getDependencyList('css');
     }
 
-	public function addAltStyle($sheet)
-	{
-		array_push($this->altStyles,$sheet);
-	}
+    public function addAltStyle($sheet)
+    {
+        array_push($this->altStyles, $sheet);
+    }
 
-	public function getAltStyles()
-	{
-		return $this->altStyles;
-	}
+    public function getAltStyles()
+    {
+        return $this->altStyles;
+    }
 
-	public function setTheme($sheet)
-	{
-		$this->addStyleSheet($sheet,'siteTheme');
-	}
+    public function setTheme($sheet)
+    {
+        $this->addStyleSheet($sheet, 'siteTheme');
+    }
 
-	public function setPageStyle($sheet)
-	{
-		$this->addStyleSheet($sheet,'thisPage');
-	}
+    public function setPageStyle($sheet)
+    {
+        $this->addStyleSheet($sheet, 'thisPage');
+    }
 
-	public function addJavaScript($script)
-	{
+    public function addJavaScript($script)
+    {
         $this->addDependency($script, 'js');
-	}
+    }
 
-	public function getScripts()
-	{
-		return $this->getDependencyList('js');
-	}
+    public function getScripts()
+    {
+        return $this->getDependencyList('js');
+    }
 
-	public function addJsInit($init)
-	{
-		$this->addDependency($init, 'jsInit');
-	}
+    public function addJsInit($init)
+    {
+        $this->addDependency($init, 'jsInit');
+    }
 
-	public function getJsInits()
-	{
-		return $this->getDependencyList('jsInit');
-	}
+    public function getJsInits()
+    {
+        return $this->getDependencyList('jsInit');
+    }
 
     public function getValidations() {
         return $this->getDependencyList('validations');
     }
 
-	public function getProperFile($file)
-	{
-		global $config;
+    public function getProperFile($file)
+    {
+        global $config;
 
-		if(ENV !== 'development' && $config['debug'] !== true)
-		{
-			return preg_replace('/\/(css|js)\//','/min/$1/',$file,1);
-		}
-		else
-		{
-			return $file;
-		}
-	}
+        if(ENV !== 'development' && $config['debug'] !== true)
+        {
+            return preg_replace('/\/(css|js)\//', '/min/$1/', $file, 1);
+        }
+        else
+        {
+            return $file;
+        }
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -291,10 +291,15 @@ abstract class xhtmlPage
 
     public function addLinkTag($link,$rel,$title='',$type='')
     {
-        array_push($this->links, array( 'link'  => $link,
-                                        'title' => $title,
-                                        'type'  => $type,
-                                        'rel'   => $rel));
+        array_push(
+            $this->links,
+            array(
+                 'link'  => $link,
+                 'title' => $title,
+                 'type'  => $type,
+                 'rel'   => $rel
+            )
+        );
     }
 
     public function getLinkTags()
@@ -302,20 +307,20 @@ abstract class xhtmlPage
         return $this->links;
     }
 
-	public function addFeed($feed, $title='RSS')
-	{
+    public function addFeed($feed, $title='RSS')
+    {
         $this->addLinkTag($feed, 'alternate', $title, 'application/rss+xml');
-	}
+    }
 
-	public function addMetaTag($tag)
-	{
-		array_push($this->metatags,$tag);
-	}
+    public function addMetaTag($tag)
+    {
+        array_push($this->metatags, $tag);
+    }
 
-	public function getMetaTags()
-	{
-		return $this->metatags;
-	}
+    public function getMetaTags()
+    {
+        return $this->metatags;
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -365,29 +370,29 @@ abstract class xhtmlPage
         return $this->nav->getSection('subNav');
     }
 
-	public function addNavSection($title,$section)
-	{
+    public function addNavSection($title, $section)
+    {
         if(is_string($section))
         {
             $section = $this->yaml2Array($section);
         }
-		$this->nav->addSection($title,$section);
-	}
-	
-	public function getNavSection($title)
-	{
-		return $this->nav->getSection($title);
-	}
+        $this->nav->addSection($title, $section);
+    }
 
-	public function addNavItem($index, $item)
-	{
-		$this->nav[$index] .= $item;
-	}
-	
-	public function getNav()
-	{
-		return $this->nav;
-	}
+    public function getNavSection($title)
+    {
+        return $this->nav->getSection($title);
+    }
+
+    public function addNavItem($index, $item)
+    {
+        $this->nav[$index] .= $item;
+    }
+
+    public function getNav()
+    {
+        return $this->nav;
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -495,14 +500,14 @@ abstract class xhtmlPage
 
     protected function format()
     {
-		$acceptHeader = $_SERVER['HTTP_ACCEPT'];
+        $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
-		if (strstr($acceptHeader,"application/json")){
+        if (strstr($acceptHeader, "application/json")){
             header('Content-Type: application/json');
             echo json_encode($this->getContent());
-		} else if (strstr($acceptHeader,"text/xml")){
-			return;
-		} else if (strstr($acceptHeader,"text/html")){
+        } else if (strstr($acceptHeader, "text/xml")){
+            return;
+        } else if (strstr($acceptHeader, "text/html")){
 
             if(isset($this->dependencyManager))
             {
@@ -512,64 +517,64 @@ abstract class xhtmlPage
             $smarty = $this->getSmarty();
 
             $smarty->clearAllAssign();
-			$smarty->assign('page',$this);
-			$smarty->display($this->getLayoutTemplate());
+            $smarty->assign('page', $this);
+            $smarty->display($this->getLayoutTemplate());
         }
     }
 
-	public function Display()
-	{
-		$this->format();
-	}
+    public function Display()
+    {
+        $this->format();
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
 //                          Need Refactoring                            //
 //////////////////////////////////////////////////////////////////////////
 
-	public function goog_analytics()
-	{
-		if(ENV === 'production')
-		{
-			return "		<script type=\"text/javascript\">
+    public function goog_analytics()
+    {
+        if(ENV === 'production')
+        {
+            return "		<script type=\"text/javascript\">
 
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '".GOOGLE_ANALYTICS_KEY."']);
-			_gaq.push(['_trackPageview']);
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '".GOOGLE_ANALYTICS_KEY."']);
+            _gaq.push(['_trackPageview']);
 
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-			})();
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+            })();
 
-		</script>";
-		}
-	}
+        </script>";
+        }
+    }
 
-	public function redirect($status,$msg,$location)
-	{
-		$this->setTitle("Results");
+    public function redirect($status,$msg,$location)
+    {
+        $this->setTitle("Results");
 
-		$this->content = '
-			<div class="entry">
-				<div class="entry-message">';
-		if ($status == "good")
-		{
-			$this->content .= '
-					<div class="good">'.$msg.'</div>';
-		}
-		else if ($status == "bad" || $status == "undo")
-		{
-			$this->content .= '
-					<div class="bad">'.$msg.'</div>';
-		}
-		$this->content .= '
-					<p>You will be redirected in 5 seconds.</p>
-					<p>Feel free to choose another option on the left if you do not want to wait.</p>
-				</div>
-			</div>';
-		array_push($this->metatags,'<meta http-equiv="refresh" content="5; url='.$location.'" />');
-	}
+        $this->content = '
+            <div class="entry">
+                <div class="entry-message">';
+        if ($status == "good")
+        {
+            $this->content .= '
+                    <div class="good">'.$msg.'</div>';
+        }
+        else if ($status == "bad" || $status == "undo")
+        {
+            $this->content .= '
+                    <div class="bad">'.$msg.'</div>';
+        }
+        $this->content .= '
+                    <p>You will be redirected in 5 seconds.</p>
+                    <p>Feel free to choose another option on the left if you do not want to wait.</p>
+                </div>
+            </div>';
+        array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
+    }
 }
 ?>
