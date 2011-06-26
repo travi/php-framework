@@ -43,7 +43,12 @@ class Uploader
                 if (is_uploaded_file($_FILES[$this->file_ref]['tmp_name'])) {
                     $this->buildQuery();
 
-                    if (copy($_FILES[$this->file_ref]['tmp_name'],$this->directoryToPutFile . $this->file_name)) {
+                    if (
+                        copy(
+                            $_FILES[$this->file_ref]['tmp_name'],
+                            $this->directoryToPutFile . $this->file_name
+                        )
+                    ) {
                         //only read priviledges are needed for files
                         chmod($this->directoryToPutFile . $this->file_name, 0644);
 
