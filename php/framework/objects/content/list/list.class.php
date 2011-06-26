@@ -13,7 +13,8 @@ class BaseList extends ContentObject
             if(!empty($class))
                 $html .= ' class="indentUrl"';
             if(!empty($link['confirmation']))
-                $html .= ' onclick="if (confirm(\''.$link['confirmation'].'\')) return true; else return false;"';
+                $html .= ' onclick="if (confirm(\'' . $link['confirmation'] .
+                         '\')) return true; else return false;"';
             $html .= '>'.$link['text'].'</a>';
         }
         else if(isset($link['text']))
