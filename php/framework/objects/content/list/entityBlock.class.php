@@ -1,28 +1,22 @@
 <?php
-/**
- * User: travi
- * Date: Nov 25, 2010
- * Time: 11:25:12 PM
- */
-
 
 class EntityBlock
 {
-	private $title;
-	private $id;
-	private $type;
-	private $preConf;
-	private $details = array();
-	private $activeActions = array();
-	private $extraActionRows = array();
+    private $title;
+    private $id;
+    private $type;
+    private $preConf;
+    private $details = array();
+    private $activeActions = array();
+    private $extraActionRows = array();
 
-	public function EntityBlock()
+    public function EntityBlock()
     {
 
     }
     public function setTitle($title)
     {
-    	$this->title = $title;
+        $this->title = $title;
     }
     public function getTitle()
     {
@@ -30,7 +24,7 @@ class EntityBlock
     }
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     }
     public function getId()
     {
@@ -38,7 +32,7 @@ class EntityBlock
     }
     public function prependRemoveConfirmation($text)
     {
-		$this->preConf = $text;
+        $this->preConf = $text;
     }
     public function getPrependedRemovalConfirmation()
     {
@@ -46,7 +40,7 @@ class EntityBlock
     }
     public function setType($type)
     {
-    	$this->type = $type;
+        $this->type = $type;
     }
     public function getType()
     {
@@ -54,7 +48,7 @@ class EntityBlock
     }
     public function addDetail($detail)
     {
-    	array_push($this->details, $detail);
+        array_push($this->details, $detail);
     }
     public function getDetails()
     {
@@ -62,11 +56,11 @@ class EntityBlock
     }
     public function addActionRow($actions=array())
     {
-		array_push($this->extraActionRows,$actions);
-//		foreach($actions as $action)
-//		{
-//			$this->disableAction($action,true);
-//		}
+        array_push($this->extraActionRows, $actions);
+//        foreach($actions as $action)
+//        {
+//            $this->disableAction($action,true);
+//        }
     }
     public function getExtraActionRows()
     {
@@ -74,7 +68,6 @@ class EntityBlock
     }
     private function disableAction($text,$active)
     {
-		$this->activeActions["$text"] = "$active";
+        $this->activeActions["$text"] = "$active";
     }
 }
-?>

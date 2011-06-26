@@ -1,9 +1,4 @@
 <?php
-/*
- * Created on Oct 3, 2006
- * By Matt Travi
- * programmer@travi.org
- */
 
 class EntityList extends ContentObject
 {
@@ -17,19 +12,19 @@ class EntityList extends ContentObject
     {
         $this->addJavaScript('entityList');
     }
-    public function setEdit($script,$confirmation="")
+    public function setEdit($script, $confirmation="")
     {
-        $this->addAction("Edit",$script,$confirmation);
+        $this->addAction("Edit", $script, $confirmation);
     }
-    public function setRemove($script,$confirmation="")
+    public function setRemove($script, $confirmation="")
     {
-        $this->addAction("Remove",$script,$confirmation);
+        $this->addAction("Remove", $script, $confirmation);
     }
     public function addEntity($entity)
     {
-        array_push($this->entities,$entity);
+        array_push($this->entities, $entity);
     }
-    public function addAction($text,$link,$confirmation="")
+    public function addAction($text, $link, $confirmation="")
     {
         $this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
         if(!empty($confirmation))

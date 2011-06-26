@@ -75,7 +75,7 @@ class TimeInput extends Input
     }
     public function __toString()
     {
-        $hour = substr($this->getValue(),0,2);
+        $hour = substr($this->getValue(), 0, 2);
         if($hour >= 12)
         {
             $ampm = 'pm';
@@ -83,7 +83,7 @@ class TimeInput extends Input
                 $hour -= 12;
         }
         else $ampm = 'am';
-        $minute = substr($this->getValue(),3,2);
+        $minute = substr($this->getValue(), 3, 2);
 
         $form = '
                 <label for="'.$this->getName().'">'.$this->getLabel().'</label>
@@ -128,7 +128,7 @@ class TimeInput extends Input
                 $form .= ' selected';
             $form .= '>pm</option>
                 </select>';
-        $hidden = new HiddenInput($this->getName(),$this->getValue());
+        $hidden = new HiddenInput($this->getName(), $this->getValue());
         $form .= $hidden->toString();
         $form .= '
                 <br />';
