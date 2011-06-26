@@ -87,7 +87,9 @@ class TimeInput extends Input
 
         $form = '
                 <label for="'.$this->getName().'">'.$this->getLabel().'</label>
-                <select name="'.$this->getName().'_hour" id="'.$this->getName().'_hour" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput hour">';
+                <select name="' . $this->getName() . '_hour" id="' . $this->getName()
+                . '_hour" onchange="javascript:updateHiddenField(' . "'"
+                . $this->getName() . "'" . ')" class="timeInput hour">';
         for ($i = 1; $i <= 12; $i++)
         {
             $form .= '
@@ -98,7 +100,9 @@ class TimeInput extends Input
         }
         $form .= '
                 </select>
-                <select name="'.$this->getName().'_minute" id="'.$this->getName().'_minute" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput minute">';
+                <select name="' . $this->getName() . '_minute" id="' . $this->getName()
+                 . '_minute" onchange="javascript:updateHiddenField(' . "'" . $this->getName()
+                 . "'" . ')" class="timeInput minute">';
         for ($i = 0; $i <= 60; $i += 5)
         {
             if(strlen($i) == 1)
@@ -111,7 +115,9 @@ class TimeInput extends Input
         }
         $form .= '
                 </select>
-                <select name="'.$this->getName().'_ampm" id="'.$this->getName().'_ampm" onchange="javascript:updateHiddenField('."'".$this->getName()."'".')" class="timeInput ampm">';
+                <select name="' . $this->getName() . '_ampm" id="' . $this->getName()
+                 . '_ampm" onchange="javascript:updateHiddenField(' . "'" . $this->getName()
+                 . "'" . ')" class="timeInput ampm">';
         $form .= '
                     <option';
             if($ampm == 'am')
@@ -137,9 +143,11 @@ class CityStateZip
                 <label for="city">City</label>
                 <input type="text" name="city" id="city" value="'.$this->city.'" class="textInput city"/>
                 <label class="inlineLabel" for="state">State</label>
-                <input type="text" name="state" id="state" value="'.$this->state.'" class="textInput state" size="2" maxlength="2"/>
+                <input type="text" name="state" id="state" value="' . $this->state
+               . '" class="textInput state" size="2" maxlength="2"/>
                 <label class="inlineLabel" for="zip">Zip</label>
-                <input type="text" name="zip" id="zip" value="'.$this->zip.'" class="textInput zip" size="5" maxlength="5"/>
+                <input type="text" name="zip" id="zip" value="' . $this->zip
+               . '" class="textInput zip" size="5" maxlength="5"/>
                 <br />';
     }
 }
