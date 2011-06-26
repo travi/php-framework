@@ -41,8 +41,7 @@ class HtmlList extends HtmlElement
     function __toString()
     {
         $list = "<$this->tag>";
-        foreach($this->listItems as $listItem)
-        {
+        foreach ($this->listItems as $listItem) {
             $list .= "
                 <li>$listItem</li>";
         }
@@ -74,7 +73,7 @@ class Section extends ContentObject
 
     function appendToSection($add)
     {
-        if(is_a($add, 'HtmlElement')) {
+        if (is_a($add, 'HtmlElement')) {
             $this->body .= $add;
         } else {
             $this->body .= $add;
