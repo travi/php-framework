@@ -36,89 +36,67 @@ class Uploader
 
     function upload($isImage=false)
     {
-        if($this->acceptedMimetype($this->mimetype))
-        {
+        if ($this->acceptedMimetype($this->mimetype)) {
             $this->checkDirectory();
 
-            if ($_FILES[$this->file_ref]['error'] == 0)
-            {
-                if (is_uploaded_file($_FILES[$this->file_ref]['tmp_name']))
-                {
+            if ($_FILES[$this->file_ref]['error'] == 0) {
+                if (is_uploaded_file($_FILES[$this->file_ref]['tmp_name'])) {
                     $this->buildQuery();
 
-                    if (copy($_FILES[$this->file_ref]['tmp_name'],$this->directoryToPutFile . $this->file_name))
-                    {
+                    if (copy($_FILES[$this->file_ref]['tmp_name'],$this->directoryToPutFile . $this->file_name)) {
                         //only read priviledges are needed for files
                         chmod($this->directoryToPutFile . $this->file_name, 0644);
 
                         $addlReqResults = $this->checkAdditionalRequirements();
 
-                        if($addlReqResults[0] == "good")
-                        {
-                            if(isset($this->dbConnection)  && isset($this->finalQuery))
-                            {
+                        if ($addlReqResults[0] == "good") {
+                            if (isset($this->dbConnection)  && isset($this->finalQuery)) {
                                 mysql_query($this->finalQuery,$this->dbConnection) or die (mysql_error());
 
-                                if (mysql_affected_rows($this->dbConnection) == 1)
-                                {
+                                if (mysql_affected_rows($this->dbConnection) == 1) {
                                     $status = "good";
                                     $msg = "The file was uploaded successfully";
-                                }
-                                else
-                                {
+                                } else {
                                     //TODO: Should undo upload and db entries
                                     $status = "undo";
                                     $msg = "There was a problem with your upload";
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 $status = "good";
                                 $msg = "The file was successfully uploaded";
                             }
-                        }
-                        else
-                        {
+                        } else {
                             list($status,$msg) = $addlReqResults;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         //TODO: Should undo entry in db
                         $status = "undo";
                         $msg = "There was a problem with your upload";
                     }
+                } else {
+                    $status = "bad";
+                    $msg = uploadError($_FILES[$this->file_ref]['error']);
                 }
-                else
-                {
+            } else {
+                if ($_FILES[$this->file_ref]['error'] > 0) {
                     $status = "bad";
                     $msg = uploadError($_FILES[$this->file_ref]['error']);
                 }
             }
-            else
-            {
-                if ($_FILES[$this->file_ref]['error'] > 0)
-                {
-                    $status = "bad";
-                    $msg = uploadError($_FILES[$this->file_ref]['error']);
-                }
-            }
-        }
-        else
-        {
+        } else {
             $status = "bad";
             $msg = "Unsupported Filetype.";
 
             return array($status,$msg);
         }
 
-        if($status == "undo")
-        {
-            if(file_exists($this->directoryToPutFile.$this->file_name))
+        if ($status == "undo") {
+            if (file_exists($this->directoryToPutFile.$this->file_name)) {
                 unlink($this->directoryToPutFile.$this->file_name);
+            }
         }
 
-        return array($status,$msg);
+        return array($status, $msg);
     }
 
     function overrideFilename($alternate)
@@ -153,8 +131,7 @@ class Uploader
 
     function checkDirectory()
     {
-        if (!is_dir($this->directoryToPutFile))
-        {
+        if (!is_dir($this->directoryToPutFile)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
             mkdir($this->directoryToPutFile,0755,true);
 
@@ -179,15 +156,14 @@ class Uploader
 
     function getInsertId()
     {
-        $getId = mysql_query($this->insertIdQuery,$this->dbConnection) or die (mysql_error());
+        $getId = mysql_query($this->insertIdQuery, $this->dbConnection) or die (mysql_error());
         return mysql_insert_id($this->dbConnection);
     }
 
     function buildQuery()
     {
         $thisFileId = "";
-        if(isset($this->dbConnection) && isset($this->insertIdQuery))
-        {
+        if (isset($this->dbConnection) && isset($this->insertIdQuery)) {
             $thisFileId = $this->getInsertId();
 
             //update next query with the file id
@@ -198,16 +174,14 @@ class Uploader
         $extensions = preg_split("/\./",$this->file_name);
         $extension = strtolower($extensions[count($extensions) - 1]);
 
-        if(isset($this->filename_override))
-        {
+        if (isset($this->filename_override)) {
             $this->file_name = $this->filename_override . "." . $extension;
             $this->thumb_file_name = $this->filename_override . "_thumb." . $extension;
             $this->preview_file_name = $this->filename_override . "_preview." . $extension;
-        }
-        else
-        {
-            if(!isset($this->filename_prefix))
+        } else {
+            if (!isset($this->filename_prefix)) {
                 $this->filename_prefix = $this->file_type;
+            }
 
             $this->file_name = $this->filename_prefix . "_" . $this->related_id . "_"
                                . $thisFileId . "." . $extension;
@@ -224,24 +198,24 @@ class Uploader
     function uploadError($errno)
     {
         switch($errno) {
-            case 0: //no error; possible file attack!
-                return ("There was a problem with your upload");
-                break;
-            case 1: //uploaded file exceeds the upload_max_filesize directive in phpini
-                return ("The file you are trying to upload is too big");
-                break;
-            case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
-                return ("The file you are trying to upload is too big");
-                break;
-            case 3: //uploaded file was only partially uploaded
-                return ("The file you are trying upload was only partially uploaded");
-                break;
-            case 4: //no file was uploaded
-                return ("You must select a file for upload");
-                break;
-            default: //a default error, just in case! :)
-                return ("There was an unknown problem with your upload");
-                break;
+        case 0: //no error; possible file attack!
+            return ("There was a problem with your upload");
+            break;
+        case 1: //uploaded file exceeds the upload_max_filesize directive in phpini
+            return ("The file you are trying to upload is too big");
+            break;
+        case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
+            return ("The file you are trying to upload is too big");
+            break;
+        case 3: //uploaded file was only partially uploaded
+            return ("The file you are trying upload was only partially uploaded");
+            break;
+        case 4: //no file was uploaded
+            return ("You must select a file for upload");
+            break;
+        default: //a default error, just in case! :)
+            return ("There was an unknown problem with your upload");
+            break;
         }
     }
 
@@ -250,19 +224,15 @@ class Uploader
     {
         $mimes = array();
 
-        if(!empty($this->restrictedMimetypes))
-        {
+        if (!empty($this->restrictedMimetypes)) {
             return in_array($mimetype,$this->restrictedMimetypes);
         }
-        if($docType == 'image')
-        {
+        if ($docType == 'image') {
             array_push($mimes,'image/jpeg');
             array_push($mimes,'image/gif');
             array_push($mimes,'image/pjpeg');
             //array_push($mimes,'image/png');
-        }
-        else if($docType == 'document')
-        {
+        } elseif($docType == 'document') {
             array_push($mimes,'text/plain');
             array_push($mimes,'application/pdf');
             array_push($mimes,'application/doc');
@@ -270,17 +240,17 @@ class Uploader
             array_push($mimes,'application/rtf');
         }
 
-        return in_array($mimetype,$mimes);
+        return in_array($mimetype, $mimes);
     }
 
     function restrictMimetypes($mimes = array())
     {
         $this->restrictedMimetypes = $mimes;
     }
-    }
+}
 
-    class DocumentUploader extends Uploader
-    {
+class DocumentUploader extends Uploader
+{
     function DocumentUploader($file_ref,$directoryToPutFile)
     {
         parent::Uploader($file_ref,$directoryToPutFile);
@@ -317,30 +287,35 @@ class ImageUploader extends Uploader
     function setThumbnail($size="")
     {
         $this->thumbNeeded = true;
-        if(!empty($size))
+        if (!empty($size)) {
             $this->thumbSize = $size;
+        }
     }
 
     function setThumbDir($dir)
     {
-        if(strrpos($dir,"/") != (strlen($dir)-1))
+        if (strrpos($dir,"/") != (strlen($dir)-1)) {
             $dir .= "/";
+        }
         $this->thumbDirectory = $dir;
     }
 
     function setPreview($widthRestriction="",$heightRestriction="")
     {
         $this->previewNeeded = true;
-        if(!empty($widthRestriction))
+        if (!empty($widthRestriction)) {
             $this->prevWidth = $widthRestriction;
-        if(!empty($heightRestriction))
+        }
+        if (!empty($heightRestriction)) {
             $this->prevHeight = $heightRestriction;
+        }
     }
 
     function setPreviewDir($dir)
     {
-        if(strrpos($dir,"/") != (strlen($dir)-1))
+        if (strrpos($dir,"/") != (strlen($dir)-1)) {
             $dir .= "/";
+        }
         $this->previewDirectory = $dir;
     }
 
@@ -348,8 +323,7 @@ class ImageUploader extends Uploader
     {
         parent::checkDirectory();
 
-        if (!is_dir($this->directoryToPutFile.$this->previewDirectory))
-        {
+        if (!is_dir($this->directoryToPutFile.$this->previewDirectory)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
             mkdir($this->directoryToPutFile.$this->previewDirectory,0755,true);
 
@@ -363,8 +337,7 @@ class ImageUploader extends Uploader
             touch($this->directoryToPutFile.$this->previewDirectory."index.html");
         }
 
-        if (!is_dir($this->directoryToPutFile.$this->thumbDirectory))
-        {
+        if (!is_dir($this->directoryToPutFile.$this->thumbDirectory)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
             mkdir($this->directoryToPutFile.$this->thumbDirectory,0755,true);
 
@@ -395,35 +368,36 @@ class ImageUploader extends Uploader
         $status = "good";
         $msg = "Image passed image specific requirements";
 
-        if(isset($this->requiredWidth))
-        {
+        if (isset($this->requiredWidth)) {
             $sourceImage = getImageResource($this->directoryToPutFile,$this->file_name,$this->mimetype);
 
             $originalWidth = imagesx($sourceImage);
 
-            if($originalWidth != $this->requiredWidth)
-            {
+            if ($originalWidth != $this->requiredWidth) {
                 $status = "undo";
                 $msg = "The image was not uploaded because it does not have the required width";
             }
         }
 
-        if (isset($this->previewSettings) == true)
+        if (isset($this->previewSettings) == true) {
             $this->previewSettings->createPreview();
-        if (isset($this->thumbSettings) == true)
+        }
+        if (isset($this->thumbSettings) == true) {
             $this->thumbSettings->createThumbnail();
+        }
 
-        if($status == "good")
-        {
-            if($this->previewNeeded == true)
+        if ($status == "good") {
+            if ($this->previewNeeded == true) {
                 $this->createPreview($this->prevHeight,$this->prevWidth);
-            else
+            } else {
                 $this->finalQuery = str_replace('PREVIEW_NAME_HERE','',$this->finalQuery);
+            }
 
-            if($this->thumbNeeded == true)
+            if ($this->thumbNeeded == true) {
                 $this->createSquareThumb();
-            else
+            } else {
                 $this->finalQuery = str_replace('THUMB_NAME_HERE','',$this->finalQuery);
+            }
         }
 
         return array($status,$msg);
@@ -436,8 +410,7 @@ class ImageUploader extends Uploader
 
     function createPreview($newHeight,$newWidth)
     {
-        if(empty($newHeight) && empty($newWidth))
-        {
+        if (empty($newHeight) && empty($newWidth)) {
             $newHeight = 275;
             $newWidth = 250;
         }
@@ -449,23 +422,24 @@ class ImageUploader extends Uploader
 
         $okToMakeNewFile = true;
 
-        // portrait view
-        if ($originalWidth < $originalHeight  || empty($newWidth))
-        {
+        if ($originalWidth < $originalHeight  || empty($newWidth)) {
+            // portrait view
+
             $difference = $originalHeight / $newHeight;
             $newWidth = $originalWidth / $difference;
 
-            if ($newHeight > $originalHeight)
+            if ($newHeight > $originalHeight) {
                 $okToMakeNewFile = false;
-        }
-        // landscape
-        else
-        {
+            }
+        } else {
+            // landscape
+
             $difference = $originalWidth / $newWidth;
             $newHeight = $originalHeight / $difference;
 
-            if ($newWidth > $originalWidth)
+            if ($newWidth > $originalWidth) {
                 $okToMakeNewFile = false;
+            }
         }
 
         //use resized image as thumbnail since it is smaller than original
@@ -509,17 +483,18 @@ class ImageUploader extends Uploader
 
     function createSquareThumb($thumb_size = "")
     {
-        if(empty($thumb_size))
+        if (empty($thumb_size)) {
             $thumb_size = 75;
+        }
 
         $size = getimagesize($this->directoryToPutFile.$this->file_name);
         $width = $size[0];
         $height = $size[1];
 
-        if($width > $height) {
+        if ($width > $height) {
             $x = ceil(($width - $height) / 2 );
             $width = $height;
-        } elseif($height > $width) {
+        } elseif ($height > $width) {
             $y = ceil(($height - $width) / 2);
             $height = $width;
         }
@@ -546,4 +521,3 @@ class ImageUploader extends Uploader
         $this->finalQuery = str_replace('THUMB_NAME_HERE',$this->thumb_file_name,$this->finalQuery);
     }
 }
-?>
