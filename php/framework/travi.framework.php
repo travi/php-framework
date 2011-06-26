@@ -76,16 +76,13 @@ function importSiteObjects($relPath)
 function importObjectsFromDir($dir)
 {
     $objects = glob($dir."*.class.php");
-    foreach($objects as $object)
-    {
+    foreach ($objects as $object) {
         require_once($object);
     }
 
     $dirs = glob($dir."*");
-    foreach($dirs as $innerDir)
-    {
-        if(is_dir($innerDir))
-        {
+    foreach ($dirs as $innerDir) {
+        if (is_dir($innerDir)) {
             importObjectsFromDir($innerDir."/");
         }
     }

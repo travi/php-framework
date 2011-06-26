@@ -497,7 +497,7 @@ class ImageUploader extends Uploader
         $height = $size[1];
 
         if ($width > $height) {
-            $x = ceil(($width - $height) / 2 );
+            $x = ceil(($width - $height) / 2);
             $width = $height;
         } elseif ($height > $width) {
             $y = ceil(($height - $width) / 2);
