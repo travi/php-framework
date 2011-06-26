@@ -53,14 +53,8 @@ abstract class Crud {
         return array($status, $msg, $this->redirectTo);
     }
 
-    public abstract function delete()
-    {
+    public abstract function delete();
 
-    }
-
-    public abstract function adminList()
-    {
-
-    }
+    public abstract function adminList();
 }
 ?>

@@ -22,15 +22,15 @@ abstract class DependantObject
 
     public function addStyleSheet($sheet)
     {
-        array_push($this->styles,$sheet);
+        array_push($this->styles, $sheet);
     }
     public function addJavaScript($script)
     {
-        array_push($this->scripts,$script);
+        array_push($this->scripts, $script);
     }
     public function addJsInit($init)
     {
-        array_push($this->jsInits,$init);
+        array_push($this->jsInits, $init);
     }
     public function setTemplate($template)
     {

@@ -147,13 +147,15 @@ class ExpandableList extends BaseList
             else
             {
                 $nav .= '
-                <'.$this->surroundingTag.' id="m_'.$secName.'_closed">
-                    <a href="javascript:hide(\'m_'.$secName.'_closed\');show(\'m_'.$secName.'_open\',\'m_'.$secName.'\');">
+                <'.$this->surroundingTag.' id="m_' . $secName . '_closed">
+                    <a href="javascript:hide(\'m_' . $secName . '_closed\');show(\'m_' . $secName
+                        . '_open\',\'m_'.$secName.'\');">
                         '.$heading.' <img src="/reusable/images/down_arrow.gif" border="0" alt="arrow" />
                     </a>
                 </'.$this->surroundingTag.'>
-                <'.$this->surroundingTag.' id="m_'.$secName.'_open" style="display: none">
-                    <a href="javascript:hide(\'m_'.$secName.'_open\',\'m_'.$secName.'\');show(\'m_'.$secName.'_closed\');">
+                <'.$this->surroundingTag.' id="m_' . $secName . '_open" style="display: none">
+                    <a href="javascript:hide(\'m_' . $secName . '_open\',\'m_' . $secName
+                        . '\');show(\'m_'.$secName.'_closed\');">
                         '.$heading.' <img src="/reusable/images/up_arrow.gif" border="0" alt="arrow" />
                     </a>
                 </'.$this->surroundingTag.'>
