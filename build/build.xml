@@ -57,4 +57,13 @@
             <arg line="--report=checkstyle ."/>
         </exec>
     </target>
+
+
+    <target name="phpcpd-legacy" description="PHP Copy/Paste Detector">
+        <exec dir="${framework.dir}"
+              executable="phpcpd"
+              failonerror="true">
+            <arg line="--log-pmd ${build.logs}/pmd-cpd-legacy.xml ."/>
+        </exec>
+    </target>
 </project>
