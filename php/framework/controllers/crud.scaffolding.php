@@ -42,13 +42,10 @@ abstract class Crud {
     {
         $success = $this->model->update();
 
-        if ($success)
-        {
+        if ($success) {
             $msg = ucfirst(strtolower($this->name))." ".strtolower($action)."ed successfully";
             $status = "good";
-        }
-        else
-        {
+        } else {
             $msg = "Error ".strtolower($action)."ing ".strtolower($this->name);
             $status = "bad";
         }
