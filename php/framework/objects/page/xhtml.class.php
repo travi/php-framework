@@ -451,7 +451,10 @@ abstract class xhtmlPage
 
         $smarty = new Smarty();
 
-        $smarty->template_dir = array($this->smartyConfig['siteTemplateDir'],$this->smartyConfig['sharedTemplateDir']);
+        $smarty->template_dir = array(
+            $this->smartyConfig['siteTemplateDir'],
+            $this->smartyConfig['sharedTemplateDir']
+        );
         $smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
         $smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
         $smarty->config_dir = $this->smartyConfig['smartyConfigDir'];

@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once '/Users/travi/development/include/php/framework/objects/page/xhtml.class.php';
-require_once '/Users/travi/development/include/php/framework/src/dependencyManagement/DependencyManager.class.php';
+require_once '../../../src/dependencyManagement/DependencyManager.class.php';
 
 /**
  * Test class for xhtmlPage.
