@@ -78,8 +78,9 @@ class TimeInput extends Input
         $hour = substr($this->getValue(), 0, 2);
         if ($hour >= 12) {
             $ampm = 'pm';
-            if ($hour > 12)
+            if ($hour > 12) {
                 $hour -= 12;
+            }
         } else {
             $ampm = 'am';
         }
@@ -121,12 +122,14 @@ class TimeInput extends Input
                  . "'" . ')" class="timeInput ampm">';
         $form .= '
                     <option';
-            if($ampm == 'am')
+            if ($ampm == 'am') {
                 $form .= ' selected';
+            }
             $form .= '>am</option>
                     <option';
-            if($ampm == 'pm')
+            if ($ampm == 'pm') {
                 $form .= ' selected';
+            }
             $form .= '>pm</option>
                 </select>';
         $hidden = new HiddenInput($this->getName(), $this->getValue());

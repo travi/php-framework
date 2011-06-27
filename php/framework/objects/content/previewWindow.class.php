@@ -31,13 +31,13 @@ class PreviewWindow extends ContentObject
     function __toString()
     {
         $link = '<a href="#" onclick="';
-        if(isset($this->field))
+        if (isset($this->field)) {
             $link .= "previewUrlFromTextField('".$this->field."')";
-        else if (isset($this->url))
+        } else if (isset($this->url)) {
             $link .= "previewURL('".$this->url."')";
+        }
         $link .= '">'.$this->text.'</a>';
 
         return $link;
     }
 }
-?>

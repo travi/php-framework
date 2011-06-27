@@ -444,10 +444,11 @@ abstract class xhtmlPage
     {
         global $config;
 
-        if(!isset($this->smartyConfig))
+        if (!isset($this->smartyConfig)) {
             $this->getSmartyConfig();
+        }
 
-        require_once($this->smartyConfig['pathToSmarty']);
+        include_once $this->smartyConfig['pathToSmarty'];
 
         $smarty = new Smarty();
 

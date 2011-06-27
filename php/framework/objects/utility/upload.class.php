@@ -29,8 +29,9 @@ class Uploader
         $this->file_name = $file_name;
 
         // append the slash to the end of the directory for later
-        if(strrpos($directoryToPutFile, "/") != (strlen($directoryToPutFile)-1))
+        if (strrpos($directoryToPutFile, "/") != (strlen($directoryToPutFile)-1)) {
             $directoryToPutFile .= "/";
+        }
         $this->directoryToPutFile = $directoryToPutFile;
     }
 
