@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/objects/page/xhtml.class.php';
-require_once '../../../src/dependencyManagement/DependencyManager.class.php';
+require_once '/home/travi/include/php/framework/objects/page/xhtml.class.php';
+require_once '/home/travi/include/php/framework/src/dependencyManagement/DependencyManager.class.php';
 
 class xhtmlPageTest extends PHPUnit_Framework_TestCase
 {
