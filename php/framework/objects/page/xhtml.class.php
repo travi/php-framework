@@ -144,10 +144,10 @@ abstract class xhtmlPage
 //                              Content                                 //
 //////////////////////////////////////////////////////////////////////////
 
- 	public function addToResponse($desc, $content)
-	{
-			$this->content[$desc] = $content;
-	}
+    public function addToResponse($desc, $content)
+    {
+            $this->content[$desc] = $content;
+    }
 
     public function setContent($content)
     {
@@ -155,17 +155,17 @@ abstract class xhtmlPage
     }
 
     //TODO: maybe use this (once modified to work with new flow) instead of arrays for adding a section
-//	public function addContentSection($content="")
-//	{
-//		$this->addToContent('</div><div class="content">');
-//		if(!empty($content))
-//			$this->addToContent($content);
-//	}
-	
-	public function getContent()
-	{
+//    public function addContentSection($content="")
+//    {
+//        $this->addToContent('</div><div class="content">');
+//        if(!empty($content))
+//            $this->addToContent($content);
+//    }
+
+    public function getContent()
+    {
         return $this->content;
-	}
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -442,7 +442,7 @@ abstract class xhtmlPage
 
     public function smartyInit()
     {
-		global $config;
+        global $config;
 
         if(!isset($this->smartyConfig))
             $this->getSmartyConfig();
