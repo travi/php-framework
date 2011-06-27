@@ -55,9 +55,9 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
         $responseStub->expects($this->once())
                     ->method('addToResponse')
                     ->with(
-            $this->equalTo('errorMessage'),
-            $this->equalTo($errorMessage)
-        );
+                        $this->equalTo('errorMessage'),
+                        $this->equalTo($errorMessage)
+                    );
 
         $this->controller->error404($this->request, $responseStub, new NotFoundException($errorMessage));
     }
