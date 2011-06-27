@@ -33,11 +33,16 @@ class AccordionTest extends PHPUnit_Framework_TestCase
 
     public function testClientDependencies()
     {
-        $this->assertSame(array('scripts'   => array('jqueryUi'),
-                                'jsInits'   => array(
+        $this->assertSame(
+            array(
+                 'scripts'   => array('jqueryUi'),
+                 'jsInits'   => array(
                                     "$('.accordion').accordion({animated: 'easeslide', header: 'dt'});"
-                                ),
-                                'styles'    => array()), $this->object->getDependencies());
+                 ),
+                 'styles'    => array()
+            ),
+            $this->object->getDependencies()
+        );
         $this->assertSame('components/accordion.tpl', $this->object->getTemplate());
     }
 }

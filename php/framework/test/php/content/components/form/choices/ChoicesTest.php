@@ -37,9 +37,17 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     {
         $this->object->addOption('option');
 
-        $this->assertSame(array(array('option' => 'option', 'value' => '',
-                'selected' => false, 'disabled' => false)),
-            $this->object->getOptions());
+        $this->assertSame(
+            array(
+                 array(
+                     'option' => 'option',
+                     'value' => '',
+                     'selected' => false,
+                     'disabled' => false
+                 )
+            ),
+            $this->object->getOptions()
+        );
     }
 
     public function testGetNameNonePassed()

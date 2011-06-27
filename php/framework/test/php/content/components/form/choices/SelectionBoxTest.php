@@ -35,11 +35,23 @@ class SelectionBoxTest extends PHPUnit_Framework_TestCase
     {
         $this->object->addOption('option');
 
-        $this->assertSame(array(array('option' => 'Select One', 'value' => '',
-                'selected' => false, 'disabled' => false),
-            array('option' => 'option', 'value' => '',
-                'selected' => false, 'disabled' => false)),
-            $this->object->getOptions());
+        $this->assertSame(
+            array(
+                 array(
+                     'option' => 'Select One',
+                     'value' => '',
+                     'selected' => false,
+                     'disabled' => false
+                 ),
+                 array(
+                     'option' => 'option',
+                     'value' => '',
+                     'selected' => false,
+                     'disabled' => false
+                 )
+            ),
+            $this->object->getOptions()
+        );
     }
 
     public function testDefaultTemplate()

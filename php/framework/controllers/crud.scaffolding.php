@@ -23,8 +23,10 @@ abstract class Crud
 
         array_push($content, new Form($this->model->getFormDetails($id, $goat_id, $note, $action)));
 
-        array_push($content, '
-            </div>');
+        array_push(
+            $content, '
+            </div>'
+        );
     }
 
     public function update()
@@ -35,8 +37,10 @@ abstract class Crud
             <h3>'.ucfirst(strtolower($this->name)).'s Administration</h3>
             <div class="section">');
 
-        array_push($content, '
-            </div>');
+        array_push(
+            $content, '
+            </div>'
+        );
     }
 
     public function process($action)

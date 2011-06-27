@@ -67,9 +67,13 @@ class DependantObjectTest extends PHPUnit_Framework_TestCase
         $this->object->addJavaScript($js);
         $jsInit = 'jsInit';
         $this->object->addJsInit($jsInit);
-        $this->assertSame(array('scripts' => array($js),
-                                'jsInits' => array($jsInit),
-                                'styles'  => array($sheet)), $this->object->getDependencies());
+        $this->assertSame(
+            array(
+                 'scripts' => array($js),
+                 'jsInits' => array($jsInit),
+                 'styles'  => array($sheet)
+            ),
+            $this->object->getDependencies()
+        );
     }
 }
-?>
