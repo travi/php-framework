@@ -1,23 +1,16 @@
 <?php
-/*
- * Created on May 6, 2007
- * By Matt Travi
- */
 
- $config = array();
- session_start();
- if(isset($_SESSION['debug']))
- {
-    $config['debug'] = true;
- }
- else
- {
-    $config['debug'] = DEBUG;
- }
- 
+$config = array();
+session_start();
+if (isset($_SESSION['debug'])) {
+$config['debug'] = true;
+} else {
+$config['debug'] = DEBUG;
+}
+
 
 // date_default_timezone_set('America/Chicago');	//TODO: pull from config file
- 
+
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 $levels = preg_split("/\//", DOC_ROOT);
 array_pop($levels);

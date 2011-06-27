@@ -237,7 +237,7 @@ class Uploader
             array_push($mimes, 'image/gif');
             array_push($mimes, 'image/pjpeg');
             //array_push($mimes,'image/png');
-        } elseif($docType == 'document') {
+        } elseif ($docType == 'document') {
             array_push($mimes, 'text/plain');
             array_push($mimes, 'application/pdf');
             array_push($mimes, 'application/doc');

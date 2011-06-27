@@ -1,10 +1,6 @@
 <?php
-/*
- * Created on Nov 27, 2008
- * By Matt Travi
- */
-require_once(dirname(__FILE__).'/../../dependantObject.class.php');
-require_once(dirname(__FILE__).'/../contentObject.class.php');
+require_once dirname(__FILE__).'/../../dependantObject.class.php';
+require_once dirname(__FILE__).'/../contentObject.class.php';
   
 class NavigationObject extends ContentObject
 {
@@ -54,10 +50,8 @@ class NavigationObject extends ContentObject
     }
     public function getDependencies()
     {
-        foreach ($this->sections as $section)
-        {
-            if(is_a($section, 'DependantObject'))
-            {
+        foreach ($this->sections as $section) {
+            if (is_a($section, 'DependantObject')) {
                 /** @var $section DependantObject */
                 $this->addDependencies($section->getDependencies());
             }
@@ -65,4 +59,3 @@ class NavigationObject extends ContentObject
         return parent::getDependencies();
     }
 }
-?>

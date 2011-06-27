@@ -125,8 +125,7 @@ class ExpandableList extends BaseList
     {
         $nav = '';
 
-        foreach($this->items as $heading => $links)
-        {
+        foreach ($this->items as $heading => $links) {
             $secName = strtolower($heading);
             $secName = str_replace(' ', '_', $secName);
 
