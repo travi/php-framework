@@ -76,13 +76,13 @@ class TimeInput extends Input
     public function __toString()
     {
         $hour = substr($this->getValue(), 0, 2);
-        if($hour >= 12)
-        {
+        if ($hour >= 12) {
             $ampm = 'pm';
             if ($hour > 12)
                 $hour -= 12;
+        } else {
+            $ampm = 'am';
         }
-        else $ampm = 'am';
         $minute = substr($this->getValue(), 3, 2);
 
         $form = '
@@ -90,12 +90,12 @@ class TimeInput extends Input
                 <select name="' . $this->getName() . '_hour" id="' . $this->getName()
                 . '_hour" onchange="javascript:updateHiddenField(' . "'"
                 . $this->getName() . "'" . ')" class="timeInput hour">';
-        for ($i = 1; $i <= 12; $i++)
-        {
+        for ($i = 1; $i <= 12; $i++) {
             $form .= '
                     <option';
-            if($hour == $i)
+            if ($hour == $i) {
                 $form .= ' selected';
+            }
             $form .= '>'.$i.'</option>';
         }
         $form .= '
@@ -103,14 +103,15 @@ class TimeInput extends Input
                 <select name="' . $this->getName() . '_minute" id="' . $this->getName()
                  . '_minute" onchange="javascript:updateHiddenField(' . "'" . $this->getName()
                  . "'" . ')" class="timeInput minute">';
-        for ($i = 0; $i <= 60; $i += 5)
-        {
-            if(strlen($i) == 1)
+        for ($i = 0; $i <= 60; $i += 5) {
+            if (strlen($i) == 1) {
                 $i = "0".$i;
+            }
             $form .= '
                     <option';
-            if($minute == $i)
+            if ($minute == $i) {
                 $form .= ' selected';
+            }
             $form .= '>'.$i.'</option>';
         }
         $form .= '

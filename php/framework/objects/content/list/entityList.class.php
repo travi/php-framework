@@ -27,8 +27,7 @@ class EntityList extends ContentObject
     public function addAction($text, $link, $confirmation="")
     {
         $this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
-        if(!empty($confirmation))
-        {
+        if (!empty($confirmation)) {
             $this->addJsInit('travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");
                                 travi.framework.entityList.setButtonText("'.$text.'");');
         }

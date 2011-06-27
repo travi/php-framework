@@ -26,11 +26,11 @@ class BaseList extends ContentObject
     }
     function listItems($links = array())
     {
-        foreach($links as $item)
-        {
-            if(is_array($item))
+        foreach ($links as $item) {
+            if (is_array($item)) {
                 $list .= "
                 <$this->itemTag>".$this->buildLink($item)."</$this->itemTag>";
+            }
         }
 
         return $list;
@@ -40,8 +40,7 @@ class BaseList extends ContentObject
         $list = "
                 <$this->surroundingTag>";
 
-        foreach($this->items as $heading => $links)
-        {
+        foreach ($this->items as $heading => $links) {
             if (is_object($links) && is_a($links, 'ContentObject')) {
                 $list .= "
                 <$this->itemTag>".$links."</$this->itemTag>";
@@ -98,15 +97,11 @@ class DefinitionList extends BaseList
         $list = "
             <$this->surroundingTag>";
 
-        foreach($this->items as $heading => $links)
-        {
-            if(isset($links['text']) && isset($links['link']))
-            {
+        foreach ($this->items as $heading => $links) {
+            if (isset($links['text']) && isset($links['link'])) {
                 $list .= "
                 <dt>".$this->buildLink($links)."</dt>";
-            }
-            else
-            {
+            } else {
                 $list .= "
                 <dt>$heading</dt>";
                     $list .= $this->listItems($links);
@@ -135,17 +130,15 @@ class ExpandableList extends BaseList
             $secName = strtolower($heading);
             $secName = str_replace(' ', '_', $secName);
 
-            if(is_a($this, 'ExpandableSpan'))
+            if (is_a($this, 'ExpandableSpan')) {
                 $nav .= '
             <p>';
+            }
 
-            if(isset($links['text']) && isset($links['link']))
-            {
+            if (isset($links['text']) && isset($links['link'])) {
                 $nav .= "
                 <$this->surroundingTag>".$this->buildLink($links)."</$this->surroundingTag>";
-            }
-            else
-            {
+            } else {
                 $nav .= '
                 <'.$this->surroundingTag.' id="m_' . $secName . '_closed">
                     <a href="javascript:hide(\'m_' . $secName . '_closed\');show(\'m_' . $secName
