@@ -456,12 +456,9 @@ abstract class xhtmlPage
         $smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
         $smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
 
-        if($config['debug'])
-        {
+        if ($config['debug']) {
             $smarty->force_compile = true;
-        }
-        else
-        {
+        } else {
             $smarty->compile_check = false;
         }
 
