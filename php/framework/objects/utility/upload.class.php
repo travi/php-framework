@@ -284,7 +284,7 @@ class ImageUploader extends Uploader
 
     function ImageUploader($file_ref,$directoryToPutFile)
     {
-        require_once(DOC_ROOT.'/reusable/php/utilities/image.utilities.php');
+        include_once DOC_ROOT.'/reusable/php/utilities/image.utilities.php';
 
         parent::Uploader($file_ref, $directoryToPutFile);
         $this->file_type = "image";

@@ -259,7 +259,8 @@ abstract class xhtmlPage
         return $this->getDependencyList('jsInit');
     }
 
-    public function getValidations() {
+    public function getValidations()
+    {
         return $this->getDependencyList('validations');
     }
 
@@ -436,7 +437,8 @@ abstract class xhtmlPage
         return $this->clientTemplates;
     }
 
-    public function getExternalClientTemplates() {
+    public function getExternalClientTemplates()
+    {
         return $this->getDependencyList('clientTemplates');
     }
 

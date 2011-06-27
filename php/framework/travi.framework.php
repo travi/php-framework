@@ -70,7 +70,7 @@ function importObjectsFromDir($dir)
 {
     $objects = glob($dir."*.class.php");
     foreach ($objects as $object) {
-        require_once($object);
+        include_once $object;
     }
 
     $dirs = glob($dir."*");

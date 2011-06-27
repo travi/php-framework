@@ -322,7 +322,8 @@ class xhtmlPageTest extends PHPUnit_Framework_TestCase
         $this->object->addMetaTag($tag);
         $this->assertSame(
             array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />',$tag),
-            $this->object->getMetaTags());
+            $this->object->getMetaTags()
+        );
     }
 
     /**
