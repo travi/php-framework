@@ -284,10 +284,17 @@ class xhtmlPageTest extends PHPUnit_Framework_TestCase
         $type = 'type';
 
         $this->object->addLinkTag($link, $rel, $title, $type);
-        $this->assertSame(array(array(  'link'  => $link,
-                                        'title' => $title,
-                                        'type'  => $type,
-                                        'rel'   => $rel)), $this->object->getLinkTags());
+        $this->assertSame(
+            array(
+                 array(
+                     'link'  => $link,
+                     'title' => $title,
+                     'type'  => $type,
+                     'rel'   => $rel
+                 )
+            ),
+            $this->object->getLinkTags()
+        );
     }
 
     public function testAddFeed()
@@ -295,20 +302,34 @@ class xhtmlPageTest extends PHPUnit_Framework_TestCase
         $feed = 'feed';
         $title = 'title';
         $this->object->addFeed($feed, $title);
-        $this->assertSame(array(array(  'link'  => $feed,
-                                        'title' => $title,
-                                        'type'  => 'application/rss+xml',
-                                        'rel'   => 'alternate')), $this->object->getLinkTags());
+        $this->assertSame(
+            array(
+                 array(
+                     'link'  => $feed,
+                     'title' => $title,
+                     'type'  => 'application/rss+xml',
+                     'rel'   => 'alternate'
+                 )
+            ),
+            $this->object->getLinkTags()
+        );
     }
 
     public function testAddFeedNoTitle()
     {
         $feed = 'feed';
         $this->object->addFeed($feed);
-        $this->assertSame(array(array(  'link'  => $feed,
-                                        'title' => 'RSS',
-                                        'type'  => 'application/rss+xml',
-                                        'rel'   => 'alternate')), $this->object->getLinkTags());
+        $this->assertSame(
+            array(
+                 array(
+                     'link'  => $feed,
+                     'title' => 'RSS',
+                     'type'  => 'application/rss+xml',
+                     'rel'   => 'alternate'
+                 )
+            ),
+            $this->object->getLinkTags()
+        );
     }
 
     public function testMetaTag()
