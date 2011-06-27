@@ -47,8 +47,7 @@ abstract class xhtmlPage
 
         foreach ($kvLines as $kv) {
             $keyVals = explode('=', $kv);
-            if(count($keyVals) == 2)
-            {
+            if (count($keyVals) == 2) {
                 $keyVals = array_map('trim', $keyVals);
                 list($key,$value) = $keyVals;
                 $assocArray["$key"] = $value;
@@ -62,25 +61,25 @@ abstract class xhtmlPage
         return Spyc::YAMLLoad($file);
     }
 
-	public function setUrlFingerprint($fingerprint)
-	{
-		$this->urlFingerprint = $fingerprint;
-	}
+    public function setUrlFingerprint($fingerprint)
+    {
+        $this->urlFingerprint = $fingerprint;
+    }
 
-	public function getUrlFingerprint()
-	{
-		return $this->urlFingerprint;
-	}
-	
-	public function setSiteName($name)
-	{
-		$this->siteName = $name;
-	}
-	
-	public function getSiteName()
-	{
-		return $this->siteName;
-	}
+    public function getUrlFingerprint()
+    {
+        return $this->urlFingerprint;
+    }
+
+    public function setSiteName($name)
+    {
+        $this->siteName = $name;
+    }
+
+    public function getSiteName()
+    {
+        return $this->siteName;
+    }
 
     public function setTitle($title)
     {
@@ -94,9 +93,9 @@ abstract class xhtmlPage
 
     public function getDecoratedTitle()
     {
-        if(ENV == 'development') {
+        if (ENV == 'development') {
             $decoratedTitle = '[dev] ';
-        } else if(ENV == 'test') {
+        } else if (ENV == 'test') {
             $decoratedTitle = '[test] ';
         } else {
             $decoratedTitle = '';
@@ -104,7 +103,7 @@ abstract class xhtmlPage
 
         $decoratedTitle .= $this->title;
 
-        if(isset($this->siteName)) {
+        if (isset($this->siteName)) {
             $decoratedTitle .= ' | ' . $this->getSiteName();
         }
 
@@ -113,35 +112,32 @@ abstract class xhtmlPage
 
     public function setSiteHeader($header = '')
     {
-        if(!empty($header))
-        {
+        if (!empty($header)) {
             $this->siteHeader = $header;
-        }
-        else
-        {
+        } else {
             $this->siteHeader = $this->siteName;
         }
     }
 
-	public function getHeader()
-	{
-		return $this->siteHeader;
-	}
+    public function getHeader()
+    {
+        return $this->siteHeader;
+    }
 
     public function setSubHeader($subHeader)
     {
         $this->subHeader = $subHeader;
     }
 
-	public function getSubHeader()
-	{
-		return $this->subHeader;
-	}
+    public function getSubHeader()
+    {
+        return $this->subHeader;
+    }
 
- 	public function getSmartyConfig()
- 	{
-		$this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
- 	}
+    public function getSmartyConfig()
+    {
+        $this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
+    }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -178,8 +174,7 @@ abstract class xhtmlPage
 
     public function addDependency($dependency, $category, $index="")
     {
-        if(!isset($this->dependencyManager))
-        {
+        if (!isset($this->dependencyManager)) {
             $this->dependencyManager = new DependencyManager();
         }
 
@@ -188,34 +183,33 @@ abstract class xhtmlPage
 
     public function getDependencyList($category)
     {
-        if(isset($this->dependencyManager))
-        {
+        if (isset($this->dependencyManager)) {
             return $this->dependencyManager->getDependencies($category);
         }
     }
 
     public function addDependencies($dependencies)
     {
-        $this->dependencyManager->addDependencies(array(    'scripts'   => $dependencies['scripts'],
-                                                            'styles'    => $dependencies['styles'],
-                                                            'jsInits'   => $dependencies['jsInits']));
-        if(!empty($dependencies['links']))
-        {
-            foreach($dependencies['links'] as $link)
-            {
+        $this->dependencyManager->addDependencies(
+            array(
+                 'scripts'   => $dependencies['scripts'],
+                 'styles'    => $dependencies['styles'],
+                 'jsInits'   => $dependencies['jsInits']
+            )
+        );
+        if (!empty($dependencies['links'])) {
+            foreach ($dependencies['links'] as $link) {
                 $this->addLinkTag($link['link'], $link['rel'], $link['title'], $link['type']);
             }
         }
-        if(!empty($dependencies['feeds']))
-        {
-            foreach($dependencies['feeds'] as $feed)
-            {
+        if (!empty($dependencies['feeds'])) {
+            foreach ($dependencies['feeds'] as $feed) {
                 $this->addFeed($feed['link'], $feed['title']);
             }
         }
     }
 
-    public function addStyleSheet($sheet,$index="")
+    public function addStyleSheet($sheet, $index="")
     {
         $this->addDependency($sheet, 'css', $index);
     }
@@ -273,12 +267,9 @@ abstract class xhtmlPage
     {
         global $config;
 
-        if(ENV !== 'development' && $config['debug'] !== true)
-        {
+        if (ENV !== 'development' && $config['debug'] !== true) {
             return preg_replace('/\/(css|js)\//', '/min/$1/', $file, 1);
-        }
-        else
-        {
+        } else {
             return $file;
         }
     }
@@ -345,13 +336,12 @@ abstract class xhtmlPage
     }
 
     public function setAdminNav($section)
-	{
-        if(is_string($section))
-        {
+    {
+        if (is_string($section)) {
             $section = $this->yaml2Array($section);
         }
         $this->nav->setSection('admin', $section);
-	}
+    }
 
     public function getAdminNav()
     {
@@ -359,10 +349,10 @@ abstract class xhtmlPage
     }
 
 
-	public function setSubNav($section)
-	{
+    public function setSubNav($section)
+    {
         $this->nav->setSection('subNav', $section);
-	}
+    }
 
     public function getSubNav()
     {
@@ -371,8 +361,7 @@ abstract class xhtmlPage
 
     public function addNavSection($title, $section)
     {
-        if(is_string($section))
-        {
+        if (is_string($section)) {
             $section = $this->yaml2Array($section);
         }
         $this->nav->addSection($title, $section);
@@ -400,16 +389,12 @@ abstract class xhtmlPage
 
     public function getSiteSection()
     {
-        if(empty($this->currentSiteSection))
-        {
+        if (empty($this->currentSiteSection)) {
             $navString = $_SERVER['REQUEST_URI'];
             $parts = explode('/', $navString);
-            if($parts[1] === 'admin')
-            {
+            if ($parts[1] === 'admin') {
                 $this->currentSiteSection = $parts[2];
-            }
-            else
-            {
+            } else {
                 $this->currentSiteSection = $parts[1];
             }
         }
@@ -485,8 +470,7 @@ abstract class xhtmlPage
 
     public function getSmarty()
     {
-        if(empty($this->smarty))
-        {
+        if (empty($this->smarty)) {
             $this->smartyInit();
         }
         return $this->smarty;
@@ -501,15 +485,13 @@ abstract class xhtmlPage
     {
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
-        if (strstr($acceptHeader, "application/json")){
+        if (strstr($acceptHeader, "application/json")) {
             header('Content-Type: application/json');
             echo json_encode($this->getContent());
-        } else if (strstr($acceptHeader, "text/xml")){
+        } else if (strstr($acceptHeader, "text/xml")) {
             return;
-        } else if (strstr($acceptHeader, "text/html")){
-
-            if(isset($this->dependencyManager))
-            {
+        } else if (strstr($acceptHeader, "text/html")) {
+            if (isset($this->dependencyManager)) {
                 $this->dependencyManager->resolveContentDependencies($this->getContent());
             }
 
@@ -533,8 +515,7 @@ abstract class xhtmlPage
 
     public function goog_analytics()
     {
-        if(ENV === 'production')
-        {
+        if (ENV === 'production') {
             return "		<script type=\"text/javascript\">
 
             var _gaq = _gaq || [];
@@ -553,7 +534,7 @@ abstract class xhtmlPage
         }
     }
 
-    public function redirect($status,$msg,$location)
+    public function redirect($status, $msg, $location)
     {
         $this->setTitle("Results");
 
@@ -575,4 +556,3 @@ abstract class xhtmlPage
         array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
     }
 }
-?>
