@@ -23,13 +23,13 @@ class Uploader
         $file_name = $_FILES[$file_ref]['name'];
         // strip file_name of slashes
         $file_name = stripslashes($file_name);
-        $file_name = str_replace("'","",$file_name);
-        $file_name = preg_replace('/[^a-z0-9_\-\.]/i', '_',$file_name);
+        $file_name = str_replace("'", "", $file_name);
+        $file_name = preg_replace('/[^a-z0-9_\-\.]/i', '_', $file_name);
 
         $this->file_name = $file_name;
 
         // append the slash to the end of the directory for later
-        if(strrpos($directoryToPutFile,"/") != (strlen($directoryToPutFile)-1))
+        if(strrpos($directoryToPutFile, "/") != (strlen($directoryToPutFile)-1))
             $directoryToPutFile .= "/";
         $this->directoryToPutFile = $directoryToPutFile;
     }
@@ -56,7 +56,7 @@ class Uploader
 
                         if ($addlReqResults[0] == "good") {
                             if (isset($this->dbConnection)  && isset($this->finalQuery)) {
-                                mysql_query($this->finalQuery,$this->dbConnection) or die (mysql_error());
+                                mysql_query($this->finalQuery, $this->dbConnection) or die (mysql_error());
 
                                 if (mysql_affected_rows($this->dbConnection) == 1) {
                                     $status = "good";
@@ -138,13 +138,13 @@ class Uploader
     {
         if (!is_dir($this->directoryToPutFile)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
-            mkdir($this->directoryToPutFile,0755,true);
+            mkdir($this->directoryToPutFile, 0755, true);
 
             //needed before php version 5.0.0
             //system("mkdir -p ".escapeshellcmd($this->directoryToPutFile));
 
             //execution priveleges are needed for directories
-            chmod($this->directoryToPutFile,0755);
+            chmod($this->directoryToPutFile, 0755);
 
             //create empty index file so that directory structure is not displayed
             touch($this->directoryToPutFile."index.html");
@@ -172,11 +172,11 @@ class Uploader
             $thisFileId = $this->getInsertId();
 
             //update next query with the file id
-            $this->finalQuery = str_replace('FILE_ID_HERE',$thisFileId,$this->finalQuery);
+            $this->finalQuery = str_replace('FILE_ID_HERE', $thisFileId, $this->finalQuery);
         }
 
         $extensions = array();
-        $extensions = preg_split("/\./",$this->file_name);
+        $extensions = preg_split("/\./", $this->file_name);
         $extension = strtolower($extensions[count($extensions) - 1]);
 
         if (isset($this->filename_override)) {
@@ -197,7 +197,7 @@ class Uploader
         }
 
         //update next query with file name(s)
-        $this->finalQuery = str_replace('FILE_NAME_HERE',$this->file_name,$this->finalQuery);
+        $this->finalQuery = str_replace('FILE_NAME_HERE', $this->file_name, $this->finalQuery);
     }
 
     function uploadError($errno)
@@ -230,19 +230,19 @@ class Uploader
         $mimes = array();
 
         if (!empty($this->restrictedMimetypes)) {
-            return in_array($mimetype,$this->restrictedMimetypes);
+            return in_array($mimetype, $this->restrictedMimetypes);
         }
         if ($docType == 'image') {
-            array_push($mimes,'image/jpeg');
-            array_push($mimes,'image/gif');
-            array_push($mimes,'image/pjpeg');
+            array_push($mimes, 'image/jpeg');
+            array_push($mimes, 'image/gif');
+            array_push($mimes, 'image/pjpeg');
             //array_push($mimes,'image/png');
         } elseif($docType == 'document') {
-            array_push($mimes,'text/plain');
-            array_push($mimes,'application/pdf');
-            array_push($mimes,'application/doc');
-            array_push($mimes,'application/msword');
-            array_push($mimes,'application/rtf');
+            array_push($mimes, 'text/plain');
+            array_push($mimes, 'application/pdf');
+            array_push($mimes, 'application/doc');
+            array_push($mimes, 'application/msword');
+            array_push($mimes, 'application/rtf');
         }
 
         return in_array($mimetype, $mimes);
@@ -258,13 +258,13 @@ class DocumentUploader extends Uploader
 {
     function DocumentUploader($file_ref,$directoryToPutFile)
     {
-        parent::Uploader($file_ref,$directoryToPutFile);
+        parent::Uploader($file_ref, $directoryToPutFile);
         $this->file_type = "file";
     }
 
     function acceptedMimetype($mimetype)
     {
-        return parent::acceptedMimetype('document',$mimetype);
+        return parent::acceptedMimetype('document', $mimetype);
     }
 }
 
@@ -285,7 +285,7 @@ class ImageUploader extends Uploader
     {
         require_once(DOC_ROOT.'/reusable/php/utilities/image.utilities.php');
 
-        parent::Uploader($file_ref,$directoryToPutFile);
+        parent::Uploader($file_ref, $directoryToPutFile);
         $this->file_type = "image";
     }
 
@@ -299,7 +299,7 @@ class ImageUploader extends Uploader
 
     function setThumbDir($dir)
     {
-        if (strrpos($dir,"/") != (strlen($dir)-1)) {
+        if (strrpos($dir, "/") != (strlen($dir)-1)) {
             $dir .= "/";
         }
         $this->thumbDirectory = $dir;
@@ -318,7 +318,7 @@ class ImageUploader extends Uploader
 
     function setPreviewDir($dir)
     {
-        if (strrpos($dir,"/") != (strlen($dir)-1)) {
+        if (strrpos($dir, "/") != (strlen($dir)-1)) {
             $dir .= "/";
         }
         $this->previewDirectory = $dir;
@@ -330,13 +330,13 @@ class ImageUploader extends Uploader
 
         if (!is_dir($this->directoryToPutFile.$this->previewDirectory)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
-            mkdir($this->directoryToPutFile.$this->previewDirectory,0755,true);
+            mkdir($this->directoryToPutFile.$this->previewDirectory, 0755, true);
 
             //needed before php version 5.0.0
             //system("mkdir -p ".escapeshellcmd($this->directoryToPutFile.$this->previewDirectory));
 
             //execution priveleges are needed for directories
-            chmod($this->directoryToPutFile.$this->previewDirectory,0755);
+            chmod($this->directoryToPutFile.$this->previewDirectory, 0755);
 
             //create empty index file so that directory structure is not displayed
             touch($this->directoryToPutFile.$this->previewDirectory."index.html");
@@ -344,13 +344,13 @@ class ImageUploader extends Uploader
 
         if (!is_dir($this->directoryToPutFile.$this->thumbDirectory)) {
             //use the recursive attribute when php version has been upgraded to 5.0.0 or higher
-            mkdir($this->directoryToPutFile.$this->thumbDirectory,0755,true);
+            mkdir($this->directoryToPutFile.$this->thumbDirectory, 0755, true);
 
             //needed before php version 5.0.0
             //system("mkdir -p ".escapeshellcmd($this->directoryToPutFile$this->thumbDirectory));
 
             //execution priveleges are needed for directories
-            chmod($this->directoryToPutFile.$this->thumbDirectory,0755);
+            chmod($this->directoryToPutFile.$this->thumbDirectory, 0755);
 
             //create empty index file so that directory structure is not displayed
             touch($this->directoryToPutFile.$this->thumbDirectory."index.html");
@@ -365,7 +365,7 @@ class ImageUploader extends Uploader
 
     function acceptedMimetype($mimetype)
     {
-        return parent::acceptedMimetype('image',$mimetype);
+        return parent::acceptedMimetype('image', $mimetype);
     }
 
     function checkAdditionalRequirements()
@@ -374,7 +374,7 @@ class ImageUploader extends Uploader
         $msg = "Image passed image specific requirements";
 
         if (isset($this->requiredWidth)) {
-            $sourceImage = getImageResource($this->directoryToPutFile,$this->file_name,$this->mimetype);
+            $sourceImage = getImageResource($this->directoryToPutFile, $this->file_name, $this->mimetype);
 
             $originalWidth = imagesx($sourceImage);
 
@@ -393,15 +393,15 @@ class ImageUploader extends Uploader
 
         if ($status == "good") {
             if ($this->previewNeeded == true) {
-                $this->createPreview($this->prevHeight,$this->prevWidth);
+                $this->createPreview($this->prevHeight, $this->prevWidth);
             } else {
-                $this->finalQuery = str_replace('PREVIEW_NAME_HERE','',$this->finalQuery);
+                $this->finalQuery = str_replace('PREVIEW_NAME_HERE', '', $this->finalQuery);
             }
 
             if ($this->thumbNeeded == true) {
                 $this->createSquareThumb();
             } else {
-                $this->finalQuery = str_replace('THUMB_NAME_HERE','',$this->finalQuery);
+                $this->finalQuery = str_replace('THUMB_NAME_HERE', '', $this->finalQuery);
             }
         }
 
@@ -420,7 +420,7 @@ class ImageUploader extends Uploader
             $newWidth = 250;
         }
 
-        $sourceImage = getImageResource($this->directoryToPutFile,$this->file_name,$this->mimetype);
+        $sourceImage = getImageResource($this->directoryToPutFile, $this->file_name, $this->mimetype);
 
         $originalWidth = imagesx($sourceImage);
         $originalHeight = imagesy($sourceImage);
@@ -449,12 +449,12 @@ class ImageUploader extends Uploader
 
         //use resized image as thumbnail since it is smaller than original
         if ($okToMakeNewFile) {
-            $destinationImage = imagecreatetruecolor($newWidth,$newHeight);
+            $destinationImage = imagecreatetruecolor($newWidth, $newHeight);
 
             imagecopyresized(
                 $destinationImage,
                 $sourceImage,
-                0,0,0,0,
+                0, 0, 0, 0,
                 $newWidth,
                 $newHeight,
                 $originalWidth,
@@ -477,7 +477,7 @@ class ImageUploader extends Uploader
             );
 
             //only read priviledges are needed for files
-            chmod($this->directoryToPutFile.$this->previewDirectory.$this->preview_file_name,0644);
+            chmod($this->directoryToPutFile.$this->previewDirectory.$this->preview_file_name, 0644);
         }
         $this->finalQuery = str_replace(
             'PREVIEW_NAME_HERE',
@@ -504,13 +504,13 @@ class ImageUploader extends Uploader
             $height = $width;
         }
 
-        $new_im = ImageCreatetruecolor($thumb_size,$thumb_size);
+        $new_im = imagecreatetruecolor($thumb_size, $thumb_size);
         $im = imagecreatefromjpeg($this->directoryToPutFile . $this->file_name);
 
         imagecopyresampled(
             $new_im,
             $im,
-            0,0,$x,$y,
+            0, 0, $x, $y,
             $thumb_size,
             $thumb_size,
             $width,
@@ -523,6 +523,6 @@ class ImageUploader extends Uploader
             100
         );
 
-        $this->finalQuery = str_replace('THUMB_NAME_HERE',$this->thumb_file_name,$this->finalQuery);
+        $this->finalQuery = str_replace('THUMB_NAME_HERE', $this->thumb_file_name, $this->finalQuery);
     }
 }
