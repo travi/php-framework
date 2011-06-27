@@ -28,9 +28,9 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
-                ->method('containsFormElementType')
-                ->with($this->equalTo($fileInputType))
-                ->will($this->returnValue(false));
+            ->method('containsFormElementType')
+            ->with($this->equalTo($fileInputType))
+            ->will($this->returnValue(false));
 
         $this->group->addFormElement($anyGroup);
         
@@ -55,9 +55,9 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
-                ->method('containsFormElementType')
-                ->with($this->equalTo($fileInputType))
-                ->will($this->returnValue(true));
+            ->method('containsFormElementType')
+            ->with($this->equalTo($fileInputType))
+            ->will($this->returnValue(true));
 
         $this->group->addFormElement($anyGroup);
 
@@ -102,8 +102,8 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
-                ->method('getValidations')
-                ->will($this->returnValue(array($inputName => $validations)));
+            ->method('getValidations')
+            ->will($this->returnValue(array($inputName => $validations)));
 
         $this->group->addFormElement($anyGroup);
 
@@ -116,8 +116,8 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
     {
         $anyField = $this->getAnyField();
         $anyField->expects($this->once())
-                ->method('getDependencies')
-                ->will($this->returnValue(array('scripts' => array('jsDep'))));
+            ->method('getDependencies')
+            ->will($this->returnValue(array('scripts' => array('jsDep'))));
 
         $this->group->addFormElement($anyField);
 
@@ -129,8 +129,8 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
     {
         $anyGroup = $this->getAnyField();
         $anyGroup->expects($this->once())
-                ->method('getDependencies')
-                ->will($this->returnValue(array('scripts' => array('jsDep'))));
+            ->method('getDependencies')
+            ->will($this->returnValue(array('scripts' => array('jsDep'))));
 
         $this->group->addFormElement($anyGroup);
 
@@ -163,11 +163,11 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         }
 
         $field->expects($this->any())
-                ->method('getValidations')
-                ->will($this->returnValue($validations));
+            ->method('getValidations')
+            ->will($this->returnValue($validations));
         $field->expects($this->any())
-                ->method('getName')
-                ->will($this->returnValue('inputName'));
+            ->method('getName')
+            ->will($this->returnValue('inputName'));
 
         return $field;
     }
