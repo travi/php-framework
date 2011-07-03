@@ -1,6 +1,6 @@
 <?php
 
-require_once('contentObject.class.php');
+require_once 'contentObject.class.php';
 
 class HtmlElement extends ContentObject
 {

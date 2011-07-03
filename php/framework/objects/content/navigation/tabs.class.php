@@ -1,9 +1,5 @@
 <?php
-/*
- * Created on Nov 27, 2008
- * By Matt Travi
- */
-require_once('navigation.class.php');
+require_once'navigation.class.php';
   
 class Tabs extends NavigationObject
 {

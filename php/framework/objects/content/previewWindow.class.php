@@ -1,5 +1,5 @@
 <?php
-require_once('contentObject.class.php');
+require_once 'contentObject.class.php';
 
 class PreviewWindow extends ContentObject
 {

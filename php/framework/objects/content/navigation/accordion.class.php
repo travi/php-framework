@@ -1,6 +1,6 @@
 <?php
 
-require_once('navigation.class.php');
+require_once 'navigation.class.php';
  
 class Accordion extends NavigationObject
 {
