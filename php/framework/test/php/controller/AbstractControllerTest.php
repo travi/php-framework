@@ -28,11 +28,11 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
-                ->method('getController')
-                ->will($this->returnValue('test'));
+            ->method('getController')
+            ->will($this->returnValue('test'));
         $requestStub->expects($this->any())
-                ->method('getAction')
-                ->will($this->returnValue('index'));
+            ->method('getAction')
+            ->will($this->returnValue('index'));
         $this->requestStub = $requestStub;
 
         $this->responseStub = $this->getMock('Response');

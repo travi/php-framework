@@ -27,8 +27,8 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
 
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
-                ->method('getAction')
-                ->will($this->returnValue('index'));
+            ->method('getAction')
+            ->will($this->returnValue('index'));
 
         $this->request = $requestStub;
     }
@@ -47,17 +47,17 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
 
         $responseStub = $this->getMock('Response');
         $responseStub->expects($this->once())
-                    ->method('setTitle')
-                    ->with($this->equalTo('Page Could Not Be Found'));
+                ->method('setTitle')
+                ->with($this->equalTo('Page Could Not Be Found'));
         $responseStub->expects($this->once())
-                    ->method('setPageTemplate')
-                    ->with($this->equalTo('../error/404.tpl'));
+                ->method('setPageTemplate')
+                ->with($this->equalTo('../error/404.tpl'));
         $responseStub->expects($this->once())
-                    ->method('addToResponse')
-                    ->with(
-                        $this->equalTo('errorMessage'),
-                        $this->equalTo($errorMessage)
-                    );
+                ->method('addToResponse')
+                ->with(
+                    $this->equalTo('errorMessage'),
+                    $this->equalTo($errorMessage)
+                );
 
         $this->controller->error404($this->request, $responseStub, new NotFoundException($errorMessage));
     }
@@ -68,17 +68,17 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
 
         $responseStub = $this->getMock('Response');
         $responseStub->expects($this->once())
-                    ->method('setTitle')
-                    ->with($this->equalTo('Internal Server Error'));
+                ->method('setTitle')
+                ->with($this->equalTo('Internal Server Error'));
         $responseStub->expects($this->once())
-                    ->method('setPageTemplate')
-                    ->with($this->equalTo('../error/500.tpl'));
+                ->method('setPageTemplate')
+                ->with($this->equalTo('../error/500.tpl'));
         $responseStub->expects($this->once())
-                    ->method('addToResponse')
-                    ->with(
-                        $this->equalTo('errorMessage'),
-                        $this->equalTo($errorMessage)
-                    );
+                ->method('addToResponse')
+                ->with(
+                    $this->equalTo('errorMessage'),
+                    $this->equalTo($errorMessage)
+                );
 
         $this->controller->error500($this->request, $responseStub, new NotFoundException($errorMessage));
     }

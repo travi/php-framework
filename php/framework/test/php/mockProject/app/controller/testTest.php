@@ -29,8 +29,8 @@ class testTest extends PHPUnit_Framework_TestCase
 
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
-                ->method('getAction')
-                ->will($this->returnValue('index'));
+            ->method('getAction')
+            ->will($this->returnValue('index'));
 
         $this->request = $requestStub;
         $this->response = $responseStub;
@@ -48,8 +48,8 @@ class testTest extends PHPUnit_Framework_TestCase
     {
         $responseStub = $this->getMock('Response');
         $responseStub->expects($this->once())
-                    ->method('setTitle')
-                    ->with('Test');
+            ->method('setTitle')
+            ->with('Test');
 
         $this->controller->index($this->request, $responseStub);
     }

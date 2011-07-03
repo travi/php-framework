@@ -133,8 +133,8 @@ class FormTest extends PHPUnit_Framework_TestCase
         $field = $this->getMock('TextInput');
 
         $field->expects($this->any())
-                ->method('getName')
-                ->will($this->returnValue('fieldName'));
+            ->method('getName')
+            ->will($this->returnValue('fieldName'));
 
         return $field;
     }
@@ -147,8 +147,8 @@ class FormTest extends PHPUnit_Framework_TestCase
         }
 
         $field->expects($this->any())
-                ->method('getValidations')
-                ->will($this->returnValue($validations));
+            ->method('getValidations')
+            ->will($this->returnValue($validations));
 
         return $field;
     }

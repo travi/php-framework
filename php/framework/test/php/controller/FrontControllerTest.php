@@ -41,16 +41,16 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
-                ->method('getController')
-                ->will($this->returnValue('test'));
+            ->method('getController')
+            ->will($this->returnValue('test'));
         $requestStub->expects($this->any())
-                ->method('getAction')
-                ->will($this->returnValue('index'));
+            ->method('getAction')
+            ->will($this->returnValue('index'));
 
         $responseStub = $this->getMock('Response');
         $responseStub->expects($this->once())
-                    ->method('setTitle')
-                    ->with($this->equalTo('Test'));
+            ->method('setTitle')
+            ->with($this->equalTo('Test'));
 
         $this->object->setRequest($requestStub);
         $this->object->setResponse($responseStub);
@@ -63,17 +63,17 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $requestStub = $this->getMock('Request');
         $requestStub->expects($this->any())
-                ->method('getController')
-                ->will($this->returnValue('nonExistantPage'));
+            ->method('getController')
+            ->will($this->returnValue('nonExistantPage'));
 
         $responseStub = $this->getMock('Response');
         //TODO: figure out a way to test the 404 header
         $responseStub->expects($this->once())
-                    ->method('setTitle')
-                    ->with($this->equalTo('Page Could Not Be Found'));
+            ->method('setTitle')
+            ->with($this->equalTo('Page Could Not Be Found'));
         $responseStub->expects($this->once())
-                    ->method('setPageTemplate')
-                    ->with($this->equalTo('../error/404.tpl'));
+            ->method('setPageTemplate')
+            ->with($this->equalTo('../error/404.tpl'));
 
         $this->object->setRequest($requestStub);
         $this->object->setResponse($responseStub);     
