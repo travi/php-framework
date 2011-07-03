@@ -87,13 +87,13 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     public function test500()
     {
         $requestStub = $this->getMock('Request');
-//        $requestStub->expects($this->any())
-//                ->method('getController')
-//                ->will($this->returnValue('nonExistantPage'));
+        //        $requestStub->expects($this->any())
+        //                ->method('getController')
+        //                ->will($this->returnValue('nonExistantPage'));
 
         $this->object->setRequest($requestStub);
 
-//        $response = $this->object->processRequest();
+        //        $response = $this->object->processRequest();
         
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

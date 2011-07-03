@@ -331,9 +331,9 @@ class xhtmlPageTest extends PHPUnit_Framework_TestCase
      */
     public function testSetPrimaryNav()
     {
-//        $nav = array('text1' => 'link1', 'text2' => 'link2');
-//        $this->object->setPrimaryNav($nav);
-//        $this->assertSame($nav, $this->object->getNav());
+        //        $nav = array('text1' => 'link1', 'text2' => 'link2');
+        //        $this->object->setPrimaryNav($nav);
+        //        $this->assertSame($nav, $this->object->getNav());
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
