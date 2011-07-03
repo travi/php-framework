@@ -57,10 +57,10 @@ class EntityBlock
     public function addActionRow($actions=array())
     {
         array_push($this->extraActionRows, $actions);
-//        foreach($actions as $action)
-//        {
-//            $this->disableAction($action,true);
-//        }
+        //        foreach($actions as $action)
+        //        {
+        //            $this->disableAction($action,true);
+        //        }
     }
     public function getExtraActionRows()
     {

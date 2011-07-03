@@ -122,16 +122,16 @@ class TimeInput extends Input
                  . "'" . ')" class="timeInput ampm">';
         $form .= '
                     <option';
-            if ($ampm == 'am') {
-                $form .= ' selected';
-            }
-            $form .= '>am</option>
-                    <option';
-            if ($ampm == 'pm') {
-                $form .= ' selected';
-            }
-            $form .= '>pm</option>
-                </select>';
+        if ($ampm == 'am') {
+            $form .= ' selected';
+        }
+        $form .= '>am</option>
+                <option';
+        if ($ampm == 'pm') {
+            $form .= ' selected';
+        }
+        $form .= '>pm</option>
+            </select>';
         $hidden = new HiddenInput($this->getName(), $this->getValue());
         $form .= $hidden->toString();
         $form .= '
