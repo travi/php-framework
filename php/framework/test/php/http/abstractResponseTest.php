@@ -4,16 +4,16 @@ require_once 'PHPUnit/Framework.php';
 require_once '/home/travi/include/php/framework/objects/page/xhtml.class.php';
 require_once '/home/travi/include/php/framework/src/dependencyManagement/DependencyManager.class.php';
 
-class xhtmlPageTest extends PHPUnit_Framework_TestCase
+class AbstractResponseTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var xhtmlPage
+     * @var AbstractResponse
      */
     protected $object;
 
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('xhtmlPage');
+        $this->object = $this->getMockForAbstractClass('AbstractResponse');
     }
 
     /**

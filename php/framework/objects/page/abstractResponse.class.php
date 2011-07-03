@@ -5,7 +5,7 @@
  * programmer@travi.org
  */
 
-abstract class xhtmlPage
+abstract class AbstractResponse
 {
     protected $siteName;
     protected $title;

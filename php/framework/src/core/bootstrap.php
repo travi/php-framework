@@ -5,7 +5,7 @@
  * Time: 10:08:35 AM
  */
 
-require_once dirname(__FILE__).'/../../objects/page/xhtml.class.php';
+require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../http/Request.class.php';
 require_once dirname(__FILE__).'/../http/Response.class.php';
 require_once dirname(__FILE__).'/../controller/front/front.controller.php';

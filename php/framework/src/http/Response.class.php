@@ -3,10 +3,10 @@
 require_once dirname(__FILE__).'/../../objects/dependantObject.class.php';
 require_once dirname(__FILE__).'/../../objects/content/contentObject.class.php';
 require_once dirname(__FILE__).'/../../objects/content/navigation/navigation.class.php';
-require_once dirname(__FILE__).'/../../objects/page/xhtml.class.php';
+require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../dependencyManagement/DependencyManager.class.php';
 
-class Response extends xhtmlPage
+class Response extends AbstractResponse
 {
     private $View;      //TODO: Object containing template, css, js, etc information
 

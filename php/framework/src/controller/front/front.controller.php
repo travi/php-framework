@@ -5,7 +5,7 @@
  * programmer@travi.org
  */
 
-require_once dirname(__FILE__).'/../../../objects/page/xhtml.class.php';
+require_once dirname(__FILE__) . '/../../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../abstract.controller.php';
 require_once dirname(__FILE__).'/../../exception/NotFound.exception.php';
 
