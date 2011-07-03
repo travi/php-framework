@@ -123,7 +123,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 
     public function testGetValidations()
     {
-       $this->assertSame(array('validation1', 'validation2'), $this->input->getValidations());
+        $this->assertSame(array('validation1', 'validation2'), $this->input->getValidations());
     }
 }
 ?>
