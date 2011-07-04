@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/home/travi/include/php/framework/objects/page/xhtml.class.php';
+require_once '/home/travi/include/php/framework/objects/page/abstractResponse.class.php';
 require_once '/home/travi/include/php/framework/src/dependencyManagement/DependencyManager.class.php';
 
 class AbstractResponseTest extends PHPUnit_Framework_TestCase

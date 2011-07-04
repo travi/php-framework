@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once 'test.controller.php';
-require_once '/home/travi/include/php/framework/objects/page/xhtml.class.php';
+require_once '/home/travi/include/php/framework/objects/page/abstractResponse.class.php';
 require_once '/home/travi/include/php/framework/src/http/Request.class.php';
 require_once '/home/travi/include/php/framework/src/http/Response.class.php';
 
