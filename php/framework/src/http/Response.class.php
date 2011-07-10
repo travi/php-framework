@@ -29,7 +29,8 @@ class Response extends AbstractResponse
         //temporarily set the layout template here until moving it to $View
         $this->setLayoutTemplate($config['template']['layout']);
 
-        //temporarily set smartyConfig to work around the fact that abstractResponse.class is currently being used
+        //temporarily set smartyConfig to work around the fact that
+        // abstractResponse.class is currently being used
         $this->smartyConfig = $config['smarty'];
         
     }
