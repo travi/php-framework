@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/../../../../../src/controller/abstract.controller.php';
 
-class test extends AbstractController
+class Test extends AbstractController
 {
     /**
      * @param $request Request
