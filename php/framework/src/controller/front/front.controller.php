@@ -55,6 +55,8 @@ class FrontController
         $controllerName = $this->Request->getController();
         $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
 
+        echo $controllerPath;
+
         try {
             if (is_file($controllerPath)) {
                 include_once $controllerPath;
