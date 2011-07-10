@@ -33,7 +33,6 @@ class testTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue('index'));
 
         $this->request = $requestStub;
-        $this->response = $responseStub;
     }
 
     /**
