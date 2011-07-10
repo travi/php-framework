@@ -1,6 +1,6 @@
 <?php
 
-abstract class dataFormatter
+abstract class DataFormatter
 {
     protected $data = array();
 
@@ -14,7 +14,7 @@ abstract class dataFormatter
     }
 }
 
-class jsonFormatter extends dataFormatter
+class JsonFormatter extends DataFormatter
 {
     public function format()
     {
