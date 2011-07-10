@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/objects/content/navigation/accordion.class.php';
+require_once dirname(__FILE__).'/../../../../objects/content/navigation/accordion.class.php';
 
 /**
  * Test class for Accordion.

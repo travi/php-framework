@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/http/Response.class.php';
+require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
