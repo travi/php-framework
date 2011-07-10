@@ -1,10 +1,10 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/FormElementGroup.php';
-require_once '/Users/travi/development/include/php/framework/src/components/form/FieldSet.php';
-require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/TextInput.php';
-require_once '/Users/travi/development/include/php/framework/src/components/form/inputs/FileInput.php';
+require_once dirname(__FILE__).'/../../../../../src/components/form/FormElementGroup.php';
+require_once dirname(__FILE__).'/../../../../../src/components/form/FieldSet.php';
+require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/TextInput.php';
+require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/FileInput.php';
 
 class FormElementGroupTest extends PHPUnit_Framework_TestCase
 {

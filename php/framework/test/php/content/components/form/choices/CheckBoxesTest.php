@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/choices/CheckBoxes.php';
+require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/CheckBoxes.php';
 
 /**
  * Test class for CheckBoxes.

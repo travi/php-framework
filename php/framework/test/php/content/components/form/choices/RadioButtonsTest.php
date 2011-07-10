@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/choices/RadioButtons.php';
+require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/RadioButtons.php';
 
 /**
  * Test class for RadioButtons.

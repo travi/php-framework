@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/components/form/choices/SelectionBox.php';
+require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/SelectionBox.php';
 
 /**
  * Test class for SelectionBox.
