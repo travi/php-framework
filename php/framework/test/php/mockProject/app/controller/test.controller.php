@@ -3,8 +3,11 @@ require_once dirname(__FILE__).'/../../../../../src/controller/abstract.controll
 
 class test extends AbstractController
 {
-    /** @var $response Response */
-    /** @var $request Request */
+    /**
+     * @param $request Request
+     * @param $response Response
+     * @return void
+     */
     public function index(&$request, &$response)
     {
         $response->setTitle('Test');
