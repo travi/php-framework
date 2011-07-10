@@ -2,9 +2,9 @@
 require_once 'PHPUnit/Framework.php';
 
 require_once 'test.controller.php';
-require_once '/home/travi/include/php/framework/objects/page/abstractResponse.class.php';
-require_once '/home/travi/include/php/framework/src/http/Request.class.php';
-require_once '/home/travi/include/php/framework/src/http/Response.class.php';
+require_once dirname(__FILE__).'/../../../../../objects/page/abstractResponse.class.php';
+require_once dirname(__FILE__).'/../../../../../src/http/Request.class.php';
+require_once dirname(__FILE__).'/../../../../../src/http/Response.class.php';
 
 /**
  * Test class for test.
