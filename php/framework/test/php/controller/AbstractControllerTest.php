@@ -1,9 +1,9 @@
 <?php
 require_once 'PHPUnit/Framework.php';
 
-require_once '/Users/travi/development/include/php/framework/src/controller/abstract.controller.php';
-require_once '/home/travi/include/php/framework/src/http/Request.class.php';
-require_once '/home/travi/include/php/framework/src/exception/NotFound.exception.php';
+require_once dirname(__FILE__).'/../../../src/controller/abstract.controller.php';
+require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
+require_once dirname(__FILE__).'/../../../src/exception/NotFound.exception.php';
 
 /**
  * Test class for AbstractController.
