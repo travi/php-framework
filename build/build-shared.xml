@@ -109,6 +109,61 @@
         </exec>
     </target>
 
+    <target name="sshFromMac">
+        <property name="keyfile" value="${mac.keyfile}"/>
+        <property file="/Users/travi/properties.properties"/>
+    </target>
+
+    <target name="deploy" depends="dist">
+        <scp
+            file="${dist.dir}/site.zip"
+            todir="${server.username}@${server.host}:${server.path}"
+            trust="yes"
+            sftp="true"
+            preserveLastmodified="true"
+            keyfile="${keyfile}"
+            passphrase="${passphrase}"
+        />
+        <sshexec
+            host="${server.host}"
+            username="${server.username}"
+            keyfile="${keyfile}"
+            passphrase="${passphrase}"
+            trust="true"
+            commandResource="deploy.txt"
+        />
+    </target>
+
+    <target name="dist" depends="build">
+        <antcall target="minify"/>
+        <antcall target="dist.zip"/>
+    </target>
+
+    <target name="build" depends="clean,createBuildDirs">
+        <copy todir="${building.dir}" preservelastmodified="true">
+            <fileset dir="${site.dir}">
+                <exclude name="build/**"/>
+                <exclude name="test/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="createBuildDirs">
+        <mkdir dir="${building.dir}"/>
+    </target>
+
+    <target name="createDistDirs">
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="dist.zip">
+        <zip
+            destfile="${dist.dir}/site.zip"
+            basedir="${building.dir}"
+            update="true"
+        />
+    </target>
+
     <target name="clean">
         <delete dir="${build.logs}"/>
         <delete dir="${build.dir}/coverage"/>
