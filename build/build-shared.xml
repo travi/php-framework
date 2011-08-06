@@ -37,6 +37,16 @@
         </classpath>
     </taskdef>
 
+    <path id="liquibasetasks.classpath">
+        <fileset dir="${ant.lib}">
+            <include name="${liquibase.jar}"/>
+            <include name="${mysqlDriver.jar}"/>
+        </fileset>
+    </path>
+    <taskdef resource="liquibasetasks.properties">
+        <classpath refid="liquibasetasks.classpath"/>
+    </taskdef>
+
     <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
 
     <!--This is defined to be an empty fileset to keep jsLint from breaking
@@ -163,6 +173,22 @@
             update="true"
         />
     </target>
+
+    <macrodef name="update-site-database">
+        <attribute name="database"/>
+        <sequential>
+            <updateDatabase
+                changeLogFile="${db.changelog.file}"
+                driver="com.mysql.jdbc.Driver"
+                url="jdbc:mysql://${database.url}:3306/@{database}"
+                username="${database.username}"
+                password="${database.password}"
+                promptOnNonLocalDatabase="${prompt.user.if.not.local.database}"
+                dropFirst="false"
+                classpathref="liquibasetasks.classpath"
+        />
+        </sequential>
+    </macrodef>
 
     <target name="clean">
         <delete dir="${build.logs}"/>
