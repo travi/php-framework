@@ -176,9 +176,10 @@
 
     <macrodef name="update-site-database">
         <attribute name="database"/>
+        <attribute name="changeLogFile"/>
         <sequential>
             <updateDatabase
-                changeLogFile="${db.changelog.file}"
+                changeLogFile="@{changeLogFile}"
                 driver="com.mysql.jdbc.Driver"
                 url="jdbc:mysql://${database.url}:3306/@{database}"
                 username="${database.username}"
