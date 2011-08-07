@@ -151,10 +151,7 @@
 
     <target name="build" depends="clean,createBuildDirs">
         <copy todir="${building.dir}" preservelastmodified="true">
-            <fileset dir="${site.dir}">
-                <exclude name="build/**"/>
-                <exclude name="test/**"/>
-            </fileset>
+            <fileset refid="to.deploy"/>
         </copy>
     </target>
 

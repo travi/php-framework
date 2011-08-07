@@ -25,22 +25,28 @@
         <include name="**/*.qunit" />
     </fileset>
 
+    <fileset id="to.deploy" dir="${shared.dir}/../">
+        <include name="php/**"/>
+        <include name="client/**"/>
+        <include name="config/**"/>
+    </fileset>
+
     <target name="minify">
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
-            outputfolder="../client/min/css/" >
-            <fileset dir="../client/css/" >
+            outputfolder="${building.dir}/client/min/css/" >
+            <fileset dir="${building.dir}/client/css/" >
                 <include name="**/*.css" />
             </fileset>
         </yuicompress>
         <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
-            outputfolder="../client/min/js/" >
-            <fileset dir="../client/js/" >
+            outputfolder="${building.dir}/client/min/js/" >
+            <fileset dir="${building.dir}/client/js/" >
                 <include name="**/*.js" />
                 <include name="**/*.css" />
             </fileset>
         </yuicompress>
-        <copy todir="../client/min/js/jquery/plugins/wymeditor/skins/silver/images">
-            <fileset dir="../client/js/jquery/plugins/wymeditor/skins/silver/images"/>
+        <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/skins/silver/images">
+            <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
     </target>
 
@@ -65,5 +71,9 @@
               failonerror="true">
             <arg line="--log-pmd ${build.logs}/pmd-cpd-legacy.xml ."/>
         </exec>
+    </target>
+
+    <target name="deploy-framework">
+        <antcall target="deploy"/>
     </target>
 </project>

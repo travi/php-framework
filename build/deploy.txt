@@ -1,0 +1,6 @@
+unzip -qq /home/travi/deploy/framework/site.zip -d /home/travi/deploy/framework/
+rm -rf /home/travi/framework_old
+mv /home/travi/include /home/travi/framework_old
+rm /home/travi/deploy/framework/site.zip
+mkdir /home/travi/include
+mv /home/travi/deploy/framework/* /home/travi/include/
