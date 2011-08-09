@@ -34,6 +34,8 @@ $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
 $config['debug'] = true;         //TODO: make this automated based on environment
 $config['docRoot'] = DOC_ROOT;
 
+$uiDeps = Spyc::YAMLLoad(dirname(__FILE__).'/../../../../config/uiDependencies.yaml');
+
 //Add Dependencies
 $container->dependencies()->set('config', $config);
 $container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);

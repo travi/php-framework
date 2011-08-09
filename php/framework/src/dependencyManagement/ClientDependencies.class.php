@@ -10,7 +10,11 @@ class ClientDependencies
 
         $this->flattenDeps($uiDeps);
 
-        $this->jsNeeds['jqueryUiTheme']['local'] = JQUERY_UI_THEME;
+        if (defined(JQUERY_UI_THEME)) {
+            $this->jsNeeds['jqueryUiTheme']['local'] = JQUERY_UI_THEME;
+        } else {
+            $this->jsNeeds['jqueryUiTheme']['local'] = '/resources/css/jquery-ui-theme/jquery-ui.css';
+        }
         $this->jsNeeds['jcarsouselSkin']['local'] = JCAROUSEL_SKIN;
     }
 

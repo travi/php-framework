@@ -8,7 +8,7 @@
         {if (!empty($navLink['subLinks']))}
                     <ul>
             {foreach key=subItem item=subLink from=$navLink['subLinks']}
-                         <li><a href="{$subLink['link']}">{$subItem}</a></li>
+                         <li><a href="{$navLink['link']}{$subLink}">{$subItem}</a></li>
             {/foreach}
                     </ul>
         {/if}
