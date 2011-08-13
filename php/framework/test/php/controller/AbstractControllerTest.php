@@ -49,7 +49,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException NotFoundException
      */
-    public function testDoAction()
+    public function testDoActionGivesNotFoundException()
     {
         $this->controller->doAction($this->requestStub, $this->responseStub);
     }

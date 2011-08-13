@@ -7,13 +7,15 @@ abstract class AbstractController
      * @param $response Response
      * @return void
      */
-    public function doAction(&$request, &$response)
+    public function doAction(&$request, &$response, $action = '', $extra)
     {
-        $action = $request->getAction();
+        if (empty($action)) {
+            $action = $request->getAction();
+        }
 
         if (method_exists($this, $action)) {
             $response->loadPageDependencies(get_class($this), $action);
-            $this->$action($request, $response);
+            $this->$action($request, $response, $extra);
         } else {
             throw new NotFoundException($action . ' Action Not Found!');
         }

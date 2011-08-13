@@ -69,11 +69,11 @@ class FrontController
         } catch (NotFoundException $e) {
             include_once dirname(__FILE__).'/../error.controller.php';
             $error = new ErrorController();
-            $error->error404($this->Request, $this->Response, $e);
+            $error->doAction($this->Request, $this->Response, 'error404', $e);
         } catch (Exception $e) {
             include_once dirname(__FILE__).'/../error.controller.php';
             $error = new ErrorController();
-            $error->error500($this->Request, $this->Response, $e);
+            $error->doAction($this->Request, $this->Response, 'error500', $e);
         }
     }
  
