@@ -12,6 +12,7 @@ class Response extends AbstractResponse
 
     /** @var string */
     private $tagLine;
+    private $config;
 
     public function __construct($config)
     {
@@ -32,7 +33,8 @@ class Response extends AbstractResponse
         //temporarily set smartyConfig to work around the fact that
         // abstractResponse.class is currently being used
         $this->smartyConfig = $config['smarty'];
-        
+
+        $this->config = $config;
     }
 
     private function loadCustomFonts($config)
@@ -62,5 +64,19 @@ class Response extends AbstractResponse
     public function respond()
     {
         $this->Display();
+    }
+
+    public function loadPageDependencies($controller, $action)
+    {
+        $pageDeps = $this->config['uiDeps']['pages'];
+        $this->dependencyManager->addDependencies($pageDeps['site']);
+        $this->dependencyManager->addDependencies(
+            $pageDeps[strtolower($controller)][$action]
+        );
+    }
+
+    public function setConfig($config)
+    {
+        $this->config = $config;
     }
 }

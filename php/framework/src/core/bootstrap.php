@@ -1,9 +1,4 @@
 <?php
-/**
- * User: travi
- * Date: Jan 8, 2011
- * Time: 10:08:35 AM
- */
 
 require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../http/Request.class.php';
@@ -35,6 +30,9 @@ $config['debug'] = true;         //TODO: make this automated based on environmen
 $config['docRoot'] = DOC_ROOT;
 
 $uiDeps = Spyc::YAMLLoad(dirname(__FILE__).'/../../../../config/uiDependencies.yaml');
+
+$config['uiDeps']['widgets'] = $uiDeps;
+$config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.yml');
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);

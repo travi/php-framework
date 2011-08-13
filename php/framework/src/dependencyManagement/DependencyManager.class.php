@@ -161,6 +161,11 @@ class DependencyManager
                 $this->addJavaScript($script);
             }
         }
+        if (!empty($dependencies['js'])) {
+            foreach ($dependencies['js'] as $script) {
+                $this->addJavaScript($script);
+            }
+        }
         if (!empty($dependencies['jsInits'])) {
             foreach ($dependencies['jsInits'] as $init) {
                 $this->addJsInit($init);

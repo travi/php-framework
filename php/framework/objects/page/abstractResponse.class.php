@@ -185,6 +185,8 @@ abstract class AbstractResponse
     {
         if (isset($this->dependencyManager)) {
             return $this->dependencyManager->getDependencies($category);
+        } else {
+            return array();
         }
     }
 

@@ -76,5 +76,43 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             'This test has not been implemented yet.'
         );
     }
+
+    public function testLoadPageDependenciesAddsFromList()
+    {
+        $anyController = 'testController';
+        $anyAction = 'testAction';
+        $jsDeps = array(
+            'dep1',
+            'dep2',
+            'dep3'
+        );
+        $siteWidgets = array(
+            'siteWidget'
+        );
+
+        $this->response->setConfig(
+            array(
+                 'uiDeps' => array(
+                     'pages' => array(
+                         'site' => array(
+                             'js' => $siteWidgets
+                         ),
+                         strtolower($anyController) => array(
+                             $anyAction => array(
+                                 'js' => $jsDeps
+                             )
+                         )
+                     )
+                 )
+            )
+        );
+
+        $this->response->loadPageDependencies($anyController, $anyAction);
+
+        $this->assertSame(
+            array_merge($siteWidgets, $jsDeps),
+            $this->response->getDependencyList('js')
+        );
+    }
 }
 ?>

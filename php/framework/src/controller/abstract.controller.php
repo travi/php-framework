@@ -12,6 +12,7 @@ abstract class AbstractController
         $action = $request->getAction();
 
         if (method_exists($this, $action)) {
+            $response->loadPageDependencies(get_class($this), $action);
             $this->$action($request, $response);
         } else {
             throw new NotFoundException($action . ' Action Not Found!');
