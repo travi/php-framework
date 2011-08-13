@@ -37,19 +37,19 @@
         $('a.item-action').click();
 
         //Verify
-        same($('form').length, 1, 'form exists');
+        strictEqual($('form').length, 1, 'form exists');
         ok($('form').is(':not(:visible)'), "form no longer visible");
         ok($("li.remove-item a.item-action").is(':visible'), "link visible");
-        same($('#submitVerify').length, 1, "click submits form");
+        strictEqual($('#submitVerify').length, 1, "click submits form");
     });
     test("Ajax submission", function () {
         expect(2);
         $('#scratch').bind('entityRemoved', function () {
-            same($('.entityList>li').length, 0, 'Entity removed from list');
+            strictEqual($('.entityList>li').length, 0, 'Entity removed from list');
             start();
         });
         $('a.item-action').click();
-        same($('.entityList>li').length, 1, 'Correct starting number of entities in list');
+        strictEqual($('.entityList>li').length, 1, 'Correct starting number of entities in list');
 
         //Exercise
         stop();
@@ -71,7 +71,7 @@
         expect(5);
 
         //Verify
-        same($('#confirmation').length, 1, 'confirmation div exists');
+        strictEqual($('#confirmation').length, 1, 'confirmation div exists');
         ok($('#confirmation').is(':not(:visible)'), "confirmation not shown");
 
         //Exercise
@@ -79,8 +79,8 @@
 
         //Verify
         ok($('#confirmation').is(':visible'), "confirmation shown");
-        same($('div.ui-widget-overlay').length, 1, 'is modal');
-        same($('#confirmation').dialog('option', 'modal'), true, 'is modal');
+        strictEqual($('div.ui-widget-overlay').length, 1, 'is modal');
+        strictEqual($('#confirmation').dialog('option', 'modal'), true, 'is modal');
     });
     test("confirmation button text", function () {
         //Setup
@@ -89,8 +89,8 @@
         expect(2);
 
         //Verify
-        same(travi.framework.entityList.getButtonText(), 'Remove', "Button text reported correctly");
-        same($('#confirmation').dialog('option', 'buttons')[0].text, 'Remove', "Button text displayed correctly");
+        strictEqual(travi.framework.entityList.getButtonText(), 'Remove', "Button text reported correctly");
+        strictEqual($('#confirmation').dialog('option', 'buttons')[0].text, 'Remove', "Button text displayed correctly");
     });
     test("confirmation message", function () {
         //Setup
@@ -98,9 +98,9 @@
         expect(2);
 
         //Verify
-        same($('#confirmation').text(), 'Are you sure you wish to REMOVE this announcement?',
+        strictEqual($('#confirmation').text(), 'Are you sure you wish to REMOVE this announcement?',
                 "Confirmation message correct");
-        same($('#confirmation').dialog('option', 'title'), 'Are you sure?', "Title text correct");
+        strictEqual($('#confirmation').dialog('option', 'title'), 'Are you sure?', "Title text correct");
     });
     module("Paging", {
         setup: function () {

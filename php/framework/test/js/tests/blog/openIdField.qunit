@@ -17,10 +17,10 @@
         add_openid_to_comment_form();
 
         //Verify
-        same($('#url').attr('maxlength'), 100, "Max length set properly on openid field");
+        strictEqual($('#url').attr('maxlength'), 100, "Max length set properly on openid field");
         ok($('#commentform').hasClass('openid'), "OpenID class applied to comment form");
-        same($('#commentform #openid_enabled_link').length, 1, "Toggle link added");
-        same($('#commentform #openid_text').length, 1, "Explanation text added");
+        strictEqual($('#commentform #openid_enabled_link').length, 1, "Toggle link added");
+        strictEqual($('#commentform #openid_text').length, 1, "Explanation text added");
         ok($('#commentform #openid_text').is(':hidden'), "Explanation hidden");
 
         //Exercise
