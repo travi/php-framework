@@ -87,7 +87,7 @@
     <target name="jsLint">
         <mkdir dir="${build.logs}"/>
         <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
-            <predef>${jslint.predef}</predef>
+            <predef>${jslint.predef},${jslint.predef.site}</predef>
             <formatter type="plain" />
             <formatter type="checkstyle" destfile="${build.logs}/jslint.xml" />
             <fileset refid="js.files"/>
