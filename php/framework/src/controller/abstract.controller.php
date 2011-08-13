@@ -5,9 +5,11 @@ abstract class AbstractController
     /**
      * @param $request Request
      * @param $response Response
+     * @param string $action
+     * @param string $extra
      * @return void
      */
-    public function doAction(&$request, &$response, $action = '', $extra)
+    public function doAction(&$request, &$response, $action = '', $extra = '')
     {
         if (empty($action)) {
             $action = $request->getAction();
