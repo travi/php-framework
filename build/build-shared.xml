@@ -124,6 +124,24 @@
         <property file="/Users/travi/properties.properties"/>
     </target>
 
+    <target name="toQA">
+        <property name="database.url" value="${qa.database.url}"/>
+        <property name="database.username" value="${qa.database.username}"/>
+        <property name="database.password" value="${qa.database.password}"/>
+    </target>
+
+    <target name="toProduction">
+        <property name="database.url" value="${prod.database.url}"/>
+        <property name="database.username" value="${prod.database.username}"/>
+        <property name="database.password" value="${prod.database.password}"/>
+    </target>
+
+    <target name="toLocal">
+        <property name="database.url" value="${local.database.url}"/>
+        <property name="database.username" value="${local.database.username}"/>
+        <property name="database.password" value="${local.database.password}"/>
+    </target>
+
     <target name="deploy" depends="dist">
         <scp
             file="${dist.dir}/site.zip"
