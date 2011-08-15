@@ -157,7 +157,7 @@ class Uploader
         $status = "good";
         $msg = "Upload passed image specific requirements";
 
-        return array($status,$msg);
+        return array($status, $msg);
     }
 
     function getInsertId()
@@ -226,7 +226,7 @@ class Uploader
     }
 
     // put two slashes (//) in front of the ones you never want to accept
-    function acceptedMimetype($docType,$mimetype)
+    function acceptedMimetype($docType, $mimetype)
     {
         $mimes = array();
 
