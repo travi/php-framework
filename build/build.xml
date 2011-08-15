@@ -48,7 +48,7 @@
         <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/skins/silver/images">
             <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
-        <copy todir="${building.dir}/client/js/min/jquery/ui/themes/smoothness/images">
+        <copy todir="${building.dir}/client/min/js/jquery/ui/themes/smoothness/images">
             <fileset dir="${building.dir}/client/js/jquery/ui/themes/smoothness/images"/>
         </copy>
     </target>
