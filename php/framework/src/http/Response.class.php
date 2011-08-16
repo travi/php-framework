@@ -19,7 +19,9 @@ class Response extends AbstractResponse
         $this->setSiteName($config['siteName']);
         $this->setSiteHeader($config['siteHeader']);
         $this->setTagLine($config['tagLine']);
-        $this->setTheme('/resources/css/' . $config['theme']['site']);
+        if (!empty($config['theme']['site'])) {
+            $this->setTheme('/resources/css/' . $config['theme']['site']);
+        }
         $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
 
@@ -69,8 +71,8 @@ class Response extends AbstractResponse
     public function loadPageDependencies($controller, $action)
     {
         $pageDeps = $this->config['uiDeps']['pages'];
-        $this->dependencyManager->addDependencies($pageDeps['site']);
-        $this->dependencyManager->addDependencies(
+        $this->addDependencies($pageDeps['site']);
+        $this->addDependencies(
             $pageDeps[strtolower($controller)][$action]
         );
     }

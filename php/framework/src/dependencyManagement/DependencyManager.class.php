@@ -176,6 +176,11 @@ class DependencyManager
                 $this->addStyleSheet($style);
             }
         }
+        if (!empty($dependencies['css'])) {
+            foreach ($dependencies['css'] as $style) {
+                $this->addStyleSheet($style);
+            }
+        }
         if (!empty($dependencies['validations'])) {
                 $this->addValidations($dependencies['validations'], $component->getName());
         }

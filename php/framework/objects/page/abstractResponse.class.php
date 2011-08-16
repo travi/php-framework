@@ -192,13 +192,11 @@ abstract class AbstractResponse
 
     public function addDependencies($dependencies)
     {
-        $this->dependencyManager->addDependencies(
-            array(
-                 'scripts'   => $dependencies['scripts'],
-                 'styles'    => $dependencies['styles'],
-                 'jsInits'   => $dependencies['jsInits']
-            )
-        );
+        if (!isset($this->dependencyManager)) {
+            $this->dependencyManager = new DependencyManager();
+        }
+
+        $this->dependencyManager->addDependencies($dependencies);
         if (!empty($dependencies['links'])) {
             foreach ($dependencies['links'] as $link) {
                 $this->addLinkTag($link['link'], $link['rel'], $link['title'], $link['type']);
