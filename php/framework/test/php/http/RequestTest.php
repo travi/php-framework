@@ -54,6 +54,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('webmaster', $this->request->getAction());
     }
 
+    public function testGetActionDoesNotReturnQueryParameter()
+    {
+        $this->request->setURI('/about/?someQueryParameter=someValue');
+        $this->assertSame('index', $this->request->getAction());
+    }
+
     public function testControllerRoot()
     {
         $this->request->setURI('/about/');

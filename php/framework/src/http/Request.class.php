@@ -45,7 +45,7 @@ class Request
             $this->controller = $this->uriParts[1];
         }
 
-        if (empty($this->uriParts[2])) {
+        if (empty($this->uriParts[2]) || strpos($this->uriParts[2], '?') === 0) {
             $this->action = 'index';
         } else {
             $this->action = $this->uriParts[2];
