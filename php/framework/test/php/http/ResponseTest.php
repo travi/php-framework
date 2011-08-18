@@ -89,6 +89,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $pageStyles = array(
             'page style sheet'
         );
+        $pageStyle = 'page.css';
         $siteWidgets = array(
             'siteWidget'
         );
@@ -103,7 +104,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
                          strtolower($anyController) => array(
                              $anyAction => array(
                                  'js' => $jsDeps,
-                                 'css' => $pageStyles
+                                 'css' => $pageStyles,
+                                 'pageStyle' => $pageStyle
                              )
                          )
                      )
@@ -117,10 +119,10 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             array_merge($siteWidgets, $jsDeps),
             $this->response->getDependencyList('js')
         );
+        $this->assertSame($pageStyle, $this->response->getPageStyle());
         $this->assertSame(
-            array_merge($pageStyles),
+            array_merge($pageStyles, array('thisPage' => $pageStyle)),
             $this->response->getDependencyList('css')
         );
     }
 }
-?>

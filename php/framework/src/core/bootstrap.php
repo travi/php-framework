@@ -29,6 +29,8 @@ $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
 $config['debug'] = true;         //TODO: make this automated based on environment
 $config['docRoot'] = DOC_ROOT;
 
+//global vars for legacy stuff
+//TODO: clean this up once refactored
 $uiDeps = Spyc::YAMLLoad(dirname(__FILE__).'/../../../../config/uiDependencies.yaml');
 $siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
 
@@ -37,6 +39,7 @@ $config['uiDeps']['siteWidgets'] = $siteUiDeps;
 $config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.yml');
 
 //to make legacy stuff work
+//TODO: remove this once refactored
 $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
 //Add Dependencies

@@ -72,6 +72,7 @@ class Response extends AbstractResponse
     {
         $pageDeps = $this->config['uiDeps']['pages'];
         $this->addDependencies($pageDeps['site']);
+        $this->setPageStyle($pageDeps[strtolower($controller)][$action]['pageStyle']);
         $this->addDependencies(
             $pageDeps[strtolower($controller)][$action]
         );
@@ -80,5 +81,10 @@ class Response extends AbstractResponse
     public function setConfig($config)
     {
         $this->config = $config;
+    }
+
+    public function getPageStyle()
+    {
+        return $this->dependencyManager->getPageStyle();
     }
 }

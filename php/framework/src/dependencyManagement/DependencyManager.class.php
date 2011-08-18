@@ -218,4 +218,9 @@ class DependencyManager
             $this->requirementLists[$category] = array();
         }
     }
+
+    public function getPageStyle()
+    {
+        return $this->requirementLists['css']['thisPage'];
+    }
 }
