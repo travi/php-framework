@@ -490,6 +490,7 @@ abstract class AbstractResponse
 
         if (strstr($acceptHeader, "application/json")) {
             header('Content-Type: application/json');
+            //TODO: if content is array of size 1, should only encode that element rather than the array
             echo json_encode($this->getContent());
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
