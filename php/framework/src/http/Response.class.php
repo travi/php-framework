@@ -75,7 +75,7 @@ class Response extends AbstractResponse
         $thisPage = $pageDeps[strtolower($controller)][$action];
 
         $this->addDependencies($siteWide);
-        if(!empty($thisPage['pageStyle'])) {
+        if (!empty($thisPage['pageStyle'])) {
             $this->setPageStyle($thisPage['pageStyle']);
         }
         $this->addDependencies($thisPage);
