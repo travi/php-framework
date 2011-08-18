@@ -30,9 +30,14 @@ $config['debug'] = true;         //TODO: make this automated based on environmen
 $config['docRoot'] = DOC_ROOT;
 
 $uiDeps = Spyc::YAMLLoad(dirname(__FILE__).'/../../../../config/uiDependencies.yaml');
+$siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
 
 $config['uiDeps']['widgets'] = $uiDeps;
+$config['uiDeps']['siteWidgets'] = $siteUiDeps;
 $config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.yml');
+
+//to make legacy stuff work
+$uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
