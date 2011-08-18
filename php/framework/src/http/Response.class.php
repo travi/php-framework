@@ -71,11 +71,14 @@ class Response extends AbstractResponse
     public function loadPageDependencies($controller, $action)
     {
         $pageDeps = $this->config['uiDeps']['pages'];
-        $this->addDependencies($pageDeps['site']);
-        $this->setPageStyle($pageDeps[strtolower($controller)][$action]['pageStyle']);
-        $this->addDependencies(
-            $pageDeps[strtolower($controller)][$action]
-        );
+        $siteWide = $pageDeps['site'];
+        $thisPage = $pageDeps[strtolower($controller)][$action];
+
+        $this->addDependencies($siteWide);
+        if(!empty($thisPage['pageStyle'])) {
+            $this->setPageStyle($thisPage['pageStyle']);
+        }
+        $this->addDependencies($thisPage);
     }
 
     public function setConfig($config)

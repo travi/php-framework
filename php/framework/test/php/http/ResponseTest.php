@@ -7,6 +7,21 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 {
     private $someTitle = "some title";
     private $someSiteName = 'some site name';
+    private $jsDeps = array(
+        'dep1',
+        'dep2',
+        'dep3'
+    );
+    private $pageStyles = array(
+        'page style sheet'
+    );
+    private $pageStyle = 'page.css';
+    private $siteWidgets = array(
+        'siteWidget'
+    );
+    private $anyController = 'testController';
+    private $anyAction = 'testAction';
+
     /**
      * @var Response
      */
@@ -79,33 +94,18 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testLoadPageDependenciesAddsFromList()
     {
-        $anyController = 'testController';
-        $anyAction = 'testAction';
-        $jsDeps = array(
-            'dep1',
-            'dep2',
-            'dep3'
-        );
-        $pageStyles = array(
-            'page style sheet'
-        );
-        $pageStyle = 'page.css';
-        $siteWidgets = array(
-            'siteWidget'
-        );
-
         $this->response->setConfig(
             array(
                  'uiDeps' => array(
                      'pages' => array(
                          'site' => array(
-                             'js' => $siteWidgets
+                             'js' => $this->siteWidgets
                          ),
-                         strtolower($anyController) => array(
-                             $anyAction => array(
-                                 'js' => $jsDeps,
-                                 'css' => $pageStyles,
-                                 'pageStyle' => $pageStyle
+                         strtolower($this->anyController) => array(
+                             $this->anyAction => array(
+                                 'js' => $this->jsDeps,
+                                 'css' => $this->pageStyles,
+                                 'pageStyle' => $this->pageStyle
                              )
                          )
                      )
@@ -113,15 +113,44 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $this->response->loadPageDependencies($anyController, $anyAction);
+        $this->response->loadPageDependencies($this->anyController, $this->anyAction);
 
         $this->assertSame(
-            array_merge($siteWidgets, $jsDeps),
+            array_merge($this->siteWidgets, $this->jsDeps),
             $this->response->getDependencyList('js')
         );
-        $this->assertSame($pageStyle, $this->response->getPageStyle());
+        $this->assertSame($this->pageStyle, $this->response->getPageStyle());
         $this->assertSame(
-            array_merge($pageStyles, array('thisPage' => $pageStyle)),
+            array_merge($this->pageStyles, array('thisPage' => $this->pageStyle)),
+            $this->response->getDependencyList('css')
+        );
+    }
+
+    public function testPageStyleNotSetIfEmpty()
+    {
+        $this->response->setConfig(
+            array(
+                 'uiDeps' => array(
+                     'pages' => array(
+                         'site' => array(
+                             'js' => $this->siteWidgets
+                         ),
+                         strtolower($this->anyController) => array(
+                             $this->anyAction => array(
+                                 'js' => $this->jsDeps,
+                                 'css' => $this->pageStyles
+                             )
+                         )
+                     )
+                 )
+            )
+        );
+
+        $this->response->loadPageDependencies($this->anyController, $this->anyAction);
+
+        $this->assertSame(null, $this->response->getPageStyle());
+        $this->assertSame(
+            $this->pageStyles,
             $this->response->getDependencyList('css')
         );
     }
