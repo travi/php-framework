@@ -1,8 +1,8 @@
 <?php
 
-class Gallery extends ContentObject
+class GalleryComponent extends ContentObject
 {
-    function Gallery()
+    function GalleryComponent()
     {
         $this->addJavaScript('gallery');
     }

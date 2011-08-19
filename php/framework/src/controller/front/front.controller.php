@@ -1,9 +1,4 @@
 <?php
-/*
- * Created on Dec 14, 2008
- * By Matt Travi
- * programmer@travi.org
- */
 
 require_once dirname(__FILE__) . '/../../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../abstract.controller.php';
