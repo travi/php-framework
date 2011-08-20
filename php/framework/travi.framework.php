@@ -50,11 +50,6 @@ $uiDeps = Spyc::YAMLLoad(INCLUDE_PATH.'config/uiDependencies.yaml');
 $siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
 $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
-//Store SCM Revision number
-$version = exec('svnversion');
-$urlPrint = md5($version);
-
-
 
 function importFrameworkObjects($relPath)
 {

@@ -28,7 +28,6 @@ abstract class AbstractResponse
     protected $content = array();
     protected $currentSiteSection;
     protected $smartyConfig;
-    protected $urlFingerprint;
     protected $smarty;
 
 
@@ -59,16 +58,6 @@ abstract class AbstractResponse
     public function yaml2Array($file)
     {
         return Spyc::YAMLLoad($file);
-    }
-
-    public function setUrlFingerprint($fingerprint)
-    {
-        $this->urlFingerprint = $fingerprint;
-    }
-
-    public function getUrlFingerprint()
-    {
-        return $this->urlFingerprint;
     }
 
     public function setSiteName($name)
@@ -497,6 +486,7 @@ abstract class AbstractResponse
         } else {
             if (isset($this->dependencyManager)) {
                 $this->dependencyManager->resolveContentDependencies($this->getContent());
+                $this->dependencyManager->addCacheBusters();
             }
 
             $smarty = $this->getSmarty();

@@ -17,14 +17,14 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 {foreach item=alt from=$page->getAltStyles()}
-        <link   type="text/css" rel="alternate stylesheet" media="screen" href="{$page->getProperFile($alt)}?{$page->getUrlFingerprint()}" />
+        <link   type="text/css" rel="alternate stylesheet" media="screen" href="{$page->getProperFile($alt)}" />
 {/foreach}
 {foreach item=style from=$page->getStylesheets()}
-        <link   type="text/css" rel="stylesheet" media="screen" href="{$page->getProperFile($style)}?{$page->getUrlFingerprint()}" />
+        <link   type="text/css" rel="stylesheet" media="screen" href="{$page->getProperFile($style)}" />
 {/foreach}
         <script type="text/javascript" src="/resources/shared/js/modernizr/modernizr.min.js"> </script>
 {foreach item=script from=$page->getScripts()}
-        <script type="text/javascript" src="{$page->getProperFile($script)}?{$page->getUrlFingerprint()}" > </script>
+        <script type="text/javascript" src="{$page->getProperFile($script)}" > </script>
 {/foreach}
 {include file='head/jsInit.tpl'}
 {include file='head/clientTemplates.tpl'}

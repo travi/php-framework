@@ -6,6 +6,9 @@ class DependencyManager
     private $clientDependencyDefinitions;
     private $requirementLists = array();
 
+    const RESOURCES = '/resources';
+    const SHARED_RESOURCES = '/resources/shared';
+
     public function __construct()
     {
         $this->clientDependencyDefinitions = new ClientDependencies();
@@ -201,6 +204,29 @@ class DependencyManager
             }
         } else {
             $this->resolveComponentDependencies($content);
+        }
+    }
+
+    public function addCacheBusters()
+    {
+        foreach ($this->requirementLists as $key => $list) {
+            if ($key === 'css' || $key === 'js') {
+                foreach ($list as $index => $dependency) {
+                    if (strpos($dependency, self::RESOURCES) === 0) {
+                        if (strpos($dependency, self::SHARED_RESOURCES) === 0) {
+                            $length = strlen(self::SHARED_RESOURCES);
+                            $pathToDependency = INCLUDE_PATH . 'client'
+                                                . substr($dependency, $length);
+                        } else {
+                            $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
+                        }
+
+                        if (file_exists($pathToDependency)) {
+                            $this->requirementLists[$key][$index] .= '?' . md5(filemtime($pathToDependency));
+                        }
+                    }
+                };
+            }
         }
     }
 
