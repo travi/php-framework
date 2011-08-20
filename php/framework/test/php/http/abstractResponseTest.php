@@ -49,13 +49,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testUrlFingerprint()
-    {
-        $fingerprint = 'aldkfjoewirhoig';
-        $this->object->setUrlFingerprint($fingerprint);
-        $this->assertSame($fingerprint, $this->object->getUrlFingerprint());
-    }
-
     public function testSiteName()
     {
         $siteName = 'siteName';
