@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: travi
- * Date: Dec 31, 2010
- * Time: 1:54:32 PM
- * To change this template use File | Settings | File Templates.
- */
-
 require_once dirname(__FILE__).'/ClientDependencies.class.php';
  
 class DependencyManager

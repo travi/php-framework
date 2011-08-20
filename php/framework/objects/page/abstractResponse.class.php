@@ -494,7 +494,7 @@ abstract class AbstractResponse
             echo json_encode($this->getContent());
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
-        } else /*if (strstr($acceptHeader, "text/html"))*/ {
+        } else {
             if (isset($this->dependencyManager)) {
                 $this->dependencyManager->resolveContentDependencies($this->getContent());
             }
