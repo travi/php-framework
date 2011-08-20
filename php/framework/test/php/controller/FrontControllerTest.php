@@ -30,6 +30,9 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
+        $requestStub->expects($this->once())
+            ->method('isAdmin')
+            ->will($this->returnValue(false));
 
         $responseStub = $this->getMock('Response');
         $responseStub->expects($this->once())

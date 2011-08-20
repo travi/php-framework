@@ -47,8 +47,12 @@ class FrontController
 
     private function dispatchToController()
     {
+        $extraPathParts = ($this->Request->isAdmin()) ? 'admin/' : '';
+
         $controllerName = $this->Request->getController();
-        $controllerPath = $this->config['docRoot'] . '../app/controller/'.$controllerName.'.controller.php';
+        $controllerPath = $this->config['docRoot'] . '../app/controller/'
+                          . $extraPathParts
+                          . $controllerName . '.controller.php';
 
         try {
             if (is_file($controllerPath)) {
@@ -84,7 +88,7 @@ class FrontController
                     . $this->Request->getController() . '/'
                     . $this->Request->getAction()
                     . '.tpl';
-        
+
         if (empty($template)
             && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
         ) {
