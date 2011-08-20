@@ -16,6 +16,8 @@ abstract class AbstractResponse
     protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
     protected $clientTemplates = array();
     private   $externalClientTemplates = array();
+    const LINK_ATTR_RSS_TYPE = 'application/rss+xml';
+    const LINK_ATTR_REL_ALTERNATE = 'alternate';
     /** @var DependencyManager */
     protected $dependencyManager;
     protected $stylesheets = array();
@@ -289,7 +291,7 @@ abstract class AbstractResponse
 
     public function addFeed($feed, $title='RSS')
     {
-        $this->addLinkTag($feed, 'alternate', $title, 'application/rss+xml');
+        $this->addLinkTag($feed, self::LINK_ATTR_REL_ALTERNATE, $title, self::LINK_ATTR_RSS_TYPE);
     }
 
     public function addMetaTag($tag)

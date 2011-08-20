@@ -9,6 +9,7 @@ require_once dirname(__FILE__).'/../dependencyManagement/DependencyManager.class
 class Response extends AbstractResponse
 {
     private $View;      //TODO: Object containing template, css, js, etc information
+    const SITE_FEED_KEY = 'Site Feed';
 
     /** @var string */
     private $tagLine;
@@ -21,6 +22,9 @@ class Response extends AbstractResponse
         $this->setTagLine($config['tagLine']);
         if (!empty($config['theme']['site'])) {
             $this->setTheme('/resources/css/' . $config['theme']['site']);
+        }
+        if (!empty($config['siteFeed'])) {
+            $this->defineSiteFeed($config['siteFeed']);
         }
         $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
@@ -89,5 +93,10 @@ class Response extends AbstractResponse
     public function getPageStyle()
     {
         return $this->dependencyManager->getPageStyle();
+    }
+
+    public function defineSiteFeed($feed)
+    {
+        $this->addFeed($feed, self::SITE_FEED_KEY);
     }
 }

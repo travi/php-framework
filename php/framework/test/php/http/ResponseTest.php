@@ -81,6 +81,33 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertSame('tagLine', $this->response->getTagLine());
     }
 
+    public function testRssTypeDefinition()
+    {
+        $this->assertSame('application/rss+xml', AbstractResponse::LINK_ATTR_RSS_TYPE);
+    }
+
+    public function testRelAttrOptionDefinition()
+    {
+        $this->assertSame('alternate', AbstractResponse::LINK_ATTR_REL_ALTERNATE);
+    }
+
+    public function testSiteFeed()
+    {
+        $this->response->defineSiteFeed('http://travi.org/rss/');
+
+        $this->assertSame(
+            $this->response->getLinkTags(),
+            array(
+                array(
+                     'link' => 'http://travi.org/rss/',
+                     'title' => Response::SITE_FEED_KEY,
+                     'type' => AbstractResponse::LINK_ATTR_RSS_TYPE,
+                     'rel' => AbstractResponse::LINK_ATTR_REL_ALTERNATE
+                )
+            )
+        );
+    }
+
     /**
      * @todo Implement testRespond().
      */
