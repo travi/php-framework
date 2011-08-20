@@ -31,33 +31,35 @@ class DependencyManager
     {
         $this->lazyInitializeList('js');
 
-        $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
+        if (!is_array($script)) {
+            $fileURI = $this->clientDependencyDefinitions->resolveFileURI($script);
+            if (!in_array($fileURI, $this->requirementLists['js'])) {
+                $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
 
-        if (!empty($dependencies)) {
-            if (!empty($dependencies['jsDependencies'])) {
-                foreach ($dependencies['jsDependencies'] as $dependency) {
-                    $this->addJavaScript($dependency);
+                if (!empty($dependencies)) {
+                    if (!empty($dependencies['jsDependencies'])) {
+                        foreach ($dependencies['jsDependencies'] as $dependency) {
+                            $this->addJavaScript($dependency);
+                        }
+                    }
+                    if (!empty($dependencies['cssDependencies'])) {
+                        foreach ($dependencies['cssDependencies'] as $dependency) {
+                            $this->addStyleSheet($dependency);
+                        }
+                    }
+                    if (!empty($dependencies['clientTemplates'])) {
+                        foreach ($dependencies['clientTemplates'] as $name => $dependency) {
+                            $this->addClientTemplate($name, $dependency);
+                        }
+                    }
+                    $script = $this->clientDependencyDefinitions->resolveFileURI($script);
                 }
+                array_push($this->requirementLists['js'], $script);
             }
-            if (!empty($dependencies['cssDependencies'])) {
-                foreach ($dependencies['cssDependencies'] as $dependency) {
-                    $this->addStyleSheet($dependency);
-                }
-            }
-            if (!empty($dependencies['clientTemplates'])) {
-                foreach ($dependencies['clientTemplates'] as $name => $dependency) {
-                    $this->addClientTemplate($name, $dependency);
-                }
-            }
-            $script = $this->clientDependencyDefinitions->resolveFileURI($script);
         }
-        if (!in_array($script, $this->requirementLists['js'])) {
-            array_push($this->requirementLists['js'], $script);
-        }
-
     }
 
-    public function addStyleSheet($sheet, $index="")
+    public function addStyleSheet($sheet, $index = "")
     {
         $this->lazyInitializeList('css');
 
@@ -151,6 +153,9 @@ class DependencyManager
 
     public function addDependencies($dependencies = array(), $component = null)
     {
+        if (!empty($dependencies['production']) && ENV === 'production') {
+            $this->addDependencies($dependencies['production']);
+        }
         if (!empty($dependencies['scripts'])) {
             foreach ($dependencies['scripts'] as $script) {
                 $this->addJavaScript($script);
