@@ -14,6 +14,8 @@ class Request
     private $controller;
     /** @var string */
     private $action;
+    /** @var int */
+    private $id;
 
     /**
      * @PdInject uri
@@ -50,6 +52,19 @@ class Request
         } else {
             $this->action = $this->uriParts[2];
         }
+
+        if (!empty($this->uriParts[3])) {
+            $this->setId($this->uriParts[3]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getController()
@@ -86,5 +101,13 @@ class Request
     public function isAdmin()
     {
         return $this->admin;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
