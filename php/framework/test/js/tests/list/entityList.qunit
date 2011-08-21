@@ -8,9 +8,9 @@
     });
 
     $.mockjax({
-        url: "index.php",
-//        contentType: 'text/json',
-        responseText: 'test'
+        url: "/admin/updates/45",
+        contentType: 'text/json',
+        responseText: {test: "test"}
     });
 
 
