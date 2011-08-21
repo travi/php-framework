@@ -2,6 +2,9 @@
  
 class Request
 {
+    const GET = 'GET';
+    const POST = 'POST';
+
     /** @var string */
     private $requestMethod;
     /** @var string */
@@ -110,4 +113,5 @@ class Request
     {
         return $this->id;
     }
+
 }
