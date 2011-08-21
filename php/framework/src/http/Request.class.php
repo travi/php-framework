@@ -91,8 +91,7 @@ class Request
      */
     public function setRequestMethod($method)
     {
-        if ($method === self::POST && !empty($_POST['_method']))
-        {
+        if ($method === self::POST && !empty($_POST['_method'])) {
             $method = strtoupper($_POST['_method']);
         }
         $this->requestMethod = $method;
