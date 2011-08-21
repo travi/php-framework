@@ -56,12 +56,12 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
         $this->assertSame(
             array(
                  "$('textarea.richEditor').wymeditor({
-                skin: 'silver',
-                updateSelector: '#Submit',
-                postInit: function (wym) {
-                    wym.fullscreen();
-                }
-            });"
+                    skin: 'silver',
+                    updateSelector: 'form',
+                    postInit: function (wym) {
+                        wym.fullscreen();
+                    }
+                 });"
             ),
             $this->object->getJsInits()
         );

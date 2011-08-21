@@ -11,12 +11,12 @@ class RichTextArea extends TextArea
         $this->addJavaScript('wymEditor-fullScreen');
         $this->addJsInit(
             "$('textarea.richEditor').wymeditor({
-                skin: 'silver',
-                updateSelector: 'form',
-                postInit: function (wym) {
-                    wym.fullscreen();
-                }
-            });"
+                    skin: 'silver',
+                    updateSelector: 'form',
+                    postInit: function (wym) {
+                        wym.fullscreen();
+                    }
+                });"
         );
         $this->setTemplate('components/form/richTextArea.tpl');
     }
