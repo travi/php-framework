@@ -19,7 +19,7 @@ class RichTextArea extends TextArea
         $this->addJsInit(
             "$('textarea.richEditor').wymeditor({
                 skin: 'silver',
-                updateSelector: '#Submit',
+                updateSelector: '#submit',
                 postInit: function (wym) {
                     wym.fullscreen();
                 }
