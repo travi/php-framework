@@ -61,7 +61,7 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
                     postInit: function (wym) {
                         wym.fullscreen();
                     }
-                 });"
+                });"
             ),
             $this->object->getJsInits()
         );

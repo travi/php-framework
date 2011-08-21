@@ -37,7 +37,7 @@ class AccordionTest extends PHPUnit_Framework_TestCase
             array(
                  'scripts'   => array('jqueryUi'),
                  'jsInits'   => array(
-                                    "$('.accordion').accordion({animated: 'easeslide', header: 'dt'});"
+                                    "$('.accordion').accordion();"
                  ),
                  'styles'    => array()
             ),
