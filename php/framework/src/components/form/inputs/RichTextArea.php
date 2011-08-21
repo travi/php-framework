@@ -1,12 +1,5 @@
 <?php
-/**
- * Created on Jan 26, 2011
- * By Matt Travi
- * programmer@travi.org
- */
-
 require_once 'TextArea.php';
- 
 
 class RichTextArea extends TextArea
 {
@@ -19,7 +12,7 @@ class RichTextArea extends TextArea
         $this->addJsInit(
             "$('textarea.richEditor').wymeditor({
                 skin: 'silver',
-                updateSelector: '#submit',
+                updateSelector: 'form',
                 postInit: function (wym) {
                     wym.fullscreen();
                 }

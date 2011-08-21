@@ -1,5 +1,5 @@
 if (typeof travi !== 'object') {
-	var travi = {};
+    var travi = {};
 }
 if (typeof travi.framework !== 'object') {
     travi.framework = {};
@@ -8,7 +8,7 @@ if (typeof travi.framework !== 'object') {
 travi.framework.entityList = (function () {
     "use strict";
     
-    var  buttonText,
+    var buttonText,
 
     setMessage = function (confirmation) {
         $("#confirmation").text(confirmation);
@@ -48,7 +48,8 @@ travi.framework.entityList = (function () {
                                     $(this).remove();
                                     $containingList.trigger('entityRemoved');
                                 });
-                        }
+                        },
+                        dataType: 'json'
                     });
                 }
             },

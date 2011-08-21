@@ -8,7 +8,8 @@
         resources = {
             jQuery: {
                 local: '/resources/shared/js/jquery/jquery.js',
-                remote: 'http://code.jquery.com/jquery-latest.js'
+                remote: '/resources/shared/js/jquery/jquery.js'
+//                remote: 'http://code.jquery.com/jquery-latest.js'
             },
             QUnit: {
                 local: '/resources/shared/js/qunit/qunit.js',
@@ -20,7 +21,8 @@
             },
             mockjax: {
                 local: '/resources/shared/js/jquery/plugins/mockjax/jquery.mockjax.js',
-                remote: 'http://code.appendto.com/plugins/jquery-mockjax/jquery.mockjax.js'
+                remote: '/resources/shared/js/jquery/plugins/mockjax/jquery.mockjax.js'
+//                remote: 'http://code.appendto.com/plugins/jquery-mockjax/jquery.mockjax.js'
             },
             templates: {
                 local: '/resources/shared/js/jquery/plugins/template/jquery.tmpl.js',

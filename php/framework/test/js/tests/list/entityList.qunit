@@ -53,7 +53,7 @@
 
         //Exercise
         stop();
-        $('.ui-dialog-buttonset button').eq(0).click();
+        $('.ui-dialog-buttonpane button').eq(0).click();
     });
     module("Remove Confirmation", {
         setup: function () {

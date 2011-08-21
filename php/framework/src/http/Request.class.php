@@ -4,6 +4,7 @@ class Request
 {
     const GET = 'GET';
     const POST = 'POST';
+    const DELETE = 'DELETE';
 
     /** @var string */
     private $requestMethod;
@@ -52,6 +53,9 @@ class Request
 
         if (empty($this->uriParts[2]) || strpos($this->uriParts[2], '?') === 0) {
             $this->action = 'index';
+        } elseif (is_numeric($this->uriParts[2])) {
+            $this->action = 'index';
+            $this->id = $this->uriParts[2];
         } else {
             $this->action = $this->uriParts[2];
         }
@@ -87,6 +91,10 @@ class Request
      */
     public function setRequestMethod($method)
     {
+        if ($method === self::POST && !empty($_POST['_method']))
+        {
+            $method = strtoupper($_POST['_method']);
+        }
         $this->requestMethod = $method;
     }
 
