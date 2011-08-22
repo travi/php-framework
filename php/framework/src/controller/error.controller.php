@@ -1,9 +1,4 @@
 <?php
-/**
- * Created on Jan 15, 2011
- * By Matt Travi
- * programmer@travi.org
- */
 require_once dirname(__FILE__).'/abstract.controller.php';
  
 class ErrorController extends AbstractController
