@@ -46,24 +46,23 @@ class RestClient
 
         try
         {
-            switch (strtoupper($this->verb))
-            {
-                case 'GET':
-                    $this->executeGet($ch);
-                    break;
-                case 'POST':
-                    $this->executePost($ch);
-                    break;
-                case 'PUT':
-                    $this->executePut($ch);
-                    break;
-                case 'DELETE':
-                    $this->executeDelete($ch);
-                    break;
-                default:
-                    throw new InvalidArgumentException(
-                        'Current verb (' . $this->verb . ') is an invalid REST verb.'
-                    );
+            switch (strtoupper($this->verb)) {
+            case 'GET':
+                $this->executeGet($ch);
+                break;
+            case 'POST':
+                $this->executePost($ch);
+                break;
+            case 'PUT':
+                $this->executePut($ch);
+                break;
+            case 'DELETE':
+                $this->executeDelete($ch);
+                break;
+            default:
+                throw new InvalidArgumentException(
+                    'Current verb (' . $this->verb . ') is an invalid REST verb.'
+                );
             }
         }
         catch (InvalidArgumentException $e)
