@@ -1,6 +1,7 @@
 <?php
  
-class RestClient {
+class RestClient
+{
     private $url;
     private $verb;
     private $requestBody;
@@ -20,12 +21,11 @@ class RestClient {
         $this->username          = null;
         $this->password          = null;
         $this->acceptType        = '';
-//        $this->acceptType        = 'application/json';
+        //$this->acceptType        = 'application/json';
         $this->responseBody      = null;
         $this->responseInfo      = null;
 
-        if ($this->requestBody !== null)
-        {
+        if ($this->requestBody !== null) {
             $this->buildPostBody();
         }
     }
@@ -61,7 +61,9 @@ class RestClient {
                     $this->executeDelete($ch);
                     break;
                 default:
-                    throw new InvalidArgumentException('Current verb (' . $this->verb . ') is an invalid REST verb.');
+                    throw new InvalidArgumentException(
+                        'Current verb (' . $this->verb . ') is an invalid REST verb.'
+                    );
             }
         }
         catch (InvalidArgumentException $e)
@@ -80,8 +82,7 @@ class RestClient {
     {
         $data = ($data !== null) ? $data : $this->requestBody;
 
-        if (!is_array($data))
-        {
+        if (!is_array($data)) {
             throw new InvalidArgumentException('Invalid data input for postBody.  Array expected');
         }
 
@@ -96,8 +97,7 @@ class RestClient {
 
     protected function executePost ($ch)
     {
-        if (!is_string($this->requestBody))
-        {
+        if (!is_string($this->requestBody)) {
             $this->buildPostBody();
         }
 
@@ -109,8 +109,7 @@ class RestClient {
 
     protected function executePut ($ch)
     {
-        if (!is_string($this->requestBody))
-        {
+        if (!is_string($this->requestBody)) {
             $this->buildPostBody();
         }
 
@@ -162,8 +161,7 @@ class RestClient {
 
     protected function setAuth (&$curlHandle)
     {
-        if ($this->username !== null && $this->password !== null)
-        {
+        if ($this->username !== null && $this->password !== null) {
             curl_setopt($curlHandle, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
             curl_setopt($curlHandle, CURLOPT_USERPWD, $this->username . ':' . $this->password);
         }
