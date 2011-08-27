@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:exif='http://schemas.google.com/photos/exif/2007'
+      xmlns:gphoto='http://schemas.google.com/photos/2007' xmlns:media='http://search.yahoo.com/mrss/'
+      xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns:gd='http://schemas.google.com/g/2005'
+      xmlns:gml='http://www.opengis.net/gml' xmlns:georss='http://www.georss.org/georss'
+      gd:etag='W/&quot;DEcFQHw7fip7ImA9Wx5SGU0.&quot;'>
+    <id>https://picasaweb.google.com/data/feed/user/traviz71/albumid/5504692126816759025</id>
+    <updated>2010-08-15T21:00:11.206Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album'/>
+    <title>Andrea &amp; I</title>
+    <subtitle/>
+    <rights>public</rights>
+    <icon>https://lh4.googleusercontent.com/-Ii1cVigA49I/TGSYUwDNbPE/AAAAAAAAGV4/EZ6QKMtAhIU/s160-c/AndreaI.jpg</icon>
+    <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'
+          href='https://picasaweb.google.com/data/feed/api/user/traviz71/albumid/5504692126816759025'/>
+    <link rel='alternate' type='text/html' href='https://picasaweb.google.com/107098889836094611170/AndreaI'/>
+    <link rel='http://schemas.google.com/photos/2007#slideshow' type='application/x-shockwave-flash'
+          href='https://picasaweb.google.com/s/c/bin/slideshow.swf?host=picasaweb.google.com&amp;RGB=0x000000&amp;feed=https%3A%2F%2Fpicasaweb.google.com%2Fdata%2Ffeed%2Fapi%2Fuser%2Ftraviz71%2Falbumid%2F5504692126816759025%3Falt%3Drss'/>
+    <link rel='http://schemas.google.com/photos/2007#report' type='text/html'
+          href='https://picasaweb.google.com/lh/reportAbuse?uname=traviz71&amp;aid=5504692126816759025'/>
+    <link rel='self' type='application/atom+xml'
+          href='https://picasaweb.google.com/data/feed/api/user/traviz71/albumid/5504692126816759025?start-index=1&amp;max-results=1000&amp;thumbsize=270c'/>
+    <author>
+        <name>Matt Travi</name>
+        <uri>https://picasaweb.google.com/107098889836094611170</uri>
+    </author>
+    <generator version='1.00' uri='http://picasaweb.google.com/'>Picasaweb</generator>
+    <openSearch:totalResults>3</openSearch:totalResults>
+    <openSearch:startIndex>1</openSearch:startIndex>
+    <openSearch:itemsPerPage>1000</openSearch:itemsPerPage>
+    <gphoto:id>5504692126816759025</gphoto:id>
+    <gphoto:name>AndreaI</gphoto:name>
+    <gphoto:location/>
+    <gphoto:access>public</gphoto:access>
+    <gphoto:timestamp>1255197299000</gphoto:timestamp>
+    <gphoto:numphotos>3</gphoto:numphotos>
+    <gphoto:user>traviz71</gphoto:user>
+    <gphoto:nickname>Matt Travi</gphoto:nickname>
+    <gphoto:allowPrints>true</gphoto:allowPrints>
+    <gphoto:allowDownloads>true</gphoto:allowDownloads>
+    <entry gd:etag='&quot;YD8qeyI.&quot;'>
+        <id>
+            https://picasaweb.google.com/data/entry/user/traviz71/albumid/5504692126816759025/photoid/5504692145830235490
+        </id>
+        <published>2010-08-13T00:56:55.000Z</published>
+        <updated>2010-08-13T00:57:12.322Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/>
+        <title>IMG_1245.JPG</title>
+        <summary/>
+        <content type='image/jpeg'
+                 src='https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/IMG_1245.JPG'/>
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/feed/api/user/traviz71/albumid/5504692126816759025/photoid/5504692145830235490'/>
+        <link rel='alternate' type='text/html'
+              href='https://picasaweb.google.com/107098889836094611170/AndreaI#5504692145830235490'/>
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html'
+              href='https://picasaweb.google.com/lh/photo/1WW_CuX6-axZH38ImM5O3w'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/entry/api/user/traviz71/albumid/5504692126816759025/photoid/5504692145830235490'/>
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html'
+              href='https://picasaweb.google.com/lh/reportAbuse?uname=traviz71&amp;aid=5504692126816759025&amp;iid=5504692145830235490'/>
+        <gphoto:id>5504692145830235490</gphoto:id>
+        <gphoto:albumid>5504692126816759025</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:width>1600</gphoto:width>
+        <gphoto:height>1200</gphoto:height>
+        <gphoto:size>247608</gphoto:size>
+        <gphoto:checksum>21d231bd</gphoto:checksum>
+        <gphoto:timestamp>1255179299000</gphoto:timestamp>
+        <gphoto:imageVersion>6066</gphoto:imageVersion>
+        <gphoto:commentingEnabled>true</gphoto:commentingEnabled>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='3' name='Attribution-Noncommercial-No Derivative'
+                        url='http://creativecommons.org/licenses/by-nc-nd/3.0'>ATTRIBUTION_NON_COMMERCIAL_NO_DERIVATIVES
+        </gphoto:license>
+        <exif:tags>
+            <exif:fstop>2.6</exif:fstop>
+            <exif:make>Canon</exif:make>
+            <exif:model>Canon PowerShot A530</exif:model>
+            <exif:exposure>0.016666668</exif:exposure>
+            <exif:flash>true</exif:flash>
+            <exif:focallength>5.8</exif:focallength>
+            <exif:time>1255179299000</exif:time>
+            <exif:imageUniqueID>004cd7f9bed099db44012e23eda6a4a9</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content
+                    url='https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/IMG_1245.JPG'
+                    height='1200' width='1600' type='image/jpeg' medium='image'/>
+            <media:credit>Matt Travi</media:credit>
+            <media:description type='plain'/>
+            <media:keywords/>
+            <media:thumbnail
+                    url='https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG'
+                    height='270' width='270'/>
+            <media:title type='plain'>IMG_1245.JPG</media:title>
+        </media:group>
+    </entry>
+    <entry gd:etag='&quot;YD8qeyI.&quot;'>
+        <id>
+            https://picasaweb.google.com/data/entry/user/traviz71/albumid/5504692126816759025/photoid/5504692170153974578
+        </id>
+        <published>2010-08-13T00:57:01.000Z</published>
+        <updated>2010-08-13T00:57:12.322Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/>
+        <title>IMG_1247.JPG</title>
+        <summary/>
+        <content type='image/jpeg'
+                 src='https://lh4.googleusercontent.com/-99e84LJALJ4/TGSYXRfm2zI/AAAAAAAAF7M/pBxR3VPV2fo/IMG_1247.JPG'/>
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/feed/api/user/traviz71/albumid/5504692126816759025/photoid/5504692170153974578'/>
+        <link rel='alternate' type='text/html'
+              href='https://picasaweb.google.com/107098889836094611170/AndreaI#5504692170153974578'/>
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html'
+              href='https://picasaweb.google.com/lh/photo/u1bgRRcalk84q-3hhGS8AA'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/entry/api/user/traviz71/albumid/5504692126816759025/photoid/5504692170153974578'/>
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html'
+              href='https://picasaweb.google.com/lh/reportAbuse?uname=traviz71&amp;aid=5504692126816759025&amp;iid=5504692170153974578'/>
+        <gphoto:id>5504692170153974578</gphoto:id>
+        <gphoto:albumid>5504692126816759025</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:width>1600</gphoto:width>
+        <gphoto:height>1200</gphoto:height>
+        <gphoto:size>333171</gphoto:size>
+        <gphoto:checksum>cfa618de</gphoto:checksum>
+        <gphoto:timestamp>1255179873000</gphoto:timestamp>
+        <gphoto:imageVersion>6067</gphoto:imageVersion>
+        <gphoto:commentingEnabled>true</gphoto:commentingEnabled>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='3' name='Attribution-Noncommercial-No Derivative'
+                        url='http://creativecommons.org/licenses/by-nc-nd/3.0'>ATTRIBUTION_NON_COMMERCIAL_NO_DERIVATIVES
+        </gphoto:license>
+        <exif:tags>
+            <exif:fstop>2.6</exif:fstop>
+            <exif:make>Canon</exif:make>
+            <exif:model>Canon PowerShot A530</exif:model>
+            <exif:exposure>0.016666668</exif:exposure>
+            <exif:flash>false</exif:flash>
+            <exif:focallength>5.8</exif:focallength>
+            <exif:time>1255179873000</exif:time>
+            <exif:imageUniqueID>c502e26df1b6441e6ef036f46b1ac1cf</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content
+                    url='https://lh4.googleusercontent.com/-99e84LJALJ4/TGSYXRfm2zI/AAAAAAAAF7M/pBxR3VPV2fo/IMG_1247.JPG'
+                    height='1200' width='1600' type='image/jpeg' medium='image'/>
+            <media:credit>Matt Travi</media:credit>
+            <media:description type='plain'/>
+            <media:keywords/>
+            <media:thumbnail
+                    url='https://lh4.googleusercontent.com/-99e84LJALJ4/TGSYXRfm2zI/AAAAAAAAF7M/pBxR3VPV2fo/s270-c/IMG_1247.JPG'
+                    height='270' width='270'/>
+            <media:title type='plain'>IMG_1247.JPG</media:title>
+        </media:group>
+    </entry>
+    <entry gd:etag='&quot;YD8qeyI.&quot;'>
+        <id>
+            https://picasaweb.google.com/data/entry/user/traviz71/albumid/5504692126816759025/photoid/5505743569350459490
+        </id>
+        <published>2010-08-15T20:56:59.000Z</published>
+        <updated>2010-08-15T20:57:09.240Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/>
+        <title>CIMG0031.jpg</title>
+        <summary/>
+        <content type='image/jpeg'
+                 src='https://lh6.googleusercontent.com/-rHHKoSdovKk/TGhUmwuGgGI/AAAAAAAAGV4/OiHKc_Wl1_E/CIMG0031.jpg'/>
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/feed/api/user/traviz71/albumid/5504692126816759025/photoid/5505743569350459490'/>
+        <link rel='alternate' type='text/html'
+              href='https://picasaweb.google.com/107098889836094611170/AndreaI#5505743569350459490'/>
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html'
+              href='https://picasaweb.google.com/lh/photo/zwVc-Hl1E1hzw4pS2Bn97A'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/entry/api/user/traviz71/albumid/5504692126816759025/photoid/5505743569350459490'/>
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html'
+              href='https://picasaweb.google.com/lh/reportAbuse?uname=traviz71&amp;aid=5504692126816759025&amp;iid=5505743569350459490'/>
+        <gphoto:id>5505743569350459490</gphoto:id>
+        <gphoto:albumid>5504692126816759025</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:width>1600</gphoto:width>
+        <gphoto:height>1197</gphoto:height>
+        <gphoto:size>199845</gphoto:size>
+        <gphoto:checksum>cb8271a5</gphoto:checksum>
+        <gphoto:timestamp>1253232684000</gphoto:timestamp>
+        <gphoto:imageVersion>6494</gphoto:imageVersion>
+        <gphoto:commentingEnabled>true</gphoto:commentingEnabled>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='3' name='Attribution-Noncommercial-No Derivative'
+                        url='http://creativecommons.org/licenses/by-nc-nd/3.0'>ATTRIBUTION_NON_COMMERCIAL_NO_DERIVATIVES
+        </gphoto:license>
+        <exif:tags>
+            <exif:fstop>2.4</exif:fstop>
+            <exif:make>Palm</exif:make>
+            <exif:model>Pre</exif:model>
+            <exif:exposure>1.525879E-8</exif:exposure>
+            <exif:flash>true</exif:flash>
+            <exif:focallength>1.3339096E-4</exif:focallength>
+            <exif:imageUniqueID>795ddfd86f56f9ba60cd9c85789f40e1</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content
+                    url='https://lh6.googleusercontent.com/-rHHKoSdovKk/TGhUmwuGgGI/AAAAAAAAGV4/OiHKc_Wl1_E/CIMG0031.jpg'
+                    height='1197' width='1600' type='image/jpeg' medium='image'/>
+            <media:credit>Matt Travi</media:credit>
+            <media:description type='plain'/>
+            <media:keywords/>
+            <media:thumbnail
+                    url='https://lh6.googleusercontent.com/-rHHKoSdovKk/TGhUmwuGgGI/AAAAAAAAGV4/OiHKc_Wl1_E/s270-c/CIMG0031.jpg'
+                    height='270' width='270'/>
+            <media:title type='plain'>CIMG0031.jpg</media:title>
+        </media:group>
+        <georss:where>
+            <gml:Point>
+                <gml:pos>41.653645 -93.738274</gml:pos>
+            </gml:Point>
+        </georss:where>
+    </entry>
+</feed>
