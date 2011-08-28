@@ -43,26 +43,26 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function testProcessRequest()
     {
-//        $requestStub = $this->getMock('Request');
-//        $requestStub->expects($this->any())
-//            ->method('getController')
-//            ->will($this->returnValue('test'));
-//        $requestStub->expects($this->any())
-//            ->method('getAction')
-//            ->will($this->returnValue('index'));
-//        $requestStub->expects($this->any())
-//            ->method('isAdmin')
-//            ->will($this->returnValue(false));
-//
-//        $responseStub = $this->getMock('Response');
-//        $responseStub->expects($this->once())
-//            ->method('setTitle')
-//            ->with($this->equalTo('Test'));
-//
-//        $this->object->setRequest($requestStub);
-//        $this->object->setResponse($responseStub);
-//
-//        $this->object->processRequest();
+        //        $requestStub = $this->getMock('Request');
+        //        $requestStub->expects($this->any())
+        //            ->method('getController')
+        //            ->will($this->returnValue('test'));
+        //        $requestStub->expects($this->any())
+        //            ->method('getAction')
+        //            ->will($this->returnValue('index'));
+        //        $requestStub->expects($this->any())
+        //            ->method('isAdmin')
+        //            ->will($this->returnValue(false));
+        //
+        //        $responseStub = $this->getMock('Response');
+        //        $responseStub->expects($this->once())
+        //            ->method('setTitle')
+        //            ->with($this->equalTo('Test'));
+        //
+        //        $this->object->setRequest($requestStub);
+        //        $this->object->setResponse($responseStub);
+        //
+        //        $this->object->processRequest();
 
 
         // Remove the following lines when you implement this test.
@@ -73,24 +73,24 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function test404()
     {
-//        $requestStub = $this->getMock('Request');
-//        $requestStub->expects($this->exactly(2))
-//            ->method('getController')
-//            ->will($this->returnValue('nonExistantPage'));
-//
-//        $responseStub = $this->getMock('Response');
-//        //TODO: figure out a way to test the 404 header
-//        $responseStub->expects($this->once())
-//            ->method('setTitle')
-//            ->with($this->equalTo('Page Could Not Be Found'));
-//        $responseStub->expects($this->once())
-//            ->method('setPageTemplate')
-//            ->with($this->equalTo('../error/404.tpl'));
-//
-//        $this->object->setRequest($requestStub);
-//        $this->object->setResponse($responseStub);
-////
-//        $this->object->processRequest();
+        //        $requestStub = $this->getMock('Request');
+        //        $requestStub->expects($this->exactly(2))
+        //            ->method('getController')
+        //            ->will($this->returnValue('nonExistantPage'));
+        //
+        //        $responseStub = $this->getMock('Response');
+        //        //TODO: figure out a way to test the 404 header
+        //        $responseStub->expects($this->once())
+        //            ->method('setTitle')
+        //            ->with($this->equalTo('Page Could Not Be Found'));
+        //        $responseStub->expects($this->once())
+        //            ->method('setPageTemplate')
+        //            ->with($this->equalTo('../error/404.tpl'));
+        //
+        //        $this->object->setRequest($requestStub);
+        //        $this->object->setResponse($responseStub);
+        ////
+        //        $this->object->processRequest();
 
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

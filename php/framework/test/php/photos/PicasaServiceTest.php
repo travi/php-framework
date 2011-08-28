@@ -52,7 +52,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . $anyAlbumId
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . $anyInt
-        );
+            );
 
         $picasaWeb = new PicasaService();
         $picasaWeb->setRestClient($restClient);
@@ -74,7 +74,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             $firstPhoto->getOriginal()
         );
         $this->assertEquals(
-            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG",
+            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/"
+            . "AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG",
             $firstPhoto->getThumbnail()
         );
 
@@ -106,7 +107,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . $anyAlbumId
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . $anyInt . 'c'
-        );
+            );
 
         $picasaWeb = new PicasaService();
         $picasaWeb->setRestClient($restClient);
@@ -137,7 +138,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . $anyAlbumId
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . $anyInt . 'u'
-        );
+            );
 
         $picasaWeb = new PicasaService();
         $picasaWeb->setRestClient($restClient);
