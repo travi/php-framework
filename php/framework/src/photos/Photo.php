@@ -8,10 +8,6 @@ class Photo
     /** @var License */
     private $license;
 
-    public function someFunc() {
-
-    }
-
     public function getOriginal()
     {
         return $this->uri;
