@@ -1,10 +1,28 @@
 <?php
 
-class PicasaWeb {
+class PicasaService {
+    const PICASA_URI = 'https://picasaweb.google.com/data/feed/api/user/';
+    const THUMBSIZE_QUERY_PARAM = 'thumbsize';
+    const UNCROPPED_KEY = 'u';
+    const CROPPED_KEY = 'c';
+
     /** @var RestClient */
     private $restClient;
+    private $googleUser;
+    private $album;
+    private $thumbnailCropKey;
 
-    public function getPhotos() {
+    public function getPhotos($thumbSize, $cropThumb = '') {
+        $this->setCropThumbnail($cropThumb);
+
+        $this->restClient->setEndpoint(
+            self::PICASA_URI
+            . $this->googleUser
+            . '/albumid/'
+            . $this->album
+            . '?'
+            . self::THUMBSIZE_QUERY_PARAM . '=' . $thumbSize . $this->thumbnailCropKey
+        );
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
 
@@ -40,8 +58,33 @@ class PicasaWeb {
         return $photos;
     }
 
+    /**
+     * @PdInject new:RestClient
+     * @param $restClient
+     * @return void
+     */
     public function setRestClient($restClient)
     {
         $this->restClient = $restClient;
     }
+
+    public function setServiceUser($user)
+    {
+        $this->googleUser = $user;
+    }
+
+    public function setAlbum($album)
+    {
+        $this->album = $album;
+    }
+
+    public function setCropThumbnail($cropThumb)
+    {
+        if ($cropThumb === true) {
+            $this->thumbnailCropKey = self::CROPPED_KEY;
+        } elseif ($cropThumb === false) {
+            $this->thumbnailCropKey = self::UNCROPPED_KEY;
+        }
+    }
+
 }

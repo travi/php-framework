@@ -68,7 +68,7 @@ class FrontController
                 include_once $controllerPath;
 
                 /** @var $controller AbstractController */
-                $controller = new $controllerName();
+                $controller = Pd_Make::name($controllerName);
 
                 $controller->doAction($this->Request, $this->Response);
             } else {

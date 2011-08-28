@@ -170,4 +170,9 @@ class RestClient
     {
         return $this->responseBody;
     }
+
+    public function setEndpoint($endpoint)
+    {
+        $this->url = $endpoint;
+    }
 }
