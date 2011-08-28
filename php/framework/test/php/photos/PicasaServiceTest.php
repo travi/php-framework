@@ -6,6 +6,14 @@ require_once dirname(__FILE__).'/../../../src/http/RestClient.php';
 
 class PicasaServiceTest extends PHPUnit_Framework_TestCase
 {
+    private $responseFromRestClient;
+
+    protected function setUp()
+    {
+        $this->responseFromRestClient = file_get_contents(dirname(__FILE__).'/picasaExample.xml');
+
+    }
+
     public function testApiUriDefinedProperly()
     {
         $this->assertSame(PicasaService::PICASA_URI, "https://picasaweb.google.com/data/feed/api/user/");
@@ -29,14 +37,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $anyAlbumId = 'someAlbumId';
         $anyInt = 32;
 
-        $response = file_get_contents('picasaExample.xml');
-
         $restClient = $this->getMock('RestClient');
         $restClient->expects($this->once())
             ->method('execute');
         $restClient->expects($this->once())
             ->method('getResponseBody')
-            ->will($this->returnValue($response));
+            ->will($this->returnValue($this->responseFromRestClient));
         $restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
@@ -85,14 +91,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $anyAlbumId = 'someAlbumId';
         $anyInt = 32;
 
-        $response = file_get_contents('picasaExample.xml');
-
         $restClient = $this->getMock('RestClient');
         $restClient->expects($this->once())
             ->method('execute');
         $restClient->expects($this->once())
             ->method('getResponseBody')
-            ->will($this->returnValue($response));
+            ->will($this->returnValue($this->responseFromRestClient));
         $restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
@@ -118,14 +122,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $anyAlbumId = 'someAlbumId';
         $anyInt = 32;
 
-        $response = file_get_contents('picasaExample.xml');
-
         $restClient = $this->getMock('RestClient');
         $restClient->expects($this->once())
             ->method('execute');
         $restClient->expects($this->once())
             ->method('getResponseBody')
-            ->will($this->returnValue($response));
+            ->will($this->returnValue($this->responseFromRestClient));
         $restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(

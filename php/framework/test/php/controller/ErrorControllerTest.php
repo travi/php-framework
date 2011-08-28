@@ -73,11 +73,16 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
         $responseStub->expects($this->once())
             ->method('setPageTemplate')
             ->with($this->equalTo('../error/500.tpl'));
-        $responseStub->expects($this->once())
+        $responseStub->expects($this->at(2))
             ->method('addToResponse')
             ->with(
                 $this->equalTo('message'),
                 $this->equalTo($errorMessage)
+            );
+        $responseStub->expects($this->at(3))
+            ->method('addToResponse')
+            ->with(
+                $this->equalTo('trace')
             );
 
         $this->controller->error500($this->request, $responseStub, new NotFoundException($errorMessage));
