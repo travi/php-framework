@@ -5,6 +5,16 @@ require_once dirname(__FILE__).'/../../../src/controller/front/front.controller.
 require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
 require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
 
+set_include_path(
+    get_include_path() . PATH_SEPARATOR .
+    dirname(__FILE__).'/../../../../thirdparty/PHP-Dependency/library/'
+);
+
+function __autoload($class_name)
+{
+    include_once str_replace('_', '/', $class_name) . '.php';
+}
+
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -30,7 +40,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
-        $requestStub->expects($this->once())
+        $requestStub->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
 
@@ -63,9 +73,9 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo('../error/404.tpl'));
 
         $this->object->setRequest($requestStub);
-        $this->object->setResponse($responseStub);     
+        $this->object->setResponse($responseStub);
 
-        $response = $this->object->processRequest();
+        $this->object->processRequest();
     }
 
     /**
