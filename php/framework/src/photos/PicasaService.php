@@ -1,6 +1,7 @@
 <?php
 
-class PicasaService {
+class PicasaService
+{
     const PICASA_URI = 'https://picasaweb.google.com/data/feed/api/user/';
     const THUMBSIZE_QUERY_PARAM = 'thumbsize';
     const UNCROPPED_KEY = 'u';
@@ -12,7 +13,8 @@ class PicasaService {
     private $album;
     private $thumbnailCropKey;
 
-    public function getPhotos($thumbSize, $cropThumb = '') {
+    public function getPhotos($thumbSize, $cropThumb = '')
+    {
         $this->setCropThumbnail($cropThumb);
 
         $this->restClient->setEndpoint(
