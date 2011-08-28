@@ -1,7 +1,7 @@
 <?php
 require_once 'License.php';
 
-class Photo 
+class Photo
 {
     private $uri;
     private $thumbnail;

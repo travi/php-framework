@@ -1,6 +1,6 @@
 <?php
  
-class License 
+class License
 {
 
     private $url;
