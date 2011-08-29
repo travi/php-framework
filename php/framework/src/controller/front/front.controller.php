@@ -69,7 +69,7 @@ class FrontController
 
                 /** @var $controller AbstractController */
                 $controller = Pd_Make::name($controllerName);
-                         print_r($controller);
+
                 $controller->doAction($this->Request, $this->Response);
             } else {
                 throw new NotFoundException('Controller Not Found!');

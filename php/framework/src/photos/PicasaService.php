@@ -13,6 +13,19 @@ class PicasaService
     private $album;
     private $thumbnailCropKey;
 
+    public function getAlbums()
+    {
+
+        $this->restClient->setEndpoint(
+            self::PICASA_URI
+            . $this->googleUser
+        );
+        $this->restClient->execute();
+        $responseBody = $this->restClient->getResponseBody();
+
+        return $responseBody;
+    }
+
     public function getPhotos($thumbSize, $cropThumb = '')
     {
         $this->setCropThumbnail($cropThumb);
@@ -88,5 +101,4 @@ class PicasaService
             $this->thumbnailCropKey = self::UNCROPPED_KEY;
         }
     }
-
 }
