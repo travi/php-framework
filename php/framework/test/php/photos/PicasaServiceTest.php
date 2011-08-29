@@ -54,7 +54,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             );
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
-            ->will($this->returnValue("something"));
+            ->will($this->returnValue(file_get_contents(dirname(__FILE__).'/picasaAlbumsExample.xml')));
 
         $this->picasaWeb->setRestClient($this->restClient);
 
