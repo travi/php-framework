@@ -104,10 +104,10 @@
         </exec>
         <exec dir="${src.dir}"
               executable="phpcs"
-              output="${build.logs}/checkstyle.xml"
               failonerror="true">
             <arg line="--standard=${shared.dir}/codingStandard.xml"/>
-            <arg line="--report=checkstyle ."/>
+            <arg line="--report-full"/>
+            <arg line="--report-checkstyle=${build.logs}/checkstyle.xml ."/>
         </exec>
     </target>
 
