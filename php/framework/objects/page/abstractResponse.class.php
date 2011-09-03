@@ -480,7 +480,6 @@ abstract class AbstractResponse
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
         if (strstr($acceptHeader, "application/json")) {
-            //TODO: if content is array of size 1, should only encode that element rather than the array
             $jsonFormatter = new JsonFormatter();
             echo $jsonFormatter->format($this->getContent());
         } else if (strstr($acceptHeader, "text/xml")) {
