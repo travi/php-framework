@@ -1,6 +1,6 @@
 <?php
  
-class Album 
+class Album
 {
     private $title;
     private $url;
