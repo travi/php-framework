@@ -31,7 +31,8 @@ class JsonFormatter extends DataFormatter
      * @param $var
      * @return array
      */
-    private function object_to_array($var) {
+    private function object_to_array($var)
+    {
         $result = array();
         $references = array();
 
