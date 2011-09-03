@@ -1,9 +1,11 @@
 <?php
- 
+require_once 'Thumbnail.php';
+
 class Album
 {
     private $title;
     private $url;
+    /** @var Thumbnail */
     private $thumbnail;
 
     public function getTitle()

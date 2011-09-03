@@ -3,19 +3,18 @@ require_once 'License.php';
 
 class Photo
 {
-    private $uri;
     private $thumbnail;
     /** @var License */
     private $license;
 
     public function getOriginal()
     {
-        return $this->uri;
+        return $this->url;
     }
 
     public function setOriginal($uri)
     {
-        $this->uri = $uri;
+        $this->url = $uri;
     }
 
     public function getThumbnail()

@@ -65,13 +65,16 @@ class PicasaService
             $album = new Album();
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
-            $album->setThumbnail((string) $thumb_attr['url']);
+
+            $thumbnail = $this->setThumbDetails($thumb_attr);
+            $album->setThumbnail($thumbnail);
 
             array_push($albums, $album);
         }
 
         return $albums;
     }
+
 
     private function createPhotoListFrom($responseBody)
     {
@@ -89,7 +92,8 @@ class PicasaService
             /** @var $photo Photo */
             $photo = new Photo();
             $photo->setOriginal((string)$entry->content['src']);
-            $photo->setThumbnail((string) $thumb_attr['url']);
+            $thumbnail = $this->setThumbDetails($thumb_attr);
+            $photo->setThumbnail($thumbnail);
 
             $license = new License();
             $license->setId((int) $license_attr['id']);
@@ -100,6 +104,13 @@ class PicasaService
             array_push($photos, $photo);
         }
         return $photos;
+    }
+
+    private function setThumbDetails($thumb_attr)
+    {
+        $thumbnail = new Thumbnail();
+        $thumbnail->setUrl((string)$thumb_attr['url']);
+        return $thumbnail;
     }
 
     /**

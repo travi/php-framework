@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/../../../src/photos/PicasaService.php';
 require_once dirname(__FILE__).'/../../../src/photos/Photo.php';
+require_once dirname(__FILE__).'/../../../src/photos/Thumbnail.php';
 require_once dirname(__FILE__).'/../../../src/http/RestClient.php';
 
 class PicasaServiceTest extends PHPUnit_Framework_TestCase
@@ -66,10 +67,10 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertType('Album', $firstAlbum);
         $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
         $this->assertEquals("https://picasaweb.google.com/107098889836094611170/Steamboat2011", $firstAlbum->getUrl());
-        $this->assertEquals(
-            "https://lh5.googleusercontent.com/-ePrl_rE_oWs/TV9JLtXszbE/AAAAAAAAHEY/JAYLTmv0rqI/s160-c/Steamboat2011.jpg",
-            $firstAlbum->getThumbnail()
-        );
+
+        $thumbnail = new Thumbnail();
+        $thumbnail->setUrl("https://lh5.googleusercontent.com/-ePrl_rE_oWs/TV9JLtXszbE/AAAAAAAAHEY/JAYLTmv0rqI/s160-c/Steamboat2011.jpg");
+        $this->assertEquals($thumbnail, $firstAlbum->getThumbnail());
     }
 
 
@@ -107,11 +108,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/IMG_1245.JPG",
             $firstPhoto->getOriginal()
         );
-        $this->assertEquals(
+        $thumbnail = new Thumbnail();
+        $thumbnail->setUrl(
             "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/"
-            . "AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG",
-            $firstPhoto->getThumbnail()
+            . "AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG"
         );
+        $this->assertEquals($thumbnail, $firstPhoto->getThumbnail());
 
         $license = new License();
         $license->setUrl("http://creativecommons.org/licenses/by-nc-nd/3.0");
