@@ -91,7 +91,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-            PicasaService::PICASA_URI
+                PicasaService::PICASA_URI
                 . self::SOME_USER_ID
                 . '/albumid/'
                 . $anyAlbumId
@@ -141,7 +141,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-            PicasaService::PICASA_URI
+                PicasaService::PICASA_URI
                 . self::SOME_USER_ID
                 . '/albumid/'
                 . $anyAlbumId
@@ -169,7 +169,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-            PicasaService::PICASA_URI
+                PicasaService::PICASA_URI
                 . $anyUser
                 . '/albumid/'
                 . $anyAlbumId
