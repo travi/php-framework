@@ -59,9 +59,19 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->picasaWeb->setRestClient($this->restClient);
 
         $albums = $this->picasaWeb->getAlbums();
+        /** @var $firstAlbum Album */
+        $firstAlbum = $albums[0];
 
-        $this->assertNotNull($albums);
+        $this->assertNonEmptyArray($albums);
+        $this->assertType('Album', $firstAlbum);
+        $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
+        $this->assertEquals("https://picasaweb.google.com/107098889836094611170/Steamboat2011", $firstAlbum->getUrl());
+        $this->assertEquals(
+            "https://lh5.googleusercontent.com/-ePrl_rE_oWs/TV9JLtXszbE/AAAAAAAAHEY/JAYLTmv0rqI/s160-c/Steamboat2011.jpg",
+            $firstAlbum->getThumbnail()
+        );
     }
+
 
     public function testProperPhotoObjectsCreatedFromPicasaWebData()
     {
@@ -74,7 +84,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-                PicasaService::PICASA_URI
+            PicasaService::PICASA_URI
                 . self::SOME_USER_ID
                 . '/albumid/'
                 . $anyAlbumId
@@ -89,10 +99,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         /** @var $firstPhoto Photo */
         $firstPhoto = $photos[0];
 
-        $this->assertNotNull($photos);
-        $this->assertTrue(is_array($photos));
+        $this->assertNonEmptyArray($photos);
         $this->assertEquals(3, count($photos));
-        $this->assertFalse(empty($photos));
 
         $this->assertType('Photo', $firstPhoto);
         $this->assertEquals(
@@ -125,7 +133,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-                PicasaService::PICASA_URI
+            PicasaService::PICASA_URI
                 . self::SOME_USER_ID
                 . '/albumid/'
                 . $anyAlbumId
@@ -153,7 +161,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
             ->with(
-                PicasaService::PICASA_URI
+            PicasaService::PICASA_URI
                 . $anyUser
                 . '/albumid/'
                 . $anyAlbumId
@@ -166,5 +174,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->picasaWeb->setServiceUser($anyUser);
 
         $this->picasaWeb->getPhotos($anyInt, false);
+    }
+
+    private function assertNonEmptyArray($albums)
+    {
+        $this->assertNotNull($albums);
+        $this->assertTrue(is_array($albums));
+        $this->assertFalse(empty($albums));
     }
 }

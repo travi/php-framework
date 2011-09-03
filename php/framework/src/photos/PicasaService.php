@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../http/RestClient.php';
+require_once 'Album.php';
 
 class PicasaService
 {
@@ -13,6 +15,9 @@ class PicasaService
     private $album;
     private $thumbnailCropKey;
 
+    /**
+     * @return array Album
+     */
     public function getAlbums()
     {
 
@@ -23,7 +28,7 @@ class PicasaService
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
 
-        return $responseBody;
+        return $this->createAlbumListFrom($responseBody);
     }
 
     public function getPhotos($thumbSize, $cropThumb = '')
@@ -44,7 +49,31 @@ class PicasaService
         return $this->createPhotoListFrom($responseBody);
     }
 
-    public function createPhotoListFrom($responseBody)
+    private function createAlbumListFrom($responseBody)
+    {
+        $xml = new SimpleXMLElement($responseBody);
+        $namespaces = $xml->getNamespaces(true);
+
+        $albums = array();
+        foreach ($xml->entry as $entry) {
+            $ns_media = $entry->children($namespaces['media']);
+            $link_attr = $entry->link[1]->attributes();
+
+            $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
+
+            /** @var $album Album */
+            $album = new Album();
+            $album->setTitle((string) $entry->title);
+            $album->setUrl((string) $link_attr['href']);
+            $album->setThumbnail((string) $thumb_attr['url']);
+
+            array_push($albums, $album);
+        }
+
+        return $albums;
+    }
+
+    private function createPhotoListFrom($responseBody)
     {
         $xml = new SimpleXMLElement($responseBody);
         $namespaces = $xml->getNamespaces(true);
@@ -101,4 +130,5 @@ class PicasaService
             $this->thumbnailCropKey = self::UNCROPPED_KEY;
         }
     }
+
 }
