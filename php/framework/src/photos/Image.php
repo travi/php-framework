@@ -1,6 +1,6 @@
 <?php
  
-abstract class Image
+abstract class Image implements IteratorAggregate
 {
     protected $url;
 
@@ -12,5 +12,10 @@ abstract class Image
     public function getUrl()
     {
         return $this->url;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator(get_object_vars($this));
     }
 }
