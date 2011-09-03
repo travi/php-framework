@@ -1,8 +1,10 @@
 <?php
 require_once 'License.php';
+require_once 'Image.php';
 
-class Photo
+class Photo extends Image
 {
+    /** @var Thumbnail */
     private $thumbnail;
     /** @var License */
     private $license;
