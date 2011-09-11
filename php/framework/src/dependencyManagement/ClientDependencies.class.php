@@ -18,7 +18,7 @@ class ClientDependencies
         $this->jsNeeds['jcarsouselSkin']['local'] = JCAROUSEL_SKIN;
     }
 
-    private function flattenDeps($deps, $requirement = '')
+    private function flattenDeps($deps = array(), $requirement = '')
     {
         foreach ($deps as $name => $dep) {
             $item = array();

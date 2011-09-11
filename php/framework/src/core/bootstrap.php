@@ -5,6 +5,11 @@ require_once dirname(__FILE__).'/../http/Request.class.php';
 require_once dirname(__FILE__).'/../http/Response.class.php';
 require_once dirname(__FILE__).'/../controller/front/front.controller.php';
 
+// Report all errors except E_NOTICE
+//error_reporting(E_ALL ^ E_NOTICE);
+// Report all errors except E_NOTICE and E_WARNING
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
     dirname(__FILE__).'/../../../thirdparty/PHP-Dependency/library/'
