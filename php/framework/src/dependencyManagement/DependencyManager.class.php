@@ -69,11 +69,17 @@ class DependencyManager
             $sheet = $resolved;
         }
 
-        if (!in_array($sheet, $this->requirementLists['css'])) {
+        $styleSheetList = &$this->requirementLists['css'];
+
+        if (!in_array($sheet, $styleSheetList) || $index === 'thisPage') {
             if (!empty($index)) {
-                $this->requirementLists['css'][$index] = $sheet;
+                if ($index === 'thisPage' && in_array($sheet, $styleSheetList)) {
+                    $indexFound = array_search($sheet, $styleSheetList);
+                    unset($styleSheetList[$indexFound]);
+                }
+                $styleSheetList[$index] = $sheet;
             } else {
-                array_push($this->requirementLists['css'], $sheet);
+                array_push($styleSheetList, $sheet);
             }
         }
     }
