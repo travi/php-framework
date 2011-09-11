@@ -78,6 +78,9 @@ jquery:
 reflection:
   local: "/resources/shared/js/reflection/reflection.js"
 
+instant:
+  local: "/resources/shared/js/instant/instant.js"
+
 pngFix:
   local: "/resources/shared/js/pngFix/DD_belatedPNG.js"
 
