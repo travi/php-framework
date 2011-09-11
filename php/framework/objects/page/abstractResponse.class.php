@@ -470,6 +470,13 @@ abstract class AbstractResponse
         return $this->smarty;
     }
 
+    public function isProduction()
+    {
+        global $config;
+
+        return (strpos($_SERVER["HTTP_HOST"], $config['productionUrl']) !== false);
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //                          Render                                      //
@@ -527,6 +534,13 @@ abstract class AbstractResponse
 
         </script>";
         }
+    }
+
+    public function getGoogleAnalyticsKey()
+    {
+        global $config;
+
+        return $config['googleAnalytics']['key'];
     }
 
     public function redirect($status, $msg, $location)

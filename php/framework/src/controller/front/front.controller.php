@@ -101,7 +101,7 @@ class FrontController
                     . '.css';
 
         if (empty($template)
-        && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
+            && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
         ) {
             $this->Response->setPageTemplate($templateByConvention);
         }
