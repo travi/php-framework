@@ -5,9 +5,9 @@ require_once dirname(__FILE__).'/../http/Request.class.php';
 require_once dirname(__FILE__).'/../http/Response.class.php';
 require_once dirname(__FILE__).'/../controller/front/front.controller.php';
 
-// Report all errors except E_NOTICE
+// Report all errors except E_NOTICE (should try to use this for development)
 //error_reporting(E_ALL ^ E_NOTICE);
-// Report all errors except E_NOTICE and E_WARNING
+// Report all errors except E_NOTICE and E_WARNING (better for production)
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
 set_include_path(
