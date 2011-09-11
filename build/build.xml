@@ -15,6 +15,7 @@
         <exclude name="modernizr/**/*.js" />
         <exclude name="LABjs/**/*.js" />
         <exclude name="techPatterns/**/*.js" />
+        <exclude name="instant/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />
