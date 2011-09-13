@@ -1,9 +1,6 @@
 <?php
-/*
- * Created on Jan 26, 2006
- * By Matt Travi
- * programmer@travi.org
- */
+require_once dirname(__FILE__).'/../../src/view/render/rederer.class.php';
+require_once dirname(__FILE__).'/../../src/view/render/jsonRenderer.class.php';
 
 abstract class AbstractResponse
 {
