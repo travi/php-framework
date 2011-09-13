@@ -1,6 +1,6 @@
 <?php
 
-abstract class DataFormatter
+abstract class Renderer
 {
     public function format($data)
     {
@@ -42,7 +42,7 @@ abstract class DataFormatter
     }
 }
 
-class JsonFormatter extends DataFormatter
+class JsonRenderer extends Renderer
 {
     public function format($data)
     {

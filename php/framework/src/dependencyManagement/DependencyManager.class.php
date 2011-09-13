@@ -3,6 +3,7 @@ require_once dirname(__FILE__).'/ClientDependencies.class.php';
  
 class DependencyManager
 {
+    /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array();
 

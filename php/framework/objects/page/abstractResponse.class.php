@@ -487,8 +487,8 @@ abstract class AbstractResponse
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
         if (strstr($acceptHeader, "application/json")) {
-            $jsonFormatter = new JsonFormatter();
-            echo $jsonFormatter->format($this->getContent());
+            $jsonRenderer = new JsonRenderer();
+            echo $jsonRenderer->format($this->getContent());
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
         } else {
