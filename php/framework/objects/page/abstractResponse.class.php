@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/../../src/view/render/rederer.class.php';
 require_once dirname(__FILE__).'/../../src/view/render/jsonRenderer.class.php';
+require_once dirname(__FILE__).'/../../src/view/render/htmlRenderer.class.php';
 
 abstract class AbstractResponse
 {
@@ -26,9 +27,6 @@ abstract class AbstractResponse
     protected $nav;
     protected $content = array();
     protected $currentSiteSection;
-    protected $smartyConfig;
-    protected $smarty;
-
 
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
@@ -430,43 +428,6 @@ abstract class AbstractResponse
         return $this->getDependencyList('clientTemplates');
     }
 
-    public function smartyInit()
-    {
-        global $config;
-
-        if (!isset($this->smartyConfig)) {
-            $this->getSmartyConfig();
-        }
-
-        include_once $this->smartyConfig['pathToSmarty'];
-
-        $smarty = new Smarty();
-
-        $smarty->template_dir = array(
-            $this->smartyConfig['siteTemplateDir'],
-            $this->smartyConfig['sharedTemplateDir']
-        );
-        $smarty->compile_dir = $this->smartyConfig['smartyCompileDir'];
-        $smarty->cache_dir = $this->smartyConfig['smartyCacheDir'];
-        $smarty->config_dir = $this->smartyConfig['smartyConfigDir'];
-
-        if ($config['debug']) {
-            $smarty->force_compile = true;
-        } else {
-            $smarty->compile_check = false;
-        }
-
-        $this->smarty = $smarty;
-    }
-
-    public function getSmarty()
-    {
-        if (empty($this->smarty)) {
-            $this->smartyInit();
-        }
-        return $this->smarty;
-    }
-
     public function isProduction()
     {
         global $config;
@@ -489,17 +450,15 @@ abstract class AbstractResponse
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
         } else {
-            if (isset($this->dependencyManager)) {
-                $this->dependencyManager->resolveContentDependencies($this->getContent());
-                $this->dependencyManager->addCacheBusters();
-            }
-
-            $smarty = $this->getSmarty();
-
-            $smarty->clearAllAssign();
-            $smarty->assign('page', $this);
-            $smarty->display($this->getLayoutTemplate());
+            $htmlRenderer = new HtmlRenderer();
+            $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
+            echo $htmlRenderer->format($this->getContent(), $this);
         }
+    }
+
+    public function getDependencyManager()
+    {
+        return $this->dependencyManager;
     }
 
     public function Display()
