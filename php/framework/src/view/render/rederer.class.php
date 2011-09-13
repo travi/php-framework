@@ -40,4 +40,12 @@ abstract class Renderer
         }
         return array_filter($result);
     }
+
+    protected function convertObjectsToAssocArrays($data)
+    {
+        if (is_object($data) || is_array($data)) {
+            $data = $this->object_to_array($data);
+        }
+        return $data;
+    }
 }
