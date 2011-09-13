@@ -27,6 +27,7 @@ abstract class AbstractResponse
     protected $nav;
     protected $content = array();
     protected $currentSiteSection;
+    protected $smartyConfig;
 
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
@@ -123,6 +124,11 @@ abstract class AbstractResponse
     public function getSmartyConfig()
     {
         $this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
+    }
+
+    public function getSmartyConfigDefinition()
+    {
+        return $this->smartyConfig;
     }
 
 

@@ -1,5 +1,5 @@
 <?php
- 
+
 class HtmlRenderer extends Renderer
 {
     /** @var Smarty */
@@ -19,6 +19,10 @@ class HtmlRenderer extends Renderer
             $dependencyManager->addCacheBusters();
         }
 
+        $pageSmartyConfigDefinition = $page->getSmartyConfigDefinition();
+        if (!empty($pageSmartyConfigDefinition)) {
+                $this->smartyConfig = $pageSmartyConfigDefinition;
+        }
         $smarty = $this->getSmarty();
 
         $smarty->clearAllAssign();
