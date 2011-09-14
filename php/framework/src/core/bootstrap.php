@@ -53,9 +53,40 @@ $container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', new Response($config));
+$container->dependencies()->set("Smarty", smartyInit());
 
 //Handle request
 
 /** @var $frontController FrontController */
 $frontController = Pd_Make::name('FrontController');
 $frontController->processRequest();
+
+/**
+ * @return Smarty
+ */
+function smartyInit()
+{
+    global $config;
+
+    $smartyConfig = $config['smarty'];
+
+    include_once $smartyConfig['pathToSmarty'];
+
+    $smarty = Pd_Make::name('Smarty');
+
+    $smarty->template_dir = array(
+        $smartyConfig['siteTemplateDir'],
+        $smartyConfig['sharedTemplateDir']
+    );
+    $smarty->compile_dir = $smartyConfig['smartyCompileDir'];
+    $smarty->cache_dir = $smartyConfig['smartyCacheDir'];
+    $smarty->config_dir = $smartyConfig['smartyConfigDir'];
+
+    if ($config['debug']) {
+        $smarty->force_compile = true;
+    } else {
+        $smarty->compile_check = false;
+    }
+
+    return $smarty;
+}

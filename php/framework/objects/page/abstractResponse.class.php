@@ -27,7 +27,6 @@ abstract class AbstractResponse
     protected $nav;
     protected $content = array();
     protected $currentSiteSection;
-    protected $smartyConfig;
 
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
@@ -119,16 +118,6 @@ abstract class AbstractResponse
     public function getSubHeader()
     {
         return $this->subHeader;
-    }
-
-    public function getSmartyConfig()
-    {
-        $this->smartyConfig = $this->yaml2Array(SMARTY_CONFIG);
-    }
-
-    public function getSmartyConfigDefinition()
-    {
-        return $this->smartyConfig;
     }
 
 
@@ -456,7 +445,8 @@ abstract class AbstractResponse
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
         } else {
-            $htmlRenderer = new HtmlRenderer();
+            /** @var $htmlRenderer HtmlRenderer */
+            $htmlRenderer = Pd_Make::name('HtmlRenderer');
             $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
             echo $htmlRenderer->format($this->getContent(), $this);
         }
