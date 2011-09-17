@@ -1,6 +1,6 @@
 <?php
  
-class FileSystem 
+class FileSystem
 {
     const PATH_TO_PAGE_STYLE_SHEETS = '/resources/css/pages/';
     const CSS_EXT = '.css';

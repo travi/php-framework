@@ -55,7 +55,10 @@ $container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', new Response($config));
 $container->dependencies()->set('Smarty', smartyInit());
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath']));
-$container->dependencies()->set('dependencyManager', dmInit($config['uiDeps']['pages'], $config['theme']['site']));
+$container->dependencies()->set(
+    'dependencyManager',
+    dmInit($config['uiDeps']['pages'], $config['theme']['site'])
+);
 
 //Handle request
 
