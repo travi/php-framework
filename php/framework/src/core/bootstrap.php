@@ -53,7 +53,9 @@ $container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', new Response($config));
-$container->dependencies()->set("Smarty", smartyInit());
+$container->dependencies()->set('Smarty', smartyInit());
+$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath']));
+$container->dependencies()->set('dependencyManager', dmInit($config['uiDeps']['pages'], $config['theme']['site']));
 
 //Handle request
 
@@ -89,4 +91,33 @@ function smartyInit()
     }
 
     return $smarty;
+}
+
+/**
+ * @param $pageDepLists
+ * @return DependencyManager
+ */
+function dmInit($pageDepLists, $theme)
+{
+    include_once dirname(__FILE__) . '/../dependencyManagement/DependencyManager.class.php';
+
+    /** @var $dependencyManager DependencyManager */
+    $dependencyManager = Pd_Make::name('DependencyManager');
+    $dependencyManager->setPageDependenciesLists($pageDepLists);
+    $dependencyManager->setSiteTheme('/resources/css/' . $theme);
+    return $dependencyManager;
+}
+
+/**
+ * @param $sitePath
+ * @return FileSystem
+ */
+function fileSystemInit($sitePath)
+{
+    include_once dirname(__FILE__) . '/../utilities/FileSystem.php';
+
+    /** @var $fileSystem FileSystem */
+    $fileSystem = Pd_Make::name('FileSystem');
+    $fileSystem->setSitePath($sitePath);
+    return $fileSystem;
 }

@@ -16,8 +16,6 @@ abstract class AbstractResponse
     private   $externalClientTemplates = array();
     const LINK_ATTR_RSS_TYPE = 'application/rss+xml';
     const LINK_ATTR_REL_ALTERNATE = 'alternate';
-    /** @var DependencyManager */
-    protected $dependencyManager;
     protected $stylesheets = array();
     protected $altStyles = array();
     protected $scripts = array();
@@ -146,103 +144,6 @@ abstract class AbstractResponse
     public function getContent()
     {
         return $this->content;
-    }
-
-
-    //////////////////////////////////////////////////////////////////////////
-    //                          Dependencies                                //
-    //////////////////////////////////////////////////////////////////////////
-
-    public function addDependency($dependency, $category, $index="")
-    {
-        if (!isset($this->dependencyManager)) {
-            $this->dependencyManager = new DependencyManager();
-        }
-
-        $this->dependencyManager->addDependency($dependency, $category, $index);
-    }
-
-    public function getDependencyList($category)
-    {
-        if (isset($this->dependencyManager)) {
-            return $this->dependencyManager->getDependencies($category);
-        } else {
-            return array();
-        }
-    }
-
-    public function addDependencies($dependencies)
-    {
-        if (!isset($this->dependencyManager)) {
-            $this->dependencyManager = new DependencyManager();
-        }
-
-        $this->dependencyManager->addDependencies($dependencies);
-        if (!empty($dependencies['links'])) {
-            foreach ($dependencies['links'] as $link) {
-                $this->addLinkTag($link['link'], $link['rel'], $link['title'], $link['type']);
-            }
-        }
-        if (!empty($dependencies['feeds'])) {
-            foreach ($dependencies['feeds'] as $feed) {
-                $this->addFeed($feed['link'], $feed['title']);
-            }
-        }
-    }
-
-    public function addStyleSheet($sheet, $index="")
-    {
-        $this->addDependency($sheet, 'css', $index);
-    }
-
-    public function getStyleSheets()
-    {
-        return $this->getDependencyList('css');
-    }
-
-    public function addAltStyle($sheet)
-    {
-        array_push($this->altStyles, $sheet);
-    }
-
-    public function getAltStyles()
-    {
-        return $this->altStyles;
-    }
-
-    public function setTheme($sheet)
-    {
-        $this->addStyleSheet($sheet, 'siteTheme');
-    }
-
-    public function setPageStyle($sheet)
-    {
-        $this->addStyleSheet($sheet, 'thisPage');
-    }
-
-    public function addJavaScript($script)
-    {
-        $this->addDependency($script, 'js');
-    }
-
-    public function getScripts()
-    {
-        return $this->getDependencyList('js');
-    }
-
-    public function addJsInit($init)
-    {
-        $this->addDependency($init, 'jsInit');
-    }
-
-    public function getJsInits()
-    {
-        return $this->getDependencyList('jsInit');
-    }
-
-    public function getValidations()
-    {
-        return $this->getDependencyList('validations');
     }
 
     public function getProperFile($file)
@@ -418,11 +319,6 @@ abstract class AbstractResponse
         return $this->clientTemplates;
     }
 
-    public function getExternalClientTemplates()
-    {
-        return $this->getDependencyList('clientTemplates');
-    }
-
     public function isProduction()
     {
         global $config;
@@ -435,7 +331,7 @@ abstract class AbstractResponse
     //                          Render                                      //
     //////////////////////////////////////////////////////////////////////////
 
-    protected function format()
+    public function format($controller, $action)
     {
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
@@ -447,14 +343,11 @@ abstract class AbstractResponse
         } else {
             /** @var $htmlRenderer HtmlRenderer */
             $htmlRenderer = Pd_Make::name('HtmlRenderer');
+            $htmlRenderer->setRequestedController($controller);
+            $htmlRenderer->setRequestedAction($action);
             $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
             echo $htmlRenderer->format($this->getContent(), $this);
         }
-    }
-
-    public function getDependencyManager()
-    {
-        return $this->dependencyManager;
     }
 
     public function Display()

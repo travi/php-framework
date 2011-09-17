@@ -1,15 +1,15 @@
-{assign var='initArray' value=$page->getJsInits()}
-{assign var='externalTemplates' value=$page->getExternalClientTemplates()}
+{assign var='initArray' value=$dependencies['jsInit']}
+{assign var='externalTemplates' value=$dependencies['clientTemplates']}
 {if !empty($initArray) || !empty($externalTemplates)}
         <script type="text/javascript" >
             $(document).ready(function () {literal}{{/literal}
 {foreach key=name item=path from=$externalTemplates}
                 travi.loadTemplate('{$path}', '{$name}');
 {/foreach}
-{foreach item=init from=$page->getJsInits()}
+{foreach item=init from=$initArray}
                 {$init}
 {/foreach}
-{include file="head/jsValidations.tpl" validations=$page->getValidations()}
+{include file="head/jsValidations.tpl" validations=$dependencies['validations']}
             {literal}});{/literal}
         </script>
 {/if}

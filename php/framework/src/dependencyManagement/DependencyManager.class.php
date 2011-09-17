@@ -1,19 +1,20 @@
 <?php
 require_once dirname(__FILE__).'/ClientDependencies.class.php';
- 
+require_once dirname(__FILE__).'/../utilities/FileSystem.php';
+
 class DependencyManager
 {
     /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array();
 
+    /** @var FileSystem */
+    private $fileSystem;
+
+    private $pageDependenciesLists = array();
+
     const RESOURCES = '/resources';
     const SHARED_RESOURCES = '/resources/shared';
-
-    public function __construct()
-    {
-        $this->clientDependencyDefinitions = new ClientDependencies();
-    }
 
     public function addDependency($dep, $category, $index)
     {
@@ -116,7 +117,7 @@ class DependencyManager
         $this->requirementLists['validations'][$form] = $validations;
     }
 
-    public function getDependencies($category)
+    public function getDependencies($category="")
     {
         if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
             return $this->getScripts();
@@ -128,6 +129,8 @@ class DependencyManager
             return $this->getValidations();
         } elseif ($category === 'clientTemplates') {
             return $this->getClientTemplates();
+        } else {
+            return $this->requirementLists;
         }
     }
 
@@ -189,7 +192,8 @@ class DependencyManager
             }
         }
         if (!empty($dependencies['validations'])) {
-                $this->addValidations($dependencies['validations'], $component->getName());
+            /** @var $component Field */
+            $this->addValidations($dependencies['validations'], $component->getName());
         }
     }
 
@@ -252,5 +256,57 @@ class DependencyManager
     public function getPageStyle()
     {
         return $this->requirementLists['css']['thisPage'];
+    }
+
+    public function loadPageDependencies($controller, $action)
+    {
+        $thisPage = $this->pageDependenciesLists[strtolower($controller)][$action];
+
+        $this->addDependencies($this->pageDependenciesLists['site']);
+        $this->addDependencies($thisPage);
+        $this->setPageStyle($thisPage['pageStyle']);
+    }
+
+    public function setPageStyle($thisPageStyle)
+    {
+        $currentPageStyle = $this->getPageStyle();
+
+        if (!empty($thisPageStyle)) {
+            $this->addStyleSheet($thisPageStyle, 'thisPage');
+        } elseif (empty($currentPageStyle)) {
+            $pageStyleByConvention = $this->fileSystem->getPageStyleByConvention();
+            if ($pageStyleByConvention) {
+                $this->setPageStyle($pageStyleByConvention);
+            }
+        }
+    }
+
+    public function setPageDependenciesLists($lists)
+    {
+        $this->pageDependenciesLists = $lists;
+    }
+
+    /**
+     * @PdInject new:\ClientDependencies
+     * @param \ClientDependencies $clientDependencyDefinitions
+     */
+    public function setClientDependencyDefinitions($clientDependencyDefinitions)
+    {
+        $this->clientDependencyDefinitions = $clientDependencyDefinitions;
+    }
+
+    public function setSiteTheme($sheet)
+    {
+        $this->addStyleSheet($sheet, 'siteTheme');
+    }
+
+    /**
+     * @PdInject fileSystem
+     * @param $fileSystem
+     * @return void
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
     }
 }
