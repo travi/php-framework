@@ -4,6 +4,8 @@ require_once dirname(__FILE__).'/../utilities/FileSystem.php';
 
 class DependencyManager
 {
+    const SITE_THEME_KEY = 'siteTheme';
+    const THIS_PAGE_KEY = 'thisPage';
     /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array();
@@ -73,9 +75,9 @@ class DependencyManager
 
         $styleSheetList = &$this->requirementLists['css'];
 
-        if (!in_array($sheet, $styleSheetList) || $index === 'thisPage') {
+        if (!in_array($sheet, $styleSheetList) || $index === self::THIS_PAGE_KEY) {
             if (!empty($index)) {
-                if ($index === 'thisPage' && in_array($sheet, $styleSheetList)) {
+                if ($index === self::THIS_PAGE_KEY && in_array($sheet, $styleSheetList)) {
                     $indexFound = array_search($sheet, $styleSheetList);
                     unset($styleSheetList[$indexFound]);
                 }
@@ -130,6 +132,7 @@ class DependencyManager
         } elseif ($category === 'clientTemplates') {
             return $this->getClientTemplates();
         } else {
+            $this->sortStyleSheets();
             return $this->requirementLists;
         }
     }
@@ -141,9 +144,14 @@ class DependencyManager
 
     public function getStyleSheets()
     {
-        uksort($this->requirementLists['css'], 'strnatcasecmp');
+        $this->sortStyleSheets();
 
         return $this->requirementLists['css'];
+    }
+
+    private function sortStyleSheets()
+    {
+        uksort($this->requirementLists['css'], 'strnatcasecmp');
     }
 
     public function getClientTemplates()
@@ -255,7 +263,7 @@ class DependencyManager
 
     public function getPageStyle()
     {
-        return $this->requirementLists['css']['thisPage'];
+        return $this->requirementLists['css'][self::THIS_PAGE_KEY];
     }
 
     public function loadPageDependencies($controller, $action)
@@ -272,7 +280,7 @@ class DependencyManager
         $currentPageStyle = $this->getPageStyle();
 
         if (!empty($thisPageStyle)) {
-            $this->addStyleSheet($thisPageStyle, 'thisPage');
+            $this->addStyleSheet($thisPageStyle, self::THIS_PAGE_KEY);
         } elseif (empty($currentPageStyle)) {
             $pageStyleByConvention = $this->fileSystem->getPageStyleByConvention();
             if ($pageStyleByConvention) {
@@ -297,7 +305,7 @@ class DependencyManager
 
     public function setSiteTheme($sheet)
     {
-        $this->addStyleSheet($sheet, 'siteTheme');
+        $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
     }
 
     /**

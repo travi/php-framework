@@ -23,7 +23,6 @@ class HtmlRenderer extends Renderer
 
         $this->smarty->clearAllAssign();
         $dependencies = $this->dependencyManager->getDependencies();
-        print_r($dependencies);
         $this->smarty->assign('dependencies', $dependencies);
         $this->smarty->assign('page', $page);
         $this->smarty->display($this->layoutTemplate);

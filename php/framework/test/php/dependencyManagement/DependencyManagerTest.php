@@ -17,6 +17,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         'page style sheet'
     );
     private $pageStyle = 'page.css';
+    const SITE_THEME = 'site theme';
 
     /** @var FileSystem */
     private $fileSystem;
@@ -100,5 +101,53 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
 
         $this->assertSame($pageStyle, $this->dependencyManager->getPageStyle());
+    }
+
+    public function testPageStyleFollowsBaseFormSheet()
+    {
+        $this->dependencyManager->setPageStyle($this->pageStyle);
+        $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                '/resources/shared/css/travi.form.css',
+                DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+            ),
+            $dependencies['css']
+        );
+    }
+
+    public function testSiteThemeFollowsBaseFormSheet()
+    {
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+        $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                '/resources/shared/css/travi.form.css',
+                DependencyManager::SITE_THEME_KEY => self::SITE_THEME
+            ),
+            $dependencies['css']
+        );
+    }
+
+    public function testPageStyleFollowsBaseSiteTheme()
+    {
+        $this->dependencyManager->setPageStyle($this->pageStyle);
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                DependencyManager::SITE_THEME_KEY => self::SITE_THEME,
+                DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+            ),
+            $dependencies['css']
+        );
     }
 }
