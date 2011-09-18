@@ -101,39 +101,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array($description => $content), $this->object->getContent());
     }
 
-    /**
-     * @todo Implement testGetProperFile().
-     */
-    public function testGetProperFile()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetProperFile().
-     */
-    public function testGetProperFileDev()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetProperFile().
-     */
-    public function testGetProperFileDebug()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testAddLinkTag()
     {
         $link = 'link';

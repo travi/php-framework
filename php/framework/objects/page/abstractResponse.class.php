@@ -122,17 +122,6 @@ abstract class AbstractResponse
         return $this->content;
     }
 
-    public function getProperFile($file)
-    {
-        global $config;
-
-        if (ENV !== 'development' && $config['debug'] !== true) {
-            return preg_replace('/\/(css|js)\//', '/min/$1/', $file, 1);
-        } else {
-            return $file;
-        }
-    }
-
 
     //////////////////////////////////////////////////////////////////////////
     //                          Other Tags                                  //

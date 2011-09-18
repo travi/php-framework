@@ -1,6 +1,6 @@
 <?php
  
-class Environment 
+class Environment
 {
     private $productionUrl;
     const LOCAL_KEY = '.local';
