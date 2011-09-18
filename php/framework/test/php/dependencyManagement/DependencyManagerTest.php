@@ -202,10 +202,6 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ),
             $dependencies
         );
-
-//        $this->markTestIncomplete(
-//            'This test has not been implemented yet.'
-//        );
     }
 
     public function testReturnsFullSourceFormOfJsAndCssWhenDebug()
