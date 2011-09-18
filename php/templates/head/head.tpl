@@ -17,11 +17,11 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 {foreach item=style from=$dependencies['css']}
-        <link   type="text/css" rel="stylesheet" media="screen" href="{$page->getProperFile($style)}" />
+        <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
 {/foreach}
         <script type="text/javascript" src="/resources/shared/js/modernizr/modernizr.min.js"> </script>
 {foreach item=script from=$dependencies['js']}
-        <script type="text/javascript" src="{$page->getProperFile($script)}" > </script>
+        <script type="text/javascript" src="{$script}" > </script>
 {/foreach}
 {include file='head/jsInit.tpl'}
 {include file='head/clientTemplates.tpl'}
