@@ -47,11 +47,6 @@ class Response extends AbstractResponse
         return $this->tagLine;
     }
 
-    public function respond()
-    {
-        $this->Display();
-    }
-
     public function setConfig($config)
     {
         $this->config = $config;
