@@ -16,39 +16,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $this->object = $this->getMockForAbstractClass('AbstractResponse');
     }
 
-    /**
-     * @todo Implement testImportNavFile().
-     */
-    public function testImportNavFile()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testKeyValueFromFile().
-     */
-    public function testKeyValueFromFile()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testYaml2Array().
-     */
-    public function testYaml2Array()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testSiteName()
     {
         $siteName = 'siteName';
@@ -117,17 +84,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $subHeader = 'subHeader';
         $this->object->setSubHeader($subHeader);
         $this->assertSame($subHeader, $this->object->getSubHeader());
-    }
-
-    /**
-     * @todo Implement testGetSmartyConfig().
-     */
-    public function testGetSmartyConfig()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     public function testSetContent()
@@ -269,28 +225,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @todo Implement testSetAdminNav().
-     */
-    public function testSetAdminNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetAdminNav().
-     */
-    public function testGetAdminNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @todo Implement testSetSubNav().
      */
     public function testSetSubNav()
@@ -305,17 +239,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
      * @todo Implement testGetSubNav().
      */
     public function testGetSubNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testAddNavSection().
-     */
-    public function testAddNavSection()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -387,28 +310,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $name = 'name';
         $this->object->addClientTemplate($name, $template);
         $this->assertSame(array($name => $template), $this->object->getClientTemplates());
-    }
-
-    /**
-     * @todo Implement testSmartyInit().
-     */
-    public function testSmartyInit()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetSmarty().
-     */
-    public function testGetSmarty()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 
     /**

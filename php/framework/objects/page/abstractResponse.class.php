@@ -22,6 +22,7 @@ abstract class AbstractResponse
     protected $jsInits = array();
     protected $links = array();
     protected $body;
+    /** @var NavigationObject */
     protected $nav;
     protected $content = array();
     protected $currentSiteSection;
@@ -29,31 +30,6 @@ abstract class AbstractResponse
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
     //////////////////////////////////////////////////////////////////////////
-
-    public function importNavFile()
-    {
-        return $this->yaml2Array(NAV_FILE);
-    }
-
-    public function keyValueFromFile($file)
-    {
-        $kvLines = file($file);
-
-        foreach ($kvLines as $kv) {
-            $keyVals = explode('=', $kv);
-            if (count($keyVals) == 2) {
-                $keyVals = array_map('trim', $keyVals);
-                list($key,$value) = $keyVals;
-                $assocArray["$key"] = $value;
-            }
-        }
-        return $assocArray;
-    }
-
-    public function yaml2Array($file)
-    {
-        return Spyc::YAMLLoad($file);
-    }
 
     public function setSiteName($name)
     {
@@ -202,28 +178,12 @@ abstract class AbstractResponse
 
     public function setPrimaryNav($section)
     {
-        $navArray = $section;
-
-        //        foreach($navArray as &$navItem){
-        //            if(is_array($navItem)){
-        //                $navItem = $navItem['link'];
-        //            }
-        //        }
-
-        $this->nav->setSection('main', $navArray);
+        $this->nav->setSection('main', $section);
     }
 
     public function getMainNav()
     {
         return $this->nav->getSection('main');
-    }
-
-    public function setAdminNav($section)
-    {
-        if (is_string($section)) {
-            $section = $this->yaml2Array($section);
-        }
-        $this->nav->setSection('admin', $section);
     }
 
     public function getAdminNav()
@@ -240,14 +200,6 @@ abstract class AbstractResponse
     public function getSubNav()
     {
         return $this->nav->getSection('subNav');
-    }
-
-    public function addNavSection($title, $section)
-    {
-        if (is_string($section)) {
-            $section = $this->yaml2Array($section);
-        }
-        $this->nav->addSection($title, $section);
     }
 
     public function getNavSection($title)
