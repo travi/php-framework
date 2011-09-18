@@ -28,6 +28,11 @@ class FileSystem
         }
     }
 
+    public function parseYamlFileAt($pathToFile)
+    {
+        return Spyc::YAMLLoad($pathToFile);
+    }
+
     /**
      * @PdInject request
      */
