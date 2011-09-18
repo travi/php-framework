@@ -6,12 +6,15 @@ class DependencyManager
 {
     const SITE_THEME_KEY = 'siteTheme';
     const THIS_PAGE_KEY = 'thisPage';
+    const MIN_DIR = '/min';
     /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array();
 
     /** @var FileSystem */
     private $fileSystem;
+    /** @var Environment */
+    private $envUtil;
 
     private $pageDependenciesLists = array();
 
@@ -316,5 +319,40 @@ class DependencyManager
     public function setFileSystem($fileSystem)
     {
         $this->fileSystem = $fileSystem;
+    }
+
+    public function getDependenciesInProperForm()
+    {
+        $dependencies = $this->getDependencies();
+
+        if (!$this->envUtil->isLocal()) {
+            $dependencies = $this->minify($dependencies, 'css');
+            $dependencies = $this->minify($dependencies, 'js');
+        }
+
+        return $dependencies;
+    }
+
+    private function minify($dependencies, $list)
+    {
+        foreach ($dependencies[$list] as &$dependency) {
+            $dependency = $this->replaceWithMinifiedVersion($dependency);
+        }
+        return $dependencies;
+    }
+
+    private function replaceWithMinifiedVersion($dependency)
+    {
+        return preg_replace('/\/(css|js)\//', '/min/$1/', $dependency, 1);
+    }
+
+    /**
+     * @PdInject environment
+     * @param $env Environment
+     * @return void
+     */
+    public function setEnvironmentUtility($env)
+    {
+        $this->envUtil = $env;
     }
 }

@@ -55,6 +55,7 @@ $container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', new Response($config));
 $container->dependencies()->set('Smarty', smartyInit());
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath']));
+$container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set(
     'dependencyManager',
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
@@ -123,4 +124,18 @@ function fileSystemInit($sitePath)
     $fileSystem = Pd_Make::name('FileSystem');
     $fileSystem->setSitePath($sitePath);
     return $fileSystem;
+}
+
+/**
+ * @param $prodUrl
+ * @return Environment
+ */
+function environmentInit($prodUrl)
+{
+    include_once dirname(__FILE__) . '/../utilities/Environment.php';
+
+    /** @var $environment Environment */
+    $environment = Pd_Make::name('Environment');
+    $environment->setProductionUrl($prodUrl);
+    return $environment;
 }

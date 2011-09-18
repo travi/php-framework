@@ -1,5 +1,6 @@
 <?php
- 
+require_once dirname(__FILE__) . '/../../../src/utilities/Environment.php';
+
 class DependencyManagerTest extends PHPUnit_Framework_TestCase
 {
     private $anyController = 'testController';
@@ -18,6 +19,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     );
     private $pageStyle = 'page.css';
     const SITE_THEME = 'site theme';
+    private $environmentUtility;
 
     /** @var FileSystem */
     private $fileSystem;
@@ -27,6 +29,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->fileSystem = $this->getMock('FileSystem');
+        $this->environmentUtility = $this->getMock('Environment');
+
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
@@ -148,6 +152,66 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
             ),
             $dependencies['css']
+        );
+    }
+
+    public function testReturnsMinifiedFormOfJsAndCss()
+    {
+        $script = "/js/some script";
+        $sheet = "/css/some sheet";
+
+        /** @var $environmentUtility Environment */
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal');
+
+        $this->dependencyManager->setEnvironmentUtility($this->environmentUtility);
+        $this->dependencyManager->addStyleSheet($sheet);
+        $this->dependencyManager->addJavaScript($script);
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertNotNull($dependencies);
+        $this->assertSame(
+            array(
+                'css' => array(DependencyManager::MIN_DIR . $sheet),
+                'js' => array(DependencyManager::MIN_DIR . $script)
+            ),
+            $dependencies
+        );
+    }
+
+    public function testReturnsFullSourceFormOfJsAndCssWhenLocal()
+    {
+        $script = "/js/some script";
+        $sheet = "/css/some sheet";
+
+        /** @var $environmentUtility Environment */
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->setEnvironmentUtility($this->environmentUtility);
+        $this->dependencyManager->addStyleSheet($sheet);
+        $this->dependencyManager->addJavaScript($script);
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertNotNull($dependencies);
+        $this->assertSame(
+            array(
+                'css' => array($sheet),
+                'js' => array($script)
+            ),
+            $dependencies
+        );
+
+//        $this->markTestIncomplete(
+//            'This test has not been implemented yet.'
+//        );
+    }
+
+    public function testReturnsFullSourceFormOfJsAndCssWhenDebug()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
         );
     }
 }

@@ -17,7 +17,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $dependencyManager->expects($this->once())
             ->method('addCacheBusters');
         $dependencyManager->expects($this->once())
-            ->method('getDependencies')
+            ->method('getDependenciesInProperForm')
             ->will($this->returnValue($deps));
 
         $page = $this->getMock('Response');
