@@ -295,7 +295,7 @@ class DependencyManager
     }
 
     /**
-     * @PdInject new:\ClientDependencies
+     * @PdInject new:ClientDependencies
      * @param \ClientDependencies $clientDependencyDefinitions
      */
     public function setClientDependencyDefinitions($clientDependencyDefinitions)
