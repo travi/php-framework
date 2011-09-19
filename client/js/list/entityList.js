@@ -1,10 +1,3 @@
-if (typeof travi !== 'object') {
-    var travi = {};
-}
-if (typeof travi.framework !== 'object') {
-    travi.framework = {};
-}
-
 travi.framework.entityList = (function () {
     "use strict";
     

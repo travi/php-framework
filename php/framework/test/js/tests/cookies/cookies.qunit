@@ -1,0 +1,30 @@
+(function () {
+    "use strict";
+
+    var DAYS_BEFORE_EXP = 1;
+
+    module("Cookies", {
+        teardown: function () {
+            travi.framework.cookies.clearAll();
+        }
+    });
+
+    test("Test cookie is created", function () {
+        var cookieName = 'testCookie';
+        ok(!travi.framework.cookies.exists(cookieName), "cookie does not exist before creation");
+
+        travi.framework.cookies.create(cookieName, "someValue", DAYS_BEFORE_EXP);
+
+        ok(travi.framework.cookies.exists(cookieName), "cookie exists after creation");
+    });
+
+    test("Test cookie is removed", function () {
+        var cookieToDelete = "toDelete";
+        travi.framework.cookies.create(cookieToDelete, "will be deleted in this test", DAYS_BEFORE_EXP);
+        ok(travi.framework.cookies.exists(cookieToDelete), "cookie exists before deletion");
+
+        travi.framework.cookies.remove(cookieToDelete);
+
+        ok(!travi.framework.cookies.exists(cookieToDelete), "cookie exists does not exist after deletion");
+    });
+}());
