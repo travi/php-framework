@@ -59,11 +59,15 @@ travi.framework.cookies = (function () {
         });
     },
 
+    buildExpiresRelativeToNow = function (days) {
+        var date = getDateNowAdjustedByDays(days);
+        return "; expires=" + date.toGMTString();
+    },
+
     create = function (name, value, days) {
-        var expires, date;
+        var expires;
         if (days) {
-            date = getDateNowAdjustedByDays(days);
-            expires = "; expires=" + date.toGMTString();
+            expires = buildExpiresRelativeToNow(days);
         } else {
             expires = "";
         }
@@ -77,8 +81,7 @@ travi.framework.cookies = (function () {
 
     clearAll = function () {
         loopThruCookies(function (cookiePair) {
-            var cookieName = getNameFromPair(cookiePair);
-            remove(cookieName);
+            remove(getNameFromPair(cookiePair));
         });
     };
 
