@@ -2,22 +2,23 @@
 travi.framework.cookies = (function () {
     "use strict";
 
-    var exists = function (name) {
-        return loopThruCookies(function (currentPair) {
-            if (currentPair.indexOf(name + '=') == 0) {
-                return true;
-            }
-        });
+    var trimLeadingSpaces = function (currentPair) {
+        while (currentPair.charAt(0) === ' ') {
+            currentPair = currentPair.substring(1, currentPair.length);
+        }
+
+        return currentPair;
     },
 
     loopThruCookies = function (callback) {
-        var cookies = document.cookie.split(';');
+        var i, qty, bool, currentPair,
+            cookies = document.cookie.split(';');
 
-        var qty = cookies.length;
-        for (var i = 0; i < qty; i++) {
-            var currentPair = cookies[i];
-            currentPair = trimLeadingSpaces(currentPair);
-            var bool = callback.call(null, currentPair);
+        qty = cookies.length;
+        for (i = 0; i < qty; i = i + 1) {
+            currentPair = trimLeadingSpaces(cookies[i]);
+
+            bool = callback.call(null, currentPair);
             if (bool === true) {
                 return true;
             }
@@ -26,12 +27,12 @@ travi.framework.cookies = (function () {
         return false;
     },
 
-    trimLeadingSpaces = function (currentPair) {
-        while (currentPair.charAt(0) == ' ') {
-            currentPair = currentPair.substring(1, currentPair.length);
-        }
-
-        return currentPair;
+    exists = function (name) {
+        return loopThruCookies(function (currentPair) {
+            if (currentPair.indexOf(name + '=') === 0) {
+                return true;
+            }
+        });
     },
 
     getDateNowAdjustedByDays = function (days) {
@@ -50,9 +51,9 @@ travi.framework.cookies = (function () {
     },
 
     create = function (name, value, days) {
-        var expires;
+        var expires, date;
         if (days) {
-            var date = getDateNowAdjustedByDays(days);
+            date = getDateNowAdjustedByDays(days);
             expires = "; expires=" + date.toGMTString();
         } else {
             expires = "";
@@ -77,5 +78,5 @@ travi.framework.cookies = (function () {
         create: create,
         remove: remove,
         clearAll: clearAll
-    }
+    };
 }());
