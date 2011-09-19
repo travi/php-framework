@@ -2,7 +2,23 @@
 travi.framework.cookies = (function () {
     "use strict";
 
-    var trimLeadingSpaces = function (pair) {
+    var getNameAndValueFromPair = function (pair) {
+        var nameAndValue = pair.split('=');
+        return {
+            name: nameAndValue[0],
+            value: nameAndValue[1]
+        };
+    },
+
+    getNameFromPair = function (pair) {
+        return getNameAndValueFromPair(pair).name;
+    },
+
+    getValueFromPair = function (pair) {
+        return getNameAndValueFromPair(pair).value;
+    },
+
+    trimLeadingSpaces = function (pair) {
         while (pair.charAt(0) === ' ') {
             pair = pair.substring(1, pair.length);
         }
@@ -29,7 +45,7 @@ travi.framework.cookies = (function () {
 
     exists = function (name) {
         return loopThruCookies(function (currentPair) {
-            if (currentPair.indexOf(name + '=') === 0) {
+            if (getNameFromPair(currentPair) === name) {
                 return true;
             }
         });
@@ -39,18 +55,6 @@ travi.framework.cookies = (function () {
         var date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         return date;
-    },
-
-    getNameAndValueFromPair = function (pair) {
-        return pair.split('=');
-    },
-
-    getNameFromPair = function (pair) {
-        return getNameAndValueFromPair(pair)[0];
-    },
-
-    getValueFromPair = function (pair) {
-        return getNameAndValueFromPair(pair)[1];
     },
 
     valueOf = function (name) {
