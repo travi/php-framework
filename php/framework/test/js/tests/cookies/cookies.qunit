@@ -10,12 +10,14 @@
     });
 
     test("Test cookie is created", function () {
-        var cookieName = 'testCookie';
-        ok(!travi.framework.cookies.exists(cookieName), "cookie does not exist before creation");
+        var cookieName = 'testCookie',
+            cookieValue = "someValue";
 
-        travi.framework.cookies.create(cookieName, "someValue", DAYS_BEFORE_EXP);
+        ok(!travi.framework.cookies.exists(cookieName), "cookie does not exist before creation");
+        travi.framework.cookies.create(cookieName, cookieValue, DAYS_BEFORE_EXP);
 
         ok(travi.framework.cookies.exists(cookieName), "cookie exists after creation");
+        strictEqual("someValue", travi.framework.cookies.value(cookieName));
     });
 
     test("Test cookie is removed", function () {

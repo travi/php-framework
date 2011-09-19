@@ -10,21 +10,25 @@ travi.framework.cookies = (function () {
         return currentPair;
     },
 
-    loopThruCookies = function (callback) {
-        var i, qty, bool, currentPair,
+    loopThruCookies = function (callback, shouldReturnBool) {
+        var i, qty, callbackReturnValue, currentPair,
             cookies = document.cookie.split(';');
 
         qty = cookies.length;
         for (i = 0; i < qty; i = i + 1) {
             currentPair = trimLeadingSpaces(cookies[i]);
 
-            bool = callback.call(null, currentPair);
-            if (bool === true) {
+            callbackReturnValue = callback.call(null, currentPair);
+            if (callbackReturnValue === true) {
                 return true;
             }
         }
 
-        return false;
+        if (shouldReturnBool) {
+            return false;
+        } else {
+            return callbackReturnValue;
+        }
     },
 
     exists = function (name) {
@@ -41,13 +45,22 @@ travi.framework.cookies = (function () {
         return date;
     },
 
+    getNameAndValueFromPair = function (pair) {
+        return pair.split('=');
+    },
+
     getNameFromPair = function (pair) {
-        var nameAndValue = pair.split('=');
-        return nameAndValue[0];
+        return getNameAndValueFromPair(pair)[0];
+    },
+
+    getValueFromPair = function (pair) {
+        return getNameAndValueFromPair(pair)[1];
     },
 
     valueOf = function (name) {
-
+        return loopThruCookies(function (pair) {
+            return getValueFromPair(pair);
+        });
     },
 
     create = function (name, value, days) {
@@ -77,6 +90,7 @@ travi.framework.cookies = (function () {
         exists: exists,
         create: create,
         remove: remove,
-        clearAll: clearAll
+        clearAll: clearAll,
+        value: valueOf
     };
 }());
