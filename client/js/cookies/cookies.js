@@ -2,15 +2,15 @@
 travi.framework.cookies = (function () {
     "use strict";
 
-    var trimLeadingSpaces = function (currentPair) {
-        while (currentPair.charAt(0) === ' ') {
-            currentPair = currentPair.substring(1, currentPair.length);
+    var trimLeadingSpaces = function (pair) {
+        while (pair.charAt(0) === ' ') {
+            pair = pair.substring(1, pair.length);
         }
 
-        return currentPair;
+        return pair;
     },
 
-    loopThruCookies = function (callback, shouldReturnBool) {
+    loopThruCookies = function (callback) {
         var i, qty, callbackReturnValue, currentPair,
             cookies = document.cookie.split(';');
 
@@ -24,11 +24,7 @@ travi.framework.cookies = (function () {
             }
         }
 
-        if (shouldReturnBool) {
-            return false;
-        } else {
-            return callbackReturnValue;
-        }
+        return callbackReturnValue;
     },
 
     exists = function (name) {
