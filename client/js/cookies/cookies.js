@@ -26,7 +26,7 @@ travi.framework.cookies = (function () {
         return pair;
     },
 
-    loopThruCookies = function (callback) {
+    loopThruCookies = function (callback, cookieNameToMatch) {
         var i, qty, callbackReturnValue, currentPair,
             cookies = document.cookie.split(';');
 
@@ -34,7 +34,7 @@ travi.framework.cookies = (function () {
         for (i = 0; i < qty; i = i + 1) {
             currentPair = trimLeadingSpaces(cookies[i]);
 
-            callbackReturnValue = callback.call(null, currentPair);
+            callbackReturnValue = callback.call(null, currentPair, cookieNameToMatch);
             if (callbackReturnValue === true) {
                 return true;
             }
@@ -58,9 +58,11 @@ travi.framework.cookies = (function () {
     },
 
     valueOf = function (name) {
-        return loopThruCookies(function (pair) {
-            return getValueFromPair(pair);
-        });
+        return loopThruCookies(function (pair, nameToMatch) {
+            if (nameToMatch === getNameFromPair(pair)) {
+                return getValueFromPair(pair);
+            }
+        }, name);
     },
 
     buildExpiresRelativeToNow = function (days) {
