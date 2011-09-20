@@ -1,6 +1,22 @@
 #=======Framework Components=======
-travi:
+framework:
   local: "/resources/shared/js/travi.js"
+  jsDependencies:
+    - "jquery"
+
+entityList:
+  local: "/resources/shared/js/list/entityList.js"
+  jsDependencies:
+    - "jqueryUi"
+    - "ajaxForm"
+    - "framework"
+  cssDependencies:
+    - "/resources/shared/css/travi.entities.css"
+
+cookieUtil:
+  local: "/resources/shared/js/cookies/cookies.js"
+  jsDependencies:
+    - "framework"
 
 gallery:
   local: "/resources/js/gallery.js"
@@ -11,14 +27,6 @@ gallery:
     - "reflection"
   cssDependencies:
     - "/resources/css/pages/gallery.dev.css"
-
-entityList:
-  local: "/resources/shared/js/list/entityList.js"
-  jsDependencies:
-    - "jqueryUi"
-    - "ajaxForm"
-  cssDependencies:
-    - "/resources/shared/css/travi.entities.css"
 
 #=======jQuery======
 jquery:

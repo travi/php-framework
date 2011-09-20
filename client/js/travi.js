@@ -24,6 +24,7 @@ var travi = (function () {
 
     return {
         loadTemplate    : loadTemplate,
-        getStyleSheet   : getStyleSheet
+        getStyleSheet   : getStyleSheet,
+        framework       : {}
     };
 }());
