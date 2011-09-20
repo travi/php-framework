@@ -19,7 +19,7 @@
 {foreach item=style from=$dependencies['css']}
         <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
 {/foreach}
-        <script type="text/javascript" src="/resources/shared/js/modernizr/modernizr.min.js"> </script>
+        <script type="text/javascript" src="/resources/shared/{if $page->isProduction()}min/{/if}js/modernizr/modernizr.min.js"> </script>
 {foreach item=script from=$dependencies['js']}
         <script type="text/javascript" src="{$script}" > </script>
 {/foreach}
