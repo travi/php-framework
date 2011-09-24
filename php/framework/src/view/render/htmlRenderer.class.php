@@ -7,8 +7,6 @@ class HtmlRenderer extends Renderer
     private $layoutTemplate;
     /** @var DependencyManager */
     private $dependencyManager;
-    private $controller;
-    private $action;
 
     /**
      * @param $data
@@ -18,7 +16,7 @@ class HtmlRenderer extends Renderer
     public function format($data, $page)
     {
         $this->dependencyManager->resolveContentDependencies($data);
-        $this->dependencyManager->loadPageDependencies($this->controller, $this->action);
+        $this->dependencyManager->loadPageDependencies();
         $this->dependencyManager->addCacheBusters();
 
         $this->smarty->clearAllAssign();
@@ -49,15 +47,5 @@ class HtmlRenderer extends Renderer
     public function setDependencyManager($dependencyManager)
     {
         $this->dependencyManager = $dependencyManager;
-    }
-
-    public function setRequestedController($controller)
-    {
-        $this->controller = $controller;
-    }
-
-    public function setRequestedAction($action)
-    {
-        $this->action = $action;
     }
 }

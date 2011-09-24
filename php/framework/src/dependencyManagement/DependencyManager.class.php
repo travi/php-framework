@@ -275,9 +275,10 @@ class DependencyManager
         return $this->requirementLists['css'][self::THIS_PAGE_KEY];
     }
 
-    public function loadPageDependencies($controller, $action)
+    public function loadPageDependencies()
     {
-        $thisPage = $this->pageDependenciesLists[strtolower($controller)][$action];
+        $thisPage
+            = $this->pageDependenciesLists[strtolower($this->request->getController())][$this->request->getAction()];
 
         $this->addDependencies($this->pageDependenciesLists['site']);
         $this->addDependencies($thisPage);

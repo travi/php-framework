@@ -272,7 +272,7 @@ abstract class AbstractResponse
     //                          Render                                      //
     //////////////////////////////////////////////////////////////////////////
 
-    public function format($controller, $action)
+    public function format()
     {
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
@@ -284,8 +284,6 @@ abstract class AbstractResponse
         } else {
             /** @var $htmlRenderer HtmlRenderer */
             $htmlRenderer = Pd_Make::name('HtmlRenderer');
-            $htmlRenderer->setRequestedController($controller);
-            $htmlRenderer->setRequestedAction($action);
             $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
             echo $htmlRenderer->format($this->getContent(), $this);
         }

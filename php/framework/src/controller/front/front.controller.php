@@ -103,7 +103,7 @@ class FrontController
         $this->Response->addMetaTag(
             '<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">'
         );
-        $this->Response->format($this->Request->getController(), $this->Request->getAction());
+        $this->Response->format();
     }
 
     private function respondWithError($errorCode, $exception = null)

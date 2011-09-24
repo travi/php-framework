@@ -39,6 +39,13 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
         $this->dependencyManager->setFileSystem($this->fileSystem);
         $this->dependencyManager->setRequest($this->request);
+
+        $this->request->expects($this->any())
+            ->method('getController')
+            ->will($this->returnValue($this->anyController));
+        $this->request->expects($this->any())
+            ->method('getAction')
+            ->will($this->returnValue($this->anyAction));
     }
 
     public function testLoadPageDependenciesAddsFromList()
@@ -58,7 +65,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
+        $this->dependencyManager->loadPageDependencies();
 
         $this->assertNotNull($this->dependencyManager->getStyleSheets());
         $this->assertNotNull($this->dependencyManager->getScripts());
@@ -89,7 +96,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
+        $this->dependencyManager->loadPageDependencies();
 
         $this->assertSame(null, $this->dependencyManager->getPageStyle());
         $this->assertSame(
@@ -246,7 +253,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
 
-        $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
+        $this->dependencyManager->loadPageDependencies();
 
         $dependencies = $this->dependencyManager->getDependencies();
 
