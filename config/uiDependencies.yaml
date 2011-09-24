@@ -1,8 +1,13 @@
 #=======Framework Components=======
-framework:
+travi:
   local: "/resources/shared/js/travi.js"
   jsDependencies:
     - "jquery"
+
+framework:
+  local: "/resources/shared/js/framework.js"
+  jsDependencies:
+    - "travi"
 
 entityList:
   local: "/resources/shared/js/list/entityList.js"

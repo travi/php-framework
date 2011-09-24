@@ -1,0 +1,21 @@
+(function () {
+    "use strict";
+
+    //TODO: need to break this out and mock the cookie utility
+
+    module("Framework Init",{
+        teardown: function () {
+            travi.framework.cookies.clearAll();
+        }
+    });
+
+    //TODO: need to mock out Moderizer to get these tests working
+
+    test("Enhancement version set to mobile when screen width at X", function () {
+        ok(false);
+    });
+
+    test("Enhancement version set to desktop when screen width at X", function () {
+        ok(false);
+    });
+}());
