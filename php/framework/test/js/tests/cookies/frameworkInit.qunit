@@ -3,7 +3,7 @@
 
     //TODO: need to break this out and mock the cookie utility
 
-    module("Framework Init",{
+    module("Framework Init", {
         teardown: function () {
             travi.framework.cookies.clearAll();
         }
