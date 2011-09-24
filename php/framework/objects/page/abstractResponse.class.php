@@ -5,6 +5,9 @@ require_once dirname(__FILE__).'/../../src/view/render/htmlRenderer.class.php';
 
 abstract class AbstractResponse
 {
+    const LINK_ATTR_RSS_TYPE = 'application/rss+xml';
+    const LINK_ATTR_REL_ALTERNATE = 'alternate';
+
     protected $siteName;
     protected $title;
     protected $siteHeader;
@@ -13,9 +16,6 @@ abstract class AbstractResponse
     protected $pageTemplate;
     protected $metatags = array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
     protected $clientTemplates = array();
-    private   $externalClientTemplates = array();
-    const LINK_ATTR_RSS_TYPE = 'application/rss+xml';
-    const LINK_ATTR_REL_ALTERNATE = 'alternate';
     protected $stylesheets = array();
     protected $altStyles = array();
     protected $scripts = array();

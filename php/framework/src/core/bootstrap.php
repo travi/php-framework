@@ -49,9 +49,12 @@ $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
+
 $container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
+$container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
 $container->dependencies()->set('request', Pd_Make::name('Request'));
+
 $container->dependencies()->set('response', new Response($config));
 $container->dependencies()->set('Smarty', smartyInit());
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath']));

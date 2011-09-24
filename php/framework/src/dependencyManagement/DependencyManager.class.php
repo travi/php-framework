@@ -7,6 +7,7 @@ class DependencyManager
     const SITE_THEME_KEY = 'siteTheme';
     const THIS_PAGE_KEY = 'thisPage';
     const MIN_DIR = '/min';
+
     /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array();
@@ -15,6 +16,8 @@ class DependencyManager
     private $fileSystem;
     /** @var Environment */
     private $envUtil;
+    /** @var Request */
+    private $request;
 
     private $pageDependenciesLists = array();
 
@@ -297,28 +300,9 @@ class DependencyManager
         $this->pageDependenciesLists = $lists;
     }
 
-    /**
-     * @PdInject new:ClientDependencies
-     * @param \ClientDependencies $clientDependencyDefinitions
-     */
-    public function setClientDependencyDefinitions($clientDependencyDefinitions)
-    {
-        $this->clientDependencyDefinitions = $clientDependencyDefinitions;
-    }
-
     public function setSiteTheme($sheet)
     {
         $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
-    }
-
-    /**
-     * @PdInject fileSystem
-     * @param $fileSystem
-     * @return void
-     */
-    public function setFileSystem($fileSystem)
-    {
-        $this->fileSystem = $fileSystem;
     }
 
     public function getDependenciesInProperForm()
@@ -329,6 +313,8 @@ class DependencyManager
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');
         }
+
+//        echo $this->request->getEnhancementVersion();
 
         return $dependencies;
     }
@@ -347,6 +333,25 @@ class DependencyManager
     }
 
     /**
+     * @PdInject new:ClientDependencies
+     * @param \ClientDependencies $clientDependencyDefinitions
+     */
+    public function setClientDependencyDefinitions($clientDependencyDefinitions)
+    {
+        $this->clientDependencyDefinitions = $clientDependencyDefinitions;
+    }
+
+    /**
+     * @PdInject fileSystem
+     * @param $fileSystem
+     * @return void
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
+    }
+
+    /**
      * @PdInject environment
      * @param $env Environment
      * @return void
@@ -354,5 +359,15 @@ class DependencyManager
     public function setEnvironmentUtility($env)
     {
         $this->envUtil = $env;
+    }
+
+    /**
+     * @PdInject request
+     * @param $request Request
+     * @return void
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 }

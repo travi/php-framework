@@ -6,6 +6,11 @@ class Request
     const POST = 'POST';
     const DELETE = 'DELETE';
 
+    const ENHANCEMENT_VERSION_KEY = 'enhancementVersion';
+    const BASE_ENHANCEMENT = 'base';
+    const MOBILE_ENHANCEMENT = 'mobile';
+    const DESKTOP_ENHANCEMENT = 'desktop';
+
     /** @var string */
     private $requestMethod;
     /** @var string */
@@ -20,6 +25,8 @@ class Request
     private $action;
     /** @var int */
     private $id;
+    /** @var string */
+    private $enhancementVersion;
 
     /**
      * @PdInject uri
@@ -98,6 +105,20 @@ class Request
     }
 
     /**
+     * @PdInject enhancementVersion
+     * @param $version
+     * @return void
+     */
+    public function setEnhancementVersion($version)
+    {
+        if (empty($version)) {
+            $this->enhancementVersion = self::BASE_ENHANCEMENT;
+        } else {
+            $this->enhancementVersion = $version;
+        }
+    }
+
+    /**
      * @return string
      */
     public function getRequestMethod()
@@ -119,6 +140,11 @@ class Request
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getEnhancementVersion()
+    {
+        return $this->enhancementVersion;
     }
 
 }

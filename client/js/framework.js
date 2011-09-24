@@ -7,18 +7,20 @@ travi.framework = (function () {
         DESKTOP_ENHANCEMENT_VERSION = "desktop",
 
         setEnhancementVersion = function () {
-            if (Modernizr.mq('only screen and (min-width: 481px) and (max-width: 1024px)')) {
-                this.cookies.create(
-                        ENHANCEMENT_VERSION_KEY,
-                        MOBILE_ENHANCEMENT_VERSION,
-                        DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
-                );
-            } else {
-                this.cookies.create(
-                        ENHANCEMENT_VERSION_KEY,
-                        DESKTOP_ENHANCEMENT_VERSION,
-                        DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
-                );
+            if (!this.cookies.exists(ENHANCEMENT_VERSION_KEY)) {
+                if (Modernizr.mq('only screen and (min-width: 481px) and (max-width: 1024px)')) {
+                    this.cookies.create(
+                            ENHANCEMENT_VERSION_KEY,
+                            MOBILE_ENHANCEMENT_VERSION,
+                            DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+                    );
+                } else {
+                    this.cookies.create(
+                            ENHANCEMENT_VERSION_KEY,
+                            DESKTOP_ENHANCEMENT_VERSION,
+                            DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+                    );
+                }
             }
         },
 

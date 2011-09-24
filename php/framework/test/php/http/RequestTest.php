@@ -27,14 +27,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->request = $request;
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
     public function testGetController()
     {
         $this->assertSame(false, $this->request->isAdmin());
@@ -103,5 +95,36 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame(true, $this->request->isAdmin());
         $this->assertSame('webmaster', $this->request->getAction());
     }
+
+    public function testKeyDefinedProperlyForEnhancementVersionKey()
+    {
+        $this->assertSame('enhancementVersion', Request::ENHANCEMENT_VERSION_KEY);
+    }
+
+    public function testKeyDefinedProperlyForBaseEnhancementVersion()
+    {
+        $this->assertSame('base', Request::BASE_ENHANCEMENT);
+    }
+
+    public function testKeyDefinedProperlyForMobileEnhancementVersion()
+    {
+        $this->assertSame('mobile', Request::MOBILE_ENHANCEMENT);
+    }
+
+    public function testKeyDefinedProperlyForDesktopEnhancementVersion()
+    {
+        $this->assertSame('desktop', Request::DESKTOP_ENHANCEMENT);
+    }
+
+    public function testBaseReturnedAsEnhancementVersionWhenCookieNotSet()
+    {
+        $this->request->setEnhancementVersion('');
+        $this->assertEquals(Request::BASE_ENHANCEMENT, $this->request->getEnhancementVersion());
+    }
+
+    public function testVersionFromCookieReturnedAsEnhancementVersion()
+    {
+        $this->request->setEnhancementVersion(Request::DESKTOP_ENHANCEMENT);
+        $this->assertEquals(Request::DESKTOP_ENHANCEMENT, $this->request->getEnhancementVersion());
+    }
 }
-?>
