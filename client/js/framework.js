@@ -6,7 +6,7 @@ travi.framework = (function () {
         MOBILE_ENHANCEMENT_VERSION = "mobile",
         DESKTOP_ENHANCEMENT_VERSION = "desktop",
 
-        init = function () {
+        setEnhancementVersion = function () {
             if (Modernizr.mq('only screen and (min-width: 481px) and (max-width: 1024px)')) {
                 this.cookies.create(
                         ENHANCEMENT_VERSION_KEY,
@@ -20,6 +20,10 @@ travi.framework = (function () {
                         DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
                 );
             }
+        },
+
+        init = function () {
+            setEnhancementVersion();
         };
 
     return {
