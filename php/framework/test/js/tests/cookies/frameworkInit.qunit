@@ -18,4 +18,8 @@
     test("Enhancement version set to desktop when screen width at X", function () {
         ok(false);
     });
+
+    test("cookie not set if already set", function () {
+        ok(false, "need to figure out how to test this...maybe check value and set to a diff value if fails");
+    });
 }());

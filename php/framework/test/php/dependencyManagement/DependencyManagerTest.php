@@ -1,5 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../../../src/utilities/Environment.php';
+require_once dirname(__FILE__) . '/../../../src/dependencyManagement/DependencyManager.class.php';
+require_once dirname(__FILE__) . '/../../../src/http/Request.class.php';
 
 class DependencyManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -20,6 +22,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     private $pageStyle = 'page.css';
     const SITE_THEME = 'site theme';
     private $environmentUtility;
+    public $request;
 
     /** @var FileSystem */
     private $fileSystem;
@@ -30,11 +33,12 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->fileSystem = $this->getMock('FileSystem');
         $this->environmentUtility = $this->getMock('Environment');
-
+        $this->request = $this->getMock('Request');
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
         $this->dependencyManager->setFileSystem($this->fileSystem);
+        $this->dependencyManager->setRequest($this->request);
     }
 
     public function testLoadPageDependenciesAddsFromList()
@@ -208,6 +212,50 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
+        );
+    }
+
+    public function testJsInitSpecificToEnhancementVersionWhenIfDefinedInConfig()
+    {
+        $commonInit = 'some common initialization';
+        $mobileInit = 'some device specific initialization';
+
+        $this->dependencyManager->setPageDependenciesLists(
+            array(
+                 'site' => array(
+                     'js' => $this->siteWidgets
+                 ),
+                 strtolower($this->anyController) => array(
+                     $this->anyAction => array(
+                         'mobile' => array(
+                             'jsInits' => array(
+                                 $mobileInit
+                             )
+                         ),
+                         'js' => $this->jsDeps,
+                         'jsInits' => array(
+                             $commonInit
+                         ),
+                         'css' => $this->pageStyles
+                     )
+                 )
+            )
+        );
+
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+
+        $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                $commonInit,
+                $mobileInit
+            ),
+            $dependencies['jsInit']
         );
     }
 }

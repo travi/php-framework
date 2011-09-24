@@ -209,6 +209,9 @@ class DependencyManager
             /** @var $component Field */
             $this->addValidations($dependencies['validations'], $component->getName());
         }
+        if (!empty($dependencies[$this->request->getEnhancementVersion()])) {
+            $this->addDependencies($dependencies[$this->request->getEnhancementVersion()]);
+        }
     }
 
     /**
