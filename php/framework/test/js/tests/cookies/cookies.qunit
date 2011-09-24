@@ -1,11 +1,11 @@
-(function (fwork) {
+(function (cookieUtil) {
     "use strict";
 
     var DAYS_BEFORE_EXP = 1;
 
     module("Cookies", {
         teardown: function () {
-            fwork.cookies.clearAll();
+            cookieUtil.clearAll();
         }
     });
 
@@ -13,20 +13,20 @@
         var cookieName = 'testCookie',
             cookieValue = "someValue";
 
-        ok(!fwork.cookies.exists(cookieName), "cookie does not exist before creation");
-        fwork.cookies.create(cookieName, cookieValue, DAYS_BEFORE_EXP);
+        ok(!cookieUtil.exists(cookieName), "cookie does not exist before creation");
+        cookieUtil.create(cookieName, cookieValue, DAYS_BEFORE_EXP);
 
-        ok(fwork.cookies.exists(cookieName), "cookie exists after creation");
-        strictEqual("someValue", fwork.cookies.value(cookieName));
+        ok(cookieUtil.exists(cookieName), "cookie exists after creation");
+        strictEqual("someValue", cookieUtil.value(cookieName));
     });
 
     test("Test cookie is removed", function () {
         var cookieToDelete = "toDelete";
-        fwork.cookies.create(cookieToDelete, "will be deleted in this test", DAYS_BEFORE_EXP);
-        ok(fwork.cookies.exists(cookieToDelete), "cookie exists before deletion");
+        cookieUtil.create(cookieToDelete, "will be deleted in this test", DAYS_BEFORE_EXP);
+        ok(cookieUtil.exists(cookieToDelete), "cookie exists before deletion");
 
-        fwork.cookies.remove(cookieToDelete);
+        cookieUtil.remove(cookieToDelete);
 
-        ok(!fwork.cookies.exists(cookieToDelete), "cookie exists does not exist after deletion");
+        ok(!cookieUtil.exists(cookieToDelete), "cookie exists does not exist after deletion");
     });
-}(travi.framework));
+}(travi.framework.cookies));
