@@ -317,8 +317,6 @@ class DependencyManager
             $dependencies = $this->minify($dependencies, 'js');
         }
 
-//        echo $this->request->getEnhancementVersion();
-
         return $dependencies;
     }
 
