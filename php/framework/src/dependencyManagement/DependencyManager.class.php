@@ -277,8 +277,8 @@ class DependencyManager
 
     public function loadPageDependencies()
     {
-        $thisPage
-            = $this->pageDependenciesLists[strtolower($this->request->getController())][$this->request->getAction()];
+        $thisController = $this->pageDependenciesLists[strtolower($this->request->getController())];
+        $thisPage = $thisController[$this->request->getAction()];
 
         $this->addDependencies($this->pageDependenciesLists['site']);
         $this->addDependencies($thisPage);
