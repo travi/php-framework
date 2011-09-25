@@ -2,18 +2,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-        <title>Cookies Component Tests</title>
+        <title>Enhancement Version Tests</title>
 
         <script src="/resources/shared/js/LABjs/LAB.js"> </script>
         <script type="application/javascript">
             function loadRunnerDependencies() {
                 $LAB
                     .script('/helpers/travi.stub.js')
-                    .script('/helpers/framework.stub.js')
-                    .wait()
+                    .script('/resources/shared/js/framework.js')
                     .script('/resources/shared/js/cookies/cookies.js')
+                    .script('/resources/shared/js/utilities.js')
+                    .script('/helpers/baseMock.js')
+                    .script('/helpers/mockModernizr.js')
                     .wait()
-                    .script('/tests/cookies/cookies.qunit')
+                    .script('/tests/enhancementVersion/mediaQuery.qunit')
                     .wait();
             };
         </script>
@@ -34,7 +36,7 @@
         </script>
     </head>
     <body>
-        <h1 id="qunit-header">Cookies Component Tests</h1>
+        <h1 id="qunit-header">Enhancement Version Tests</h1>
         <h2 id="qunit-banner"></h2>
         <h2 id="qunit-userAgent"></h2>
         <ol id="qunit-tests"></ol>

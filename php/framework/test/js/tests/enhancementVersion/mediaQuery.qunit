@@ -1,0 +1,55 @@
+(function (fwork) {
+    "use strict";
+
+    var cookieName = 'enhancementVersion';
+
+    //TODO: need to break this out and mock the cookie utility
+
+    module("Screen width based version", {
+        teardown: function () {
+            fwork.cookies.clearAll();
+        }
+    });
+
+    test("Enhancement version set to mobile when screen width reported within smartphone range", function () {
+        Modernizr.init();
+        Modernizr.expect(
+            'mq',
+            {
+                withValue: 'only screen and (min-width: 320px) and (max-width: 480px)',
+                returnValue: true
+            }
+        );
+
+        fwork.init();
+
+        ok(Modernizr.verify());
+        strictEqual('mobile', fwork.cookies.value(cookieName));
+    });
+
+    test("Enhancement version set to desktop at higher screen width", function () {
+        Modernizr.init();
+        Modernizr.expect(
+            'mq',
+            {
+                withValue: 'only screen and (min-width: 320px) and (max-width: 480px)',
+                returnValue: false
+            }
+        );
+
+        fwork.init();
+
+        ok(Modernizr.verify());
+        strictEqual('desktop', fwork.cookies.value(cookieName));
+    });
+
+    test("cookie not set if already set", function () {
+        var existingCookieValue = 'test';
+
+        fwork.cookies.create(cookieName, existingCookieValue, 10);
+
+        fwork.init();
+
+        strictEqual(existingCookieValue, fwork.cookies.value(cookieName));
+    });
+}(travi.framework));
