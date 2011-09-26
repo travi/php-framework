@@ -1,0 +1,6 @@
+syntax: glob
+build/coverage/*
+build/logs/*
+build/site/*
+build/dist/*
+.DS_Store
