@@ -40,6 +40,6 @@ travi.framework.utils = (function () {
     return {
         createObjectFrom: create,
         extendObject    : extend
-    }
+    };
 
 }());
