@@ -30,6 +30,7 @@ class Request
 
     /**
      * @PdInject uri
+     * @param $uri
      */
     public function setURI($uri)
     {

@@ -5,7 +5,9 @@ require_once dirname(__FILE__).'/../utilities/FileSystem.php';
 class DependencyManager
 {
     const SITE_THEME_KEY = 'siteTheme';
+    const SITE_THEME_ENHANCED_KEY = 'siteThemeEnhanced';
     const THIS_PAGE_KEY = 'thisPage';
+    const THIS_PAGE_ENHANCED_KEY = 'thisPageEnhanced';
     const MIN_DIR = '/min';
 
     /** @var \ClientDependencies */
@@ -82,14 +84,28 @@ class DependencyManager
         $styleSheetList = &$this->requirementLists['css'];
 
         if (!in_array($sheet, $styleSheetList) || $index === self::THIS_PAGE_KEY) {
+            $enhancementVersion = $this->request->getEnhancementVersion();
+            $enhancedFile = '';
+            if ($enhancementVersion === Request::MOBILE_ENHANCEMENT) {
+                $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
+            } elseif ($enhancementVersion === Request::DESKTOP_ENHANCEMENT) {
+                $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
+            }
+
             if (!empty($index)) {
                 if ($index === self::THIS_PAGE_KEY && in_array($sheet, $styleSheetList)) {
                     $indexFound = array_search($sheet, $styleSheetList);
                     unset($styleSheetList[$indexFound]);
                 }
                 $styleSheetList[$index] = $sheet;
+                if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
+                    $styleSheetList[$index . 'Enhanced'] = $enhancedFile;
+                }
             } else {
                 array_push($styleSheetList, $sheet);
+                if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
+                    array_push($styleSheetList, $enhancedFile);
+                }
             }
         }
     }
@@ -254,6 +270,7 @@ class DependencyManager
                             $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
                         }
 
+                        //TODO: this piece should be moved to FileSystem class
                         if (file_exists($pathToDependency)) {
                             $this->requirementLists[$key][$index] .= '?' . md5(filemtime($pathToDependency));
                         }

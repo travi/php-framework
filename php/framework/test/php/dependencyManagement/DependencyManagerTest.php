@@ -17,12 +17,21 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         'siteWidget'
     );
     private $pageStyles = array(
-        'page style sheet'
+        'pageSheet1.css'
     );
     private $pageStyle = 'page.css';
-    const SITE_THEME = 'site theme';
+    private $pageStyleMobile = 'page_m.css';
+    const SITE_THEME = 'siteTheme.css';
+    const SITE_THEME_MOBILE = 'siteTheme_m.css';
+    const SITE_THEME_DESKTOP = 'siteTheme_d.css';
     private $environmentUtility;
-    public $request;
+    private $request;
+
+    private $commonInit = 'some common initialization';
+    private $mobileInit = 'some device specific initialization';
+
+    private $dependencyDefinition;
+
 
     /** @var FileSystem */
     private $fileSystem;
@@ -46,24 +55,32 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->request->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue($this->anyAction));
+
+        $this->dependencyDefinition = array(
+             'site' => array(
+                 'js' => $this->siteWidgets
+             ),
+             strtolower($this->anyController) => array(
+                 $this->anyAction => array(
+                     'mobile' => array(
+                         'jsInits' => array(
+                             $this->mobileInit
+                         )
+                     ),
+                     'js' => $this->jsDeps,
+                     'jsInits' => array(
+                         $this->commonInit
+                     ),
+                     'css' => $this->pageStyles,
+                     'pageStyle' => $this->pageStyle
+                 )
+             )
+        );
     }
 
     public function testLoadPageDependenciesAddsFromList()
     {
-        $this->dependencyManager->setPageDependenciesLists(
-            array(
-                 'site' => array(
-                     'js' => $this->siteWidgets
-                 ),
-                 strtolower($this->anyController) => array(
-                     $this->anyAction => array(
-                         'js' => $this->jsDeps,
-                         'css' => $this->pageStyles,
-                         'pageStyle' => $this->pageStyle
-                     )
-                 )
-            )
-        );
+        $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
 
         $this->dependencyManager->loadPageDependencies();
 
@@ -113,7 +130,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->method('getPageStyleByConvention')
             ->will($this->returnValue($pageStyle));
 
-        $this->dependencyManager->loadPageDependencies($this->anyController, $this->anyAction);
+        $this->dependencyManager->loadPageDependencies();
 
         $this->assertSame($pageStyle, $this->dependencyManager->getPageStyle());
     }
@@ -224,30 +241,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testJsInitSpecificToEnhancementVersionWhenIfDefinedInConfig()
     {
-        $commonInit = 'some common initialization';
-        $mobileInit = 'some device specific initialization';
-
-        $this->dependencyManager->setPageDependenciesLists(
-            array(
-                 'site' => array(
-                     'js' => $this->siteWidgets
-                 ),
-                 strtolower($this->anyController) => array(
-                     $this->anyAction => array(
-                         'mobile' => array(
-                             'jsInits' => array(
-                                 $mobileInit
-                             )
-                         ),
-                         'js' => $this->jsDeps,
-                         'jsInits' => array(
-                             $commonInit
-                         ),
-                         'css' => $this->pageStyles
-                     )
-                 )
-            )
-        );
+        $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
 
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
@@ -259,10 +253,89 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(
             array(
-                $commonInit,
-                $mobileInit
+                $this->commonInit,
+                $this->mobileInit
             ),
             $dependencies['jsInit']
+        );
+    }
+
+    public function testMobileCssLoadedInAdditionToBaseWhenMobileEnhanced()
+    {
+        $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
+
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+
+        $this->fileSystem->expects($this->any())
+            ->method('styleSheetExists')
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->setFileSystem($this->fileSystem);
+
+        $this->dependencyManager->loadPageDependencies();
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertNotNull($dependencies);
+
+        $this->assertSame(
+            array_merge(
+                $this->pageStyles,
+                array(
+                     'pageSheet1_m.css',
+                     DependencyManager::THIS_PAGE_KEY => $this->pageStyle,
+                     DependencyManager::THIS_PAGE_ENHANCED_KEY => $this->pageStyleMobile
+                )
+            ),
+            $dependencies['css']
+        );
+    }
+
+    public function testMobileThemeAddedToBaseWhenMobile()
+    {
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                 DependencyManager::SITE_THEME_KEY => self::SITE_THEME,
+                 DependencyManager::SITE_THEME_ENHANCED_KEY => self::SITE_THEME_MOBILE
+            ),
+            $dependencies['css']
+        );
+    }
+
+    public function testDesktopThemeAddedToBaseWhenMobile()
+    {
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                 DependencyManager::SITE_THEME_KEY => self::SITE_THEME,
+                 DependencyManager::SITE_THEME_ENHANCED_KEY => self::SITE_THEME_DESKTOP
+            ),
+            $dependencies['css']
         );
     }
 }
