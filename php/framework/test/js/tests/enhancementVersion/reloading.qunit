@@ -1,0 +1,9 @@
+(function () {
+    "use strict";
+
+    module("Reload page to get proper resources");
+
+    test("reload after setting cookie", function () {
+        ok(false, "don't forget to implement this");
+    });
+}());
