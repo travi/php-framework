@@ -35,19 +35,25 @@
 
             return allExpectationsMet;
         },
+
         expect: function (call, options) {
-            if (options.returnValue === undefined) {
-                options.returnValue = '';
+            if (options !== undefined) {
+                if (options.returnValue === undefined) {
+                    options.returnValue = '';
+                }
+                if (options.timesExpected === undefined) {
+                    options.timesExpected = 1;
+                }
+                this.expectations[call] = {
+                    withValue: options.withValue,
+                    returnValue: options.returnValue,
+                    timesExpected: options.timesExpected
+                };
+            } else {
+                this.expectations[call] = {timesExpected: 1};
             }
-            if (options.timesExpected === undefined) {
-                options.timesExpected = 1;
-            }
-            this.expectations[call] = {
-                withValue: options.withValue,
-                returnValue: options.returnValue,
-                timesExpected: options.timesExpected
-            };
         },
+
         recordCall: function (call, parameter) {
             if (parameter === undefined) {
                 this.calls.push(call);
@@ -55,6 +61,7 @@
                 this.calls.push(call + ':' + parameter);
             }
         },
+
         init: function () {
             this.expectations = {};
             this.calls = [];

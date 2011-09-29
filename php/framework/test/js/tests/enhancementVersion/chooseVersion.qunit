@@ -1,0 +1,75 @@
+(function (fwork) {
+    "use strict";
+
+    module("Choose Version", {
+        setup: function () {
+            Modernizr.init();
+            Modernizr.expect('mq', {returnValue: true});
+        },
+        teardown: function () {
+            fwork.cookies.clearAll();
+        }
+    });
+
+    test("Links added to page", function () {
+        fwork.init();
+
+        var $enhancementChoices = $('#enhancementVersion li');
+
+        strictEqual($('footer ul').length, 1);
+        strictEqual($('footer ul').attr('id'), "enhancementVersion");
+        strictEqual($enhancementChoices.length, 2);
+        strictEqual($enhancementChoices.eq(0).text(), 'basic');
+        strictEqual($enhancementChoices.eq(0).attr('id'), 'basicVersion');
+    });
+
+    test("Mobile link shown when desktop version active", function () {
+        Modernizr.expect('mq', {returnValue: false});
+
+        fwork.init();
+
+        var $enhancementChoices = $('#enhancementVersion li');
+
+        strictEqual($enhancementChoices.eq(1).text(), 'mobile');
+        strictEqual($enhancementChoices.eq(1).attr('id'), 'mobileVersion');
+    });
+
+    test("Desktop link shown when mobile version active", function () {
+        Modernizr.expect('mq', {returnValue: true});
+
+        fwork.init();
+
+        var $enhancementChoices = $('#enhancementVersion li');
+
+        strictEqual($enhancementChoices.eq(1).text(), 'desktop');
+        strictEqual($enhancementChoices.eq(1).attr('id'), 'desktopVersion');
+    });
+
+    test("Switch to Desktop version", function () {
+        Modernizr.init();
+        Modernizr.expect('mq', {returnValue: true});
+        fwork.location.init();
+        fwork.location.expect('refresh', {timesExpected: 2});
+
+        fwork.init();
+
+        $('#desktopVersion').click();
+
+        strictEqual(fwork.cookies.value('enhancementVersion'), 'desktop');
+        ok(fwork.location.verify(), "reloads to get proper resources");
+    });
+
+    test("Switch to Mobile version", function () {
+        Modernizr.init();
+        Modernizr.expect('mq', {returnValue: false});
+        fwork.location.init();
+        fwork.location.expect('refresh', {timesExpected: 2});
+
+        fwork.init();
+
+        $('#mobileVersion').click();
+
+        strictEqual(fwork.cookies.value('enhancementVersion'), 'mobile');
+        ok(fwork.location.verify(), "reloads to get proper resources");
+    });
+}(travi.framework));

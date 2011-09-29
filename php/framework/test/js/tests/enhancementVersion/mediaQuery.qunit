@@ -20,11 +20,14 @@
                 returnValue: true
             }
         );
+        fwork.location.init();
+        fwork.location.expect('refresh');
 
         fwork.init();
 
         ok(Modernizr.verify());
         strictEqual('mobile', fwork.cookies.value(cookieName));
+        ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
     test("Enhancement version set to desktop at higher screen width", function () {
@@ -36,11 +39,14 @@
                 returnValue: false
             }
         );
+        fwork.location.init();
+        fwork.location.expect('refresh');
 
         fwork.init();
 
         ok(Modernizr.verify());
         strictEqual('desktop', fwork.cookies.value(cookieName));
+        ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
     test("cookie not set if already set", function () {

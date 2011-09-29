@@ -23,6 +23,11 @@ cookieUtil:
   jsDependencies:
     - "framework"
 
+locationUtil:
+  local: "/resources/shared/js/location.js"
+  jsDependencies:
+    - "framework"
+
 gallery:
   local: "/resources/js/gallery.js"
   jsDependencies:
