@@ -14,7 +14,7 @@ travi.framework.cookies = (function () {
         return getNameAndValueFromPair(pair).name;
     },
 
-    getValueFromPair = function (pair) {
+    getValueFromCookie = function (pair) {
         return getNameAndValueFromPair(pair).value;
     },
 
@@ -26,29 +26,26 @@ travi.framework.cookies = (function () {
         return pair;
     },
 
-    loopThruCookies = function (callback, cookieNameToMatch) {
-        var i, qty, callbackReturnValue, currentPair,
+    getCookie = function (name) {
+        var i, qty, currentPair,
             cookies = document.cookie.split(';');
 
         qty = cookies.length;
         for (i = 0; i < qty; i = i + 1) {
             currentPair = trimLeadingSpaces(cookies[i]);
 
-            callbackReturnValue = callback.call(null, currentPair, cookieNameToMatch);
-            if (callbackReturnValue === true) {
-                return true;
+            if (name === getNameFromPair(currentPair)) {
+                return currentPair;
             }
         }
+    },
 
-        return callbackReturnValue;
+    getCookies = function () {
+        return document.cookie.split(';');
     },
 
     exists = function (name) {
-        return loopThruCookies(function (currentPair) {
-            if (getNameFromPair(currentPair) === name) {
-                return true;
-            }
-        });
+        return getCookie(name) !== undefined;
     },
 
     getDateNowAdjustedByDays = function (days) {
@@ -58,11 +55,7 @@ travi.framework.cookies = (function () {
     },
 
     valueOf = function (name) {
-        return loopThruCookies(function (pair, nameToMatch) {
-            if (nameToMatch === getNameFromPair(pair)) {
-                return getValueFromPair(pair);
-            }
-        }, name);
+        return getValueFromCookie(getCookie(name));
     },
 
     buildExpiresRelativeToNow = function (days) {
@@ -86,9 +79,13 @@ travi.framework.cookies = (function () {
     },
 
     clearAll = function () {
-        loopThruCookies(function (cookiePair) {
-            remove(getNameFromPair(cookiePair));
-        });
+        var cookies = getCookies(),
+            qty, i;
+
+        qty = cookies.length;
+        for (i = 0; i < qty; i = i + 1) {
+            remove(getNameFromPair(cookies[i]));
+        }
     };
 
     return {

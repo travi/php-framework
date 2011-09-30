@@ -29,4 +29,36 @@
 
         ok(!cookieUtil.exists(cookieToDelete), "cookie exists does not exist after deletion");
     });
+
+    test("Get cookie value when first in the list of cookies", function () {
+        var desiredCookie = "desiredCookie",
+            valueOfDesired = "value of desired cookie";
+
+        cookieUtil.create(desiredCookie, valueOfDesired, DAYS_BEFORE_EXP);
+        cookieUtil.create("extraCookie", "value of extra cookie", DAYS_BEFORE_EXP);
+
+        strictEqual(cookieUtil.value(desiredCookie), valueOfDesired);
+    });
+
+    test("Get cookie value when last in the list of cookies", function () {
+        var desiredCookie = "desiredCookie",
+            valueOfDesired = "value of desired cookie";
+
+        cookieUtil.create("extraCookie", "value of extra cookie", DAYS_BEFORE_EXP);
+        cookieUtil.create(desiredCookie, valueOfDesired, DAYS_BEFORE_EXP);
+
+        strictEqual(cookieUtil.value(desiredCookie), valueOfDesired);
+    });
+
+    test("Get cookie value when in middle of the list of cookies", function () {
+        var desiredCookie = "desiredCookie",
+            valueOfDesired = "value of desired cookie";
+
+        cookieUtil.create("extraCookie", "value of extra cookie", DAYS_BEFORE_EXP);
+        cookieUtil.create(desiredCookie, valueOfDesired, DAYS_BEFORE_EXP);
+        cookieUtil.create("extraCookie2", "value of extra cookie", DAYS_BEFORE_EXP);
+
+        strictEqual(cookieUtil.value(desiredCookie), valueOfDesired);
+    });
+
 }(travi.framework.cookies));
