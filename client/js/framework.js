@@ -36,11 +36,13 @@ travi.framework = (function () {
             }
 
             $('footer').append(
-                    '<ul id="enhancementVersion">'
+                    '<div id="enhancementVersion">'
+                    + '<span id="explainChooseVersion">Switch to version</span>'
+                    + '<ul id="versions">'
                     + '<li id="basicVersion">basic</li>'
                     + '<li id="' + alternateEnhancement + 'Version">'
                     + alternateEnhancement
-                    + '</li></ul>'
+                    + '</li></ul></div>'
             );
 
             $('#' + DESKTOP_ENHANCEMENT_VERSION + 'Version').click(function () {

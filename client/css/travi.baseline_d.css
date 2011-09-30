@@ -1,3 +1,6 @@
 #wrap{
-    width: 				960px;
+    width:              960px;
+}
+#mobileVersion{
+    background-image:   url(/resources/shared/img/famfamfam/phone.png);
 }

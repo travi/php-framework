@@ -262,6 +262,28 @@ p{
 }
 
 
+#enhancementVersion{
+    margin:             20px 0 0;
+}
+
+#explainChooseVersion:after{
+    content:            ':';
+}
+
+#versions{
+    display:            inline;
+    margin-left:        10px;
+}
+
+#enhancementVersion li{
+    display:            inline;
+    cursor:             pointer;
+}
+
+#mobileVersion, #desktopVersion {
+    background:         url(/resources/shared/img/famfamfam/computer.png) no-repeat;
+    padding:            4px 4px 4px 20px;
+}
 
 
 

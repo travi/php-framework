@@ -16,11 +16,14 @@
 
         var $enhancementChoices = $('#enhancementVersion li');
 
+        strictEqual($('#explainChooseVersion').text(), "Switch to version");
         strictEqual($('footer ul').length, 1);
-        strictEqual($('footer ul').attr('id'), "enhancementVersion");
+        strictEqual($('footer ul').attr('id'), "versions");
         strictEqual($enhancementChoices.length, 2);
         strictEqual($enhancementChoices.eq(0).text(), 'basic');
         strictEqual($enhancementChoices.eq(0).attr('id'), 'basicVersion');
+        strictEqual($('#versions').parent().attr('id'), 'enhancementVersion');
+        strictEqual($('#explainChooseVersion').parent().attr('id'), 'enhancementVersion');
     });
 
     test("Mobile link shown when desktop version active", function () {
