@@ -43,7 +43,7 @@ class FileSystemShunt extends FileSystem
         switch ($file) {
         case FileSystemTest::PATH_TO_SITE . "/doc_root/resources/css/" . FileSystemTest::ANY_STYLE_SHEET:
             return true;
-        case FileSystemTest::PATH_TO_SHARED_DEPS . "/include/client/css/" . FileSystemTest::ANY_STYLE_SHEET:
+        case FileSystemTest::PATH_TO_SHARED_DEPS . "/client/css/" . FileSystemTest::ANY_STYLE_SHEET:
             return true;
         default:
             echo $file;
