@@ -31,7 +31,9 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     public function testExistingSharedStyleSheetReturnsTrue()
     {
         $this->assertTrue(
-            $this->fileSystem->styleSheetExists(FileSystem::PATH_TO_SHARED_STYLE_SHEETS . self::ANY_STYLE_SHEET)
+            $this->fileSystem->styleSheetExists(
+                FileSystem::PATH_TO_SHARED_STYLE_SHEETS . self::ANY_STYLE_SHEET
+            )
         );
     }
 
