@@ -34,6 +34,11 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
             $this->fileSystem->styleSheetExists(FileSystem::PATH_TO_SHARED_STYLE_SHEETS . self::ANY_STYLE_SHEET)
         );
     }
+
+    public function testExternalSheetsReturnFalse()
+    {
+        $this->markTestIncomplete();
+    }
 }
 
 class FileSystemShunt extends FileSystem
