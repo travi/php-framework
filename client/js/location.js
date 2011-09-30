@@ -7,5 +7,5 @@ travi.framework.location = (function (global) {
 
     return {
         refresh: refresh
-    }
+    };
 }(this));
