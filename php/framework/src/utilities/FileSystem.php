@@ -20,6 +20,8 @@ class FileSystem
             $pathToSheet = $this->sitePath . '/doc_root' . $sheet;
         } elseif (strstr($sheet, self::PATH_TO_SHARED_STYLE_SHEETS)) {
             $pathToSheet = $this->sharedPath . '/client' . substr($sheet, strlen('/resources/shared'));
+        } elseif (strstr($sheet, '//')) {
+            return false;
         } else {
             $pathToSheet = $this->sitePath . '/doc_root' . self::PATH_TO_STYLE_SHEETS . $sheet;
         }

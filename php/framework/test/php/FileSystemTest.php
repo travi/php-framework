@@ -39,7 +39,9 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
     public function testExternalSheetsReturnFalse()
     {
-        $this->markTestIncomplete();
+        $this->assertFalse($this->fileSystem->styleSheetExists('http://somesheet'));
+        $this->assertFalse($this->fileSystem->styleSheetExists('https://somesheet'));
+        $this->assertFalse($this->fileSystem->styleSheetExists('//somesheet'));
     }
 }
 
