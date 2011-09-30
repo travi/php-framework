@@ -264,16 +264,15 @@ class DependencyManager
                     if (strpos($dependency, self::RESOURCES) === 0) {
                         if (strpos($dependency, self::SHARED_RESOURCES) === 0) {
                             $length = strlen(self::SHARED_RESOURCES);
-                            //TODO: INCLUDE_PATH needs to be replaced by something that will work with new config file
-                            $pathToDependency = INCLUDE_PATH . 'client'
+                            $pathToDependency = $this->fileSystem->getSharedPath() . '/client'
                                                 . substr($dependency, $length);
                         } else {
                             $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
                         }
 
-                        //TODO: this piece should be moved to FileSystem class
-                        if (file_exists($pathToDependency)) {
-                            $this->requirementLists[$key][$index] .= '?' . md5(filemtime($pathToDependency));
+                        if ($this->fileSystem->fileExists($pathToDependency)) {
+                            $this->requirementLists[$key][$index] .= '?'
+                                 . md5($this->fileSystem->getLastModifiedTimeFor($pathToDependency));
                         }
                     }
                 };

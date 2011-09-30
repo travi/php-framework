@@ -43,12 +43,17 @@ class FileSystem
         }
     }
 
+    public function getLastModifiedTimeFor($file)
+    {
+        return filemtime($file);
+    }
+
     public function parseYamlFileAt($pathToFile)
     {
         return Spyc::YAMLLoad($pathToFile);
     }
 
-    protected function fileExists($file)
+    public function fileExists($file)
     {
         return file_exists($file);
     }
@@ -70,5 +75,10 @@ class FileSystem
     public function setSharedPath($path)
     {
         $this->sharedPath = $path;
+    }
+
+    public function getSharedPath()
+    {
+        return $this->sharedPath;
     }
 }
