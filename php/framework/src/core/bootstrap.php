@@ -57,7 +57,7 @@ $container->dependencies()->set('request', Pd_Make::name('Request'));
 
 $container->dependencies()->set('response', new Response($config));
 $container->dependencies()->set('Smarty', smartyInit());
-$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath']));
+$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set(
     'dependencyManager',
@@ -102,6 +102,7 @@ function smartyInit()
 
 /**
  * @param $pageDepLists
+ * @param $theme
  * @return DependencyManager
  */
 function dmInit($pageDepLists, $theme)
@@ -117,15 +118,17 @@ function dmInit($pageDepLists, $theme)
 
 /**
  * @param $sitePath
+ * @param $sharedPath
  * @return FileSystem
  */
-function fileSystemInit($sitePath)
+function fileSystemInit($sitePath, $sharedPath)
 {
     include_once dirname(__FILE__) . '/../utilities/FileSystem.php';
 
     /** @var $fileSystem FileSystem */
     $fileSystem = Pd_Make::name('FileSystem');
     $fileSystem->setSitePath($sitePath);
+    $fileSystem->setSharedPath($sharedPath);
     return $fileSystem;
 }
 

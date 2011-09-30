@@ -5,17 +5,21 @@
 class FileSystem
 {
     const PATH_TO_STYLE_SHEETS = '/resources/css/';
+    const PATH_TO_SHARED_STYLE_SHEETS = '/resources/shared/css/';
     const PAGE_STYLE_SHEET_DIR = 'pages/';
     const CSS_EXT = '.css';
 
     /** @var Request */
     private $request;
     private $sitePath;
+    private $sharedPath;
 
     public function styleSheetExists($sheet)
     {
         if (strstr($sheet, self::PATH_TO_STYLE_SHEETS)) {
             $pathToSheet = $this->sitePath . '/doc_root' . $sheet;
+        } elseif (strstr($sheet, self::PATH_TO_SHARED_STYLE_SHEETS)) {
+            $pathToSheet = $this->sharedPath . '/client' . substr($sheet, strlen('/resources/shared'));
         } else {
             $pathToSheet = $this->sitePath . '/doc_root' . self::PATH_TO_STYLE_SHEETS . $sheet;
         }
@@ -44,7 +48,7 @@ class FileSystem
         return Spyc::YAMLLoad($pathToFile);
     }
 
-    private function fileExists($file)
+    protected function fileExists($file)
     {
         return file_exists($file);
     }
@@ -61,5 +65,10 @@ class FileSystem
     public function setSitePath($sitePath)
     {
         $this->sitePath = $sitePath;
+    }
+
+    public function setSharedPath($path)
+    {
+        $this->sharedPath = $path;
     }
 }

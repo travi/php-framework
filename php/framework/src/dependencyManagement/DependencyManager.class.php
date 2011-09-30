@@ -264,6 +264,7 @@ class DependencyManager
                     if (strpos($dependency, self::RESOURCES) === 0) {
                         if (strpos($dependency, self::SHARED_RESOURCES) === 0) {
                             $length = strlen(self::SHARED_RESOURCES);
+                            //TODO: INCLUDE_PATH needs to be replaced by something that will work with new config file
                             $pathToDependency = INCLUDE_PATH . 'client'
                                                 . substr($dependency, $length);
                         } else {
