@@ -40,7 +40,7 @@
         strictEqual($enhancementChoices.length, 2);
         strictEqual($enhancementChoices.eq(0).text(), enhancementVersionConstants.BASIC_CHOICE);
 
-        strictEqual($enhancementChoices.eq(0).attr('id'), 'basicVersion');
+        strictEqual($enhancementChoices.eq(0).attr('id'), enhancementVersionConstants.BASIC_CHOICE + 'Version');
         strictEqual($('#' + choiceListId).parent().attr('id'), choiceGroupId);
         strictEqual($('#' + choicesExplainationId).parent().attr('id'), choiceGroupId);
     });
@@ -53,7 +53,7 @@
         var $enhancementChoices = $('#' + choiceListId + ' li');
 
         strictEqual($enhancementChoices.eq(1).text(), enhancementVersionConstants.MOBILE_CHOICE);
-        strictEqual($enhancementChoices.eq(1).attr('id'), 'mobileVersion');
+        strictEqual($enhancementChoices.eq(1).attr('id'), enhancementVersionConstants.MOBILE_CHOICE + 'Version');
     });
 
     test("Desktop link shown when mobile version active", function () {
@@ -64,7 +64,7 @@
         var $enhancementChoices = $('#' + choiceListId + ' li');
 
         strictEqual($enhancementChoices.eq(1).text(), enhancementVersionConstants.DESKTOP_CHOICE);
-        strictEqual($enhancementChoices.eq(1).attr('id'), 'desktopVersion');
+        strictEqual($enhancementChoices.eq(1).attr('id'), enhancementVersionConstants.DESKTOP_CHOICE + 'Version');
     });
 
     test("Switch to Desktop version", function () {

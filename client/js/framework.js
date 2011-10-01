@@ -45,9 +45,9 @@ travi.framework = (function () {
                 alternateEnhancement;
 
             if (currentEnhancement === MOBILE_ENHANCEMENT_VERSION) {
-                alternateEnhancement = DESKTOP_ENHANCEMENT_VERSION;
+                alternateEnhancement = DESKTOP_CHOICE;
             } else if (currentEnhancement) {
-                alternateEnhancement = MOBILE_ENHANCEMENT_VERSION;
+                alternateEnhancement = MOBILE_CHOICE;
             }
 
             $('footer').append(
