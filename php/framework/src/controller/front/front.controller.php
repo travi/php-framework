@@ -15,6 +15,7 @@ class FrontController
 
     /**
      * @PdInject config
+     * @param $config
      */
     public function setConfig($config)
     {
@@ -23,6 +24,7 @@ class FrontController
 
     /**
      * @PdInject request
+     * @param $request
      */
     public function setRequest($request)
     {
@@ -31,6 +33,7 @@ class FrontController
 
     /**
      * @PdInject response
+     * @param $response
      */
     public function setResponse($response)
     {
@@ -99,10 +102,6 @@ class FrontController
         ) {
             $this->Response->setPageTemplate($templateByConvention);
         }
-        //TODO: this should be moved out to the head template once the other sites support mobile
-        $this->Response->addMetaTag(
-            '<meta name="viewport" content="width=device-width; initial-scale=1.0;">'
-        );
         $this->Response->format();
     }
 

@@ -2,11 +2,13 @@
 
 class HtmlRenderer extends Renderer
 {
+    private $layoutTemplate;
     /** @var Smarty */
     private $smarty;
-    private $layoutTemplate;
     /** @var DependencyManager */
     private $dependencyManager;
+    /** @var Request */
+    private $request;
 
     /**
      * @param $data
@@ -23,6 +25,10 @@ class HtmlRenderer extends Renderer
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
         $this->smarty->assign('dependencies', $dependencies);
         $this->smarty->assign('page', $page);
+        $this->smarty->assign(
+            'isMobile',
+            ($this->request->getEnhancementVersion() === Request::MOBILE_ENHANCEMENT)
+        );
         $this->smarty->display($this->layoutTemplate);
     }
 
@@ -33,6 +39,7 @@ class HtmlRenderer extends Renderer
 
     /**
      * @PdInject Smarty
+     * @param $smarty Smarty
      */
     public function setSmarty($smarty)
     {
@@ -47,5 +54,15 @@ class HtmlRenderer extends Renderer
     public function setDependencyManager($dependencyManager)
     {
         $this->dependencyManager = $dependencyManager;
+    }
+
+    /**
+     * @PdInject request
+     * @param $request Request
+     * @return void
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 }

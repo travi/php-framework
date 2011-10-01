@@ -10,6 +10,10 @@
 {foreach item=tag from=$page->getMetatags()}
         {$tag}
 {/foreach}
+{if $isMobile}
+    {*May need to make this configurable per site*}
+        <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+{/if}
 {foreach item=link from=$page->getLinkTags()}
         <link   {if !empty($link['type'])}type="{$link['type']}" {/if}rel="{$link['rel']}"{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
