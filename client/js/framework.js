@@ -46,7 +46,7 @@ travi.framework = (function () {
 
             if (currentEnhancement === MOBILE_ENHANCEMENT_VERSION) {
                 alternateEnhancement = DESKTOP_CHOICE;
-            } else if (currentEnhancement) {
+            } else if (currentEnhancement === DESKTOP_ENHANCEMENT_VERSION) {
                 alternateEnhancement = MOBILE_CHOICE;
             }
 
