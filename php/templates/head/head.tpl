@@ -18,7 +18,7 @@
         <link   {if !empty($link['type'])}type="{$link['type']}" {/if}rel="{$link['rel']}"{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
         <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
         <![endif]-->
 {foreach item=style from=$dependencies['css']}
         <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
