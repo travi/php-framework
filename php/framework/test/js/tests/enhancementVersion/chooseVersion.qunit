@@ -1,6 +1,9 @@
 (function (fwork) {
     "use strict";
 
+    var choiceListId = "versions",
+        enhancementVersionConstants = fwork.constants();
+
     module("Choose Version", {
         setup: function () {
             Modernizr.init();
@@ -11,19 +14,35 @@
         }
     });
 
+    test("Mobile Choice defined as external code expects", function () {
+        strictEqual(enhancementVersionConstants.MOBILE_CHOICE, 'mobile');
+    });
+
+    test("Desktop Choice defined as external code expects", function () {
+        strictEqual(enhancementVersionConstants.DESKTOP_CHOICE, 'desktop');
+    });
+
+    test("Basic Choice defined as external code expects", function () {
+        strictEqual(enhancementVersionConstants.BASIC_CHOICE, 'basic');
+    });
+
     test("Links added to page", function () {
         fwork.init();
 
-        var $enhancementChoices = $('#enhancementVersion li');
+        var choiceGroupId = 'enhancementVersion',
+            choicesExplainationId = 'explainChooseVersion',
+            $enhancementChoices = $('#' + choiceListId + ' li');
 
-        strictEqual($('#explainChooseVersion').text(), "Switch to version");
+        strictEqual($('#' + choicesExplainationId).text(), "Switch to version");
         strictEqual($('footer ul').length, 1);
-        strictEqual($('footer ul').attr('id'), "versions");
+
+        strictEqual($('footer ul').attr('id'), choiceListId);
         strictEqual($enhancementChoices.length, 2);
-        strictEqual($enhancementChoices.eq(0).text(), 'basic');
+        strictEqual($enhancementChoices.eq(0).text(), enhancementVersionConstants.BASIC_CHOICE);
+
         strictEqual($enhancementChoices.eq(0).attr('id'), 'basicVersion');
-        strictEqual($('#versions').parent().attr('id'), 'enhancementVersion');
-        strictEqual($('#explainChooseVersion').parent().attr('id'), 'enhancementVersion');
+        strictEqual($('#' + choiceListId).parent().attr('id'), choiceGroupId);
+        strictEqual($('#' + choicesExplainationId).parent().attr('id'), choiceGroupId);
     });
 
     test("Mobile link shown when desktop version active", function () {
@@ -31,9 +50,9 @@
 
         fwork.init();
 
-        var $enhancementChoices = $('#enhancementVersion li');
+        var $enhancementChoices = $('#' + choiceListId + ' li');
 
-        strictEqual($enhancementChoices.eq(1).text(), 'mobile');
+        strictEqual($enhancementChoices.eq(1).text(), enhancementVersionConstants.MOBILE_CHOICE);
         strictEqual($enhancementChoices.eq(1).attr('id'), 'mobileVersion');
     });
 
@@ -42,9 +61,9 @@
 
         fwork.init();
 
-        var $enhancementChoices = $('#enhancementVersion li');
+        var $enhancementChoices = $('#' + choiceListId + ' li');
 
-        strictEqual($enhancementChoices.eq(1).text(), 'desktop');
+        strictEqual($enhancementChoices.eq(1).text(), enhancementVersionConstants.DESKTOP_CHOICE);
         strictEqual($enhancementChoices.eq(1).attr('id'), 'desktopVersion');
     });
 
@@ -58,7 +77,10 @@
 
         $('#desktopVersion').click();
 
-        strictEqual(fwork.cookies.value('enhancementVersion'), 'desktop');
+        strictEqual(fwork.cookies.value(
+            enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
+            enhancementVersionConstants.DESKTOP_ENHANCEMENT_VERSION
+        );
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
@@ -72,7 +94,10 @@
 
         $('#mobileVersion').click();
 
-        strictEqual(fwork.cookies.value('enhancementVersion'), 'mobile');
+        strictEqual(fwork.cookies.value(
+            enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
+            enhancementVersionConstants.MOBILE_ENHANCEMENT_VERSION
+        );
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
 }(travi.framework));

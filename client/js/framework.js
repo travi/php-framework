@@ -5,8 +5,23 @@ travi.framework = (function () {
         DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION = 10,
         MOBILE_ENHANCEMENT_VERSION = "mobile",
         DESKTOP_ENHANCEMENT_VERSION = "desktop",
+        MOBILE_CHOICE = MOBILE_ENHANCEMENT_VERSION,
+        DESKTOP_CHOICE = DESKTOP_ENHANCEMENT_VERSION,
+        BASIC_CHOICE = 'basic',
 
-        setEnhancementVersionCookieTo = function (versionKey) {
+        getConstants = function () {
+            return {
+                ENHANCEMENT_VERSION_KEY: ENHANCEMENT_VERSION_KEY,
+                DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION: DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION,
+                MOBILE_ENHANCEMENT_VERSION: MOBILE_ENHANCEMENT_VERSION,
+                DESKTOP_ENHANCEMENT_VERSION: DESKTOP_ENHANCEMENT_VERSION,
+                MOBILE_CHOICE: MOBILE_CHOICE,
+                DESKTOP_CHOICE: DESKTOP_CHOICE,
+                BASIC_CHOICE: BASIC_CHOICE
+            }
+        },
+
+        setEnhancementVersionTo = function (versionKey) {
             travi.framework.cookies.create(
                 ENHANCEMENT_VERSION_KEY,
                 versionKey,
@@ -18,9 +33,9 @@ travi.framework = (function () {
         setEnhancementVersion = function () {
             if (!travi.framework.cookies.exists(ENHANCEMENT_VERSION_KEY)) {
                 if (Modernizr.mq('only screen and (min-width: 320px) and (max-width: 480px)')) {
-                    setEnhancementVersionCookieTo(MOBILE_ENHANCEMENT_VERSION);
+                    setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
                 } else {
-                    setEnhancementVersionCookieTo(DESKTOP_ENHANCEMENT_VERSION);
+                    setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
                 }
             }
         },
@@ -45,12 +60,12 @@ travi.framework = (function () {
                     + '</li></ul></div>'
             );
 
-            $('#' + DESKTOP_ENHANCEMENT_VERSION + 'Version').click(function () {
-                setEnhancementVersionCookieTo(DESKTOP_ENHANCEMENT_VERSION);
+            $('#' + DESKTOP_CHOICE + 'Version').click(function () {
+                setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
             });
 
-            $('#' + MOBILE_ENHANCEMENT_VERSION + 'Version').click(function () {
-                setEnhancementVersionCookieTo(MOBILE_ENHANCEMENT_VERSION);
+            $('#' + MOBILE_CHOICE + 'Version').click(function () {
+                setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
             });
         },
 
@@ -60,6 +75,7 @@ travi.framework = (function () {
         };
 
     return {
-        init    : init
+        init        : init,
+        constants   : getConstants
     };
 }());

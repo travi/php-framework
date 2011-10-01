@@ -1,14 +1,24 @@
 (function (fwork) {
     "use strict";
 
-    var cookieName = 'enhancementVersion';
-
-    //TODO: need to break this out and mock the cookie utility
+    var enhancementVersionConstants = fwork.constants();
 
     module("Screen width based version", {
         teardown: function () {
             fwork.cookies.clearAll();
         }
+    });
+
+    test("Enhancement version cookie name defined as what server is expecting", function () {
+        strictEqual(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY, "enhancementVersion");
+    });
+
+    test("Mobile enhancement version cookie value defined as what server is expecting", function () {
+        strictEqual(enhancementVersionConstants.MOBILE_ENHANCEMENT_VERSION, "mobile");
+    });
+
+    test("Desktop enhancement version cookie value defined as what server is expecting", function () {
+        strictEqual(enhancementVersionConstants.DESKTOP_ENHANCEMENT_VERSION, "desktop");
     });
 
     test("Enhancement version set to mobile when screen width reported within smartphone range", function () {
@@ -26,7 +36,7 @@
         fwork.init();
 
         ok(Modernizr.verify());
-        strictEqual('mobile', fwork.cookies.value(cookieName));
+        strictEqual('mobile', fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
@@ -45,17 +55,17 @@
         fwork.init();
 
         ok(Modernizr.verify());
-        strictEqual('desktop', fwork.cookies.value(cookieName));
+        strictEqual('desktop', fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
     test("cookie not set if already set", function () {
         var existingCookieValue = 'test';
 
-        fwork.cookies.create(cookieName, existingCookieValue, 10);
+        fwork.cookies.create(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY, existingCookieValue, 10);
 
         fwork.init();
 
-        strictEqual(existingCookieValue, fwork.cookies.value(cookieName));
+        strictEqual(existingCookieValue, fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
     });
 }(travi.framework));

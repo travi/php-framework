@@ -4,7 +4,7 @@
     "use strict";
 
     var $testEnvironmentLoader = null,
-        resourcesLocation = 'remote',
+        resourcesLocation = 'local',
         resources = {
             jQuery: {
                 local: '/resources/shared/js/jquery/jquery.js',
