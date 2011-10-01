@@ -18,7 +18,7 @@ travi.framework = (function () {
                 MOBILE_CHOICE: MOBILE_CHOICE,
                 DESKTOP_CHOICE: DESKTOP_CHOICE,
                 BASIC_CHOICE: BASIC_CHOICE
-            }
+            };
         },
 
         setEnhancementVersionTo = function (versionKey) {
