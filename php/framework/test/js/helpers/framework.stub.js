@@ -1,1 +1,3 @@
-travi.framework = {};
+travi.framework = {
+    constants: function() {}
+};

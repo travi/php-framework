@@ -17,7 +17,7 @@
         cookieUtil.create(cookieName, cookieValue, DAYS_BEFORE_EXP);
 
         ok(cookieUtil.exists(cookieName), "cookie exists after creation");
-        strictEqual("someValue", cookieUtil.value(cookieName));
+        strictEqual(cookieUtil.value(cookieName), "someValue");
     });
 
     test("Test cookie is removed", function () {
