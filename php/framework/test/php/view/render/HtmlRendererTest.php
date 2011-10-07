@@ -26,14 +26,14 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $smarty->expects($this->once())
             ->method('clearAllAssign');
         $smarty->expects($this->at(1))
-                ->method('assign')
-                ->with('dependencies', $deps);
+            ->method('assign')
+            ->with('dependencies', $deps);
         $smarty->expects($this->at(2))
-                ->method('assign')
-                ->with('page', $page);
+            ->method('assign')
+            ->with('page', $page);
         $smarty->expects($this->once())
-                ->method('display')
-                ->with(self::SOME_LAYOUT_TEMPLATE);
+            ->method('display')
+            ->with(self::SOME_LAYOUT_TEMPLATE);
 
         $request = $this->getMock('Request');
         $request->expects($this->once())
