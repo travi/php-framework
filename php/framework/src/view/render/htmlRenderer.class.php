@@ -25,11 +25,15 @@ class HtmlRenderer extends Renderer
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
         $this->smarty->assign('dependencies', $dependencies);
         $this->smarty->assign('page', $page);
-        $this->smarty->assign(
-            'isMobile',
-            ($this->request->getEnhancementVersion() === Request::MOBILE_ENHANCEMENT)
-        );
+        $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
         $this->smarty->display($this->layoutTemplate);
+    }
+
+    private function shouldShowMetaViewport()
+    {
+        $enhancementVersion = $this->request->getEnhancementVersion();
+        return ($enhancementVersion === Request::MOBILE_ENHANCEMENT
+                || $enhancementVersion === Request::BASE_ENHANCEMENT);
     }
 
     public function setLayoutTemplate($layoutTemplate)
