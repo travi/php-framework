@@ -56,14 +56,6 @@ you need to set it up and tear it down in each test.
     window.equals = function(a, b, msg) {
         assertEquals(msg ? msg : '', b, a);
     };
-
-    window.strictEqual = function (actual, expected, msg) {
-        if (expected !== actual) {
-            fail(msg + 'expected ' + prettyPrintEntity_(expected) + ' but was ' +
-                prettyPrintEntity_(actual) + '');
-        }
-        return true;
-    };
     
     window.start = window.stop = function() {
         fail('start and stop methods are not available when using JS Test Driver.\n' +
