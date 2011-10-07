@@ -22,7 +22,6 @@ class ErrorController extends AbstractController
     /**
      * @param  $request Request
      * @param  $response Response
-     * @param  $error Exception
      * @return void
      */
     public function error401(&$request, &$response)
