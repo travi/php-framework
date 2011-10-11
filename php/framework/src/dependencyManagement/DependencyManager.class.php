@@ -261,23 +261,45 @@ class DependencyManager
         foreach ($this->requirementLists as $key => $list) {
             if ($key === 'css' || $key === 'js') {
                 foreach ($list as $index => $dependency) {
-                    if (strpos($dependency, self::RESOURCES) === 0) {
-                        if (strpos($dependency, self::SHARED_RESOURCES) === 0) {
-                            $length = strlen(self::SHARED_RESOURCES);
-                            $pathToDependency = $this->fileSystem->getSharedPath() . '/client'
-                                                . substr($dependency, $length);
-                        } else {
-                            $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
-                        }
-
-                        if ($this->fileSystem->fileExists($pathToDependency)) {
-                            $this->requirementLists[$key][$index] .= '?'
-                                 . md5($this->fileSystem->getLastModifiedTimeFor($pathToDependency));
-                        }
+                    if ($this->isLocalFile($dependency)) {
+                        $this->addCacheBusterIfFileExists($dependency, $key, $index);
                     }
                 };
             }
         }
+    }
+
+    private function addCacheBusterIfFileExists($dependency, $key, $index)
+    {
+        $pathToDependency = $this->buildPathToDependency($dependency);
+
+        if ($this->fileSystem->fileExists($pathToDependency)) {
+            $this->requirementLists[$key][$index] .= '?'
+                                                     . md5($this->fileSystem->getLastModifiedTimeFor($pathToDependency));
+        }
+    }
+
+    private function buildPathToDependency($dependency)
+    {
+        if ($this->isSharedDependency($dependency)) {
+            $length = strlen(self::SHARED_RESOURCES);
+            $pathToDependency = $this->fileSystem->getSharedPath() . '/client'
+                                . substr($dependency, $length);
+            return $pathToDependency;
+        } else {
+            $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
+            return $pathToDependency;
+        }
+    }
+
+    private function isSharedDependency($dependency)
+    {
+        return strpos($dependency, self::SHARED_RESOURCES) === 0;
+    }
+
+    private function isLocalFile($dependency)
+    {
+        return strpos($dependency, self::RESOURCES) === 0;
     }
 
     private function lazyInitializeList($category)
