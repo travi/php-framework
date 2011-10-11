@@ -1,12 +1,5 @@
 <?php
-/**
- * Created on Jan 26, 2011
- * By Matt Travi
- * programmer@travi.org
- */
-
 require_once 'Input.php';
- 
 
 class TextArea extends Input
 {

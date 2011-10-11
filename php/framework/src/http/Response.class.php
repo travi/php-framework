@@ -26,8 +26,6 @@ class Response extends AbstractResponse
 
         //temporarily set the layout template here until moving it to $View
         $this->setLayoutTemplate($config['template']['layout']);
-
-        $this->config = $config;
     }
 
     /**
@@ -45,11 +43,6 @@ class Response extends AbstractResponse
     public function getTagLine()
     {
         return $this->tagLine;
-    }
-
-    public function setConfig($config)
-    {
-        $this->config = $config;
     }
 
     public function defineSiteFeed($feed)
