@@ -30,6 +30,11 @@ travi.framework = (function () {
             travi.framework.location.refresh();
         },
 
+        resetVersion = function () {
+            travi.framework.cookies.remove(ENHANCEMENT_VERSION_KEY);
+            travi.framework.location.refresh();
+        },
+
         detectEnhancementVersion = function () {
             if (Modernizr.mq('only screen and (min-width: 320px) and (max-width: 480px)')) {
                 setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
@@ -74,7 +79,7 @@ travi.framework = (function () {
                 setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
             });
 
-            $('#detectVersion').click(detectEnhancementVersion);
+            $('#detectVersion').click(resetVersion);
         },
 
         init = function () {
@@ -83,7 +88,6 @@ travi.framework = (function () {
         };
 
     return {
-        init            : init,
-        constants       : getConstants
+        init            : init
     };
 }());
