@@ -275,9 +275,15 @@ p{
     margin-left:        10px;
 }
 
-#enhancementVersion li{
+#enhancementVersion li,
+#detectVersion{
     display:            inline;
     cursor:             pointer;
+}
+
+#enhancementVersion li:hover,
+#detectVersion:hover{
+    text-decoration:    underline;
 }
 
 #mobileVersion, #desktopVersion {

@@ -30,13 +30,17 @@ travi.framework = (function () {
             travi.framework.location.refresh();
         },
 
-        setEnhancementVersion = function () {
+        detectEnhancementVersion = function () {
+            if (Modernizr.mq('only screen and (min-width: 320px) and (max-width: 480px)')) {
+                setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
+            } else {
+                setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
+            }
+        },
+
+        setInitialEnhancementVersion = function () {
             if (!travi.framework.cookies.exists(ENHANCEMENT_VERSION_KEY)) {
-                if (Modernizr.mq('only screen and (min-width: 320px) and (max-width: 480px)')) {
-                    setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
-                } else {
-                    setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
-                }
+                detectEnhancementVersion(setEnhancementVersionTo, MOBILE_ENHANCEMENT_VERSION, DESKTOP_ENHANCEMENT_VERSION);
             }
         },
 
@@ -52,12 +56,14 @@ travi.framework = (function () {
 
             $('footer').append(
                     '<div id="enhancementVersion">'
-                    + '<span id="explainChooseVersion">Switch to version</span>'
+                    + '<span id="detectVersion">Detect</span> or '
+                    + '<span id="explainChooseVersion">switch to version</span>'
                     + '<ul id="versions">'
                     + '<li id="basicVersion">basic</li>'
                     + '<li id="' + alternateEnhancement + 'Version">'
                     + alternateEnhancement
-                    + '</li></ul></div>'
+                    + '</li>'
+                    + '</ul></div>'
             );
 
             $('#' + DESKTOP_CHOICE + 'Version').click(function () {
@@ -67,15 +73,17 @@ travi.framework = (function () {
             $('#' + MOBILE_CHOICE + 'Version').click(function () {
                 setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
             });
+
+            $('#detectVersion').click(detectEnhancementVersion);
         },
 
         init = function () {
-            setEnhancementVersion();
+            setInitialEnhancementVersion();
             addLinksToChooseVersion();
         };
 
     return {
-        init        : init,
-        constants   : getConstants
+        init            : init,
+        constants       : getConstants
     };
 }());
