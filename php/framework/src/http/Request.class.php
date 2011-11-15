@@ -41,11 +41,16 @@ class Request
 
     private function parseUriParts()
     {
+        //TODO: investigate parse_url...
         $this->uriParts = explode('/', $this->uri);
     }
 
     private function resolveDataParts()
     {
+        if ($this->uriParts[1] === 'index.php') {
+            array_shift($this->uriParts);
+        }
+
         if ($this->uriParts[1] === 'admin') {
             $this->admin = true;
             array_shift($this->uriParts);
