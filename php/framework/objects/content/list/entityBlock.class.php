@@ -1,6 +1,6 @@
 <?php
 
-class EntityBlock
+class EntityBlock implements IteratorAggregate
 {
     private $title;
     private $id;
@@ -69,5 +69,10 @@ class EntityBlock
     private function disableAction($text,$active)
     {
         $this->activeActions["$text"] = "$active";
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator(get_object_vars($this));
     }
 }
