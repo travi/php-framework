@@ -122,7 +122,16 @@
         $.mockjax({
             url: "/admin/updates/?offset=5",
             contentType: 'text/json',
-            responseText: {test: "test"}
+            responseText: {
+                test: "test",
+                updates: {
+                    updateList: {
+                        entities: [
+                            {}
+                        ]
+                    }
+                }
+            }
         });
 
         module("Paging", {
@@ -147,7 +156,7 @@
 
             $(document).bind('updates-loaded', function () {
                 ok(true, "response received");
-               strictEqual()
+               strictEqual($('ol.entityList > li').length, 2);
 
                 start();
             });

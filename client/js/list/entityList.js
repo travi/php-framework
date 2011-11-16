@@ -62,7 +62,16 @@ travi.framework.entityList = (function () {
         $('#moreUpdates').click(function () {
             var $this = $(this);
 
-            $.getJSON($this.attr('href'), function () {
+            $.getJSON($this.attr('href'), function (data) {
+                var i,
+                    updates = data.updates.updateList.entities,
+                    updateCount = updates.length,
+                    $updateList = $('ol.entityList');
+
+                for (i = 0; i < updateCount; i = i + 1) {
+                    $updateList.append('<li>&nbsp;</li>');
+                }
+
                 $this.trigger('updates-loaded');
             });
 
