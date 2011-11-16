@@ -58,6 +58,18 @@ travi.framework.entityList = (function () {
         return false;
     },
 
+    initPagination = function () {
+        $('#moreUpdates').click(function () {
+            var $this = $(this);
+
+            $.getJSON($this.attr('href'), function () {
+                $this.trigger('updates-loaded');
+            });
+
+            return false;
+        });
+    },
+
     init = function () {
         $("li.remove-item form")
             .hide()
@@ -74,6 +86,7 @@ travi.framework.entityList = (function () {
         });
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
+        initPagination();
     };
 
     $(document).ready(function () {

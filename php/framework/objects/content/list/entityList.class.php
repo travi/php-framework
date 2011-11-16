@@ -1,6 +1,6 @@
 <?php
 
-class EntityList extends ContentObject
+class EntityList extends ContentObject implements IteratorAggregate
 {
     private $entities = array();
     private $actions = array();
@@ -73,6 +73,11 @@ class EntityList extends ContentObject
     public function getTotalEntities()
     {
         return $this->totalEntities;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator(get_object_vars($this));
     }
 }
 ?>

@@ -1,6 +1,18 @@
 (function () {
     "use strict";
 
+    var $templateLoader = $.Deferred();
+
+    $.when(
+        travi.loadTemplate('/resources/shared/templates/pagination.tmpl', 'pagination'),
+
+        $.Deferred(function (deferred) {
+            $(deferred.resolve);
+        })
+    ).done(function () {
+        $templateLoader.resolve();
+    });
+
 
     $(document).ready(function () {
         $('#confirmation').dialog('destroy');
@@ -55,6 +67,8 @@
         stop();
         $('.ui-dialog-buttonpane button').eq(0).click();
     });
+
+
     module("Remove Confirmation", {
         setup: function () {
             $('body').append('<div id="scratch">');
@@ -102,25 +116,49 @@
                 "Confirmation message correct");
         strictEqual($('#confirmation').dialog('option', 'title'), 'Are you sure?', "Title text correct");
     });
-    module("Paging", {
-        setup: function () {
-            $('body').append('<div id="scratch">');
-            $('#entity-list').tmpl().appendTo('#scratch');
+
+
+    $templateLoader.done(function () {
+        $.mockjax({
+            url: "/admin/updates/?offset=5",
+            contentType: 'text/json',
+            responseText: {test: "test"}
+        });
+
+        module("Paging", {
+            setup: function () {
+                $('body').append('<div id="scratch">');
+                $('#entity-list').tmpl().appendTo('#scratch');
+                travi.framework.entityList.init();
+            },
+            teardown: function () {
+                $('#scratch').remove();
+                $('#confirmation').dialog('destroy').remove();
+            }
+        });
+        asyncTest("Ajax request for updates hits server", function () {
+            $('#scratch')
+                .append($.tmpl("pagination", {
+                    controller: 'admin/updates',
+                    nextOffset: 5
+                }));
             travi.framework.entityList.init();
-        },
-        teardown: function () {
-            $('#scratch').remove();
-            $('#confirmation').dialog('destroy').remove();
-        }
-    });
-    test("Ajax load", function () {
-        ok(false, 'missing functionality');
-        ok(false, 'markup built properly from template');
-    });
-    test("'back' link visibility", function () {
-        ok(false, 'missing functionality');
-    });
-    test("'forward' link visibility", function () {
-        ok(false, 'missing functionality');
+
+
+            $(document).bind('updates-loaded', function () {
+                ok(true, "response received");
+               strictEqual()
+
+                start();
+            });
+
+            $('#moreUpdates').click();
+        });
+        test("'back' link visibility", function () {
+            ok(false, 'missing functionality');
+        });
+        test("'forward' link visibility", function () {
+            ok(false, 'missing functionality');
+        });
     });
 }());
