@@ -1,7 +1,10 @@
 (function () {
     "use strict";
 
-    var $templateLoader = $.Deferred();
+    var $templateLoader = $.Deferred(),
+        PAGE_EVENT = 'updates-loaded',
+        HIDDEN_CLASS = 'outOfRange';
+
 
     $.when(
         travi.loadTemplate('/resources/shared/templates/pagination.tmpl', 'pagination'),
@@ -12,7 +15,6 @@
     ).done(function () {
         $templateLoader.resolve();
     });
-
 
     $(document).ready(function () {
         $('#confirmation').dialog('destroy');
@@ -25,35 +27,37 @@
         responseText: {test: "test"}
     });
 
-
     module("POST handling for 'Remove' action", {
         setup: function () {
-            $('body').append('<div id="scratch">');
-            $('#entity-list').tmpl().appendTo('#scratch');
-            travi.framework.entityList.init();
-        },
+                $('body').append('<div id="scratch">');
+                $('#entity-list').tmpl().appendTo('#scratch');
+                travi.framework.entityList.init();
+            },
         teardown: function () {
-            $('#scratch').remove();
-            $('#confirmation').dialog('destroy').remove();
-        }
+                $('#scratch').remove();
+                $('#confirmation').dialog('destroy').remove();
+            }
     });
+
     test("Form conversion to link", function () {
         //Setup
         $('form').unbind('submit').submit(function () {
             $('#scratch').append('<div id="submitVerify">form submitted</div>');
             return false;
         });
+
         expect(4);
-
         //Exercise
-        $('a.item-action').click();
 
+        $('a.item-action').click();
         //Verify
         strictEqual($('form').length, 1, 'form exists');
         ok($('form').is(':not(:visible)'), "form no longer visible");
         ok($("li.remove-item a.item-action").is(':visible'), "link visible");
         strictEqual($('#submitVerify').length, 1, "click submits form");
     });
+
+
     test("Ajax submission", function () {
         expect(2);
         $('#scratch').bind('entityRemoved', function () {
@@ -67,45 +71,46 @@
         stop();
         $('.ui-dialog-buttonpane button').eq(0).click();
     });
-
-
     module("Remove Confirmation", {
         setup: function () {
-            $('body').append('<div id="scratch">');
-            $('#entity-list').tmpl().appendTo('#scratch');
-            travi.framework.entityList.init();
-        },
+                $('body').append('<div id="scratch">');
+                $('#entity-list').tmpl().appendTo('#scratch');
+                travi.framework.entityList.init();
+            },
         teardown: function () {
-            $('#scratch').remove();
-            $('#confirmation').dialog('destroy').remove();
-        }
+                $('#scratch').remove();
+                $('#confirmation').dialog('destroy').remove();
+            }
     });
     test("confirmation dialog", function () {
         //Setup
-        expect(5);
 
+        expect(5);
         //Verify
         strictEqual($('#confirmation').length, 1, 'confirmation div exists');
+
         ok($('#confirmation').is(':not(:visible)'), "confirmation not shown");
-
         //Exercise
-        $('form').submit();
 
+        $('form').submit();
         //Verify
         ok($('#confirmation').is(':visible'), "confirmation shown");
         strictEqual($('div.ui-widget-overlay').length, 1, 'is modal');
         strictEqual($('#confirmation').dialog('option', 'modal'), true, 'is modal');
     });
+
     test("confirmation button text", function () {
         //Setup
         travi.framework.entityList.setButtonText('Remove');
         $('form').submit();
-        expect(2);
 
+        expect(2);
         //Verify
         strictEqual(travi.framework.entityList.getButtonText(), 'Remove', "Button text reported correctly");
         strictEqual($('#confirmation').dialog('option', 'buttons')[0].text, 'Remove', "Button text displayed correctly");
     });
+
+
     test("confirmation message", function () {
         //Setup
         travi.framework.entityList.setConfirmationMessage('Are you sure you wish to REMOVE this announcement?');
@@ -117,8 +122,8 @@
         strictEqual($('#confirmation').dialog('option', 'title'), 'Are you sure?', "Title text correct");
     });
 
-
     $templateLoader.done(function () {
+
         $.mockjax({
             url: "/admin/updates/?offset=5",
             contentType: 'text/json',
@@ -133,38 +138,83 @@
                 }
             }
         });
-
-        module("Paging", {
-            setup: function () {
-                $('body').append('<div id="scratch">');
-                $('#entity-list').tmpl().appendTo('#scratch');
-                travi.framework.entityList.init();
-            },
-            teardown: function () {
-                $('#scratch').remove();
-                $('#confirmation').dialog('destroy').remove();
+        $.mockjax({
+            url: "/admin/updates/?offset=0",
+            contentType: 'text/json',
+            responseText: {
+                test: "test",
+                updates: {
+                    updateList: {
+                        entities: [
+                            {}
+                        ],
+                        offset: 0
+                    }
+                }
             }
         });
-        asyncTest("Ajax request for updates hits server", function () {
-            $('#scratch')
-                .append($.tmpl("pagination", {
+        module("Paging", {
+            setup: function () {
+                    $('body').append('<div id="scratch">');
+                    $('#entity-list').tmpl().appendTo('#scratch');
+                    $('#scratch')
+                    .append($.tmpl("pagination", {
                     controller: 'admin/updates',
-                    nextOffset: 5
+                    nextOffset: 5,
+                    prevOffset: 0
                 }));
-            travi.framework.entityList.init();
+                    travi.framework.entityList.init();
+                },
+            teardown: function () {
+                    $('#scratch').remove();
+                    $(document).unbind(PAGE_EVENT);
+                }
+        });
+        asyncTest("Request for more updates loads more items into page", function () {
+            expect(2);
 
+            $(document).bind(PAGE_EVENT, function () {
+                ok(true, "response received from server");
+                strictEqual($('ol.entityList > li').length, 2);
 
-            $(document).bind('updates-loaded', function () {
-                ok(true, "response received");
-               strictEqual($('ol.entityList > li').length, 2);
+                start();
+            });
+            $('#moreUpdates').click();
+        });
+        asyncTest("Request for previous updates loads more items into page", function () {
+            expect(2);
+
+            $(document).bind(PAGE_EVENT, function () {
+                ok(true, "response received from server");
+                strictEqual($('ol.entityList > li').length, 2);
+
+                start();
+            });
+            $('#previousUpdates').click();
+        });
+        asyncTest("'back' link visible after loading more items", function () {
+            expect(2);
+
+            $(document).bind(PAGE_EVENT, function () {
+                strictEqual($('#previousUpdates').length, 1, "'back' exists in DOM");
+                ok(!$('#previousUpdates').parent().hasClass('outOfRange'), "'back' link visible");
+
+                start();
+            });
+            $('#moreUpdates').click();
+        });
+        asyncTest("'back' link no longer visible after returning to first page", function () {
+            var $prevUpdates = $('#previousUpdates');
+            expect(1);
+
+            $prevUpdates.parent().removeClass('outOfRange');
+            $(document).bind(PAGE_EVENT, function () {
+                ok($prevUpdates.parent().hasClass(HIDDEN_CLASS), "'back' link not visible");
 
                 start();
             });
 
-            $('#moreUpdates').click();
-        });
-        test("'back' link visibility", function () {
-            ok(false, 'missing functionality');
+            $prevUpdates.click();
         });
         test("'forward' link visibility", function () {
             ok(false, 'missing functionality');

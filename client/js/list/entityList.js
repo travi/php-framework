@@ -59,17 +59,25 @@ travi.framework.entityList = (function () {
     },
 
     initPagination = function () {
-        $('#moreUpdates').click(function () {
+        $('#moreUpdates, #previousUpdates').click(function () {
             var $this = $(this);
 
             $.getJSON($this.attr('href'), function (data) {
                 var i,
-                    updates = data.updates.updateList.entities,
+                    updateContainer = data.updates.updateList,
+                    updates = updateContainer.entities,
                     updateCount = updates.length,
-                    $updateList = $('ol.entityList');
+                    $updateList = $('ol.entityList'),
+                    $prevUpdates = $('#previousUpdates');
 
                 for (i = 0; i < updateCount; i = i + 1) {
                     $updateList.append('<li>&nbsp;</li>');
+                }
+
+                if (updateContainer.offset <= 0) {
+                    $prevUpdates.parent().addClass('outOfRange');
+                } else {
+                    $prevUpdates.parent().removeClass('outOfRange');
                 }
 
                 $this.trigger('updates-loaded');
