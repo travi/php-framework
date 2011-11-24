@@ -2,9 +2,7 @@
     "use strict";
 
     var $templateLoader = $.Deferred(),
-        PAGE_EVENT = 'updates-loaded',
-        HIDDEN_CLASS = 'outOfRange';
-
+        constants = travi.framework.entityList.constants;
 
     $.when(
         travi.loadTemplate('/resources/shared/templates/pagination.tmpl', 'pagination'),
@@ -167,17 +165,17 @@
                 },
             teardown: function () {
                     $('#scratch').remove();
-                    $(document).unbind(PAGE_EVENT);
+                    $(document).unbind(constants.get('PAGE_EVENT'));
                 }
         });
         asyncTest("Request for more updates loads more items into page", function () {
             expect(4);
 
-            $(document).bind(PAGE_EVENT, function () {
+            $(document).bind(constants.get('PAGE_EVENT'), function () {
                 ok(true, "response received from server");
                 strictEqual($('ol.entityList > li').length, 2);
-                ok(!$('#previousUpdates').parent().hasClass(HIDDEN_CLASS), "'back' link visible");
-                ok(!$('.pipeDivider').hasClass(HIDDEN_CLASS), "Divider visible");
+                ok(!$('#previousUpdates').parent().hasClass(constants.get('HIDDEN_CLASS')), "'back' link visible");
+                ok(!$('.pipeDivider').hasClass(constants.get('HIDDEN_CLASS')), "Divider visible");
 
                 start();
             });
@@ -186,7 +184,7 @@
         asyncTest("Request for previous updates loads more items into page", function () {
             expect(2);
 
-            $(document).bind(PAGE_EVENT, function () {
+            $(document).bind(constants.get('PAGE_EVENT'), function () {
                 ok(true, "response received from server");
                 strictEqual($('ol.entityList > li').length, 2);
 
@@ -201,9 +199,9 @@
             $prevUpdates.parent().removeClass('outOfRange');
             $divider.removeClass('outOfRange');
 
-            $(document).bind(PAGE_EVENT, function () {
-                ok($prevUpdates.parent().hasClass(HIDDEN_CLASS), "'back' link not visible");
-                ok($divider.hasClass(HIDDEN_CLASS), "Divider not visible");
+            $(document).bind(constants.get('PAGE_EVENT'), function () {
+                ok($prevUpdates.parent().hasClass(constants.get('HIDDEN_CLASS')), "'back' link not visible");
+                ok($divider.hasClass(constants.get('HIDDEN_CLASS')), "Divider not visible");
 
                 start();
             });

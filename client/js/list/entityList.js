@@ -2,20 +2,24 @@ travi.framework.entityList = (function () {
     "use strict";
     
     var buttonText,
+        constants = travi.constants;
 
-    setMessage = function (confirmation) {
+    constants.set('PAGE_EVENT', 'updates-loaded');
+    constants.set('HIDDEN_CLASS', 'outOfRange');
+
+    function setMessage(confirmation) {
         $("#confirmation").text(confirmation);
-    },
+    }
 
-    setText = function (text) {
+    function setText(text) {
         this.buttonText = text;
-    },
+    }
 
-    getText = function () {
+    function getText() {
         return this.buttonText;
-    },
+    }
 
-    confirm = function () {
+    function confirm() {
         var $form = $(this);
 
         $("#confirmation").dialog("option", "buttons", [
@@ -27,7 +31,6 @@ travi.framework.entityList = (function () {
                         beforeSubmit: function (data, $form) {
                             $form
                                 .closest('li')
-//                                    .find('a').hide().end()
                                     .append('<img src="/resources/shared/img/progress/ajax-spinner.gif" class="loading-indicator"/>');
                         },
                         success: function (data, testStatus, xhr, $form) {
@@ -56,9 +59,9 @@ travi.framework.entityList = (function () {
         $("#confirmation").dialog("open");
 
         return false;
-    },
+    }
 
-    initPagination = function () {
+    function initPagination() {
         $('#moreUpdates, #previousUpdates').click(function () {
             var $this = $(this);
 
@@ -76,21 +79,21 @@ travi.framework.entityList = (function () {
                 }
 
                 if (updateContainer.offset <= 0 || !updateContainer.offset) {
-                    $prevUpdates.parent().addClass('outOfRange');
-                    $divider.addClass('outOfRange');
+                    $prevUpdates.parent().addClass(constants.get('HIDDEN_CLASS'));
+                    $divider.addClass(constants.get('HIDDEN_CLASS'));
                 } else {
-                    $prevUpdates.parent().removeClass('outOfRange');
-                    $divider.removeClass('outOfRange');
+                    $prevUpdates.parent().removeClass(constants.get('HIDDEN_CLASS'));
+                    $divider.removeClass(constants.get('HIDDEN_CLASS'));
                 }
 
-                $this.trigger('updates-loaded');
+                $this.trigger(constants.get('PAGE_EVENT'));
             });
 
             return false;
         });
-    },
+    }
 
-    init = function () {
+    function init() {
         $("li.remove-item form")
             .hide()
             .after("<a class='item-action' href='#'>Remove</a>");
@@ -107,7 +110,7 @@ travi.framework.entityList = (function () {
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
         initPagination();
-    };
+    }
 
     $(document).ready(function () {
         init();
@@ -117,6 +120,7 @@ travi.framework.entityList = (function () {
         init                    : init,
         setConfirmationMessage  : setMessage,
         setButtonText           : setText,
-        getButtonText           : getText
+        getButtonText           : getText,
+        constants               : constants
     };
 }());
