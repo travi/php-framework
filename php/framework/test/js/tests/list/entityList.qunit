@@ -171,11 +171,13 @@
                 }
         });
         asyncTest("Request for more updates loads more items into page", function () {
-            expect(2);
+            expect(4);
 
             $(document).bind(PAGE_EVENT, function () {
                 ok(true, "response received from server");
                 strictEqual($('ol.entityList > li').length, 2);
+                ok(!$('#previousUpdates').parent().hasClass(HIDDEN_CLASS), "'back' link visible");
+                ok(!$('.pipeDivider').hasClass(HIDDEN_CLASS), "Divider visible");
 
                 start();
             });
@@ -192,19 +194,7 @@
             });
             $('#previousUpdates').click();
         });
-        asyncTest("'back' link visible after loading more items", function () {
-            expect(3);
-
-            $(document).bind(PAGE_EVENT, function () {
-                strictEqual($('#previousUpdates').length, 1, "'back' exists in DOM");
-                ok(!$('#previousUpdates').parent().hasClass(HIDDEN_CLASS), "'back' link visible");
-                ok(!$('.pipeDivider').hasClass(HIDDEN_CLASS), "Divider visible");
-
-                start();
-            });
-            $('#moreUpdates').click();
-        });
-        asyncTest("'back' link no longer visible after returning to first page", function () {
+        asyncTest("return to first page", function () {
             var $prevUpdates = $('#previousUpdates'),
                 $divider = $('.pipeDivider');
             expect(2);
@@ -220,7 +210,7 @@
 
             $prevUpdates.click();
         });
-        test("'forward' link visibility", function () {
+        test("load last page", function () {
             ok(false, 'missing functionality');
         });
     });
