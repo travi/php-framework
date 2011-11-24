@@ -1,30 +1,35 @@
-TestCase("NamespaceTest", {
-    teardown: function () {
-        delete travi.nstest;
-    },
+(function () {
+    "use strict";
 
-    "test should create non-existent object":
-    function () {
-        travi.namespace("nstest");
+    TestCase("NamespaceTest", {
+        teardown: function () {
+            delete travi.nstest;
+        },
 
-        assertObject(travi.nstest);
-    },
+        "test should create non-existent object":
+        function () {
+            travi.namespace("nstest");
 
-    "test should not overwrite existing objects":
-    function () {
-        travi.nstest = {nested: {}};
-        var result = travi.namespace("nstest.nested");
+            assertObject(travi.nstest);
+        },
 
-        assertSame(result, travi.nstest.nested);
-    },
+        "test should not overwrite existing objects":
+        function () {
+            travi.nstest = {nested: {}};
+            var result = travi.namespace("nstest.nested");
 
-    "test only create missing parts":
-    function () {
-        var existing = {};
-        travi.nstest = {nested: {existing: existing}};
-        var result = travi.namespace("nstest.nested.ui");
+            assertSame(result, travi.nstest.nested);
+        },
 
-        assertSame(existing, travi.nstest.nested.existing);
-        assertObject(travi.nstest.nested.ui);
-    }
-});
+        "test only create missing parts":
+        function () {
+            var existing = {},
+                result;
+            travi.nstest = {nested: {existing: existing}};
+            result = travi.namespace("nstest.nested.ui");
+
+            assertSame(existing, travi.nstest.nested.existing);
+            assertObject(travi.nstest.nested.ui);
+        }
+    });
+}());

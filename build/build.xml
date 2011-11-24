@@ -4,18 +4,19 @@
     <import file="build-shared.xml"/>
     <property file="build.properties" />
 
-    <fileset id="js.files" dir="../client/js/" >
-        <include name="**/*.js" />
+    <fileset id="js.files" dir="../" >
+        <include name="client/js/**/*.js" />
+        <include name="test/js/**/*.js" />
         <include name="**/*.qunit" />
-        <exclude name="date/**/*.js" />
-        <exclude name="jquery/**/*.js" />
-        <exclude name="pngFix/**/*.js" />
-        <exclude name="reflection/**/*.js" />
-        <exclude name="qunit/**/*.js" />
-        <exclude name="modernizr/**/*.js" />
-        <exclude name="LABjs/**/*.js" />
-        <exclude name="techPatterns/**/*.js" />
-        <exclude name="instant/**/*.js" />
+        <exclude name="client/js/date/**/*.js" />
+        <exclude name="client/js/jquery/**/*.js" />
+        <exclude name="client/js/pngFix/**/*.js" />
+        <exclude name="client/js/reflection/**/*.js" />
+        <exclude name="client/js/qunit/**/*.js" />
+        <exclude name="client/js/modernizr/**/*.js" />
+        <exclude name="client/js/LABjs/**/*.js" />
+        <exclude name="client/js/techPatterns/**/*.js" />
+        <exclude name="client/js/instant/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />
