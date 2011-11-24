@@ -20,10 +20,28 @@ var travi = (function () {
         link.setAttribute("href", sheetUrl);
 
         document.getElementsByTagName("head")[0].appendChild(link);
+    },
+
+    namespace = function (ns) {
+        var object = this,
+            levels = ns.split("."),
+            levelCount = levels.length,
+            i;
+
+        for (i = 0; i < levelCount; i += 1) {
+            if (typeof object[levels[i]] === "undefined") {
+                object[levels[i]] = {};
+            }
+
+            object = object[levels[i]];
+        }
+
+        return object;
     };
 
     return {
         loadTemplate    : loadTemplate,
-        getStyleSheet   : getStyleSheet
+        getStyleSheet   : getStyleSheet,
+        namespace       : namespace
     };
 }());
