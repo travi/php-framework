@@ -68,16 +68,19 @@ travi.framework.entityList = (function () {
                     updates = updateContainer.entities,
                     updateCount = updates.length,
                     $updateList = $('ol.entityList'),
-                    $prevUpdates = $('#previousUpdates');
+                    $prevUpdates = $('#previousUpdates'),
+                    $divider = $('.pipeDivider');
 
                 for (i = 0; i < updateCount; i = i + 1) {
                     $updateList.append('<li>&nbsp;</li>');
                 }
 
-                if (updateContainer.offset <= 0) {
+                if (updateContainer.offset <= 0 || !updateContainer.offset) {
                     $prevUpdates.parent().addClass('outOfRange');
+                    $divider.addClass('outOfRange');
                 } else {
                     $prevUpdates.parent().removeClass('outOfRange');
+                    $divider.removeClass('outOfRange');
                 }
 
                 $this.trigger('updates-loaded');

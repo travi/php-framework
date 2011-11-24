@@ -133,7 +133,8 @@
                     updateList: {
                         entities: [
                             {}
-                        ]
+                        ],
+                        offset: 5
                     }
                 }
             }
@@ -147,8 +148,7 @@
                     updateList: {
                         entities: [
                             {}
-                        ],
-                        offset: 0
+                        ]
                     }
                 }
             }
@@ -158,11 +158,11 @@
                     $('body').append('<div id="scratch">');
                     $('#entity-list').tmpl().appendTo('#scratch');
                     $('#scratch')
-                    .append($.tmpl("pagination", {
-                    controller: 'admin/updates',
-                    nextOffset: 5,
-                    prevOffset: 0
-                }));
+                        .append($.tmpl("pagination", {
+                            controller: 'admin/updates',
+                            nextOffset: 5,
+                            prevOffset: 0
+                        }));
                     travi.framework.entityList.init();
                 },
             teardown: function () {
@@ -193,23 +193,27 @@
             $('#previousUpdates').click();
         });
         asyncTest("'back' link visible after loading more items", function () {
-            expect(2);
+            expect(3);
 
             $(document).bind(PAGE_EVENT, function () {
                 strictEqual($('#previousUpdates').length, 1, "'back' exists in DOM");
-                ok(!$('#previousUpdates').parent().hasClass('outOfRange'), "'back' link visible");
+                ok(!$('#previousUpdates').parent().hasClass(HIDDEN_CLASS), "'back' link visible");
+                ok(!$('.pipeDivider').hasClass(HIDDEN_CLASS), "Divider visible");
 
                 start();
             });
             $('#moreUpdates').click();
         });
         asyncTest("'back' link no longer visible after returning to first page", function () {
-            var $prevUpdates = $('#previousUpdates');
-            expect(1);
-
+            var $prevUpdates = $('#previousUpdates'),
+                $divider = $('.pipeDivider');
+            expect(2);
             $prevUpdates.parent().removeClass('outOfRange');
+            $divider.removeClass('outOfRange');
+
             $(document).bind(PAGE_EVENT, function () {
                 ok($prevUpdates.parent().hasClass(HIDDEN_CLASS), "'back' link not visible");
+                ok($divider.hasClass(HIDDEN_CLASS), "Divider not visible");
 
                 start();
             });
