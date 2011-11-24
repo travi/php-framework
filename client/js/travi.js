@@ -37,11 +37,33 @@ var travi = (function () {
         }
 
         return object;
-    };
+    },
+
+    constants = (function () {
+        var ownProp = Object.prototype.hasOwnProperty,
+            constants = {};
+
+        function set (key, value) {
+            if (!ownProp.call(constants, key)) {
+                constants[key] = value;
+            }
+        }
+
+        function get (key) {
+            return constants[key];
+        }
+
+        return {
+            set: set,
+            get: get
+        }
+    }());
 
     return {
         loadTemplate    : loadTemplate,
         getStyleSheet   : getStyleSheet,
-        namespace       : namespace
+        namespace       : namespace,
+        constants       : constants,
+        enableConstants : constants
     };
 }());
