@@ -1,4 +1,4 @@
-TestCase("Create the ability to maintain constants", {
+TestCase("ConstantsTest", {
     setUp: function () {
         this.key = 'CONST';
         this.value = 'some value';
