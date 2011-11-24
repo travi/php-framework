@@ -43,20 +43,20 @@ var travi = (function () {
         var ownProp = Object.prototype.hasOwnProperty,
             constants = {};
 
-        function set (key, value) {
+        function set(key, value) {
             if (!ownProp.call(constants, key)) {
                 constants[key] = value;
             }
         }
 
-        function get (key) {
+        function get(key) {
             return constants[key];
         }
 
         return {
             set: set,
             get: get
-        }
+        };
     }());
 
     return {
