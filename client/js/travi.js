@@ -22,7 +22,7 @@ var travi = (function () {
             document.getElementsByTagName("head")[0].appendChild(link);
         },
 
-        namespace = function (ns) {
+        namespace = function (ns, provided) {
             var object = this,
                 levels = ns.split("."),
                 levelCount = levels.length,
@@ -30,7 +30,11 @@ var travi = (function () {
 
             for (i = 0; i < levelCount; i += 1) {
                 if (typeof object[levels[i]] === "undefined") {
-                    object[levels[i]] = {};
+                    if (i === levelCount - 1) {
+                        object[levels[i]] = provided || {};
+                    } else {
+                        object[levels[i]] = {};
+                    }
                 }
 
                 object = object[levels[i]];

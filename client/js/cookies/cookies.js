@@ -1,4 +1,4 @@
-travi.framework.cookies = (function () {
+(function () {
     "use strict";
 
     var getNameAndValueFromPair = function (pair) {
@@ -88,11 +88,11 @@ travi.framework.cookies = (function () {
             }
         };
 
-    return {
+    travi.namespace("framework.cookies", {
         exists: exists,
         create: create,
         remove: remove,
         clearAll: clearAll,
         value: valueOf
-    };
+    });
 }());
