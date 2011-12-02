@@ -86,15 +86,29 @@
 
     <target name="jsLint">
         <mkdir dir="${build.logs}"/>
-        <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
+        <antcall target="jsLint-src"/>
+        <antcall target="jsLint-tests"/>
+        <fail if="jsLintResult" message="There were JSLint failures"/>
+    </target>
+
+    <target name="jsLint-tests">
+        <jslint options="${jslint.testOptions}" haltonfailure="false" failureProperty="jsLintResult">
             <predef>${jslint.predef},${jslint.predef.site}</predef>
             <formatter type="plain" />
-            <formatter type="checkstyle" destfile="${build.logs}/jslint.xml" />
-            <fileset refid="js.files"/>
+            <formatter type="checkstyle" destfile="${build.logs}/jslint-tests.xml" />
             <fileset refid="js.tests"/>
             <fileset refid="js.exclude.overrides"/>
         </jslint>
-        <fail if="jsLintResult" message="There were JSLint failures"/>
+    </target>
+
+    <target name="jsLint-src">
+        <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
+            <predef>${jslint.predef},${jslint.predef.site}</predef>
+            <formatter type="plain" />
+            <formatter type="checkstyle" destfile="${build.logs}/jslint-src.xml" />
+            <fileset refid="js.files"/>
+            <fileset refid="js.exclude.overrides"/>
+        </jslint>
     </target>
 
     <target name="phpcs" description="PHP Code Sniffer">

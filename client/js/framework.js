@@ -60,7 +60,7 @@ travi.framework = (function () {
             }
 
             $('footer').append(
-                    '<div id="enhancementVersion">'
+                '<div id="enhancementVersion">'
                     + '<span id="detectVersion">Detect</span> or '
                     + '<span id="explainChooseVersion">switch to version</span>'
                     + '<ul id="versions">'

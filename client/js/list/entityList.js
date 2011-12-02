@@ -1,6 +1,6 @@
 travi.framework.entityList = (function () {
     "use strict";
-    
+
     var buttonText,
         constants = travi.constants;
 
@@ -12,11 +12,11 @@ travi.framework.entityList = (function () {
     }
 
     function setText(text) {
-        this.buttonText = text;
+        buttonText = text;
     }
 
     function getText() {
-        return this.buttonText;
+        return buttonText;
     }
 
     function confirm() {
@@ -31,7 +31,7 @@ travi.framework.entityList = (function () {
                         beforeSubmit: function (data, $form) {
                             $form
                                 .closest('li')
-                                    .append('<img src="/resources/shared/img/progress/ajax-spinner.gif" class="loading-indicator"/>');
+                                .append('<img src="/resources/shared/img/progress/ajax-spinner.gif" class="loading-indicator"/>');
                         },
                         success: function (data, testStatus, xhr, $form) {
                             var $containingList = $form.closest('ol');

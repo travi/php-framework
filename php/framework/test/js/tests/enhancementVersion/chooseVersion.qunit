@@ -77,8 +77,8 @@
 
         $('#desktopVersion').click();
 
-        strictEqual(fwork.cookies.value(
-            enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
+        strictEqual(
+            fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
             enhancementVersionConstants.DESKTOP_ENHANCEMENT_VERSION
         );
         ok(fwork.location.verify(), "reloads to get proper resources");
@@ -94,8 +94,8 @@
 
         $('#mobileVersion').click();
 
-        strictEqual(fwork.cookies.value(
-            enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
+        strictEqual(
+            fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY),
             enhancementVersionConstants.MOBILE_ENHANCEMENT_VERSION
         );
         ok(fwork.location.verify(), "reloads to get proper resources");

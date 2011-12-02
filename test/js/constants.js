@@ -7,8 +7,7 @@
             this.value = 'some value';
         },
 
-        "test should store constant key and value":
-        function () {
+        "test should store constant key and value": function () {
             travi.constants.set(this.key, this.value);
 
             assertObject(travi.constants);

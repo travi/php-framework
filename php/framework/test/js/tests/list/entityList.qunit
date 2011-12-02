@@ -27,14 +27,14 @@
 
     module("POST handling for 'Remove' action", {
         setup: function () {
-                $('body').append('<div id="scratch">');
-                $('#entity-list').tmpl().appendTo('#scratch');
-                travi.framework.entityList.init();
-            },
+            $('body').append('<div id="scratch">');
+            $('#entity-list').tmpl().appendTo('#scratch');
+            travi.framework.entityList.init();
+        },
         teardown: function () {
-                $('#scratch').remove();
-                $('#confirmation').dialog('destroy').remove();
-            }
+            $('#scratch').remove();
+            $('#confirmation').dialog('destroy').remove();
+        }
     });
 
     test("Form conversion to link", function () {
@@ -71,14 +71,14 @@
     });
     module("Remove Confirmation", {
         setup: function () {
-                $('body').append('<div id="scratch">');
-                $('#entity-list').tmpl().appendTo('#scratch');
-                travi.framework.entityList.init();
-            },
+            $('body').append('<div id="scratch">');
+            $('#entity-list').tmpl().appendTo('#scratch');
+            travi.framework.entityList.init();
+        },
         teardown: function () {
-                $('#scratch').remove();
-                $('#confirmation').dialog('destroy').remove();
-            }
+            $('#scratch').remove();
+            $('#confirmation').dialog('destroy').remove();
+        }
     });
     test("confirmation dialog", function () {
         //Setup
@@ -153,20 +153,20 @@
         });
         module("Paging", {
             setup: function () {
-                    $('body').append('<div id="scratch">');
-                    $('#entity-list').tmpl().appendTo('#scratch');
-                    $('#scratch')
-                        .append($.tmpl("pagination", {
-                            controller: 'admin/updates',
-                            nextOffset: 5,
-                            prevOffset: 0
-                        }));
-                    travi.framework.entityList.init();
-                },
+                $('body').append('<div id="scratch">');
+                $('#entity-list').tmpl().appendTo('#scratch');
+                $('#scratch')
+                    .append($.tmpl("pagination", {
+                        controller: 'admin/updates',
+                        nextOffset: 5,
+                        prevOffset: 0
+                    }));
+                travi.framework.entityList.init();
+            },
             teardown: function () {
-                    $('#scratch').remove();
-                    $(document).unbind(constants.get('PAGE_EVENT'));
-                }
+                $('#scratch').remove();
+                $(document).unbind(constants.get('PAGE_EVENT'));
+            }
         });
         asyncTest("Request for more updates loads more items into page", function () {
             expect(4);

@@ -6,8 +6,7 @@
 
     <fileset id="js.files" dir="../" >
         <include name="client/js/**/*.js" />
-        <include name="test/js/**/*.js" />
-        <include name="**/*.qunit" />
+        <exclude name="client/js/form/openid.js" />
         <exclude name="client/js/date/**/*.js" />
         <exclude name="client/js/jquery/**/*.js" />
         <exclude name="client/js/pngFix/**/*.js" />
@@ -23,9 +22,10 @@
         <!-- My Plug-ins -->
         <include name="jquery/plugins/formAlign/*.js" />
     </fileset>
-    <fileset id="js.tests" dir="../php/framework/test/js/tests/">
-        <include name="**/*.js" />
-        <include name="**/*.qunit" />
+    <fileset id="js.tests" dir="../">
+        <include name="php/framework/test/js/tests/**/*.js" />
+        <include name="test/js/**/*.js"/>
+        <include name="php/framework/test/js/tests/**/*.qunit" />
     </fileset>
 
     <fileset id="to.deploy" dir="${shared.dir}/../">
