@@ -1,26 +1,32 @@
 {assign var="mainNav" value=$page->getMainNav()}
 {if !empty($mainNav)}
-            <ul class="sideNav" id="mainNav">
+            <nav class="sideNav" id="mainNav">
+                <ul>
 {foreach key=navItem item=navLink from=$mainNav}
     {if is_array($navLink)}
-                <li><a href="{$navLink['link']}">{$navItem}</a></li>    
+                    <li><a href="{$navLink['link']}">{$navItem}</a></li>
     {else}
-                <li><a href="{$navLink}">{$navItem}</a></li>
+                    <li><a href="{$navLink}">{$navItem}</a></li>
     {/if}
 {/foreach}
-            </ul>
+                </ul>
+            </nav>
 {/if}
 {assign var="adminNav" value=$page->getAdminNav()}
 {if !empty($adminNav)}
-            <ul class="sideNav" id="adminNav">
+            <nav>
+                <ul class="sideNav" id="adminNav">
 {foreach key=navItem item=navLink from=$adminNav}
-                <li><a href="{$navLink}">{$navItem}</a></li>
+                    <li><a href="{$navLink}">{$navItem}</a></li>
 {/foreach}
-            </ul>
+                </ul>
+            </nav>
 {/if}
 {assign var="subNav" value=$page->getSubNav()}
 {if !empty($subNav)}
-            <ul class="sideNav" id="subNav">
-                {include file='subNav.tpl' nav=$subNav sectionTitle=$page->getSiteSection()}
-            </ul>
+            <nav class="sideNav" id="subNav">
+                <ul>
+                    {include file='subNav.tpl' nav=$subNav sectionTitle=$page->getSiteSection()}
+                </ul>
+            </nav>
 {/if}
