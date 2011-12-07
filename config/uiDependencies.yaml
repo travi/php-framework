@@ -29,6 +29,7 @@ locationUtil:
     - "framework"
 
 gallery:
+#  desktop:
   local: "/resources/js/gallery.js"
   jsDependencies:
     - "lightbox"
