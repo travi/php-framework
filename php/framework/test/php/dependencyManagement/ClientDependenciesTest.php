@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../../../src/http/Request.class.php';
+
 
 class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 {
@@ -18,6 +20,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         );
 
         $this->dependencies = new ClientDependencies();
+        $this->dependencies->setRequest(new Request());
         $this->dependencies->setUiDeps($this->dependencyDefinition);
     }
 
@@ -51,6 +54,35 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
             array(
                 'invalidComponent'  => array()
             )
+        );
+
+        $this->dependencies->resolveFileURI('invalidComponent');
+    }
+
+    public function testDesktopSpecificDependencyMapping()
+    {
+        $mockRequest = $this->getMock('Request');
+        $mockRequest->expects($this->once())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+        $this->dependencies->setRequest($mockRequest);
+
+        $this->dependencies->setUiDeps(
+            array(
+                self::SOME_COMPONENT    => array(
+                    'desktop'   =>  array(
+                        'local' =>  self::PATH_TO_SOME_COMPONENT,
+                        'jsDependencies'    => array(
+                            'jquery'
+                        )
+                    )
+                )
+            )
+        );
+
+        $this->assertEquals(
+            self::PATH_TO_SOME_COMPONENT,
+            $this->dependencies->resolveFileURI(self::SOME_COMPONENT)
         );
     }
 }

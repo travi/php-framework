@@ -29,15 +29,15 @@ locationUtil:
     - "framework"
 
 gallery:
-#  desktop:
-  local: "/resources/js/gallery.js"
-  jsDependencies:
-    - "lightbox"
-    - "jcarousel"
-    - "urlParser"
-    - "reflection"
-  cssDependencies:
-    - "/resources/css/pages/gallery.dev.css"
+  desktop:
+      local: "/resources/js/gallery.js"
+      jsDependencies:
+        - "lightbox"
+        - "jcarousel"
+        - "urlParser"
+        - "reflection"
+      cssDependencies:
+        - "/resources/css/pages/gallery.dev.css"
 
 #=======jQuery======
 jquery:
