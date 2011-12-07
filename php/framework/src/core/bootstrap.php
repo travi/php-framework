@@ -49,6 +49,7 @@ $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
+$container->dependencies()->set('uiDeps', $uiDeps);
 
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);

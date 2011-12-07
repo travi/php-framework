@@ -2,13 +2,26 @@
  
 class ClientDependencies
 {
+    private $uiDeps;
     private $jsNeeds = array();
 
-    public function __construct()
+    public function getDependenciesFor($item)
     {
-        global $uiDeps;
+        return $this->jsNeeds[$item];
+    }
 
-        $this->flattenDeps($uiDeps);
+    public function resolveFileURI($resource)
+    {
+        return $this->jsNeeds[$resource]['local'];
+    }
+
+    /**
+     * @PdInject uiDeps
+     * @param $deps
+     */
+    public function setUiDeps($deps)
+    {
+        $this->flattenDeps($deps);
 
         if (defined('JQUERY_UI_THEME')) {
             $this->jsNeeds['jqueryUiTheme']['local'] = JQUERY_UI_THEME;
@@ -52,15 +65,5 @@ class ClientDependencies
 
             $this->jsNeeds[$name] = $item;
         }
-    }
-
-    public function getDependenciesFor($item)
-    {
-        return $this->jsNeeds[$item];
-    }
-
-    public function resolveFileURI($resource)
-    {
-        return $this->jsNeeds[$resource]['local'];
     }
 }
