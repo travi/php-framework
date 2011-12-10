@@ -151,6 +151,22 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testPageStyleFollowsSiteTheme()
+    {
+        $this->dependencyManager->setPageStyle($this->pageStyle);
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                DependencyManager::SITE_THEME_KEY => self::SITE_THEME,
+                DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+            ),
+            $dependencies['css']
+        );
+    }
+
     public function testSiteThemeFollowsBaseFormSheet()
     {
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
