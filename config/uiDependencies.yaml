@@ -32,6 +32,7 @@ gallery:
   desktop:
       local: "/resources/js/gallery.js"
       jsDependencies:
+        - travi
         - "lightbox"
         - "jcarousel"
         - "urlParser"
