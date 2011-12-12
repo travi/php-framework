@@ -30,9 +30,10 @@ locationUtil:
 
 gallery:
   desktop:
-      local: "/resources/js/gallery.js"
+      local: /resources/js/photos/gallery.js
       jsDependencies:
         - travi
+        - /resources/js/photos/previewPane.js
         - "lightbox"
         - "jcarousel"
         - "urlParser"
