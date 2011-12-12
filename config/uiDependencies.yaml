@@ -34,6 +34,7 @@ gallery:
       jsDependencies:
         - travi
         - /resources/js/photos/previewPane.js
+        - /resources/js/photos/carousel.js
         - "lightbox"
         - "jcarousel"
         - "urlParser"
