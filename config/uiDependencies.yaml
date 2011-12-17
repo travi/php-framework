@@ -37,7 +37,7 @@ gallery:
         - /resources/js/photos/carousel.js
         - "lightbox"
         - "jcarousel"
-        - "urlParser"
+        - bbq
         - "reflection"
       cssDependencies:
         - "/resources/css/pages/gallery.dev.css"
@@ -82,8 +82,8 @@ jquery:
     template:
       local: "/resources/shared/js/jquery/plugins/template/jquery.tmpl.js"
 
-    urlParser:
-      local: "/resources/shared/js/jquery/plugins/url/jquery.url.js"
+    bbq:
+      local: "/resources/shared/js/jquery/plugins/bbq/jquery.bbq.js"
 
     validation:
       local: "/resources/shared/js/jquery/plugins/validation/jquery.validate.min.js"
