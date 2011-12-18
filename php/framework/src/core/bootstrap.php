@@ -1,5 +1,5 @@
 <?php
-require_once 'init.php';
+require_once dirname(__FILE__).'/init.php';
 
 require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../controller/front/front.controller.php';
@@ -8,12 +8,6 @@ require_once dirname(__FILE__).'/../controller/front/front.controller.php';
 //error_reporting(E_ALL ^ E_NOTICE);
 // Report all errors except E_NOTICE and E_WARNING (better for production)
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
-//Get Config
-//Temp definition
-define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
-define('SITE_ROOT', DOC_ROOT.'../');
-
 
 /** @var $frontController FrontController */
 $frontController = Pd_Make::name('FrontController');

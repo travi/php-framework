@@ -1,5 +1,5 @@
 <?php
-
+require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
 require_once dirname(__FILE__).'/../http/Request.class.php';
 require_once dirname(__FILE__).'/../http/Response.class.php';
 
@@ -13,8 +13,12 @@ function __autoload($class_name)
     include_once str_replace('_', '/', $class_name) . '.php';
 }
 
-$config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
+//Get Config
+//Temp definition
+define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
+define('SITE_ROOT', DOC_ROOT.'../');
 
+$config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
 
 //global vars for legacy stuff
 //TODO: clean this up once refactored
@@ -48,7 +52,6 @@ $container->dependencies()->set('response', new Response($config));
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set('Smarty', smartyInit());
-
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
