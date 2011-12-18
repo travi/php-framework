@@ -42,4 +42,14 @@ class Album implements IteratorAggregate
     {
         return new ArrayIterator(get_object_vars($this));
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setid($id)
+    {
+        $this->id = $id;
+    }
 }

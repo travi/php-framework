@@ -56,6 +56,7 @@ class PicasaService
 
         $albums = array();
         foreach ($xml->entry as $entry) {
+            $ns_gphoto = $entry->children($namespaces['gphoto']);
             $ns_media = $entry->children($namespaces['media']);
             $link_attr = $entry->link[1]->attributes();
 
@@ -63,6 +64,7 @@ class PicasaService
 
             /** @var $album Album */
             $album = new Album();
+            $album->setid((int)$ns_gphoto->id);
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
 
