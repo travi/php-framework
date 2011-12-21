@@ -316,7 +316,13 @@ class DependencyManager
 
     public function loadPageDependencies()
     {
-        $thisController = $this->pageDependenciesLists[strtolower($this->request->getController())];
+        if ($this->request->isAdmin()) {
+            $controllerList = $this->pageDependenciesLists['admin'];
+        } else {
+            $controllerList = $this->pageDependenciesLists;
+        }
+
+        $thisController = $controllerList[strtolower($this->request->getController())];
         $thisPage = $thisController[$this->request->getAction()];
 
         $this->addDependencies($this->pageDependenciesLists['site']);

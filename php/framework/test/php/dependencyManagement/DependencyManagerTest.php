@@ -56,24 +56,29 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue($this->anyAction));
 
+        $anyPageDependencies = array(
+            $this->anyAction => array(
+                'mobile' => array(
+                    'jsInits' => array(
+                        $this->mobileInit
+                    )
+                ),
+                'js' => $this->jsDeps,
+                'jsInits' => array(
+                    $this->commonInit
+                ),
+                'css' => $this->pageStyles,
+                'pageStyle' => $this->pageStyle
+            )
+        );
+
         $this->dependencyDefinition = array(
              'site' => array(
                  'js' => $this->siteWidgets
              ),
-             strtolower($this->anyController) => array(
-                 $this->anyAction => array(
-                     'mobile' => array(
-                         'jsInits' => array(
-                             $this->mobileInit
-                         )
-                     ),
-                     'js' => $this->jsDeps,
-                     'jsInits' => array(
-                         $this->commonInit
-                     ),
-                     'css' => $this->pageStyles,
-                     'pageStyle' => $this->pageStyle
-                 )
+             strtolower($this->anyController) => $anyPageDependencies,
+             'admin' => array(
+                 strtoLower($this->anyController) => $anyPageDependencies
              )
         );
     }
@@ -353,5 +358,31 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ),
             $dependencies['css']
         );
+    }
+
+    public function testAdminDependenciesHandledJustLikeOtherPages()
+    {
+        $this->request->expects($this->any())
+            ->method('isAdmin')
+            ->will($this->returnValue(true));
+        $this->request->expects($this->any())
+            ->method('getAction')
+            ->will($this->returnValue('someOtherAction'));
+        $this->dependencyManager->setRequest($this->request);
+
+        $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
+
+        $this->dependencyManager->loadPageDependencies();
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->markTestIncomplete('Why does the verification of the above expectations not fail?');
+
+//        $this->assertSame(
+//            array(
+//                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+//            ),
+//            $dependencies['css']
+//        );
     }
 }
