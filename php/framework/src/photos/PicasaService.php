@@ -31,22 +31,45 @@ class PicasaService
         return $this->createAlbumListFrom($responseBody);
     }
 
+    public function getAlbum($albumId, $thumbSize, $cropThumb = '')
+    {
+        $this->setAlbum($albumId);
+        $this->setCropThumbnail($cropThumb);
+
+        $album = new Album();
+        $this->setEndpoint($thumbSize);
+        $this->restClient->execute();
+        $responseBody = $this->restClient->getResponseBody();
+        $album->setPhotos($this->createPhotoListFrom($responseBody));
+
+        $responseXml = new SimpleXMLElement($responseBody);
+
+        $album->setTitle((string) $responseXml->title);
+
+        return $album;
+    }
+
     public function getPhotos($thumbSize, $cropThumb = '')
     {
         $this->setCropThumbnail($cropThumb);
 
-        $this->restClient->setEndpoint(
-            self::PICASA_URI
-            . $this->googleUser
-            . '/albumid/'
-            . $this->album
-            . '?'
-            . self::THUMBSIZE_QUERY_PARAM . '=' . $thumbSize . $this->thumbnailCropKey
-        );
+        $this->setEndpoint($thumbSize);
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
 
         return $this->createPhotoListFrom($responseBody);
+    }
+
+    public function setEndpoint($thumbSize)
+    {
+        $this->restClient->setEndpoint(
+            self::PICASA_URI
+                . $this->googleUser
+                . '/albumid/'
+                . $this->album
+                . '?'
+                . self::THUMBSIZE_QUERY_PARAM . '=' . $thumbSize . $this->thumbnailCropKey
+        );
     }
 
     private function createAlbumListFrom($responseBody)
@@ -89,11 +112,12 @@ class PicasaService
             $ns_media = $entry->children($namespaces['media']);
 
             $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
+            $orig_attr = $ns_media->group->content[0]->attributes();
             $license_attr = $ns_gphoto->license->attributes();
 
             /** @var $photo Photo */
             $photo = new Photo();
-            $photo->setOriginal((string)$entry->content['src']);
+            $photo->setOriginal((string)$orig_attr['url']);
             $thumbnail = $this->setThumbDetails($thumb_attr);
             $photo->setThumbnail($thumbnail);
 
@@ -143,5 +167,4 @@ class PicasaService
             $this->thumbnailCropKey = self::UNCROPPED_KEY;
         }
     }
-
 }

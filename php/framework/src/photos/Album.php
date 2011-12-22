@@ -5,6 +5,7 @@ class Album implements IteratorAggregate
 {
     private $title;
     private $url;
+    private $photos = array();
     /** @var Thumbnail */
     private $thumbnail;
 
@@ -51,5 +52,15 @@ class Album implements IteratorAggregate
     public function setid($id)
     {
         $this->id = $id;
+    }
+
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    public function setPhotos($photos)
+    {
+        $this->photos = $photos;
     }
 }
