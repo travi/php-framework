@@ -112,12 +112,15 @@ class PicasaService
             $ns_media = $entry->children($namespaces['media']);
 
             $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
-            $orig_attr = $ns_media->group->content[0]->attributes();
             $license_attr = $ns_gphoto->license->attributes();
 
             /** @var $photo Photo */
             $photo = new Photo();
-            $photo->setOriginal((string)$orig_attr['url']);
+            $originalUrl = (string)$entry->content['src'];
+            $photo->setOriginal($originalUrl);
+
+            $photo->setPreview($this->adjustPreviewSize($originalUrl));
+
             $thumbnail = $this->setThumbDetails($thumb_attr);
             $photo->setThumbnail($thumbnail);
 
@@ -130,6 +133,15 @@ class PicasaService
             array_push($photos, $photo);
         }
         return $photos;
+    }
+
+    private function adjustPreviewSize($originalUrl)
+    {
+        $urlParts = explode('/', $originalUrl);
+
+        array_splice($urlParts, -1, 0, 's600');
+
+        return implode('/', $urlParts);
     }
 
     private function setThumbDetails($thumb_attr)

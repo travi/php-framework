@@ -38,4 +38,14 @@ class Photo extends Image
     {
         $this->license = $license;
     }
+
+    public function getPreview()
+    {
+        return $this->preview;
+    }
+
+    public function setPreview($url)
+    {
+        $this->preview = $url;
+    }
 }
