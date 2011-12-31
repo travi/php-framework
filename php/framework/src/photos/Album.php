@@ -1,7 +1,7 @@
 <?php
 require_once 'Thumbnail.php';
 
-class Album implements IteratorAggregate
+class Album
 {
     private $title;
     private $url;
@@ -37,11 +37,6 @@ class Album implements IteratorAggregate
     public function setThumbnail($thumb)
     {
         $this->thumbnail = $thumb;
-    }
-
-    public function getIterator()
-    {
-        return new ArrayIterator(get_object_vars($this));
     }
 
     public function getId()

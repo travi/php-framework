@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__).'/../../src/view/render/rederer.class.php';
+require_once dirname(__FILE__).'/../../src/view/render/renderer.class.php';
 require_once dirname(__FILE__).'/../../src/view/render/jsonRenderer.class.php';
 require_once dirname(__FILE__).'/../../src/view/render/htmlRenderer.class.php';
 

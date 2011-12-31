@@ -139,6 +139,11 @@ class PicasaService
     {
         $urlParts = explode('/', $originalUrl);
 
+        /*
+         * some configurations this should take:
+         *      size (600 here)
+         *      cropped to square (add -c to crop)
+         */
         array_splice($urlParts, -1, 0, 's600');
 
         return implode('/', $urlParts);
