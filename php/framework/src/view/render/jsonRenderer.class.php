@@ -6,7 +6,7 @@ class JsonRenderer extends Renderer
     {
         header('Content-Type: application/json');
 
-        $data = $this->convertObjectsToAssocArrays($data);
+        $data = $this->convertDataToNestedAssocArray($data);
 
         //TODO: if content is array of size 1, should only encode that element rather than the array
         return json_encode($data);

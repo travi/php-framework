@@ -7,7 +7,7 @@ abstract class Renderer
         return print_r($data);
     }
 
-    protected function convertObjectsToAssocArrays($data)
+    protected function convertDataToNestedAssocArray($data)
     {
         $result = array();
 
@@ -36,7 +36,7 @@ abstract class Renderer
                 $result = array_filter($itemResult);
             }
         } elseif (is_array($item)) {
-            $result = $this->convertObjectsToAssocArrays($item);
+            $result = $this->convertDataToNestedAssocArray($item);
         } else {
             $result = $item;
         }
