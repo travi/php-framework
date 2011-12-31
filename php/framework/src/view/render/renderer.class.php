@@ -12,26 +12,33 @@ abstract class Renderer
         $result = array();
 
         foreach ($data as $key => $item) {
+            $result[$key] = $this->object_to_array($item);
+        }
+
+        return $result;
+    }
+
+    protected function object_to_array($item)
+    {
+        if (is_object($item)) {
             $itemResult = array();
+            $ref = new ReflectionClass($item);
 
-            if (is_object($item)) {
-                $ref = new ReflectionClass($item);
+            foreach (array_values($ref->getMethods()) as $method) {
+                if ($this->methodIsPublicGetter($method)) {
+                    $value = $method->invoke($item);
 
-                foreach (array_values($ref->getMethods()) as $method) {
-                    if ($this->methodIsPublicGetter($method)) {
-                        $value = $method->invoke($item);
-                        if (is_object($value) || is_array($value)) {
-                            $value = $this->convertObjectsToAssocArrays($value);
-                        }
-                        $itemResult[$this->getKeyFromMethodName($method)] = $value;
+                    if (is_object($value) || is_array($value)) {
+                        $value = $this->object_to_array($value);
                     }
-                    $result[$key] = array_filter($itemResult);
+                    $itemResult[$this->getKeyFromMethodName($method)] = $value;
                 }
-            } elseif (is_array($item)) {
-                $result[$key] = $this->convertObjectsToAssocArrays($item);
-            } else {
-                $result[$key] = $item;
+                $result = array_filter($itemResult);
             }
+        } elseif (is_array($item)) {
+            $result = $this->convertObjectsToAssocArrays($item);
+        } else {
+            $result = $item;
         }
 
         return $result;
