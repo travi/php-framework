@@ -96,13 +96,19 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . '/albumid/'
                 . self::ANY_ALBUM_ID
                 . '?'
-                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
-        $this->picasaWeb->setAlbum(self::ANY_ALBUM_ID);
 
-        $photos = $this->picasaWeb->getPhotos(self::ANY_INT);
+        $photos = $this->picasaWeb->getPhotos(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT
+                )
+            )
+        );
         /** @var $firstPhoto Photo */
         $firstPhoto = $photos[0];
 
@@ -144,12 +150,20 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . '/albumid/'
                 . self::ANY_ALBUM_ID
                 . '?'
-                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . 'c'
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::CROPPED_KEY
             );
         $this->picasaWeb->setRestClient($this->restClient);
 
         /** @var $album Album */
-        $album = $this->picasaWeb->getAlbum(self::ANY_ALBUM_ID, self::ANY_INT, true);
+        $album = $this->picasaWeb->getAlbum(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => true
+                )
+            )
+        );
 
         $this->assertNotNull($album);
         $this->assertType('Album', $album);
@@ -177,9 +191,16 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
-        $this->picasaWeb->setAlbum(self::ANY_ALBUM_ID);
 
-        $this->picasaWeb->getPhotos(self::ANY_INT, true);
+        $this->picasaWeb->getPhotos(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => true
+                )
+            )
+        );
     }
 
     public function testProperKeyUsedWhenThumbsShouldNotBeCropped()
@@ -201,10 +222,17 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
-        $this->picasaWeb->setAlbum(self::ANY_ALBUM_ID);
         $this->picasaWeb->setServiceUser(self::SOME_USER_ID);
 
-        $this->picasaWeb->getPhotos(self::ANY_INT, false);
+        $this->picasaWeb->getPhotos(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => false
+                )
+            )
+        );
     }
 
     private function assertNonEmptyArray($albums)

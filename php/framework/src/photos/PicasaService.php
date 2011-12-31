@@ -31,13 +31,11 @@ class PicasaService
         return $this->createAlbumListFrom($responseBody);
     }
 
-    public function getAlbum($albumId, $thumbSize, $cropThumb = '')
+    public function getAlbum($options)
     {
-        $this->setAlbum($albumId);
-        $this->setCropThumbnail($cropThumb);
-
         $album = new Album();
-        $this->setEndpoint($thumbSize);
+        $this->setEndpoint($options);
+
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
         $album->setPhotos($this->createPhotoListFrom($responseBody));
@@ -49,26 +47,26 @@ class PicasaService
         return $album;
     }
 
-    public function getPhotos($thumbSize, $cropThumb = '')
+    public function getPhotos($options)
     {
-        $this->setCropThumbnail($cropThumb);
+        $this->setEndpoint($options);
 
-        $this->setEndpoint($thumbSize);
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
 
         return $this->createPhotoListFrom($responseBody);
     }
 
-    public function setEndpoint($thumbSize)
+    private function setEndpoint($options = array())
     {
         $this->restClient->setEndpoint(
             self::PICASA_URI
                 . $this->googleUser
                 . '/albumid/'
-                . $this->album
+                . $options['albumId']
                 . '?'
-                . self::THUMBSIZE_QUERY_PARAM . '=' . $thumbSize . $this->thumbnailCropKey
+                . self::THUMBSIZE_QUERY_PARAM . '=' . $options['thumbnail']['size']
+                . $this->getCropThumbnailKey($options['thumbnail']['crop'])
         );
     }
 
@@ -171,17 +169,12 @@ class PicasaService
         $this->googleUser = $user;
     }
 
-    public function setAlbum($album)
-    {
-        $this->album = $album;
-    }
-
-    public function setCropThumbnail($cropThumb)
+    public function getCropThumbnailKey($cropThumb)
     {
         if ($cropThumb === true) {
-            $this->thumbnailCropKey = self::CROPPED_KEY;
-        } elseif ($cropThumb === false) {
-            $this->thumbnailCropKey = self::UNCROPPED_KEY;
+            return self::CROPPED_KEY;
+        } else {
+            return self::UNCROPPED_KEY;
         }
     }
 }
