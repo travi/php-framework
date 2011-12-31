@@ -16,7 +16,9 @@ abstract class Renderer
     {
         $result = array();
 
-        foreach ($data as $item) {
+        foreach ($data as $key =>$item) {
+            $itemResult = array();
+
             if (is_object($item)) {
                 $ref = new ReflectionClass($item);
 
@@ -27,16 +29,18 @@ abstract class Renderer
                             $value = $this->object_to_array_through_getters($value);
                         }
 
-                        $result[$this->getKeyFromMethodName($method)] = $value;
+                        $itemResult[$this->getKeyFromMethodName($method)] = $value;
                     }
                 }
             } elseif (is_array($item)) {
                 foreach ($item as $innerItem) {
-                    array_push($result, $this->object_to_array_through_getters($innerItem));
+                    array_push($itemResult, $this->object_to_array_through_getters($innerItem));
                 }
             } else {
-                array_push($result, $item);
+                array_push($itemResult, $item);
             }
+
+            $result[$key] = array_filter($itemResult);
         }
 
         return array_filter($result);
