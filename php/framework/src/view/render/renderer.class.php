@@ -28,16 +28,13 @@ abstract class Renderer
                         if (is_object($value) || is_array($value)) {
                             $value = $this->object_to_array_through_getters($value);
                         }
-
                         $itemResult[$this->getKeyFromMethodName($method)] = $value;
                     }
                 }
             } elseif (is_array($item)) {
-                foreach ($item as $innerItem) {
-                    array_push($itemResult, $this->object_to_array_through_getters($innerItem));
-                }
+                $itemResult = $this->object_to_array_through_getters($item);
             } else {
-                array_push($itemResult, $item);
+                $itemResult = $item;
             }
 
             $result[$key] = array_filter($itemResult);
