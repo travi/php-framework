@@ -9,14 +9,9 @@ abstract class Renderer
 
     protected function convertObjectsToAssocArrays($data)
     {
-        return $this->object_to_array_through_getters($data);
-    }
-
-    protected function object_to_array_through_getters($data)
-    {
         $result = array();
 
-        foreach ($data as $key =>$item) {
+        foreach ($data as $key => $item) {
             $itemResult = array();
 
             if (is_object($item)) {
@@ -26,21 +21,20 @@ abstract class Renderer
                     if ($this->methodIsPublicGetter($method)) {
                         $value = $method->invoke($item);
                         if (is_object($value) || is_array($value)) {
-                            $value = $this->object_to_array_through_getters($value);
+                            $value = $this->convertObjectsToAssocArrays($value);
                         }
                         $itemResult[$this->getKeyFromMethodName($method)] = $value;
                     }
+                    $result[$key] = array_filter($itemResult);
                 }
             } elseif (is_array($item)) {
-                $itemResult = $this->object_to_array_through_getters($item);
+                $result[$key] = $this->convertObjectsToAssocArrays($item);
             } else {
-                $itemResult = $item;
+                $result[$key] = $item;
             }
-
-            $result[$key] = array_filter($itemResult);
         }
 
-        return array_filter($result);
+        return $result;
     }
 
     protected function methodIsPublicGetter($method)
