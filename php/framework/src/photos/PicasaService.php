@@ -38,7 +38,7 @@ class PicasaService
 
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
-        $album->setPhotos($this->createPhotoListFrom($responseBody));
+        $album->setPhotos($this->createPhotoListFrom($responseBody, $options));
 
         $responseXml = new SimpleXMLElement($responseBody);
 
@@ -54,7 +54,7 @@ class PicasaService
         $this->restClient->execute();
         $responseBody = $this->restClient->getResponseBody();
 
-        return $this->createPhotoListFrom($responseBody);
+        return $this->createPhotoListFrom($responseBody, $options);
     }
 
     private function setEndpoint($options = array())
@@ -99,7 +99,7 @@ class PicasaService
     }
 
 
-    private function createPhotoListFrom($responseBody)
+    private function createPhotoListFrom($responseBody, $options)
     {
         $xml = new SimpleXMLElement($responseBody);
         $namespaces = $xml->getNamespaces(true);
@@ -117,7 +117,9 @@ class PicasaService
             $originalUrl = (string)$entry->content['src'];
             $photo->setOriginal($originalUrl);
 
-            $photo->setPreview($this->adjustPreviewSize($originalUrl));
+            if ($options['preview']) {
+                $photo->setPreview($this->adjustPreviewSize($originalUrl, $options['preview']['width']));
+            }
 
             $thumbnail = $this->setThumbDetails($thumb_attr);
             $photo->setThumbnail($thumbnail);
@@ -133,16 +135,15 @@ class PicasaService
         return $photos;
     }
 
-    private function adjustPreviewSize($originalUrl)
+    private function adjustPreviewSize($originalUrl, $size)
     {
         $urlParts = explode('/', $originalUrl);
 
         /*
-         * some configurations this should take:
-         *      size (600 here)
+         * should add configuration for:
          *      cropped to square (add -c to crop)
          */
-        array_splice($urlParts, -1, 0, 's600');
+        array_splice($urlParts, -1, 0, 's' . $size);
 
         return implode('/', $urlParts);
     }

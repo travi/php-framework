@@ -106,6 +106,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 'albumId' => self::ANY_ALBUM_ID,
                 'thumbnail' => array(
                     'size' => self::ANY_INT
+                ),
+                'preview' => array(
+                    'width' => 600
                 )
             )
         );
@@ -143,15 +146,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
-            ->method('setEndpoint')
-            ->with(
-                PicasaService::PICASA_URI
-                . self::SOME_USER_ID
-                . '/albumid/'
-                . self::ANY_ALBUM_ID
-                . '?'
-                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::CROPPED_KEY
-            );
+            ->method('setEndpoint');
         $this->picasaWeb->setRestClient($this->restClient);
 
         /** @var $album Album */
@@ -187,7 +182,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . '/albumid/'
                 . self::ANY_ALBUM_ID
                 . '?'
-                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . 'c'
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::CROPPED_KEY
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
@@ -218,7 +213,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . '/albumid/'
                 . self::ANY_ALBUM_ID
                 . '?'
-                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . 'u'
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
