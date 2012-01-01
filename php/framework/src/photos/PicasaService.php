@@ -43,8 +43,10 @@ class PicasaService
         $album->setPhotos($this->createPhotoListFrom($responseBody, $options));
 
         $responseXml = new SimpleXMLElement($responseBody);
+        $namespaces = $responseXml->getNamespaces(true);
 
         $album->setTitle((string) $responseXml->title);
+        $album->setTotalPhotoCount((int) $responseXml->children($namespaces['gphoto'])->numphotos);
 
         return $album;
     }

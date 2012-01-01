@@ -58,4 +58,14 @@ class Album
     {
         $this->photos = $photos;
     }
+
+    public function getTotalPhotoCount()
+    {
+        return $this->totalPhotos;
+    }
+
+    public function setTotalPhotoCount($count)
+    {
+        $this->totalPhotos = $count;
+    }
 }

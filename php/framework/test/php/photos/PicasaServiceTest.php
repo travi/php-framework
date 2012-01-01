@@ -299,6 +299,31 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testTotalPhotosCountSetOnAlbumObject()
+    {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getResponseBody')
+            ->will($this->returnValue($this->responseFromRestClient));
+
+        $this->picasaWeb->setRestClient($this->restClient);
+
+        /** @var $album Album */
+        $album = $this->picasaWeb->getAlbum(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => false
+                ),
+                'count' => self::SOME_SIZE
+            )
+        );
+
+        $this->assertEquals(3, $album->getTotalPhotoCount());
+    }
+
     private function assertNonEmptyArray($albums)
     {
         $this->assertNotNull($albums);
