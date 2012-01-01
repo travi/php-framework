@@ -378,11 +378,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->markTestIncomplete('Why does the verification of the above expectations not fail?');
 
-//        $this->assertSame(
-//            array(
-//                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
-//            ),
-//            $dependencies['css']
-//        );
+        //        $this->assertSame(
+        //            array(
+        //                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+        //            ),
+        //            $dependencies['css']
+        //        );
     }
 }
