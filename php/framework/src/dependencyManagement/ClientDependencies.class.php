@@ -26,7 +26,7 @@ class ClientDependencies
         return $this->jsNeeds[$resource][self::LOCAL];
     }
 
-    private function flattenDeps($deps = array())
+    private function flattenDeps($deps = array(), $requirement = null)
     {
         if (defined('JQUERY_UI_THEME')) {
             $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = JQUERY_UI_THEME;
@@ -35,9 +35,9 @@ class ClientDependencies
         }
 
         foreach ($deps as $name => $dep) {
-            $this->mapConfigDetails($dep, $name);
+            $this->mapConfigDetails($dep, $name, $requirement);
             if ($this->desktopVersionRequested() && $this->desktopEnhancementsDefined($dep)) {
-                $this->mapConfigDetails($dep[Request::DESKTOP_ENHANCEMENT], $name);
+                $this->mapConfigDetails($dep[Request::DESKTOP_ENHANCEMENT], $name, $requirement);
             }
         }
     }
@@ -52,7 +52,7 @@ class ClientDependencies
         return $this->request->getEnhancementVersion() === Request::DESKTOP_ENHANCEMENT;
     }
 
-    private function mapConfigDetails($dep, $name)
+    private function mapConfigDetails($dep, $name, $requirement)
     {
         $item = &$this->jsNeeds[$name];
 
@@ -66,7 +66,7 @@ class ClientDependencies
 
         $item['cdn'] = $dep['cdn'];
 
-        $this->addDependenciesToListForComponent($dep, $item, self::JS_DEPENDENCIES_KEY);
+        $this->addDependenciesToListForComponent($dep, $item, self::JS_DEPENDENCIES_KEY, $requirement);
         $this->addDependenciesToListForComponent($dep, $item, self::CSS_DEPENDENCIES_KEY);
 
         if (!empty($dep['plugins'])) {
@@ -78,14 +78,20 @@ class ClientDependencies
         }
     }
 
-    private function addDependenciesToListForComponent($dependencySourceList, &$component, $key)
+    private function addDependenciesToListForComponent($dependencySourceList, &$component, $key, $requirement = null)
     {
-
-        if (!empty($dependencySourceList[$key])) {
+        if (!empty($dependencySourceList[$key]) || !empty($requirement)) {
             if (empty($component[$key])) {
                 $component[$key] = array();
             }
-            $component[$key] = array_merge($dependencySourceList[$key], $component[$key]);
+
+            if (!empty($requirement)) {
+                array_push($component[$key], $requirement);
+            }
+
+            if (!empty($dependencySourceList[$key])) {
+                $component[$key] = array_merge($component[$key], $dependencySourceList[$key]);
+            }
         }
     }
 

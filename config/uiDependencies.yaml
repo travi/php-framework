@@ -60,8 +60,6 @@ jquery:
       local: "/resources/shared/js/jquery/ui/jquery-ui.js"
       cssDependencies:
         - "jqueryUiTheme"
-      jsDependencies:
-        - jquery
 
     #------jQuery Plug-ins------
 

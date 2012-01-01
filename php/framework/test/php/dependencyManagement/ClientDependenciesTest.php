@@ -118,7 +118,46 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
                 'local' => self::PATH_TO_SOME_COMPONENT,
                 'cdn' => '',
                 'jsDependencies' => array(
-                    'jquery',
+                    self::SOME_JS_FILE,
+                    'jquery'
+                ),
+                'cssDependencies' => array(
+                    self::SOME_CSS_FILE
+                )
+            ),
+            $this->dependencies->getDependenciesFor(self::SOME_COMPONENT)
+        );
+    }
+
+    public function testPluginsIncludeParentAsDependency()
+    {
+        $mockRequest = $this->getMock('Request');
+        $mockRequest->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+        $this->dependencies->setRequest($mockRequest);
+
+        $this->dependencies->setUiDeps(
+            array(
+                self::SOME_JS_FILE    => array(
+                    'local' => self::SOME_JS_FILE,
+                    'plugins' => array(
+                        self::SOME_COMPONENT => array(
+                            'local' => self::PATH_TO_SOME_COMPONENT,
+                            'cssDependencies' => array(
+                                self::SOME_CSS_FILE
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        $this->assertEquals(
+            array(
+                'local' => self::PATH_TO_SOME_COMPONENT,
+                'cdn' => '',
+                'jsDependencies' => array(
                     self::SOME_JS_FILE
                 ),
                 'cssDependencies' => array(
