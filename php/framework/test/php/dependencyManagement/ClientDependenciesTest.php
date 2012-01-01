@@ -7,6 +7,8 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
     private $dependencyDefinition;
     const SOME_COMPONENT = 'someComponent';
     const PATH_TO_SOME_COMPONENT = 'somePath';
+    const SOME_CSS_FILE = 'someCssFile.css';
+    const SOME_JS_FILE = 'someJsFile.js';
 
     /** @var ClientDependencies */
     public $dependencies;
@@ -37,9 +39,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 'local'             => self::PATH_TO_SOME_COMPONENT,
-                'cdn'               => '',
-                'jsDependencies'    => array(),
-                'cssDependencies'   => ''
+                'cdn'               => ''
             ),
             $this->dependencies->getDependenciesFor(self::SOME_COMPONENT)
         );
@@ -83,6 +83,49 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             self::PATH_TO_SOME_COMPONENT,
             $this->dependencies->resolveFileURI(self::SOME_COMPONENT)
+        );
+    }
+
+    public function testBaseDependencyMappingWhenEnhancementDefined()
+    {
+        $mockRequest = $this->getMock('Request');
+        $mockRequest->expects($this->once())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+        $this->dependencies->setRequest($mockRequest);
+
+        $this->dependencies->setUiDeps(
+            array(
+                self::SOME_COMPONENT    => array(
+                    'cssDependencies' => array(
+                        self::SOME_CSS_FILE
+                    ),
+                    'jsDependencies' => array(
+                        self::SOME_JS_FILE
+                    ),
+                    'desktop'   =>  array(
+                        'local' =>  self::PATH_TO_SOME_COMPONENT,
+                        'jsDependencies'    => array(
+                            'jquery'
+                        )
+                    )
+                )
+            )
+        );
+
+        $this->assertEquals(
+            array(
+                'local' => self::PATH_TO_SOME_COMPONENT,
+                'cdn' => '',
+                'jsDependencies' => array(
+                    'jquery',
+                    self::SOME_JS_FILE
+                ),
+                'cssDependencies' => array(
+                    self::SOME_CSS_FILE
+                )
+            ),
+            $this->dependencies->getDependenciesFor(self::SOME_COMPONENT)
         );
     }
 }

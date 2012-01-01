@@ -28,19 +28,24 @@ locationUtil:
   jsDependencies:
     - "framework"
 
+carousel:
+  jsDependencies:
+    - framework
+  cssDependencies:
+    - /resources/css/pages/gallery/carousel.css
+  desktop:
+    local: /resources/js/photos/carousel.js
+
 gallery:
   desktop:
       local: /resources/js/photos/gallery.js
       jsDependencies:
         - travi
         - /resources/js/photos/previewPane.js
-        - /resources/js/photos/carousel.js
-        - "lightbox"
-        - "jcarousel"
+        - carousel
+        - lightbox
         - bbq
-        - "reflection"
-      cssDependencies:
-        - "/resources/css/pages/gallery.dev.css"
+        - reflection
 
 #=======jQuery======
 jquery:

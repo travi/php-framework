@@ -2,6 +2,9 @@
  
 class ClientDependencies
 {
+    const DEFAULT_JQUERY_UI_THEME = '/resources/css/jquery-ui-theme/jquery-ui.css';
+    const CSS_DEPENDENCIES_KEY = 'cssDependencies';
+    const JS_DEPENDENCIES_KEY = 'jsDependencies';
     /** @var Request */
     private $request;
     private $uiDeps;
@@ -23,34 +26,35 @@ class ClientDependencies
         return $this->jsNeeds[$resource][self::LOCAL];
     }
 
-    private function flattenDeps($deps = array(), $requirement = '')
+    private function flattenDeps($deps = array())
     {
         if (defined('JQUERY_UI_THEME')) {
             $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = JQUERY_UI_THEME;
         } else {
-            $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = '/resources/css/jquery-ui-theme/jquery-ui.css';
+            $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = self::DEFAULT_JQUERY_UI_THEME;
         }
-        $this->jsNeeds['jcarsouselSkin'][self::LOCAL] = JCAROUSEL_SKIN;
 
         foreach ($deps as $name => $dep) {
-            if (
-                $this->request->getEnhancementVersion() === Request::DESKTOP_ENHANCEMENT
-                && !empty($dep[Request::DESKTOP_ENHANCEMENT])
-            ) {
-                $this->mapConfigDetails(
-                    $dep[Request::DESKTOP_ENHANCEMENT],
-                    $name,
-                    $requirement
-                );
-            } else {
-                $this->mapConfigDetails($dep, $name, $requirement);
+            $this->mapConfigDetails($dep, $name);
+            if ($this->desktopVersionRequested() && $this->desktopEnhancementsDefined($dep)) {
+                $this->mapConfigDetails($dep[Request::DESKTOP_ENHANCEMENT], $name);
             }
         }
     }
 
-    private function mapConfigDetails($dep, $name, $requirement)
+    private function desktopEnhancementsDefined($dep)
     {
-        $item = array();
+        return !empty($dep[Request::DESKTOP_ENHANCEMENT]);
+    }
+
+    private function desktopVersionRequested()
+    {
+        return $this->request->getEnhancementVersion() === Request::DESKTOP_ENHANCEMENT;
+    }
+
+    private function mapConfigDetails($dep, $name)
+    {
+        $item = &$this->jsNeeds[$name];
 
         if (!empty($dep[self::LOCAL])) {
             $item[self::LOCAL] = $dep[self::LOCAL];
@@ -62,16 +66,8 @@ class ClientDependencies
 
         $item['cdn'] = $dep['cdn'];
 
-        if (!empty($dep['jsDependencies'])) {
-            $item['jsDependencies'] = $dep['jsDependencies'];
-        } else {
-            $item['jsDependencies'] = array();
-        }
-        $item['cssDependencies'] = $dep['cssDependencies'];
-
-        if (!empty($requirement)) {
-            array_push($item['jsDependencies'], $requirement);
-        }
+        $this->addDependenciesToListForComponent($dep, $item, self::JS_DEPENDENCIES_KEY);
+        $this->addDependenciesToListForComponent($dep, $item, self::CSS_DEPENDENCIES_KEY);
 
         if (!empty($dep['plugins'])) {
             $this->flattenDeps($dep['plugins'], $name);
@@ -80,8 +76,17 @@ class ClientDependencies
         if (!empty($dep['clientTemplates'])) {
             $item['clientTemplates'] = $dep['clientTemplates'];
         }
+    }
 
-        $this->jsNeeds[$name] = $item;
+    private function addDependenciesToListForComponent($dependencySourceList, &$component, $key)
+    {
+
+        if (!empty($dependencySourceList[$key])) {
+            if (empty($component[$key])) {
+                $component[$key] = array();
+            }
+            $component[$key] = array_merge($dependencySourceList[$key], $component[$key]);
+        }
     }
 
     private function lazyInit()

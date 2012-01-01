@@ -337,7 +337,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDesktopThemeAddedToBaseWhenMobile()
+    public function testDesktopThemeAddedToBaseWhenDesktop()
     {
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
