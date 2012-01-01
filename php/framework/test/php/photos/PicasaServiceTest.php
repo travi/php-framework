@@ -14,6 +14,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     private $restClient;
     const ANY_ALBUM_ID = 'someAlbumId';
+    const SOME_SIZE = 14;
 
     /** @var PicasaService */
     private $picasaWeb;
@@ -226,6 +227,74 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                     'size' => self::ANY_INT,
                     'crop' => false
                 )
+            )
+        );
+    }
+
+    public function testOffsetConfigPassedToPicasa()
+    {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getResponseBody')
+            ->will($this->returnValue($this->responseFromRestClient));
+        $this->restClient->expects($this->once())
+            ->method('setEndpoint')
+            ->with(
+                PicasaService::PICASA_URI
+                . self::SOME_USER_ID
+                . '/albumid/'
+                . self::ANY_ALBUM_ID
+                . '?'
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&' . PicasaService::OFFSET_QUERY_PARAM . '=' . (self::SOME_SIZE + 1)
+            );
+
+        $this->picasaWeb->setRestClient($this->restClient);
+        $this->picasaWeb->setServiceUser(self::SOME_USER_ID);
+
+        $this->picasaWeb->getPhotos(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => false
+                ),
+                'offset' => self::SOME_SIZE
+            )
+        );
+    }
+
+    public function testCountConfigPassedToPicasaAfterAdjustingForOneIndexing()
+    {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getResponseBody')
+            ->will($this->returnValue($this->responseFromRestClient));
+        $this->restClient->expects($this->once())
+            ->method('setEndpoint')
+            ->with(
+                PicasaService::PICASA_URI
+                . self::SOME_USER_ID
+                . '/albumid/'
+                . self::ANY_ALBUM_ID
+                . '?'
+                . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&' . PicasaService::COUNT_QUERY_PARAM . '=' . self::SOME_SIZE
+            );
+
+        $this->picasaWeb->setRestClient($this->restClient);
+        $this->picasaWeb->setServiceUser(self::SOME_USER_ID);
+
+        $this->picasaWeb->getPhotos(
+            array(
+                'albumId' => self::ANY_ALBUM_ID,
+                'thumbnail' => array(
+                    'size' => self::ANY_INT,
+                    'crop' => false
+                ),
+                'count' => self::SOME_SIZE
             )
         );
     }

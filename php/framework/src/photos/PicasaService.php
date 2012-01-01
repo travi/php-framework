@@ -5,6 +5,9 @@ require_once 'Album.php';
 class PicasaService
 {
     const PICASA_URI = 'https://picasaweb.google.com/data/feed/api/user/';
+    /* 1-indexed */
+    const OFFSET_QUERY_PARAM = 'start-index';
+    const COUNT_QUERY_PARAM = 'max-results';
     const THUMBSIZE_QUERY_PARAM = 'thumbsize';
     const UNCROPPED_KEY = 'u';
     const CROPPED_KEY = 'c';
@@ -13,7 +16,6 @@ class PicasaService
     private $restClient;
     private $googleUser;
     private $album;
-    private $thumbnailCropKey;
 
     /**
      * @return array Album
@@ -59,15 +61,23 @@ class PicasaService
 
     private function setEndpoint($options = array())
     {
-        $this->restClient->setEndpoint(
-            self::PICASA_URI
+        $endPoint = self::PICASA_URI
                 . $this->googleUser
                 . '/albumid/'
                 . $options['albumId']
                 . '?'
                 . self::THUMBSIZE_QUERY_PARAM . '=' . $options['thumbnail']['size']
-                . $this->getCropThumbnailKey($options['thumbnail']['crop'])
-        );
+                . $this->getCropThumbnailKey($options['thumbnail']['crop']);
+
+        if ($options['offset']) {
+            $endPoint .= '&' . self::OFFSET_QUERY_PARAM . '=' . (intval($options['offset']) + 1);
+        }
+
+        if ($options['count']) {
+            $endPoint .= '&' . self::COUNT_QUERY_PARAM . '=' . $options['count'];
+        }
+
+        $this->restClient->setEndpoint($endPoint);
     }
 
     private function createAlbumListFrom($responseBody)
