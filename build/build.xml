@@ -51,6 +51,19 @@
         <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/skins/silver/images">
             <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>
+        <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/iframe">
+            <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/iframe"/>
+        </copy>
+        <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/skins">
+            <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/skins">
+                <include name="*.png"/>
+            </fileset>
+        </copy>
+        <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/plugins/fullscreen">
+            <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/plugins/fullscreen">
+                <include name="*.gif"/>
+            </fileset>
+        </copy>
         <copy todir="${building.dir}/client/min/js/jquery/ui/themes/smoothness/images">
             <fileset dir="${building.dir}/client/js/jquery/ui/themes/smoothness/images"/>
         </copy>
