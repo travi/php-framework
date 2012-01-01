@@ -125,7 +125,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             $firstPhoto->getOriginal()
         );
         $this->assertEquals(
-            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s600/IMG_1245.JPG",
+            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/" .
+                "AAAAAAAAF7I/x08IKQbCNjw/s600/IMG_1245.JPG",
             $firstPhoto->getPreview()
         );
         $thumbnail = new Thumbnail();
@@ -142,7 +143,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($license, $firstPhoto->getLicense());
     }
 
-    public function testGetAlbumReturnsAlbumDetailsWithPhotoList() {
+    public function testGetAlbumReturnsAlbumDetailsWithPhotoList()
+    {
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
