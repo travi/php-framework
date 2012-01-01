@@ -126,7 +126,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/" .
-                "AAAAAAAAF7I/x08IKQbCNjw/s600/IMG_1245.JPG",
+            "AAAAAAAAF7I/x08IKQbCNjw/s600/IMG_1245.JPG",
             $firstPhoto->getPreview()
         );
         $thumbnail = new Thumbnail();
