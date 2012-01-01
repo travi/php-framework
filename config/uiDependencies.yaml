@@ -38,6 +38,8 @@ carousel:
     local: /resources/js/photos/carousel.js
 
 gallery:
+  cssDependencies:
+    - /resources/css/pages/gallery/carousel.css
   desktop:
       local: /resources/js/photos/gallery.js
       jsDependencies:
