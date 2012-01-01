@@ -130,7 +130,7 @@ class PicasaService
             $photo->setOriginal($originalUrl);
 
             if ($options['preview']) {
-                $photo->setPreview($this->adjustPreviewSize($originalUrl, $options['preview']['width']));
+                $photo->setPreview($this->defineImageSize($originalUrl, $options['preview']['width']));
             }
 
             $thumbnail = $this->setThumbDetails($thumb_attr);
@@ -147,7 +147,7 @@ class PicasaService
         return $photos;
     }
 
-    private function adjustPreviewSize($originalUrl, $size)
+    private function defineImageSize($originalUrl, $size)
     {
         $urlParts = explode('/', $originalUrl);
 
