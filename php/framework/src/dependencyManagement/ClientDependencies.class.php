@@ -78,8 +78,12 @@ class ClientDependencies
         }
     }
 
-    private function addDependenciesToListForComponent($dependencySourceList, &$component, $key, $requirement = null)
-    {
+    private function addDependenciesToListForComponent(
+        $dependencySourceList,
+        &$component,
+        $key,
+        $requirement = null
+    ) {
         if (!empty($dependencySourceList[$key]) || !empty($requirement)) {
             if (empty($component[$key])) {
                 $component[$key] = array();

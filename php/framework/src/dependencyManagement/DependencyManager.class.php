@@ -274,8 +274,9 @@ class DependencyManager
         $pathToDependency = $this->buildPathToDependency($dependency);
 
         if ($this->fileSystem->fileExists($pathToDependency)) {
-            $this->requirementLists[$key][$index] .= '?'
-                                                     . md5($this->fileSystem->getLastModifiedTimeFor($pathToDependency));
+            $this->requirementLists[$key][$index] .= '?' . md5(
+                $this->fileSystem->getLastModifiedTimeFor($pathToDependency)
+            );
         }
     }
 
