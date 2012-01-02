@@ -16,7 +16,6 @@
         <exclude name="client/js/LABjs/**/*.js" />
         <exclude name="client/js/techPatterns/**/*.js" />
         <exclude name="client/js/instant/**/*.js" />
-        <exclude name="test/js/tools/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />
@@ -27,6 +26,7 @@
         <include name="php/framework/test/js/tests/**/*.js" />
         <include name="test/js/**/*.js"/>
         <include name="php/framework/test/js/tests/**/*.qunit" />
+        <exclude name="test/js/tools/**/*.js" />
     </fileset>
 
     <fileset id="to.deploy" dir="${shared.dir}/../">
