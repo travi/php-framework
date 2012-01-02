@@ -88,7 +88,6 @@
         <mkdir dir="${build.logs}"/>
         <antcall target="jsLint-src"/>
         <antcall target="jsLint-tests"/>
-        <fail if="jsLintResult" message="There were JSLint failures"/>
     </target>
 
     <target name="jsLint-tests">
@@ -99,6 +98,7 @@
             <fileset refid="js.tests"/>
             <fileset refid="js.exclude.overrides"/>
         </jslint>
+        <fail if="jsLintResult" message="There were JSLint failures"/>
     </target>
 
     <target name="jsLint-src">
@@ -109,6 +109,7 @@
             <fileset refid="js.files"/>
             <fileset refid="js.exclude.overrides"/>
         </jslint>
+        <fail if="jsLintResult" message="There were JSLint failures"/>
     </target>
 
     <target name="phpcs" description="PHP Code Sniffer">
