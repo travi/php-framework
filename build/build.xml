@@ -16,6 +16,7 @@
         <exclude name="client/js/LABjs/**/*.js" />
         <exclude name="client/js/techPatterns/**/*.js" />
         <exclude name="client/js/instant/**/*.js" />
+        <exclude name="test/js/tools/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />
