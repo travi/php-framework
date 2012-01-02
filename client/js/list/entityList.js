@@ -19,8 +19,8 @@ travi.framework.entityList = (function () {
         return buttonText;
     }
 
-    function confirm() {
-        var $form = $(this);
+    function confirm(event) {
+        var $form = $(event.target);
 
         $("#confirmation").dialog("option", "buttons", [
             {
