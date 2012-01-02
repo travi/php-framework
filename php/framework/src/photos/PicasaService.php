@@ -12,6 +12,10 @@ class PicasaService
     const UNCROPPED_KEY = 'u';
     const CROPPED_KEY = 'c';
 
+    const MAX_WIDTH_KEY = 'w';
+    const MAX_SIZE_KEY = 's';
+    const MAX_HEIGHT_KEY = 'h';
+
     /** @var RestClient */
     private $restClient;
     private $googleUser;
@@ -130,7 +134,7 @@ class PicasaService
             $photo->setOriginal($originalUrl);
 
             if ($options['preview']) {
-                $photo->setPreview($this->defineImageSize($originalUrl, $options['preview']['width']));
+                $photo->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
             }
 
             $thumbnail = $this->setThumbDetails($thumb_attr);
@@ -147,7 +151,7 @@ class PicasaService
         return $photos;
     }
 
-    private function defineImageSize($originalUrl, $size)
+    private function defineImageWidth($originalUrl, $width)
     {
         $urlParts = explode('/', $originalUrl);
 
@@ -155,7 +159,7 @@ class PicasaService
          * should add configuration for:
          *      cropped to square (add -c to crop)
          */
-        array_splice($urlParts, -1, 0, 's' . $size);
+        array_splice($urlParts, -1, 0, self::MAX_WIDTH_KEY . $width);
 
         return implode('/', $urlParts);
     }
