@@ -50,7 +50,11 @@ class PicasaService
         $namespaces = $responseXml->getNamespaces(true);
 
         $album->setTitle((string) $responseXml->title);
-        $album->setTotalPhotoCount((int) $responseXml->children($namespaces['gphoto'])->numphotos);
+        $ns_gphoto = $responseXml->children($namespaces['gphoto']);
+        $album->setid((int) $ns_gphoto->id);
+        $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
+
+        $album->setThumbnail($this->setThumbDetails($responseXml->entry[0]));
 
         return $album;
     }
@@ -95,10 +99,7 @@ class PicasaService
         $albums = array();
         foreach ($xml->entry as $entry) {
             $ns_gphoto = $entry->children($namespaces['gphoto']);
-            $ns_media = $entry->children($namespaces['media']);
             $link_attr = $entry->link[1]->attributes();
-
-            $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
 
             /** @var $album Album */
             $album = new Album();
@@ -106,8 +107,7 @@ class PicasaService
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
 
-            $thumbnail = $this->setThumbDetails($thumb_attr);
-            $album->setThumbnail($thumbnail);
+            $album->setThumbnail($this->setThumbDetails($entry));
 
             array_push($albums, $album);
         }
@@ -124,9 +124,7 @@ class PicasaService
         $photos = array();
         foreach ($xml->entry as $entry) {
             $ns_gphoto = $entry->children($namespaces['gphoto']);
-            $ns_media = $entry->children($namespaces['media']);
 
-            $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
             $license_attr = $ns_gphoto->license->attributes();
 
             /** @var $photo Photo */
@@ -138,8 +136,7 @@ class PicasaService
                 $photo->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
             }
 
-            $thumbnail = $this->setThumbDetails($thumb_attr);
-            $photo->setThumbnail($thumbnail);
+            $photo->setThumbnail($this->setThumbDetails($entry));
 
             $license = new License();
             $license->setId((int) $license_attr['id']);
@@ -174,10 +171,14 @@ class PicasaService
         return implode('/', $urlParts);
     }
 
-    private function setThumbDetails($thumb_attr)
+    private function setThumbDetails($entry)
     {
+        $entryNamespaces = $entry->getNamespaces(true);
+        $ns_media = $entry->children($entryNamespaces['media']);
+        $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
+
         $thumbnail = new Thumbnail();
-        $thumbnail->setUrl((string)$thumb_attr['url']);
+        $thumbnail->setUrl((string) $thumb_attr['url']);
         return $thumbnail;
     }
 

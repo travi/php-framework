@@ -169,6 +169,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertNonEmptyArray($album->getPhotos());
 
         $this->assertEquals('Andrea & I', $album->getTitle());
+        $this->assertEquals(5504692126816759025, $album->getId());
+        $this->assertEquals(
+            'https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/' .
+            'AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG',
+            $album->getThumbnail()->getUrl()
+        );
     }
 
     public function testProperKeyUsedWhenThumbsShouldBeCropped()
