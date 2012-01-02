@@ -73,7 +73,8 @@ class PicasaService
                 . $options['albumId']
                 . '?'
                 . self::THUMBSIZE_QUERY_PARAM . '=' . $options['thumbnail']['size']
-                . $this->getCropThumbnailKey($options['thumbnail']['crop']);
+                . $this->getCropThumbnailKey($options['thumbnail']['crop'])
+                . '&imgmax=1600';
 
         if ($options['offset']) {
             $endPoint .= '&' . self::OFFSET_QUERY_PARAM . '=' . (intval($options['offset']) + 1);
@@ -155,9 +156,18 @@ class PicasaService
     {
         $urlParts = explode('/', $originalUrl);
 
+        foreach ($urlParts as $key => $part) {
+            if (preg_match('/^s[0-9]+/', $part)) {
+                unset($urlParts[$key]);
+            }
+        }
+
         /*
          * should add configuration for:
          *      cropped to square (add -c to crop)
+         *      also maybe an option to define height (h)
+         *          or maxsize (s) (height or width, whichever is higher)
+         *          instead of just width
          */
         array_splice($urlParts, -1, 0, self::MAX_WIDTH_KEY . $width);
 

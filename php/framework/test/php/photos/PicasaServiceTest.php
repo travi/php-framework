@@ -98,6 +98,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . self::ANY_ALBUM_ID
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&imgmax=1600'
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
@@ -121,7 +122,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
         $this->assertType('Photo', $firstPhoto);
         $this->assertEquals(
-            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/IMG_1245.JPG",
+            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s1600/IMG_1245.JPG",
             $firstPhoto->getOriginal()
         );
         $this->assertEquals(
@@ -186,6 +187,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . self::ANY_ALBUM_ID
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::CROPPED_KEY
+                . '&imgmax=1600'
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
@@ -217,6 +219,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . self::ANY_ALBUM_ID
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&imgmax=1600'
             );
 
         $this->picasaWeb->setRestClient($this->restClient);
@@ -249,6 +252,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . self::ANY_ALBUM_ID
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&imgmax=1600'
                 . '&' . PicasaService::OFFSET_QUERY_PARAM . '=' . (self::SOME_SIZE + 1)
             );
 
@@ -283,6 +287,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . self::ANY_ALBUM_ID
                 . '?'
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
+                . '&imgmax=1600'
                 . '&' . PicasaService::COUNT_QUERY_PARAM . '=' . self::SOME_SIZE
             );
 
