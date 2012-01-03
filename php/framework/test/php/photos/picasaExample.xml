@@ -46,7 +46,7 @@
         <updated>2010-08-13T00:57:12.322Z</updated>
         <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/>
         <title>IMG_1245.JPG</title>
-        <summary/>
+        <summary type="text">This is such a great pic, isn't it?</summary>
         <content type='image/jpeg'
                  src='https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s1600/IMG_1245.JPG'/>
         <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'

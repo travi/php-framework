@@ -136,6 +136,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             . "AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG"
         );
         $this->assertEquals($thumbnail, $firstPhoto->getThumbnail());
+        $this->assertEquals("This is such a great pic, isn't it?", $firstPhoto->getCaption());
 
         $license = new License();
         $license->setUrl("http://creativecommons.org/licenses/by-nc-nd/3.0");

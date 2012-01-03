@@ -48,4 +48,14 @@ class Photo extends Image
     {
         $this->preview = $url;
     }
+
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+    }
 }

@@ -137,6 +137,7 @@ class PicasaService
             }
 
             $photo->setThumbnail($this->setThumbDetails($entry));
+            $photo->setCaption((string) $entry->summary[0]);
 
             $license = new License();
             $license->setId((int) $license_attr['id']);
