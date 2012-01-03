@@ -1,67 +1,62 @@
 var travi = (function () {
     "use strict";
 
-    var loadTemplate = function (templateUrl, templateName) {
-            var deferred = $.Deferred();
+    function loadTemplate(templateUrl, templateName) {
+        $.get(templateUrl, function (template) {
+            $.template(templateName, template);
+        });
+    }
 
-            $.get(templateUrl, function (template) {
-                $.template(templateName, template);
-                deferred.resolve();
-            });
+    function getStyleSheet(sheetUrl) {
+        var link = document.createElement("link");
 
-            return deferred.promise();
-        },
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("type", "text/css");
+        link.setAttribute("href", sheetUrl);
 
-        getStyleSheet = function (sheetUrl) {
-            var link = document.createElement("link");
+        document.getElementsByTagName("head")[0].appendChild(link);
+    }
 
-            link.setAttribute("rel", "stylesheet");
-            link.setAttribute("type", "text/css");
-            link.setAttribute("href", sheetUrl);
+    function namespace(ns, provided) {
+        var object = this,
+            levels = ns.split("."),
+            levelCount = levels.length,
+            i;
 
-            document.getElementsByTagName("head")[0].appendChild(link);
-        },
-
-        namespace = function (ns, provided) {
-            var object = this,
-                levels = ns.split("."),
-                levelCount = levels.length,
-                i;
-
-            for (i = 0; i < levelCount; i += 1) {
-                if (typeof object[levels[i]] === "undefined") {
-                    if (i === levelCount - 1) {
-                        object[levels[i]] = provided || {};
-                    } else {
-                        object[levels[i]] = {};
-                    }
-                }
-
-                object = object[levels[i]];
-            }
-
-            return object;
-        },
-
-        constants = (function () {
-            var ownProp = Object.prototype.hasOwnProperty,
-                constants = {};
-
-            function set(key, value) {
-                if (!ownProp.call(constants, key)) {
-                    constants[key] = value;
+        for (i = 0; i < levelCount; i += 1) {
+            if (typeof object[levels[i]] === "undefined") {
+                if (i === levelCount - 1) {
+                    object[levels[i]] = provided || {};
+                } else {
+                    object[levels[i]] = {};
                 }
             }
 
-            function get(key) {
-                return constants[key];
-            }
+            object = object[levels[i]];
+        }
 
-            return {
-                set: set,
-                get: get
-            };
-        }());
+        return object;
+    }
+
+    var constants = (function () {
+        var ownProp = Object.prototype.hasOwnProperty,
+            constants = {};
+
+        function set(key, value) {
+            if (!ownProp.call(constants, key)) {
+                constants[key] = value;
+            }
+        }
+
+        function get(key) {
+            return constants[key];
+        }
+
+        return {
+            set: set,
+            get: get
+        };
+    }());
 
     return {
         loadTemplate    : loadTemplate,
