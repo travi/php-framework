@@ -8,6 +8,8 @@ framework:
   local: "/resources/shared/js/framework.js"
   jsDependencies:
     - "travi"
+  clientTemplates:
+    chooseEnhancement: "/resources/templates/enhancementVersion.tmpl"
 
 entityList:
   local: "/resources/shared/js/list/entityList.js"

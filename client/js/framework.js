@@ -59,17 +59,9 @@ travi.framework = (function () {
                 alternateEnhancement = MOBILE_CHOICE;
             }
 
-            $('footer').append(
-                '<div id="enhancementVersion">'
-                    + '<span id="detectVersion">Detect</span> or '
-                    + '<span id="explainChooseVersion">switch to version</span>'
-                    + '<ul id="versions">'
-                    + '<li id="basicVersion">basic</li>'
-                    + '<li id="' + alternateEnhancement + 'Version">'
-                    + alternateEnhancement
-                    + '</li>'
-                    + '</ul></div>'
-            );
+            $('footer').append($.tmpl('chooseVersion', {
+                alternateEnhancement: alternateEnhancement
+            }));
 
             $('#' + DESKTOP_CHOICE + 'Version').click(function () {
                 setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
