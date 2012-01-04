@@ -29,13 +29,16 @@ locationUtil:
     - "framework"
 
 carousel:
-  jsDependencies:
-    - framework
-    - bbq
   cssDependencies:
     - /resources/css/pages/gallery/carousel.css
   desktop:
     local: /resources/js/photos/carousel.js
+    jsDependencies:
+      - framework
+      - bbq
+      - template
+    clientTemplates:
+      thumbnail: "/resources/templates/thumbnail.tmpl"
 
 gallery:
   cssDependencies:
