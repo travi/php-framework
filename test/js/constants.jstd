@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    TestCase("ConstantsTest", {
+    travi.test.testCase("ConstantsTest", {
         setUp: function () {
             this.key = 'CONST';
             this.value = 'some value';

@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    TestCase("NamespaceTest", {
+    travi.test.testCase("NamespaceTest", {
         tearDown: function () {
             delete travi.nstest;
         },

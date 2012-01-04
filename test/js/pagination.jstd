@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    TestCase("PaginationTest", {
+    travi.test.testCase("PaginationTest", {
         setUp: function () {
             $('body').append('<div id="scratch" class="test">');
         },
