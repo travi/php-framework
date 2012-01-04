@@ -1,11 +1,11 @@
 {assign var='initArray' value=$dependencies['jsInit']}
 {assign var='externalTemplates' value=$dependencies['clientTemplates']}
 {if !empty($initArray) || !empty($externalTemplates)}
-        <script type="text/javascript" >
-            $(document).ready(function () {literal}{{/literal}
+    <script type="text/javascript" >
 {foreach key=name item=path from=$externalTemplates}
-                travi.loadTemplate('{$path}', '{$name}');
+        travi.loadTemplate('{$path}', '{$name}');
 {/foreach}
+            $(document).ready(function () {literal}{{/literal}
 {foreach item=init from=$initArray}
                 {$init}
 {/foreach}
