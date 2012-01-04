@@ -23,7 +23,7 @@
         <include name="jquery/plugins/formAlign/*.js" />
     </fileset>
     <fileset id="js.tests" dir="../">
-        <include name="php/framework/test/js/tests/**/*.js" />
+        <include name="php/framework/test/js/tests/**/*.jstd" />
         <include name="test/js/**/*.js"/>
         <include name="php/framework/test/js/tests/**/*.qunit" />
         <exclude name="test/js/tools/**/*.js" />
