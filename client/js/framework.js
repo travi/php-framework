@@ -1,7 +1,10 @@
 travi.framework = (function () {
     "use strict";
 
-    var ENHANCEMENT_VERSION_KEY = "enhancementVersion",
+    var templates = travi.templates,
+        templateName = 'chooseEnhancement',
+
+        ENHANCEMENT_VERSION_KEY = "enhancementVersion",
         DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION = 10,
         MOBILE_ENHANCEMENT_VERSION = "mobile",
         DESKTOP_ENHANCEMENT_VERSION = "desktop",
@@ -59,9 +62,11 @@ travi.framework = (function () {
                 alternateEnhancement = MOBILE_CHOICE;
             }
 
-            $('footer').append($.tmpl('chooseVersion', {
-                alternateEnhancement: alternateEnhancement
-            }));
+            templates.getTemplate(templateName).then(function () {
+                $('footer').append($.render({
+                    alternateEnhancement: alternateEnhancement
+                }, templateName));
+            });
 
             $('#' + DESKTOP_CHOICE + 'Version').click(function () {
                 setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);

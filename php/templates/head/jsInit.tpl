@@ -3,7 +3,7 @@
 {if !empty($initArray) || !empty($externalTemplates)}
     <script type="text/javascript" >
 {foreach key=name item=path from=$externalTemplates}
-        travi.loadTemplate('{$path}', '{$name}');
+        travi.templates.preLoadTemplate('{$name}', '{$path}');
 {/foreach}
             $(document).ready(function () {literal}{{/literal}
 {foreach item=init from=$initArray}

@@ -7,9 +7,15 @@ travi:
 framework:
   local: "/resources/shared/js/framework.js"
   jsDependencies:
-    - "travi"
+    - travi
+    - template
   clientTemplates:
     chooseEnhancement: "/resources/templates/enhancementVersion.tmpl"
+
+template:
+  local: /resources/shared/js/templates.js
+  jsDependencies:
+    - jsRender
 
 entityList:
   local: "/resources/shared/js/list/entityList.js"
@@ -91,8 +97,8 @@ jquery:
     pxem:
       local: "/resources/shared/js/jquery/plugins/pxem/jquery.pxem.js"
 
-    template:
-      local: "/resources/shared/js/jquery/plugins/template/jquery.tmpl.js"
+    jsRender:
+      local: "/resources/shared/js/jquery/plugins/template/jsrender.js"
 
     bbq:
       local: "/resources/shared/js/jquery/plugins/bbq/jquery.bbq.js"
