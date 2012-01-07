@@ -20,11 +20,11 @@ TestCase("TemplateTests", {
         if (jQuery.render.restore) {
             jQuery.render.restore();
         }
-        if (travi.templates.getTemplate.restore) {
-            travi.templates.getTemplate.restore();
+        if (travi.templates.get.restore) {
+            travi.templates.get.restore();
         }
-        if (travi.templates.preLoadTemplate.restore) {
-            travi.templates.preLoadTemplate.restore();
+        if (travi.templates.preLoad.restore) {
+            travi.templates.preLoad.restore();
         }
     },
 
@@ -33,7 +33,7 @@ TestCase("TemplateTests", {
     },
 
     "test the ability to preload templates is exposed as a method": function () {
-        assertFunction(travi.templates.preLoadTemplate);
+        assertFunction(travi.templates.preLoad);
     },
 
     assertPromiseResolvedAfterCachingTemplate: function (deferred) {
@@ -72,7 +72,7 @@ TestCase("TemplateTests", {
 
         sinon.spy(jQuery, 'template');
 
-        promise = travi.templates.preLoadTemplate(this.templateName, pathToTemplate);
+        promise = travi.templates.preLoad(this.templateName, pathToTemplate);
 
         assert(jQuery.ajax.calledOnce);
         call = jQuery.ajax.getCall(0);
@@ -86,7 +86,7 @@ TestCase("TemplateTests", {
     },
 
     "test the ability to get a template by name is exposed as a method": function () {
-        assertFunction(travi.templates.getTemplate);
+        assertFunction(travi.templates.get);
     },
 
     "test that getting a template by name requests it from the server and returns the promise": function () {
@@ -94,7 +94,7 @@ TestCase("TemplateTests", {
             options.success.call(null, this.templateAsString);
         });
 
-        var promise = travi.templates.getTemplate(this.templateName);
+        var promise = travi.templates.get(this.templateName);
 
         assertEquals(
             '/templates/' + this.templateName + '.tmpl',
@@ -106,7 +106,7 @@ TestCase("TemplateTests", {
     },
 
     "test the ability to render a cached template is exposed as a method": function () {
-        assertFunction(travi.templates.renderTemplate);
+        assertFunction(travi.templates.render);
     },
 
     assertTemplateRenderedWithData: function (data) {
@@ -123,7 +123,7 @@ TestCase("TemplateTests", {
 
         sinon.stub(jQuery, 'render').returns('renderedTemplate');
 
-        renderedTemplate = travi.templates.renderTemplate(this.templateName, dataForTemplate);
+        renderedTemplate = travi.templates.render(this.templateName, dataForTemplate);
 
         this.assertTemplateRenderedWithData(dataForTemplate);
 
@@ -135,8 +135,8 @@ TestCase("TemplateTests", {
             options.success.call(null, this.templateAsString);
         });
 
-        travi.templates.getTemplate(this.templateName);
-        travi.templates.getTemplate(this.templateName);
+        travi.templates.get(this.templateName);
+        travi.templates.get(this.templateName);
 
         assert(
             'Calls: ' + jQuery.ajax.callCount,

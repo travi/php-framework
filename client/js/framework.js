@@ -62,7 +62,7 @@ travi.framework = (function () {
                 alternateEnhancement = MOBILE_CHOICE;
             }
 
-            templates.getTemplate(templateName).then(function () {
+            templates.get(templateName).then(function () {
                 $('footer').append($.render({
                     alternateEnhancement: alternateEnhancement
                 }, templateName));
