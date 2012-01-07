@@ -109,28 +109,25 @@ TestCase("TemplateTests", {
         assertFunction(travi.templates.renderTemplate);
     },
 
-    assertTemplateRenderedWithData: function (data, promise) {
-        assertEquals(0, jQuery.render.callCount);
-        promise.resolve();
+    assertTemplateRenderedWithData: function (data) {
         assert(jQuery.render.calledOnce);
-        assertSame(this.templateName, jQuery.render.getCall(0).args[0]);
-        assertSame(data, jQuery.render.getCall(0).args[1]);
+        assertSame(data, jQuery.render.getCall(0).args[0]);
+        assertSame(this.templateName, jQuery.render.getCall(0).args[1]);
     },
 
-    "test template is rendered after template loads": function () {
-        var dataForTemplate = {
+    "test template is rendered and returned as string": function () {
+        var renderedTemplate,
+            dataForTemplate = {
                 data: 'something'
             };
 
-        sinon.stub(travi.templates, 'getTemplate').returns(this.deferred.promise());
-        sinon.stub(jQuery, 'render');
+        sinon.stub(jQuery, 'render').returns('renderedTemplate');
 
-        travi.templates.renderTemplate(this.templateName, dataForTemplate);
+        renderedTemplate = travi.templates.renderTemplate(this.templateName, dataForTemplate);
 
-        assert(travi.templates.getTemplate.calledOnce);
-        assertSame(this.templateName, travi.templates.getTemplate.getCall(0).args[0]);
+        this.assertTemplateRenderedWithData(dataForTemplate);
 
-        this.assertTemplateRenderedWithData(dataForTemplate, this.deferred);
+        assertString(renderedTemplate);
     },
 
     "test that template is not requested from server if already cached": function () {

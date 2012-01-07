@@ -36,10 +36,7 @@
     }
 
     function renderTemplate(templateName, data) {
-        travi.templates.getTemplate(templateName)
-            .then(function () {
-                $.render(data, templateName);
-            });
+        return $.render(data, templateName);
     }
 
     function init() {
