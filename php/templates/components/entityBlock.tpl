@@ -1,4 +1,4 @@
-            <div class="entityBlock {$entity->getType()}">
+            <li class="entityBlock {$entity->getType()}">
                 <dl>
                     <dt>{$entity->getTitle()}</dt>
         {foreach item=detail from=$entity->getDetails()}
@@ -43,4 +43,4 @@
         {/if}
                     </dd>
                 </dl>
-            </div>
+            </li>

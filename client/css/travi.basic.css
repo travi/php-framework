@@ -15,8 +15,9 @@ abbr,acronym{
 	border-bottom:		1px dotted;
 }
 .item-action{
-	padding-left: 		20px;	
-	background-repeat: 	no-repeat;
+    padding-left:       20px;
+    background-repeat:  no-repeat;
+    font-size:          14px;
 }
 /*SUBMISSION RESULTS*/
 .good
