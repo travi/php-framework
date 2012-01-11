@@ -44,9 +44,9 @@
     }
 
     travi.namespace("templates", {
-        getTemplate: getTemplate,
-        preLoadTemplate: loadTemplate,
-        renderTemplate: renderTemplate,
+        get: getTemplate,
+        preLoad: loadTemplate,
+        render: renderTemplate,
         init: init
     });
 }());
