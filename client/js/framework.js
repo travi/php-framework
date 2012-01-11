@@ -66,17 +66,17 @@ travi.framework = (function () {
                 $('footer').append($.render({
                     alternateEnhancement: alternateEnhancement
                 }, templateName));
-            });
 
-            $('#' + DESKTOP_CHOICE + 'Version').click(function () {
-                setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
-            });
+                $('#' + DESKTOP_CHOICE + 'Version').click(function () {
+                    setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
+                });
 
-            $('#' + MOBILE_CHOICE + 'Version').click(function () {
-                setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
-            });
+                $('#' + MOBILE_CHOICE + 'Version').click(function () {
+                    setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
+                });
 
-            $('#detectVersion').click(resetVersion);
+                $('#detectVersion').click(resetVersion);
+            });
         },
 
         init = function () {
