@@ -5,12 +5,12 @@ travi:
     - "jquery"
 
 framework:
-  local: "/resources/shared/js/framework.js"
+  local: /resources/shared/js/framework.js
   jsDependencies:
     - travi
     - template
   clientTemplates:
-    chooseEnhancement: "/resources/templates/enhancementVersion.tmpl"
+    chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
 
 template:
   local: /resources/shared/js/templates.js
