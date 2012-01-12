@@ -9,7 +9,7 @@
         var deferred = new $.Deferred(),
             promise = deferred.promise();
 
-        loadedTemplates.templateName = promise;
+        loadedTemplates[templateName] = promise;
 
         $.ajax({
             url: templateUrl,
@@ -24,13 +24,13 @@
         return promise;
     }
 
-    function getTemplate(templateName) {
-        if (loadedTemplates.templateName) {
-            return loadedTemplates.templateName;
+    function getTemplate(templateName, templateUrl) {
+        if (loadedTemplates[templateName]) {
+            return loadedTemplates[templateName];
         } else {
             return loadTemplate(
                 templateName,
-                TEMPLATE_DIRECTORY + templateName + TEMPLATE_EXT
+                templateUrl || TEMPLATE_DIRECTORY + templateName + TEMPLATE_EXT
             );
         }
     }
@@ -45,7 +45,7 @@
 
     travi.namespace("templates", {
         get: getTemplate,
-        preLoad: loadTemplate,
+        preLoad: getTemplate,
         render: renderTemplate,
         init: init
     });

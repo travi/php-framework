@@ -3,7 +3,6 @@ TestCase("TemplateTests", {
     templateAsString: 'template',
 
     setUp: function () {
-        this.deferred = new $.Deferred();
         travi.templates.init();
     },
 
@@ -141,6 +140,20 @@ TestCase("TemplateTests", {
         assert(
             'Calls: ' + jQuery.ajax.callCount,
             jQuery.ajax.calledOnce
+        );
+    },
+
+    "test that caching does not prevent other templates from loading from server": function () {
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success.call(null, this.templateAsString);
+        });
+
+        travi.templates.get(this.templateName);
+        travi.templates.get('someOtherTemplateName');
+
+        assert(
+            'Calls: ' + jQuery.ajax.callCount,
+            jQuery.ajax.calledTwice
         );
     }
 });
