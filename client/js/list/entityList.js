@@ -64,7 +64,7 @@ travi.framework.entityList = (function () {
     }
 
     function initPagination() {
-        $('#moreUpdates, #previousUpdates').click(function () {
+        $('ul.pagination a.more, ul.pagination a.prev').click(function () {
             var $this = $(this);
 
             $.getJSON($this.attr('href'), function (data) {
@@ -78,7 +78,15 @@ travi.framework.entityList = (function () {
 
                 templates.get(TEMPLATE_NAME).then(function () {
                     for (i = 0; i < updateCount; i = i + 1) {
-                        $updateList.append(templates.render(TEMPLATE_NAME, updates));
+                        $updateList.append(
+                            templates.render(
+                                TEMPLATE_NAME,
+                                {
+                                    list: updateContainer,
+                                    update: updates[i]
+                                }
+                            )
+                        );
                     }
                 });
 
@@ -114,7 +122,7 @@ travi.framework.entityList = (function () {
         });
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-//        initPagination();
+        initPagination();
     }
 
     $(document).ready(function () {
