@@ -1,8 +1,10 @@
 travi.framework.entityList = (function () {
     "use strict";
 
-    var buttonText,
-        constants = travi.constants;
+    var TEMPLATE_NAME = 'update-item',
+        buttonText,
+        constants = travi.constants,
+        templates = travi.templates;
 
     constants.set('PAGE_EVENT', 'updates-loaded');
     constants.set('HIDDEN_CLASS', 'outOfRange');
@@ -74,9 +76,11 @@ travi.framework.entityList = (function () {
                     $prevUpdates = $('#previousUpdates'),
                     $divider = $('.pipeDivider');
 
-                for (i = 0; i < updateCount; i = i + 1) {
-                    $updateList.append('<li>&nbsp;</li>');
-                }
+                templates.get(TEMPLATE_NAME).then(function () {
+                    for (i = 0; i < updateCount; i = i + 1) {
+                        $updateList.append(templates.render(TEMPLATE_NAME, updates));
+                    }
+                });
 
                 if (updateContainer.offset <= 0 || !updateContainer.offset) {
                     $prevUpdates.parent().addClass(constants.get('HIDDEN_CLASS'));
@@ -94,6 +98,7 @@ travi.framework.entityList = (function () {
     }
 
     function init() {
+        templates.preLoad(TEMPLATE_NAME, '/resources/templates/admin/update-item.tmpl');
         $("li.remove-item form")
             .hide()
             .after("<a class='item-action' href='#'>Remove</a>");
@@ -109,7 +114,7 @@ travi.framework.entityList = (function () {
         });
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-        initPagination();
+//        initPagination();
     }
 
     $(document).ready(function () {
