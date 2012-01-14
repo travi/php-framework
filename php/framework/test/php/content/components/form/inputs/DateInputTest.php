@@ -33,7 +33,7 @@ class DateInputTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultInit()
     {
-        $this->assertSame('text', $this->object->getType());
+        $this->assertSame('date', $this->object->getType());
         $this->assertSame('textInput datepicker', $this->object->getClass());
         $this->assertSame(array('jqueryUi'), $this->object->getJavaScripts());
         $this->assertSame(

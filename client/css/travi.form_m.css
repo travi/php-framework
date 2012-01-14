@@ -1,0 +1,6 @@
+.formBlock div.wym_area_right{
+    display: none !important;
+}
+.formBlock div.wym_area_main{
+    margin-right: 0 !important;
+}
