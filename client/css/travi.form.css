@@ -1,144 +1,140 @@
 .form {
-	/*width:				627px;	/*This is here so that the transparency will render correctly in ie--height or width must be set*/
-	font-variant:		small-caps;
-	color:				#FFFFFF;
-	padding:			3px;
+    /*width:				627px;	/*This is here so that the transparency will render correctly in ie--height or width must be set*/
+    font-variant:		small-caps;
+    color:				#FFFFFF;
+    padding:			3px;
 }
 fieldset{
-	margin:			0 0 5px 0;
-	color:			#ffffff;
-	opacity:		1;
+    margin:			0 0 5px 0;
+    color:			#ffffff;
+    opacity:		1;
 }
 legend{
-	font-size:		1.5em;
+    font-size:		1.5em;
 }
 ul.fieldList{
-	list-style-type: none;
-	padding:		5px;
-	margin:			0;
+    list-style-type: none;
+    padding:		5px;
+    margin:			0;
 }
 ul.fieldList li{
     margin-bottom: 	10px;
 }
 ul.fieldList label{
-	width:			90px;
-	display:		inline-block;
-	vertical-align:	top;
+    width:			90px;
+    display:		inline-block;
+    vertical-align:	top;
 }
 ul.fieldList label.ui-state-error{
-	width:					auto;
-	margin-left:			93px;
-	padding: 				3px;
-	padding-left:			20px;
-	margin-top:				3px;
-	-moz-border-radius: 	4px; 
-	-webkit-border-radius: 	4px;
-	color:					#fff;
-	display:				block;
-	border:					0;
-	background-image: 		url("icons/ui-icon-ffffff-alert.png");
-	background-repeat:  	no-repeat;
-	background-position: 	3px 2px;
+    width:					auto;
+    margin-left:			93px;
+    padding: 				3px;
+    padding-left:			20px;
+    margin-top:				3px;
+    -moz-border-radius: 	4px;
+    -webkit-border-radius: 	4px;
+    color:					#fff;
+    display:				block;
+    border:					0;
+    background-image: 		url("icons/ui-icon-ffffff-alert.png");
+    background-repeat:  	no-repeat;
+    background-position: 	3px 2px;
 }
 ul.fieldList fieldset label.ui-state-error{
-	display:inline;
-	float:right;
-	padding-right: 200px;
-	margin-left:0;
-	vertical-align: top;
+    display:inline;
+    float:right;
+    padding-right: 200px;
+    margin-left:0;
+    vertical-align: top;
 }
 ul.fieldList button{
-	margin-left: 93px;
+    margin-left: 93px;
 }
 ul.fieldList fieldset{
-	border: none;
-	padding: 0;
-	margin: 3px 0 10px 0;
+    border: none;
+    padding: 0;
+    margin: 3px 0 10px 0;
 }
 ul.fieldList fieldset legend{
-	padding: 0 0 5px 0;
-	font-weight: normal;
-	font-size: 1em;
+    padding: 0 0 5px 0;
+    font-weight: normal;
+    font-size: 1em;
 }
 ul.fieldList fieldset label{
-	display: block;
-	padding-left: 90px;
-	width:auto;
-}
-ul.fieldList .formBlock{
-	display: block;
-	padding-left: 93px;
+    display: block;
+    padding-left: 90px;
+    width:auto;
 }
 input.ui-state-error,
 textarea.ui-state-error,
 select.ui-state-error{
-	background-color: #fff;
-	background-image: none;	
-	border: 2px solid #f00;
-	-moz-border-radius: 4px; 
-	-webkit-border-radius: 4px; 
+    background-color: #fff;
+    background-image: none;
+    border: 2px solid #f00;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 .textInput
 {
-	color: 			red;
-	background: 	#ccc;
-	border: 		red solid 1px;
+    color: 			red;
+    background: 	#ccc;
+    border: 		red solid 1px;
     padding-left: 	2px;
 }
 .fileInput
 {
-	color: 			red;
-	background: 	#ccc;
-	border: 		red solid 1px;
+    color: 			red;
+    background: 	#ccc;
+    border: 		red solid 1px;
     padding-left: 	2px;
 }
 .city
 {
-	width:			365px;
+    width:			365px;
 }
 .state
 {
-	width:			20px;
+    width:			20px;
 }
 .zip
 {
-	width:			40px;
+    width:			40px;
 }
 .submitButton
 {
-	margin-left: 	94px;
-	clear: 			both;
-	display:		block;
+    margin-left: 	94px;
+    clear: 			both;
+    display:		block;
 }
 .outerButton
 {
-	margin-left:	112px;
+    margin-left:	112px;
 }
 #date_trigger
 {
-	vertical-align:	top;
+    vertical-align:	top;
 }
 #date_trigger:hover
 {
-	border:			2px #fff solid;
+    border:			2px #fff solid;
 }
 .format_trigger
 {
-	border: 		1px solid #eaeaea;
-	width:			22px;
-	height:			22px;
-	background:		#ffffff;
+    border: 		1px solid #eaeaea;
+    width:			22px;
+    height:			22px;
+    background:		#ffffff;
 }
 .format_trigger:hover
 {
-	border:			1px solid gray;
+    border:			1px solid gray;
 }
 input.datepicker{
-	margin-right: 5px;
-	vertical-align: top;
+    margin-right: 5px;
+    vertical-align: top;
 }
 ul.fieldList .notearea
 {
-	display: inline;
-	padding-left: 0;
+    display: inline;
+    padding-left: 0;
 }
