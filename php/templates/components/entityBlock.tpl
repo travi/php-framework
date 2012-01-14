@@ -13,7 +13,8 @@
                                 {if $text eq 'Remove'}
                                     <form action="{$details['link']}{$entity->getId()}" class="item-action" method="post">
                                         <input type="hidden" name="id" value="{$entity->getId()}" />
-                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <input type="submit" value="Remove"/>
                                     </form>
                                 {else}
                                     <a class="item-action" href="{$details['link']}{$entity->getId()}">
