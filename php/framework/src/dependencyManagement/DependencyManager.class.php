@@ -26,19 +26,6 @@ class DependencyManager
     const RESOURCES = '/resources';
     const SHARED_RESOURCES = '/resources/shared';
 
-    public function addDependency($dep, $category, $index)
-    {
-        if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
-            $this->addJavaScript($dep);
-        } else if ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
-            $this->addStyleSheet($dep, $index);
-        } else if ($category === 'jsInit' || $category === 'jsinit') {
-            $this->addJsInit($dep);
-        } elseif ($category === 'validations') {
-            $this->addValidations($dep, $index);
-        }
-    }
-
     public function addJavaScript($script)
     {
         $this->lazyInitializeList('js');
@@ -133,22 +120,26 @@ class DependencyManager
         $this->requirementLists['validations'][$form] = $validations;
     }
 
-    public function getDependencies($category="")
+    public function getDependencies()
     {
-        if ($category === 'js' || $category === 'JavaScript' || $category === 'javascript') {
-            return $this->getScripts();
-        } elseif ($category === 'css' || $category === 'StyleSheet' || $category === 'stylesheet') {
-            return $this->getStyleSheets();
-        } elseif ($category === 'jsInit' || $category === 'jsinit') {
-            return $this->getJsInits();
-        } elseif ($category === 'validations') {
-            return $this->getValidations();
-        } elseif ($category === 'clientTemplates') {
-            return $this->getClientTemplates();
+        $this->sortStyleSheets();
+        return $this->requirementLists;
+    }
+
+    public function loadPageDependencies()
+    {
+        if ($this->request->isAdmin()) {
+            $controllerList = $this->pageDependenciesLists['admin'];
         } else {
-            $this->sortStyleSheets();
-            return $this->requirementLists;
+            $controllerList = $this->pageDependenciesLists;
         }
+
+        $thisController = $controllerList[strtolower($this->request->getController())];
+        $thisPage = $thisController[$this->request->getAction()];
+
+        $this->addDependencies($this->pageDependenciesLists['site']);
+        $this->addDependencies($thisPage);
+        $this->setPageStyle($thisPage['pageStyle']);
     }
 
     public function getScripts()
@@ -161,26 +152,6 @@ class DependencyManager
         $this->sortStyleSheets();
 
         return $this->requirementLists['css'];
-    }
-
-    private function sortStyleSheets()
-    {
-        uksort($this->requirementLists['css'], 'strnatcasecmp');
-    }
-
-    public function getClientTemplates()
-    {
-        return $this->requirementLists['clientTemplates'];
-    }
-
-    public function getJsInits()
-    {
-        return $this->requirementLists['jsInit'];
-    }
-
-    public function getValidations()
-    {
-        return $this->requirementLists['validations'];
     }
 
     public function addDependencies($dependencies = array(), $component = null)
@@ -261,6 +232,11 @@ class DependencyManager
         }
     }
 
+    private function sortStyleSheets()
+    {
+        uksort($this->requirementLists['css'], 'strnatcasecmp');
+    }
+
     private function addCacheBusterIfFileExists($dependency, $key, $index)
     {
         $pathToDependency = $this->buildPathToDependency($dependency);
@@ -300,63 +276,6 @@ class DependencyManager
         if (!isset($this->requirementLists[$category])) {
             $this->requirementLists[$category] = array();
         }
-    }
-
-    public function getPageStyle()
-    {
-        return $this->requirementLists['css'][self::THIS_PAGE_KEY];
-    }
-
-    public function loadPageDependencies()
-    {
-        if ($this->request->isAdmin()) {
-            $controllerList = $this->pageDependenciesLists['admin'];
-        } else {
-            $controllerList = $this->pageDependenciesLists;
-        }
-
-        $thisController = $controllerList[strtolower($this->request->getController())];
-        $thisPage = $thisController[$this->request->getAction()];
-
-        $this->addDependencies($this->pageDependenciesLists['site']);
-        $this->addDependencies($thisPage);
-        $this->setPageStyle($thisPage['pageStyle']);
-    }
-
-    public function setPageStyle($thisPageStyle)
-    {
-        $currentPageStyle = $this->getPageStyle();
-
-        if (!empty($thisPageStyle)) {
-            $this->addStyleSheet($thisPageStyle, self::THIS_PAGE_KEY);
-        } elseif (empty($currentPageStyle)) {
-            $pageStyleByConvention = $this->fileSystem->getPageStyleByConvention();
-            if ($pageStyleByConvention) {
-                $this->setPageStyle($pageStyleByConvention);
-            }
-        }
-    }
-
-    public function setPageDependenciesLists($lists)
-    {
-        $this->pageDependenciesLists = $lists;
-    }
-
-    public function setSiteTheme($sheet)
-    {
-        $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
-    }
-
-    public function getDependenciesInProperForm()
-    {
-        $dependencies = $this->getDependencies();
-
-        if (!$this->envUtil->isLocal()) {
-            $dependencies = $this->minify($dependencies, 'css');
-            $dependencies = $this->minify($dependencies, 'js');
-        }
-
-        return $dependencies;
     }
 
     private function minify($dependencies, $list)
@@ -403,6 +322,47 @@ class DependencyManager
             $indexFound = array_search($sheet, $styleSheetList);
             unset($styleSheetList[$indexFound]);
         }
+    }
+
+    public function getPageStyle()
+    {
+        return $this->requirementLists['css'][self::THIS_PAGE_KEY];
+    }
+
+    public function setPageStyle($thisPageStyle)
+    {
+        $currentPageStyle = $this->getPageStyle();
+
+        if (!empty($thisPageStyle)) {
+            $this->addStyleSheet($thisPageStyle, self::THIS_PAGE_KEY);
+        } elseif (empty($currentPageStyle)) {
+            $pageStyleByConvention = $this->fileSystem->getPageStyleByConvention();
+            if ($pageStyleByConvention) {
+                $this->setPageStyle($pageStyleByConvention);
+            }
+        }
+    }
+
+    public function setPageDependenciesLists($lists)
+    {
+        $this->pageDependenciesLists = $lists;
+    }
+
+    public function setSiteTheme($sheet)
+    {
+        $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
+    }
+
+    public function getDependenciesInProperForm()
+    {
+        $dependencies = $this->getDependencies();
+
+        if (!$this->envUtil->isLocal()) {
+            $dependencies = $this->minify($dependencies, 'css');
+            $dependencies = $this->minify($dependencies, 'js');
+        }
+
+        return $dependencies;
     }
 
     /**
