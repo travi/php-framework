@@ -75,28 +75,16 @@ class DependencyManager
     {
         $this->lazyInitializeList('css');
 
-        $resolved = $this->clientDependencyDefinitions->resolveFileURI($sheet);
-
-        if (!empty($resolved)) {
-            $sheet = $resolved;
-        }
+        $sheet = $this->resolveFileUri($sheet);
 
         $styleSheetList = &$this->requirementLists['css'];
 
         if (!in_array($sheet, $styleSheetList) || $index === self::THIS_PAGE_KEY) {
-            $enhancementVersion = $this->request->getEnhancementVersion();
-            $enhancedFile = '';
-            if ($enhancementVersion === Request::MOBILE_ENHANCEMENT) {
-                $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
-            } elseif ($enhancementVersion === Request::DESKTOP_ENHANCEMENT) {
-                $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
-            }
+            $enhancedFile = $this->getEnhancedFileName($sheet);
 
             if (!empty($index)) {
-                if ($index === self::THIS_PAGE_KEY && in_array($sheet, $styleSheetList)) {
-                    $indexFound = array_search($sheet, $styleSheetList);
-                    unset($styleSheetList[$indexFound]);
-                }
+                $this->removePageStyleIfAlreadyInList($index, $sheet, $styleSheetList);
+
                 if ($this->fileSystem->styleSheetExists($sheet)) {
                     $styleSheetList[$index] = $sheet;
                 }
@@ -382,6 +370,39 @@ class DependencyManager
     private function replaceWithMinifiedVersion($dependency)
     {
         return preg_replace('/\/(css|js)\//', '/min/$1/', $dependency, 1);
+    }
+
+    private function resolveFileUri($sheet)
+    {
+        $resolved = $this->clientDependencyDefinitions->resolveFileURI($sheet);
+
+        if (!empty($resolved)) {
+            $sheet = $resolved;
+            return $sheet;
+        }
+        return $sheet;
+    }
+
+    private function getEnhancedFileName($sheet)
+    {
+        $enhancementVersion = $this->request->getEnhancementVersion();
+        $enhancedFile = '';
+        if ($enhancementVersion === Request::MOBILE_ENHANCEMENT) {
+            $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
+            return $enhancedFile;
+        } elseif ($enhancementVersion === Request::DESKTOP_ENHANCEMENT) {
+            $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
+            return $enhancedFile;
+        }
+        return $enhancedFile;
+    }
+
+    private function removePageStyleIfAlreadyInList($index, $sheet, $styleSheetList)
+    {
+        if ($index === self::THIS_PAGE_KEY && in_array($sheet, $styleSheetList)) {
+            $indexFound = array_search($sheet, $styleSheetList);
+            unset($styleSheetList[$indexFound]);
+        }
     }
 
     /**
