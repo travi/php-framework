@@ -85,6 +85,16 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testLoadPageDependenciesAddsFromList()
     {
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with('pageSheet1.css')
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with($this->pageStyle)
+            ->will($this->returnValue(true));
+
         $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
 
         $this->dependencyManager->loadPageDependencies();
@@ -104,6 +114,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testPageStyleNotSetIfEmpty()
     {
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->with('pageSheet1.css')
+            ->will($this->returnValue(true));
+
         $this->dependencyManager->setPageDependenciesLists(
             array(
                  'site' => array(
@@ -129,7 +144,14 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testAddPageStyleByConvention()
     {
-        $pageStyle = 'path to page style';
+        $pathToPageStyle = 'path to page style';
+
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->with($pathToPageStyle)
+            ->will($this->returnValue(true));
+
+        $pageStyle = $pathToPageStyle;
 
         $this->fileSystem->expects($this->once())
             ->method('getPageStyleByConvention')
@@ -142,6 +164,18 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testPageStyleFollowsBaseFormSheet()
     {
+        $pathToFormSheet = '/resources/shared/css/travi.form.css';
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($this->pageStyle)
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with($pathToFormSheet)
+            ->will($this->returnValue(true));
+
         $this->dependencyManager->setPageStyle($this->pageStyle);
         $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
 
@@ -149,7 +183,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(
             array(
-                '/resources/shared/css/travi.form.css',
+                $pathToFormSheet,
                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
             ),
             $dependencies['css']
@@ -158,6 +192,16 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testPageStyleFollowsSiteTheme()
     {
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($this->pageStyle)
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with(self::SITE_THEME)
+            ->will($this->returnValue(true));
+
         $this->dependencyManager->setPageStyle($this->pageStyle);
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
 
@@ -174,6 +218,18 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testSiteThemeFollowsBaseFormSheet()
     {
+        $pathToFormSheet = '/resources/shared/css/travi.form.css';
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with(self::SITE_THEME)
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with($pathToFormSheet)
+            ->will($this->returnValue(true));
+
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
         $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
 
@@ -181,24 +237,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(
             array(
-                '/resources/shared/css/travi.form.css',
+                $pathToFormSheet,
                 DependencyManager::SITE_THEME_KEY => self::SITE_THEME
-            ),
-            $dependencies['css']
-        );
-    }
-
-    public function testPageStyleFollowsBaseSiteTheme()
-    {
-        $this->dependencyManager->setPageStyle($this->pageStyle);
-        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
-
-        $dependencies = $this->dependencyManager->getDependencies();
-
-        $this->assertSame(
-            array(
-                DependencyManager::SITE_THEME_KEY => self::SITE_THEME,
-                DependencyManager::THIS_PAGE_KEY => $this->pageStyle
             ),
             $dependencies['css']
         );
@@ -208,6 +248,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $script = "/js/some script";
         $sheet = "/css/some sheet";
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($sheet)
+            ->will($this->returnValue(true));
 
         /** @var $environmentUtility Environment */
         $this->environmentUtility->expects($this->once())
@@ -232,6 +277,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $script = "/js/some script";
         $sheet = "/css/some sheet";
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($sheet)
+            ->will($this->returnValue(true));
 
         /** @var $environmentUtility Environment */
         $this->environmentUtility->expects($this->once())
@@ -320,8 +370,14 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
 
-        $this->fileSystem->expects($this->once())
+        $this->fileSystem->expects($this->at(1))
             ->method('styleSheetExists')
+            ->with(self::SITE_THEME_MOBILE)
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with(self::SITE_THEME)
             ->will($this->returnValue(true));
 
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
@@ -343,8 +399,14 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
 
-        $this->fileSystem->expects($this->once())
+        $this->fileSystem->expects($this->at(0))
             ->method('styleSheetExists')
+            ->with(self::SITE_THEME)
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with(self::SITE_THEME_DESKTOP)
             ->will($this->returnValue(true));
 
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
@@ -358,6 +420,64 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ),
             $dependencies['css']
         );
+    }
+
+    public function testBaseIndexedStyleNotAddedIfDoesNotExist()
+    {
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with('siteTheme_d.css')
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with(self::SITE_THEME)
+            ->will($this->returnValue(false));
+
+        $this->dependencyManager->setSiteTheme(self::SITE_THEME);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                 DependencyManager::SITE_THEME_ENHANCED_KEY => self::SITE_THEME_DESKTOP
+            ),
+            $dependencies['css']
+        );
+
+    }
+
+    public function testBaseNonIndexedStyleNotAddedIfDoesNotExist()
+    {
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+
+        $this->fileSystem->expects($this->at(1))
+            ->method('styleSheetExists')
+            ->with('page_d.css')
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($this->pageStyle)
+            ->will($this->returnValue(false));
+
+        $this->dependencyManager->addStyleSheet($this->pageStyle);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                'page_d.css'
+            ),
+            $dependencies['css']
+        );
+
     }
 
     public function testAdminDependenciesHandledJustLikeOtherPages()

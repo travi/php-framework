@@ -97,12 +97,16 @@ class DependencyManager
                     $indexFound = array_search($sheet, $styleSheetList);
                     unset($styleSheetList[$indexFound]);
                 }
-                $styleSheetList[$index] = $sheet;
+                if ($this->fileSystem->styleSheetExists($sheet)) {
+                    $styleSheetList[$index] = $sheet;
+                }
                 if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
                     $styleSheetList[$index . 'Enhanced'] = $enhancedFile;
                 }
             } else {
-                array_push($styleSheetList, $sheet);
+                if ($this->fileSystem->styleSheetExists($sheet)) {
+                    array_push($styleSheetList, $sheet);
+                }
                 if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
                     array_push($styleSheetList, $enhancedFile);
                 }
