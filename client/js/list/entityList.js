@@ -64,6 +64,13 @@ travi.framework.entityList = (function () {
     }
 
     function initPagination() {
+        $.views.registerHelpers({
+            toLower: function (string) {
+                return string.toLowerCase();
+            }
+        });
+
+
         $('ul.pagination a.more, ul.pagination a.prev').click(function () {
             var $this = $(this);
 
@@ -122,7 +129,7 @@ travi.framework.entityList = (function () {
         });
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-//        initPagination();
+        initPagination();
     }
 
     $(document).ready(function () {

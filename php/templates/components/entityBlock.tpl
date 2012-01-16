@@ -7,10 +7,10 @@
                         <dd>
                             <ul class="actions">
 
-        {foreach key=text item=details from=$primaryActions}
-            {if empty($item->activeActions[$text])}
-                                <li class="{$text|lower}-item">
-                                {if $text eq 'Remove'}
+        {foreach item=details from=$primaryActions}
+            {if empty($item->activeActions[$details['text']])}
+                                <li class="{$details['text']|lower}-item">
+                                {if $details['text'] eq 'Remove'}
                                     <form action="{$details['link']}{$entity->getId()}" class="item-action" method="post">
                                         <input type="hidden" name="id" value="{$entity->getId()}" />
                                         <input type="hidden" name="_method" value="delete"/>
@@ -18,7 +18,7 @@
                                     </form>
                                 {else}
                                     <a class="item-action" href="{$details['link']}{$entity->getId()}">
-                                        {$text}
+                                        {$details['text']}
                                     </a>
                                 {/if}
                                 </li>
@@ -32,11 +32,7 @@
                             <ul class="actions">
                 {foreach from=$row item=actions}
                     {if !isset($actions['active']) || $actions['active'] == TRUE}
-                                    <li class="item-action {$actions['class']}"><a href="{$actions['link']}{$entity->getId()}"
-                        {*if(!empty($actions["$action_text"]['confirmation']))*}
-                        {*{*}
-                            {*$entity .= ' onclick="if (confirm('."'".$this->preConf.$actions["$action_text"]['confirmation']."'".')) return true; else return false;"';*}
-                        {*}*}>{$actions['text']}</a></li>
+                                    <li class="item-action {$actions['class']}"><a href="{$actions['link']}{$entity->getId()}">{$actions['text']}</a></li>
                     {/if}
                 {/foreach}
                         </ul>

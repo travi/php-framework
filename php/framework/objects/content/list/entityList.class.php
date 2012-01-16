@@ -26,11 +26,19 @@ class EntityList extends ContentObject implements IteratorAggregate
     }
     public function addAction($text, $link, $confirmation="")
     {
-        $this->actions["$text"] = array('link' => $link, 'confirmation' => $confirmation);
+        array_push(
+            $this->actions,
+            array(
+                'text' => $text,
+                'link' => $link
+            )
+        );
+
         if (!empty($confirmation)) {
             $this->addJsInit(
-                'travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");
-                                travi.framework.entityList.setButtonText("'.$text.'");'
+                '
+                travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");
+                travi.framework.entityList.setButtonText("'.$text.'");'
             );
         }
     }
