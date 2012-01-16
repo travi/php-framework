@@ -27,7 +27,7 @@ class CrudController extends AbstractController
             }
         case Request::DELETE:
             if (empty($id)) {
-                //TODO: should be method not allowed
+                $response->setStatus(Response::NOT_ALLOWED);
                 break;
             } else {
                 return $this->deleteById($id, $response);

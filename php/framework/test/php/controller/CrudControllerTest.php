@@ -98,11 +98,15 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->mockRequest->expects($this->once())
             ->method('getRequestMethod')
             ->will($this->returnValue(Request::DELETE));
-
         $this->mockRequest->expects($this->once())
             ->method('getId');
 
-        $this->markTestIncomplete('should resolve to a "405 Method Not Allowed"');
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_ALLOWED);
+
+        $this->partiallyMockedController->index($this->mockRequest, $responseMock);
     }
 
     public function testDeleteByIdRoutesToProperMethod()
