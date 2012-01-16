@@ -74,6 +74,16 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     }
      */
 
+    public function testMethodNotAllowedDefinedProperly()
+    {
+        $this->assertEquals('405 Method Not Allowed', Response::NOT_ALLOWED);
+    }
+
+    public function testMethodNotImplementedDefinedProperly()
+    {
+        $this->assertEquals('501 Not Implemented', Response::NOT_IMPLEMENTED);
+    }
+
     public function testTagLine()
     {
         $this->response->setTagLine('tagLine');

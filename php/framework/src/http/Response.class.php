@@ -7,6 +7,9 @@ require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php
 
 class Response extends AbstractResponse
 {
+    const NOT_ALLOWED = '405 Method Not Allowed';
+    const NOT_IMPLEMENTED = '501 Not Implemented';
+
     const SITE_FEED_KEY = 'Site Feed';
 
     /** @var string */
