@@ -123,6 +123,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultImplementationsNotImplemented()
     {
-        $this->markTestIncomplete('should all resolve to "method not yet implemented"');K
+        $this->markTestIncomplete('should all resolve to "method not yet implemented"');
     }
 }
