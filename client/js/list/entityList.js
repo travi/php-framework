@@ -120,14 +120,13 @@ travi.framework.entityList = (function () {
         $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
             $(this).prev("form").submit();
             return false;
-        });
+        }).delegate("form.item-action", 'submit', confirm);
         $("body").append("<div id='confirmation' title='Are you sure?'></div>");
         $("#confirmation").dialog({
             autoOpen:   false,
             modal:      true,
             resizable:  false
         });
-        $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-c//ircle-plus'}});
         initPagination();
     }
