@@ -102,7 +102,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->mockRequest->expects($this->once())
             ->method('getId');
 
-        $this->markTestIncomplete('should resolve to a "method not allowed"');
+        $this->markTestIncomplete('should resolve to a "405 Method Not Allowed"');
     }
 
     public function testDeleteByIdRoutesToProperMethod()
@@ -123,6 +123,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultImplementationsNotImplemented()
     {
-        $this->markTestIncomplete('should all resolve to "method not yet implemented"');
+        $this->markTestIncomplete('should all resolve to "501 Not Implemented"');
     }
 }
