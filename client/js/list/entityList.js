@@ -63,6 +63,12 @@ travi.framework.entityList = (function () {
         return false;
     }
 
+    function restyleRemove() {
+        $("li.remove-item form:visible")
+            .hide()
+            .after("<a class='item-action' href='#'>Remove</a>");
+    }
+
     function initPagination() {
         $.views.registerHelpers({
             toLower: function (string) {
@@ -95,6 +101,7 @@ travi.framework.entityList = (function () {
                             )
                         );
                     }
+                    restyleRemove();
                 });
 
                 if (updateContainer.offset <= 0 || !updateContainer.offset) {
@@ -114,9 +121,7 @@ travi.framework.entityList = (function () {
 
     function init() {
         templates.preLoad(TEMPLATE_NAME, '/resources/templates/admin/update-item.tmpl');
-        $("li.remove-item form")
-            .hide()
-            .after("<a class='item-action' href='#'>Remove</a>");
+        restyleRemove();
         $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
             $(this).prev("form").submit();
             return false;
