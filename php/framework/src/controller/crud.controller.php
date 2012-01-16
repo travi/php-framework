@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__).'/abstract.controller.php';
 
 class CrudController extends AbstractController
 {
