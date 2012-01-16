@@ -79,7 +79,7 @@ class DependencyManager
                     $styleSheetList[$index . 'Enhanced'] = $enhancedFile;
                 }
             } else {
-                if ($this->fileSystem->styleSheetExists($sheet)) {
+                if ($this->fileSystem->styleSheetExists($sheet) || !$this->isLocalFile($sheet)) {
                     array_push($styleSheetList, $sheet);
                 }
                 if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
