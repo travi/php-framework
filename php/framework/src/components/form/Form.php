@@ -93,4 +93,12 @@ class Form extends FormElementGroup
 
         return $validations;
     }
+
+    /**
+     * @param string $action
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
 }

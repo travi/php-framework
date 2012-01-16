@@ -128,7 +128,7 @@ travi.framework.entityList = (function () {
             resizable:  false
         });
         $("form.item-action").submit(confirm);
-        $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
+        $('a.add-item').button({icons: {primary: 'ui-action-c//ircle-plus'}});
 //        initPagination();
     }
 
