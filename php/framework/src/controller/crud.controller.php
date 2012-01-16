@@ -35,25 +35,46 @@ class CrudController extends AbstractController
         }
     }
 
+    /**
+     * @param $response Response
+     */
     public function getList(&$response)
     {
-
+        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
+    /**
+     * @param $id
+     * @param $response Response
+     */
     public function getById($id, &$response)
     {
-
+        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
+    /**
+     * @param $id
+     * @param $response Response
+     */
     public function updateById($id, &$response)
     {
+        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
+    /**
+     * @param $response Response
+     */
     public function addToList(&$response)
     {
+        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
+    /**
+     * @param $id
+     * @param $response Response
+     */
     public function deleteById($id, &$response)
     {
+        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 }

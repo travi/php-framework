@@ -3,6 +3,7 @@ require_once 'PHPUnit/Framework.php';
 
 require_once dirname(__FILE__).'/../../../src/controller/crud.controller.php';
 require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
+require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
 
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -125,8 +126,63 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
 
-    public function testDefaultImplementationsNotImplemented()
+    public function testGetListDefaultNotImplemented()
     {
-        $this->markTestIncomplete('should all resolve to "501 Not Implemented"');
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_IMPLEMENTED);
+
+        $crudController = new CrudController();
+
+        $crudController->getList($responseMock);
+    }
+
+    public function testGetByIdDefaultNotImplemented()
+    {
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_IMPLEMENTED);
+
+        $crudController = new CrudController();
+
+        $crudController->getById(self::ANY_ID, $responseMock);
+    }
+
+    public function testAddToListDefaultNotImplemented()
+    {
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_IMPLEMENTED);
+
+        $crudController = new CrudController();
+
+        $crudController->addToList($responseMock);
+    }
+
+    public function testUpdateByIdDefaultNotImplemented()
+    {
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_IMPLEMENTED);
+
+        $crudController = new CrudController();
+
+        $crudController->updateById(self::ANY_ID, $responseMock);
+    }
+
+    public function testDeleteByIdDefaultNotImplemented()
+    {
+        $responseMock = $this->getMock('Response');
+        $responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::NOT_IMPLEMENTED);
+
+        $crudController = new CrudController();
+
+        $crudController->deleteById(self::ANY_ID, $responseMock);
     }
 }
