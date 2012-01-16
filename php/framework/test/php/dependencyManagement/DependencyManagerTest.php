@@ -19,8 +19,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     private $pageStyles = array(
         'pageSheet1.css'
     );
-    private $pageStyle = 'page.css';
-    private $pageStyleMobile = 'page_m.css';
+    private $pageStyle = '/resources/page.css';
+    private $pageStyleMobile = '/resources/page_m.css';
     const SITE_THEME = 'siteTheme.css';
     const SITE_THEME_MOBILE = 'siteTheme_m.css';
     const SITE_THEME_DESKTOP = 'siteTheme_d.css';
@@ -459,7 +459,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->fileSystem->expects($this->at(1))
             ->method('styleSheetExists')
-            ->with('page_d.css')
+            ->with('/resources/page_d.css')
             ->will($this->returnValue(true));
 
         $this->fileSystem->expects($this->at(0))
@@ -473,7 +473,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(
             array(
-                'page_d.css'
+                '/resources/page_d.css'
             ),
             $dependencies['css']
         );
