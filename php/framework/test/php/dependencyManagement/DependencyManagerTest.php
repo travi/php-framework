@@ -480,6 +480,26 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     }
 
+    public function testRemoteFileAddedEvenThoughItDoesNotExistLocally()
+    {
+        $remoteFile = '//path/to/some/remote/file';
+
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+
+        $this->dependencyManager->addStyleSheet($remoteFile);
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertSame(
+            array(
+                $remoteFile
+            ),
+            $dependencies['css']
+        );
+    }
+
     public function testAdminDependenciesHandledJustLikeOtherPages()
     {
         $this->request->expects($this->any())
