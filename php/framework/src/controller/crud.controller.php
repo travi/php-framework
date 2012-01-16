@@ -25,6 +25,13 @@ class CrudController extends AbstractController
             } else {
                 return $this->updateById($id, $response);
             }
+        case Request::DELETE:
+            if (empty($id)) {
+                //TODO: should be method not allowed
+                break;
+            } else {
+                return $this->deleteById($id, $response);
+            }
         }
     }
 
@@ -43,6 +50,10 @@ class CrudController extends AbstractController
     }
 
     public function addToList(&$response)
+    {
+    }
+
+    public function deleteById($id, &$response)
     {
     }
 }
