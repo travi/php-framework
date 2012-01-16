@@ -52,4 +52,14 @@ class Response extends AbstractResponse
     {
         $this->addFeed($feed, self::SITE_FEED_KEY);
     }
+
+    public function setStatus($status)
+    {
+        $this->setHeader('HTTP/1.1 ' . $status);
+    }
+
+    protected function setHeader($header)
+    {
+        header($header);
+    }
 }
