@@ -129,7 +129,7 @@ travi.framework.entityList = (function () {
         });
         $("form.item-action").submit(confirm);
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-        initPagination();
+//        initPagination();
     }
 
     $(document).ready(function () {
