@@ -1,9 +1,10 @@
 <?php
 
-require_once dirname(__FILE__).'/../../objects/dependantObject.class.php';
-require_once dirname(__FILE__).'/../../objects/content/contentObject.class.php';
-require_once dirname(__FILE__).'/../../objects/content/navigation/navigation.class.php';
+require_once dirname(__FILE__) . '/../../objects/dependantObject.class.php';
+require_once dirname(__FILE__) . '/../../objects/content/contentObject.class.php';
+require_once dirname(__FILE__) . '/../../objects/content/navigation/navigation.class.php';
 require_once dirname(__FILE__) . '/../../objects/page/abstractResponse.class.php';
+require_once dirname(__FILE__) . '/../../src/exception/InvalidHttpStatusException.exception.php';
 
 class Response extends AbstractResponse
 {
@@ -11,6 +12,11 @@ class Response extends AbstractResponse
     const NOT_IMPLEMENTED = '501 Not Implemented';
 
     const SITE_FEED_KEY = 'Site Feed';
+
+    private $definedStatuses = array(
+        self::NOT_ALLOWED,
+        self::NOT_IMPLEMENTED
+    );
 
     /** @var string */
     private $tagLine;
@@ -55,7 +61,11 @@ class Response extends AbstractResponse
 
     public function setStatus($status)
     {
-        $this->setHeader('HTTP/1.1 ' . $status);
+        if (in_array($status, $this->definedStatuses)) {
+            $this->setHeader('HTTP/1.1 ' . $status);
+        } else {
+            throw new InvalidHttpStatusException();
+        }
     }
 
     protected function setHeader($header)

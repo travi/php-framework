@@ -95,6 +95,24 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $response->setStatus(Response::NOT_ALLOWED);
     }
 
+    public function testSettingDefinedStatusesDoNotThrowException()
+    {
+        $response = new ResponseShunt(array());
+
+        $response->setStatus(Response::NOT_ALLOWED);
+        $response->setStatus(Response::NOT_IMPLEMENTED);
+    }
+
+    /**
+     * @expectedException InvalidHttpStatusException
+     */
+    public function testSettingUnDefinedStatusThrowsException()
+    {
+        $response = new ResponseShunt(array());
+
+        $response->setStatus('some random status string');
+    }
+
     public function testTagLine()
     {
         $this->response->setTagLine('tagLine');
