@@ -13,7 +13,7 @@ class OpenIdInput extends Input
             )
         );
 
-        $this->setClass("textInput");
+        $this->setClass("textInput open-id");
         $this->setType("text");
     }
 }

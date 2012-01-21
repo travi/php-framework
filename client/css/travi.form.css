@@ -138,3 +138,9 @@ ul.fieldList .notearea
     display: inline;
     padding-left: 0;
 }
+input.open-id{
+    padding: 3px;
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-image: url("../img/icons/openid-icon.png");
+}
