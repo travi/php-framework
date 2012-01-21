@@ -74,6 +74,10 @@ abstract class Input extends ContentObject implements Field
     {
         return $this->class;
     }
+    public  function setLabel($label)
+    {
+        $this->label = $label;
+    }
     public function getValidations()
     {
         return $this->validations;
