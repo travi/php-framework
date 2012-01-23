@@ -237,16 +237,9 @@
 
             import org.yaml.snakeyaml.Yaml
 
-            def file = new File('/home/travi/travi.org/config/pageDependencies.yml')
+            def file = new File("${properties['site.dir']}/config/pageDependencies.yml")
             def yaml = new Yaml()
 
-            def input = '''
-            a: 1
-            b: 2
-            c:
-              - aaa
-              - bbb
-            '''
             def parsed = yaml.load(file.getText())
 
             println parsed.site
