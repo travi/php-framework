@@ -47,7 +47,15 @@
         <classpath refid="liquibasetasks.classpath"/>
     </taskdef>
 
-    <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpath="${groovy.classpath}"/>
+    <path id="groovy.classpath">
+        <fileset dir="${ant.lib}">
+            <include name="${groovy.jar}"/>
+            <include name="${snakeyaml.jar}"/>
+        </fileset>
+    </path>
+    <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy">
+         <classpath refid="groovy.classpath"/>
+    </taskdef>
 
     <!--This is defined to be an empty fileset to keep jsLint from breaking
         when a project does not define any overrides-->
@@ -222,6 +230,28 @@
         />
         </sequential>
     </macrodef>
+
+    <target name="concat-defaults">
+        <groovy>
+            println "new hello world"
+
+            import org.yaml.snakeyaml.Yaml
+
+            def file = new File('/home/travi/travi.org/config/pageDependencies.yml')
+            def yaml = new Yaml()
+
+            def input = '''
+            a: 1
+            b: 2
+            c:
+              - aaa
+              - bbb
+            '''
+            def parsed = yaml.load(file.getText())
+
+            println parsed.site
+        </groovy>
+    </target>
 
     <target name="clean">
         <delete dir="${build.logs}"/>
