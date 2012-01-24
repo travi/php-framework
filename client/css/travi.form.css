@@ -144,3 +144,12 @@ input.open-id{
     background-repeat: no-repeat;
     background-image: url("../img/icons/openid-icon.png");
 }
+ul.fieldList > li > label:after{
+    content: ":";
+}
+ul.fieldList > li > label.ui-state-error:after{
+    content: "";
+}
+ul.fieldList fieldset legend:after{
+    content: ":";
+}
