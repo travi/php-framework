@@ -28,5 +28,4 @@
 {/foreach}
 {include file='head/jsInit.tpl'}
 {include file='head/clientTemplates.tpl'}
-{$page->goog_analytics()}
     </head>
