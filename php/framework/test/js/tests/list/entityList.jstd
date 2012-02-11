@@ -1,0 +1,15 @@
+TestCase('EntityListTests', {
+    entityList: travi.framework.entityList,
+
+    setUp: function () {
+        $('body').append($.render({}, 'entityList'));
+    },
+
+    'test form gets converted to link': function () {
+        this.entityList.init();
+
+        var $form = $('form');
+        assertEquals(1, $form.length);
+        assert($form.is(':not(:visible)'));
+    }
+});

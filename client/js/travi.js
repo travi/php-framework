@@ -1,4 +1,4 @@
-var travi = (function () {
+(function (global) {
     "use strict";
 
     var getStyleSheet = function (sheetUrl) {
@@ -52,10 +52,10 @@ var travi = (function () {
             };
         }());
 
-    return {
+    global.travi = {
         getStyleSheet   : getStyleSheet,
         namespace       : namespace,
         constants       : constants,
         enableConstants : constants
     };
-}());
+}(this));

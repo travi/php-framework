@@ -1,4 +1,4 @@
-travi.framework.entityList = (function () {
+(function (framework) {
     "use strict";
 
     var TEMPLATE_NAME = 'update-item',
@@ -26,7 +26,7 @@ travi.framework.entityList = (function () {
 
         $("#confirmation").dialog("option", "buttons", [
             {
-                text:   travi.framework.entityList.getButtonText(),
+                text:   getText(),
                 click:  function () {
                     $(this).dialog("close");
                     $form.ajaxSubmit({
@@ -140,11 +140,11 @@ travi.framework.entityList = (function () {
         init();
     });
 
-    return {
+    framework.namespace('entityList', {
         init                    : init,
         setConfirmationMessage  : setMessage,
         setButtonText           : setText,
         getButtonText           : getText,
         constants               : constants
-    };
-}());
+    });
+}(travi.framework));

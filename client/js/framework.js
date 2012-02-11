@@ -1,4 +1,4 @@
-travi.framework = (function () {
+(function (travi) {
     "use strict";
 
     var templates = travi.templates,
@@ -84,7 +84,8 @@ travi.framework = (function () {
             addLinksToChooseVersion();
         };
 
-    return {
-        init            : init
-    };
-}());
+    travi.namespace('framework', {
+        init: init,
+        namespace: travi.namespace
+    });
+}(travi));

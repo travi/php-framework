@@ -1,4 +1,4 @@
-(function () {
+(function (travi) {
     "use strict";
 
     var TEMPLATE_DIRECTORY = '/templates/',
@@ -49,4 +49,4 @@
         render: renderTemplate,
         init: init
     });
-}());
+}(travi));
