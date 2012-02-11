@@ -1,0 +1,1 @@
+<script>var _gaq=[['_setAccount','{$page->getGoogleAnalyticsKey()}'],['_trackPageview']];(function(d,t){literal}{{/literal}var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s){literal}}{/literal}(document,'script'))</script>
