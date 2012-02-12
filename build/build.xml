@@ -50,6 +50,13 @@
                 <include name="**/*.css" />
             </fileset>
         </yuicompress>
+        <yuicompress warn="false" munge="yes" preserveallsemicolons="true"
+            outputfolder="${building.dir}/client/min/thirdparty/" >
+            <fileset dir="${building.dir}/client/thirdparty/" >
+                <include name="**/*.js" />
+                <include name="**/*.css" />
+            </fileset>
+        </yuicompress>
         <copy todir="${building.dir}/client/min/js/jquery/plugins/wymeditor/skins/silver/images">
             <fileset dir="${building.dir}/client/js/jquery/plugins/wymeditor/skins/silver/images"/>
         </copy>

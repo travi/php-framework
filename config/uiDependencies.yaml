@@ -3,6 +3,7 @@ travi:
   local: /resources/shared/js/travi.js
   jsDependencies:
     - jquery
+    - amplify
 
 framework:
   local: /resources/shared/js/framework.js
@@ -132,3 +133,6 @@ pngFix:
 
 dateFormat:
   local: "/resources/shared/js/date/date.format.js"
+
+amplify:
+  local: /resources/shared/thirdparty/amplify/amplify.js
