@@ -132,7 +132,7 @@
             modal:      true,
             resizable:  false
         });
-        $('a.add-item').button({icons: {primary: 'ui-action-c//ircle-plus'}});
+        $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
         initPagination();
     }
 

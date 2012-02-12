@@ -3,13 +3,73 @@ TestCase('EntityListTests', {
 
     setUp: function () {
         $('body').append($.render({}, 'entityList'));
+
+        this.entityList.init();
+
+        this.$form = $('form');
+        this.$confirmation = $('#confirmation');
+
+//        this.$form.unbind('submit').submit(function (e) {
+//            e.preventDefault();
+//            e.stopPropagation();
+//
+//            console.log('submitted');
+//        });
+    },
+
+    tearDown: function () {
+        this.$confirmation.dialog('destroy').remove();
+    },
+
+    'test confirmation ready for use': function () {
+        assertEquals(this.$confirmation.length, 1);
+        assert(this.$confirmation.is(':not(:visible)'));
+
+        assertTrue(this.$confirmation.dialog('option', 'modal'));
+        assertFalse(this.$confirmation.dialog('option', 'resizable'));
+        assertFalse(this.$confirmation.dialog('option', 'autoOpen'));
+    },
+
+    'test submitting "remove" form shows confirmation': function () {
+        this.$form.submit();
+
+        this.assertModalDialogIsShown();
     },
 
     'test form gets converted to link': function () {
-        this.entityList.init();
+        assertEquals(1, this.$form.length);
+        assert(this.$form.is(':not(:visible)'));
+        assert($("li.remove-item a.item-action").is(':visible'));
+    },
 
-        var $form = $('form');
-        assertEquals(1, $form.length);
-        assert($form.is(':not(:visible)'));
+    'test clicking link triggers submit event on corresponding form': function () {
+        $('a.item-action').click();
+
+        this.assertModalDialogIsShown();
+    },
+
+    'test confirming remove makes ajax POST and removes entity on success': function () {
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success.call(null, {});
+        });
+        assertEquals(1, $('.entityList>li').length);
+        $('a.item-action').click();
+        $('.ui-dialog-buttonpane button').eq(0).click();
+
+        assert(jQuery.ajax.calledOnce);
+        this.assertAjaxCallMadeWith(jQuery.ajax.getCall(0).args[0]);
+
+        assertEquals(0, $('.entityList>li').length);
+    },
+
+    assertModalDialogIsShown: function () {
+        assert(this.$confirmation.is(':visible'));
+        assertEquals(1, $('div.ui-widget-overlay').length, 1);
+    },
+
+    assertAjaxCallMadeWith: function (args) {
+        assertEquals('/admin/updates/45', args.url);
+        assertEquals('post', args.type);
+        assertEquals('json', args.dataType);
     }
 });

@@ -14,61 +14,6 @@
         $templateLoader.resolve();
     });
 
-    $(document).ready(function () {
-        $('#confirmation').dialog('destroy');
-        $('#confirmation').remove();
-    });
-
-    $.mockjax({
-        url: "/admin/updates/45",
-        contentType: 'text/json',
-        responseText: {test: "test"}
-    });
-
-    module("POST handling for 'Remove' action", {
-        setup: function () {
-            $('body').append('<div id="scratch">');
-            $('#entity-list').tmpl().appendTo('#scratch');
-            travi.framework.entityList.init();
-        },
-        teardown: function () {
-            $('#scratch').remove();
-            $('#confirmation').dialog('destroy').remove();
-        }
-    });
-
-    test("Form conversion to link", function () {
-        //Setup
-        $('form').unbind('submit').submit(function () {
-            $('#scratch').append('<div id="submitVerify">form submitted</div>');
-            return false;
-        });
-
-        expect(4);
-        //Exercise
-
-        $('a.item-action').click();
-        //Verify
-        strictEqual($('form').length, 1, 'form exists');
-        ok($('form').is(':not(:visible)'), "form no longer visible");
-        ok($("li.remove-item a.item-action").is(':visible'), "link visible");
-        strictEqual($('#submitVerify').length, 1, "click submits form");
-    });
-
-
-    test("Ajax submission", function () {
-        expect(2);
-        $('#scratch').bind('entityRemoved', function () {
-            strictEqual($('.entityList>li').length, 0, 'Entity removed from list');
-            start();
-        });
-        $('a.item-action').click();
-        strictEqual($('.entityList>li').length, 1, 'Correct starting number of entities in list');
-
-        //Exercise
-        stop();
-        $('.ui-dialog-buttonpane button').eq(0).click();
-    });
     module("Remove Confirmation", {
         setup: function () {
             $('body').append('<div id="scratch">');
@@ -79,22 +24,6 @@
             $('#scratch').remove();
             $('#confirmation').dialog('destroy').remove();
         }
-    });
-    test("confirmation dialog", function () {
-        //Setup
-
-        expect(5);
-        //Verify
-        strictEqual($('#confirmation').length, 1, 'confirmation div exists');
-
-        ok($('#confirmation').is(':not(:visible)'), "confirmation not shown");
-        //Exercise
-
-        $('form').submit();
-        //Verify
-        ok($('#confirmation').is(':visible'), "confirmation shown");
-        strictEqual($('div.ui-widget-overlay').length, 1, 'is modal');
-        strictEqual($('#confirmation').dialog('option', 'modal'), true, 'is modal');
     });
 
     test("confirmation button text", function () {
