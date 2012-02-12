@@ -1,13 +1,7 @@
-(function () {
-    "use strict";
+travi.test.testCase("PaginationTest", {
+    pagination: travi.pagination,
 
-    travi.test.testCase("PaginationTest", {
-        setUp: function () {
-            $('body').append('<div id="scratch" class="test">');
-        },
-
-        "test request for more items loads more items into list": function () {
-            assertEquals(1, $('#scratch').length);
-        }
-    });
-}());
+    'test pagination object exists': function () {
+        assertObject(this.pagination);
+    }
+});
