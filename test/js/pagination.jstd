@@ -35,7 +35,8 @@ travi.test.testCase("PaginationTest", {
         assertEquals(
             this.pagination.events.PREV_PAGE_REQUESTED,
             travi.publish.getCall(0).args[0]
-        );},
+        );
+    },
 
     restore: function (functionName) {
         if (functionName.restore) {
