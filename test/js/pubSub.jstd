@@ -1,0 +1,6 @@
+travi.test.testCase('PubSubTests', {
+    'test pub/sub methods exposed': function () {
+        assertFunction(travi.publish);
+        assertFunction(travi.subscribe);
+    }
+});

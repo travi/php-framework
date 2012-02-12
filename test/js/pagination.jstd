@@ -1,7 +1,45 @@
 travi.test.testCase("PaginationTest", {
     pagination: travi.pagination,
 
-    'test pagination object exists': function () {
-        assertObject(this.pagination);
+    setUp: function () {
+        $('body').append($.render({}, 'pagination'));
+        this.pagination.init();
+
+        sinon.stub(travi, 'publish');
+    },
+
+    tearDown: function () {
+        this.restore(travi.publish);
+    },
+
+    'test events defined properly': function () {
+        assertObject(this.pagination.events);
+        assertEquals('next-page-requested', this.pagination.events.NEXT_PAGE_REQUESTED);
+        assertEquals('prev-page-requested', this.pagination.events.PREV_PAGE_REQUESTED);
+    },
+
+    'test clicking next-page link triggers proper event': function () {
+        $('a.more').click();
+
+        assert(travi.publish.calledOnce);
+        assertEquals(
+            this.pagination.events.NEXT_PAGE_REQUESTED,
+            travi.publish.getCall(0).args[0]
+        );
+    },
+
+    'test clicking prev-page link triggers proper event': function () {
+        $('a.prev').click();
+
+        assert(travi.publish.calledOnce);
+        assertEquals(
+            this.pagination.events.PREV_PAGE_REQUESTED,
+            travi.publish.getCall(0).args[0]
+        );},
+
+    restore: function (functionName) {
+        if (functionName.restore) {
+            functionName.restore();
+        }
     }
 });

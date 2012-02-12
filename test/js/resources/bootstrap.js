@@ -8,4 +8,5 @@ console.log = sinon.log = function () {
 
 $.fx.off = true;
 
-travi.templates.preLoad('entityList', '/test/php/framework/test/js/templates/entity-list.tmpl');
+travi.templates.preLoad('entityList', '/test/test/js/templates/entity-list.tmpl');
+travi.templates.preLoad('pagination', '/test/test/js/templates/pagination.tmpl');

@@ -52,10 +52,16 @@
             };
         }());
 
+    function publish(eventName) {}
+
+    function subscribe(eventName) {}
+
     global.travi = {
         getStyleSheet   : getStyleSheet,
         namespace       : namespace,
         constants       : constants,
-        enableConstants : constants
+        enableConstants : constants,
+        publish         : publish,
+        subscribe       : subscribe
     };
 }(this));

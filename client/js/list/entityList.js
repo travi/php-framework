@@ -133,12 +133,10 @@
             resizable:  false
         });
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-        initPagination();
+//        initPagination();
     }
 
-    $(document).ready(function () {
-        init();
-    });
+    $(init);
 
     framework.namespace('entityList', {
         init                    : init,
