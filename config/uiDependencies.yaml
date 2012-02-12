@@ -1,8 +1,8 @@
 #=======Framework Components=======
 travi:
-  local: "/resources/shared/js/travi.js"
+  local: /resources/shared/js/travi.js
   jsDependencies:
-    - "jquery"
+    - jquery
 
 framework:
   local: /resources/shared/js/framework.js
@@ -17,24 +17,30 @@ template:
   jsDependencies:
     - jsRender
 
-entityList:
-  local: "/resources/shared/js/list/entityList.js"
+pagination:
+  local: /resources/shared/js/travi/pagination.js
   jsDependencies:
-    - "jqueryUi"
-    - "ajaxForm"
-    - "framework"
+    - travi
+
+entityList:
+  local: /resources/shared/js/list/entityList.js
+  jsDependencies:
+    - jqueryUi
+    - ajaxForm
+    - framework
+    - pagination
   cssDependencies:
-    - "/resources/shared/css/travi.entities.css"
+    - /resources/shared/css/travi.entities.css
 
 cookieUtil:
-  local: "/resources/shared/js/cookies/cookies.js"
+  local: /resources/shared/js/cookies/cookies.js
   jsDependencies:
-    - "framework"
+    - framework
 
 locationUtil:
-  local: "/resources/shared/js/location.js"
+  local: /resources/shared/js/location.js
   jsDependencies:
-    - "framework"
+    - framework
 
 carousel:
   cssDependencies:
