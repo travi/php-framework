@@ -1,3 +1,4 @@
+/*global console jstestdriver*/
 travi.namespace('test', {
     testCase: TestCase
 });
