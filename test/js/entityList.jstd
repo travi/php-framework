@@ -25,7 +25,7 @@ TestCase('EntityListTests', {
     },
 
     'test events defined properly': function () {
-        assertEquals('updates-loaded', this.entityList.constants.get('PAGE_EVENT'));
+        assertEquals('page-loaded', this.entityList.constants.get('PAGE_EVENT'));
     },
 
     'test confirmation ready for use': function () {
@@ -119,10 +119,15 @@ TestCase('EntityListTests', {
     },
 
     assertLoadedDataAddedToList: function () {
+        var call;
+
         assertEquals(this.entities.length, $('.entityList > li').length);
 
         assert(travi.publish.calledOnce);
-        assertEquals(this.entityList.constants.get('PAGE_EVENT'), travi.publish.getCall(0).args[0]);
+        call = travi.publish.getCall(0);
+        assertEquals(this.entityList.constants.get('PAGE_EVENT'), call.args[0]);
+        assertEquals(15, call.args[1].nextOffset);
+        assertEquals(5, call.args[1].prevOffset);
     },
 
     stubRequestForAnnouncements: function () {
@@ -132,7 +137,9 @@ TestCase('EntityListTests', {
             options.success.call(null, {
                 updates: {
                     updateList: {
-                        entities: testCase.entities
+                        entities: testCase.entities,
+                        offset: 10,
+                        limit: 5
                     }
                 }
             });

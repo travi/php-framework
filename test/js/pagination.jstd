@@ -1,7 +1,11 @@
 travi.test.testCase("PaginationTest", {
     pagination: travi.pagination,
 
+    PAGE_LOADED: 'page-loaded',
+
     setUp: function () {
+        travi.unsubscribe(this.PAGE_LOADED, this.pagination.update);
+
         $('body').append($.render({}, 'pagination'));
         this.pagination.init();
 
@@ -10,12 +14,18 @@ travi.test.testCase("PaginationTest", {
 
     tearDown: function () {
         travi.test.common.restore(travi.publish);
+        travi.unsubscribe(this.PAGE_LOADED, this.pagination.update);
     },
 
     'test events defined properly': function () {
         assertObject(this.pagination.events);
         assertEquals('next-page-requested', this.pagination.events.NEXT_PAGE_REQUESTED);
         assertEquals('prev-page-requested', this.pagination.events.PREV_PAGE_REQUESTED);
+    },
+
+    'test out-of-range class defined properly': function () {
+        assertObject(this.pagination.constants);
+        assertEquals('outOfRange', this.pagination.constants.get('HIDDEN_CLASS'));
     },
 
     'test clicking next-page link triggers proper event': function () {
@@ -44,5 +54,19 @@ travi.test.testCase("PaginationTest", {
             call.args[0]
         );
         assertEquals('/controller/?offset=prevOffset', call.args[1].url);
+    },
+
+    'test links updated properly after page loaded': function () {
+        var newPrevOffset = 'newPrev',
+            newNextOffset = 'newNext';
+
+        amplify.publish(this.PAGE_LOADED, {
+            nextOffset: newNextOffset,
+            prevOffset: newPrevOffset
+        });
+
+        assertEquals(0, $('.pagination .outOfRange').length);
+        assertEquals('/controller/?offset=' + newNextOffset, $('a.more').attr('href'));
+        assertEquals('/controller/?offset=' + newPrevOffset, $('a.prev').attr('href'));
     }
 });

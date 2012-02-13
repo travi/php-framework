@@ -10,8 +10,7 @@
 
         $updateList;
 
-    constants.set('PAGE_EVENT', 'updates-loaded');
-    constants.set('HIDDEN_CLASS', 'outOfRange');
+    constants.set('PAGE_EVENT', 'page-loaded');
 
     function setMessage(confirmation) {
         $("#confirmation").text(confirmation);
@@ -136,7 +135,13 @@
                 }
 
                 $updateList.show('blind', function () {
-                    travi.publish(constants.get('PAGE_EVENT'));
+                    var offset = data.updates.updateList.offset,
+                        limit = data.updates.updateList.limit;
+
+                    travi.publish(constants.get('PAGE_EVENT'), {
+                        nextOffset: offset + limit,
+                        prevOffset: offset - limit
+                    });
                 });
             });
         });
