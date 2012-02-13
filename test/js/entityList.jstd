@@ -17,10 +17,15 @@ TestCase('EntityListTests', {
 
     tearDown: function () {
         travi.test.common.restore(jQuery.ajax);
+        travi.test.common.restore(travi.publish);
 
         travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         this.$confirmation.dialog('destroy').remove();
+    },
+
+    'test events defined properly': function () {
+        assertEquals('updates-loaded', this.entityList.constants.get('PAGE_EVENT'));
     },
 
     'test confirmation ready for use': function () {
@@ -71,8 +76,9 @@ TestCase('EntityListTests', {
     'test request for next page loads more announcements': function () {
         var url = 'nextUrl';
         this.stubRequestForAnnouncements();
+        sinon.stub(travi, 'publish');
 
-        travi.publish(this.pagination.events.NEXT_PAGE_REQUESTED, {url: url});
+        amplify.publish(this.pagination.events.NEXT_PAGE_REQUESTED, {url: url});
 
         assert(jQuery.ajax.calledOnce);
         this.assertAjaxCallMadeWith({
@@ -87,8 +93,9 @@ TestCase('EntityListTests', {
     'test request for prev page loads more announcements': function () {
         var url = 'prevUrl';
         this.stubRequestForAnnouncements();
+        sinon.stub(travi, 'publish');
 
-        travi.publish(this.pagination.events.PREV_PAGE_REQUESTED, {url: url});
+        amplify.publish(this.pagination.events.PREV_PAGE_REQUESTED, {url: url});
 
         assert(jQuery.ajax.calledOnce);
         this.assertAjaxCallMadeWith({
@@ -113,6 +120,9 @@ TestCase('EntityListTests', {
 
     assertLoadedDataAddedToList: function () {
         assertEquals(this.entities.length, $('.entityList > li').length);
+
+        assert(travi.publish.calledOnce);
+        assertEquals(this.entityList.constants.get('PAGE_EVENT'), travi.publish.getCall(0).args[0]);
     },
 
     stubRequestForAnnouncements: function () {

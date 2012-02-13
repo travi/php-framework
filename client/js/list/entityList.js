@@ -135,7 +135,9 @@
                     $updateList.append('<li>something</li>');
                 }
 
-                $updateList.show('blind');
+                $updateList.show('blind', function () {
+                    travi.publish(constants.get('PAGE_EVENT'));
+                });
             });
         });
     }
