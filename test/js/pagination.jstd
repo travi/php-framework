@@ -9,7 +9,7 @@ travi.test.testCase("PaginationTest", {
     },
 
     tearDown: function () {
-        this.restore(travi.publish);
+        travi.test.common.restore(travi.publish);
     },
 
     'test events defined properly': function () {
@@ -19,28 +19,30 @@ travi.test.testCase("PaginationTest", {
     },
 
     'test clicking next-page link triggers proper event': function () {
+        var call;
+
         $('a.more').click();
 
         assert(travi.publish.calledOnce);
+        call = travi.publish.getCall(0);
         assertEquals(
             this.pagination.events.NEXT_PAGE_REQUESTED,
-            travi.publish.getCall(0).args[0]
+            call.args[0]
         );
+        assertEquals('/controller/?offset=nextOffset', call.args[1].url);
     },
 
     'test clicking prev-page link triggers proper event': function () {
+        var call;
+
         $('a.prev').click();
 
         assert(travi.publish.calledOnce);
+        call = travi.publish.getCall(0);
         assertEquals(
             this.pagination.events.PREV_PAGE_REQUESTED,
-            travi.publish.getCall(0).args[0]
+            call.args[0]
         );
-    },
-
-    restore: function (functionName) {
-        if (functionName.restore) {
-            functionName.restore();
-        }
+        assertEquals('/controller/?offset=prevOffset', call.args[1].url);
     }
 });

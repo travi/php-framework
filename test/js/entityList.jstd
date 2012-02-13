@@ -1,23 +1,23 @@
 TestCase('EntityListTests', {
     entityList: travi.framework.entityList,
+    pagination: travi.pagination,
 
     setUp: function () {
+        travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
+        travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         $('body').append($.render({}, 'entityList'));
 
         this.entityList.init();
 
         this.$form = $('form');
         this.$confirmation = $('#confirmation');
-
-//        this.$form.unbind('submit').submit(function (e) {
-//            e.preventDefault();
-//            e.stopPropagation();
-//
-//            console.log('submitted');
-//        });
     },
 
     tearDown: function () {
+        travi.test.common.restore(jQuery.ajax);
+
+        travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
+        travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         this.$confirmation.dialog('destroy').remove();
     },
 
@@ -57,9 +57,45 @@ TestCase('EntityListTests', {
         $('.ui-dialog-buttonpane button').eq(0).click();
 
         assert(jQuery.ajax.calledOnce);
-        this.assertAjaxCallMadeWith(jQuery.ajax.getCall(0).args[0]);
+        this.assertAjaxCallMadeWith({
+            url: '/admin/updates/45',
+            method: 'post',
+            dataType: 'json'
+        }, jQuery.ajax.getCall(0).args[0]);
 
         assertEquals(0, $('.entityList>li').length);
+    },
+
+    'test request for next page loads more announcements': function () {
+        var url = 'nextUrl';
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success.call(null, {});
+        });
+
+        travi.publish(this.pagination.events.NEXT_PAGE_REQUESTED, {url: url});
+
+        assert(jQuery.ajax.calledOnce);
+        this.assertAjaxCallMadeWith({
+            url: url,
+            method: 'get',
+            dataType: 'json'
+        }, jQuery.ajax.getCall(0).args[0]);
+    },
+
+    'test request for prev page loads more announcements': function () {
+        var url = 'prevUrl';
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success.call(null, {});
+        });
+
+        travi.publish(this.pagination.events.PREV_PAGE_REQUESTED, {url: url});
+
+        assert(jQuery.ajax.calledOnce);
+        this.assertAjaxCallMadeWith({
+            url: url,
+            method: 'get',
+            dataType: 'json'
+        }, jQuery.ajax.getCall(0).args[0]);
     },
 
     assertModalDialogIsShown: function () {
@@ -67,9 +103,9 @@ TestCase('EntityListTests', {
         assertEquals(1, $('div.ui-widget-overlay').length, 1);
     },
 
-    assertAjaxCallMadeWith: function (args) {
-        assertEquals('/admin/updates/45', args.url);
-        assertEquals('post', args.type);
-        assertEquals('json', args.dataType);
+    assertAjaxCallMadeWith: function (expected, options) {
+        assertEquals(expected.url, options.url);
+        assertEquals(expected.method, options.type);
+        assertEquals(expected.dataType, options.dataType);
     }
 });

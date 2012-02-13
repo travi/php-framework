@@ -4,7 +4,8 @@
     var TEMPLATE_NAME = 'update-item',
         buttonText,
         constants = travi.constants,
-        templates = travi.templates;
+        templates = travi.templates,
+        pagination = travi.pagination;
 
     constants.set('PAGE_EVENT', 'updates-loaded');
     constants.set('HIDDEN_CLASS', 'outOfRange');
@@ -119,6 +120,10 @@
         });
     }
 
+    function requestAnnouncements(data) {
+        $.getJSON(data.url, function () {});
+    }
+
     function init() {
         templates.preLoad(TEMPLATE_NAME, '/resources/templates/admin/update-item.tmpl');
         restyleRemove();
@@ -134,6 +139,8 @@
         });
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
 //        initPagination();
+        travi.subscribe(pagination.events.NEXT_PAGE_REQUESTED, requestAnnouncements);
+        travi.subscribe(pagination.events.PREV_PAGE_REQUESTED, requestAnnouncements);
     }
 
     $(init);
@@ -143,6 +150,7 @@
         setConfirmationMessage  : setMessage,
         setButtonText           : setText,
         getButtonText           : getText,
-        constants               : constants
+        constants               : constants,
+        requestMoreAnnouncements: requestAnnouncements
     });
 }(travi.framework));

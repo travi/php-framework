@@ -7,9 +7,12 @@
     };
 
     function init() {
-        $('ul.pagination a').click(function () {
+        $('ul.pagination a').click(function (e) {
             var $this = $(this),
                 eventName;
+
+//            e.preventDefault();
+//            e.stopPropagation();
 
             if ($this.hasClass('more')) {
                 eventName = events.NEXT_PAGE_REQUESTED;
@@ -17,7 +20,7 @@
                 eventName = events.PREV_PAGE_REQUESTED;
             }
 
-            framework.publish(eventName);
+            framework.publish(eventName, {url: $this.attr('href')});
         });
     }
 
