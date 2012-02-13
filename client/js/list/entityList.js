@@ -1,11 +1,14 @@
 (function (framework) {
     "use strict";
 
-    var TEMPLATE_NAME = 'update-item',
-        buttonText,
-        constants = travi.constants,
+    var constants = travi.constants,
         templates = travi.templates,
-        pagination = travi.pagination;
+        pagination = travi.pagination,
+
+        TEMPLATE_NAME = 'update-item',
+        buttonText,
+
+        $updateList;
 
     constants.set('PAGE_EVENT', 'updates-loaded');
     constants.set('HIDDEN_CLASS', 'outOfRange');
@@ -86,7 +89,6 @@
                     updateContainer = data.updates.updateList,
                     updates = updateContainer.entities,
                     updateCount = updates.length,
-                    $updateList = $('ol.entityList'),
                     $prevUpdates = $('#previousUpdates'),
                     $divider = $('.pipeDivider');
 
@@ -120,14 +122,30 @@
         });
     }
 
-    function requestAnnouncements(data) {
-        $.getJSON(data.url, function () {});
+    function requestAnnouncements(eventData) {
+        $.getJSON(eventData.url, function (data) {
+            var i,
+                announcements = data.updates.updateList.entities,
+                l = announcements.length;
+
+            $updateList.hide('blind', function () {
+                $updateList.empty();
+
+                for (i = 0; i < l; i += 1) {
+                    $updateList.append('<li>something</li>');
+                }
+
+                $updateList.show('blind');
+            });
+        });
     }
 
     function init() {
         templates.preLoad(TEMPLATE_NAME, '/resources/templates/admin/update-item.tmpl');
+        $updateList = $('ol.entityList');
+
         restyleRemove();
-        $('ol.entityList').delegate('li.remove-item a.item-action', 'click', function () {
+        $updateList.delegate('li.remove-item a.item-action', 'click', function () {
             $(this).prev("form").submit();
             return false;
         }).delegate("form.item-action", 'submit', confirm);

@@ -2,6 +2,8 @@ TestCase('EntityListTests', {
     entityList: travi.framework.entityList,
     pagination: travi.pagination,
 
+    entities: [1, 2, 3],
+
     setUp: function () {
         travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
@@ -68,9 +70,7 @@ TestCase('EntityListTests', {
 
     'test request for next page loads more announcements': function () {
         var url = 'nextUrl';
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, {});
-        });
+        this.stubRequestForAnnouncements();
 
         travi.publish(this.pagination.events.NEXT_PAGE_REQUESTED, {url: url});
 
@@ -80,13 +80,13 @@ TestCase('EntityListTests', {
             method: 'get',
             dataType: 'json'
         }, jQuery.ajax.getCall(0).args[0]);
+
+        this.assertLoadedDataAddedToList();
     },
 
     'test request for prev page loads more announcements': function () {
         var url = 'prevUrl';
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, {});
-        });
+        this.stubRequestForAnnouncements();
 
         travi.publish(this.pagination.events.PREV_PAGE_REQUESTED, {url: url});
 
@@ -96,6 +96,8 @@ TestCase('EntityListTests', {
             method: 'get',
             dataType: 'json'
         }, jQuery.ajax.getCall(0).args[0]);
+
+        this.assertLoadedDataAddedToList();
     },
 
     assertModalDialogIsShown: function () {
@@ -107,5 +109,23 @@ TestCase('EntityListTests', {
         assertEquals(expected.url, options.url);
         assertEquals(expected.method, options.type);
         assertEquals(expected.dataType, options.dataType);
+    },
+
+    assertLoadedDataAddedToList: function () {
+        assertEquals(this.entities.length, $('.entityList > li').length);
+    },
+
+    stubRequestForAnnouncements: function () {
+        var testCase = this;
+
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success.call(null, {
+                updates: {
+                    updateList: {
+                        entities: testCase.entities
+                    }
+                }
+            });
+        });
     }
 });

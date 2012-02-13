@@ -11,8 +11,8 @@
             var $this = $(this),
                 eventName;
 
-//            e.preventDefault();
-//            e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
 
             if ($this.hasClass('more')) {
                 eventName = events.NEXT_PAGE_REQUESTED;
