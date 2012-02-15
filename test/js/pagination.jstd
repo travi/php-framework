@@ -2,6 +2,7 @@ travi.test.testCase("PaginationTest", {
     pagination: travi.pagination,
 
     PAGE_LOADED: 'page-loaded',
+    HIDDEN_CLASS: 'outOfRange',
 
     setUp: function () {
         travi.unsubscribe(this.PAGE_LOADED, this.pagination.update);
@@ -65,8 +66,33 @@ travi.test.testCase("PaginationTest", {
             prevOffset: newPrevOffset
         });
 
-        assertEquals(0, $('.pagination .outOfRange').length);
+        assertEquals(0, $('.pagination .' + this.HIDDEN_CLASS).length);
         assertEquals('/controller/?offset=' + newNextOffset, $('a.more').attr('href'));
         assertEquals('/controller/?offset=' + newPrevOffset, $('a.prev').attr('href'));
+    },
+
+    'test prev link hidden when at beginning': function () {
+        amplify.publish(this.PAGE_LOADED, {
+            offset: 0,
+            nextOffset: 5,
+            prevOffset: -5
+        });
+
+        assertTrue($('a.prev').parent().hasClass(this.HIDDEN_CLASS));
+        assertTrue($('li.pipeDivider').hasClass(this.HIDDEN_CLASS));
+        assertFalse($('a.more').parent().hasClass(this.HIDDEN_CLASS));
+    },
+
+    'test next link hidden when at end': function () {
+        amplify.publish(this.PAGE_LOADED, {
+            offset: 1,
+            nextOffset: 5,
+            prevOffset: -5,
+            total: 4
+        });
+
+        assertTrue($('a.more').parent().hasClass(this.HIDDEN_CLASS));
+        assertTrue($('li.pipeDivider').hasClass(this.HIDDEN_CLASS));
+        assertFalse($('a.prev').parent().hasClass(this.HIDDEN_CLASS));
     }
 });

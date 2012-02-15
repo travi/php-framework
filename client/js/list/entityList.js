@@ -135,12 +135,16 @@
                 }
 
                 $updateList.show('blind', function () {
-                    var offset = data.updates.updateList.offset,
-                        limit = data.updates.updateList.limit;
+                    var list = data.updates.updateList,
+                        offset = parseInt(list.offset, 10) || 0,
+                        limit = parseInt(list.limit, 10),
+                        total = parseInt(list.totalEntities, 10);
 
                     travi.publish(constants.get('PAGE_EVENT'), {
+                        offset: offset,
                         nextOffset: offset + limit,
-                        prevOffset: offset - limit
+                        prevOffset: offset - limit,
+                        total: total
                     });
                 });
             });

@@ -4,6 +4,9 @@
     var constants = travi.constants,
 
         $paginationControls,
+        $divider,
+        $moreLink,
+        $prevLink,
 
         events = {
             NEXT_PAGE_REQUESTED: 'next-page-requested',
@@ -32,15 +35,33 @@
         $link.attr('href', $link.attr('href').replace(/offset=.*/, 'offset=' + newOffset));
     }
 
-    function updateLinks(eventData) {
-        updateOffset($paginationControls.find('a.more'), eventData.nextOffset);
-        updateOffset($paginationControls.find('a.prev'), eventData.prevOffset);
+    function updateLinkVisibility(eventData) {
+        var HIDDEN_CLASS = constants.get('HIDDEN_CLASS');
 
-        $paginationControls.find('li').removeClass(constants.get('HIDDEN_CLASS'));
+        $paginationControls.find('li').removeClass(HIDDEN_CLASS);
+
+        if (eventData.offset === 0) {
+            $prevLink.parent().addClass(HIDDEN_CLASS);
+            $divider.addClass(HIDDEN_CLASS);
+        }
+        if (eventData.total < eventData.nextOffset) {
+            $moreLink.parent().addClass(HIDDEN_CLASS);
+            $divider.addClass(HIDDEN_CLASS);
+        }
+    }
+
+    function updateLinks(eventData) {
+        updateOffset($moreLink, eventData.nextOffset);
+        updateOffset($prevLink, eventData.prevOffset);
+
+        updateLinkVisibility(eventData);
     }
 
     function init() {
         $paginationControls = $('ul.pagination');
+        $divider = $paginationControls.find('li.pipeDivider');
+        $moreLink = $paginationControls.find('a.more');
+        $prevLink = $paginationControls.find('a.prev');
 
         $paginationControls.find('a').click(handleInteraction);
 
