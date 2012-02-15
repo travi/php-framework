@@ -40,7 +40,7 @@ travi.test.testCase("PaginationTest", {
             this.pagination.events.NEXT_PAGE_REQUESTED,
             call.args[0]
         );
-        assertEquals('/controller/?offset=nextOffset', call.args[1].url);
+        assertEquals('/controller/?offset=34', call.args[1].url);
     },
 
     'test clicking prev-page link triggers proper event': function () {
@@ -54,7 +54,7 @@ travi.test.testCase("PaginationTest", {
             this.pagination.events.PREV_PAGE_REQUESTED,
             call.args[0]
         );
-        assertEquals('/controller/?offset=prevOffset', call.args[1].url);
+        assertEquals('/controller/?offset=24', call.args[1].url);
     },
 
     'test links updated properly after page loaded': function () {
