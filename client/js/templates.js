@@ -5,6 +5,12 @@
         TEMPLATE_EXT = '.tmpl',
         loadedTemplates = {};
 
+    $.views.registerHelpers({
+        toLower: function (string) {
+            return string.toLowerCase();
+        }
+    });
+
     function loadTemplate(templateName, templateUrl) {
         var deferred = new $.Deferred(),
             promise = deferred.promise();
@@ -36,7 +42,7 @@
     }
 
     function renderTemplate(templateName, data) {
-        return $.render(data, templateName);
+        return $.render(data || {}, templateName);
     }
 
     function init() {

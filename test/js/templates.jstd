@@ -1,4 +1,6 @@
 TestCase("TemplateTests", {
+    templates: travi.templates,
+
     templateName: 'someName',
     templateAsString: 'template',
 
@@ -7,24 +9,12 @@ TestCase("TemplateTests", {
     },
 
     tearDown: function () {
-        if (jQuery.ajax.restore) {
-            jQuery.ajax.restore();
-        }
-        if (jQuery.Deferred.restore) {
-            jQuery.Deferred.restore();
-        }
-        if (jQuery.template.restore) {
-            jQuery.template.restore();
-        }
-        if (jQuery.render.restore) {
-            jQuery.render.restore();
-        }
-        if (travi.templates.get.restore) {
-            travi.templates.get.restore();
-        }
-        if (travi.templates.preLoad.restore) {
-            travi.templates.preLoad.restore();
-        }
+        travi.test.common.restore(jQuery.ajax);
+        travi.test.common.restore(jQuery.Deferred);
+        travi.test.common.restore(jQuery.template);
+        travi.test.common.restore(jQuery.render);
+        travi.test.common.restore(this.templates.get);
+        travi.test.common.restore(this.templates.preLoad);
     },
 
     "test templates namespace exists": function () {
@@ -155,5 +145,9 @@ TestCase("TemplateTests", {
             'Calls: ' + jQuery.ajax.callCount,
             jQuery.ajax.calledTwice
         );
+    },
+
+    'test template can be rendered without data': function () {
+        this.templates.render(this.templateName);
     }
 });

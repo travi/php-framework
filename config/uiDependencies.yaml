@@ -32,6 +32,8 @@ entityList:
     - pagination
   cssDependencies:
     - /resources/shared/css/travi.entities.css
+  clientTemplates:
+    update-item: /resources/templates/admin/update-item.tmpl
 
 cookieUtil:
   local: /resources/shared/js/cookies/cookies.js

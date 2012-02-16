@@ -1,8 +1,16 @@
 TestCase('EntityListTests', {
     entityList: travi.framework.entityList,
     pagination: travi.pagination,
+    templates: travi.templates,
 
-    entities: [1, 2, 3],
+    entities: [
+        {
+            type: 'someType'
+        },
+        {
+            type: 'someOtherType'
+        }
+    ],
 
     setUp: function () {
         travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
@@ -13,11 +21,18 @@ TestCase('EntityListTests', {
 
         this.$form = $('form');
         this.$confirmation = $('#confirmation');
+
+        sinon.stub(this.templates, 'get', function () {
+            var deferred = new $.Deferred();
+            deferred.resolve();
+            return deferred;
+        });
     },
 
     tearDown: function () {
         travi.test.common.restore(jQuery.ajax);
         travi.test.common.restore(travi.publish);
+        travi.test.common.restore(travi.templates.get);
 
         travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
@@ -155,14 +170,22 @@ TestCase('EntityListTests', {
     },
 
     assertLoadedDataAddedToList: function () {
+        assertEquals(this.entities.length, $('.entityList > li').length);
+        assertEquals(this.entities.length, $('.entityList > li.entityBlock').length);
+        assertEquals(1, $('.entityList > li.someType').length);
+        assertEquals(this.entities.length, $('.entityList li.someaction-item').length);
+
+        this.assertEventPublished();
+    },
+
+    assertEventPublished: function () {
         var call,
             eventData;
-
-        assertEquals(this.entities.length, $('.entityList > li').length);
 
         assert(travi.publish.calledOnce);
         call = travi.publish.getCall(0);
         assertEquals(this.entityList.constants.get('PAGE_EVENT'), call.args[0]);
+
         eventData = call.args[1];
         assertEquals(15, eventData.nextOffset);
         assertEquals(5, eventData.prevOffset);
@@ -177,6 +200,12 @@ TestCase('EntityListTests', {
             options.success.call(null, {
                 updates: {
                     updateList: {
+                        actions: [
+                            {
+                                text: 'someAction',
+                                link: 'someLink'
+                            }
+                        ],
                         entities: testCase.entities,
                         offset: 10,
                         limit: 5,

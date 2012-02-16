@@ -1,4 +1,4 @@
-(function (framework) {
+(function (travi, framework) {
     "use strict";
 
     var constants = travi.constants,
@@ -73,11 +73,6 @@
     }
 
     function initPagination() {
-        $.views.registerHelpers({
-            toLower: function (string) {
-                return string.toLowerCase();
-            }
-        });
 
 
         $('ul.pagination a.more, ul.pagination a.prev').click(function () {
@@ -87,9 +82,7 @@
                 var i,
                     updateContainer = data.updates.updateList,
                     updates = updateContainer.entities,
-                    updateCount = updates.length,
-                    $prevUpdates = $('#previousUpdates'),
-                    $divider = $('.pipeDivider');
+                    updateCount = updates.length;
 
                 templates.get(TEMPLATE_NAME).then(function () {
                     for (i = 0; i < updateCount; i = i + 1) {
@@ -105,16 +98,6 @@
                     }
                     restyleRemove();
                 });
-
-                if (updateContainer.offset <= 0 || !updateContainer.offset) {
-                    $prevUpdates.parent().addClass(constants.get('HIDDEN_CLASS'));
-                    $divider.addClass(constants.get('HIDDEN_CLASS'));
-                } else {
-                    $prevUpdates.parent().removeClass(constants.get('HIDDEN_CLASS'));
-                    $divider.removeClass(constants.get('HIDDEN_CLASS'));
-                }
-
-                $this.trigger(constants.get('PAGE_EVENT'));
             });
 
             return false;
@@ -124,15 +107,21 @@
     function requestAnnouncements(eventData) {
         $.getJSON(eventData.url, function (data) {
             var i,
-                announcements = data.updates.updateList.entities,
+                announcementsContainer = data.updates.updateList,
+                announcements = announcementsContainer.entities,
                 l = announcements.length;
 
             $updateList.hide('blind', function () {
                 $updateList.empty();
 
-                for (i = 0; i < l; i += 1) {
-                    $updateList.append('<li>something</li>');
-                }
+                templates.get(TEMPLATE_NAME).then(function () {
+                    for (i = 0; i < l; i += 1) {
+                        $updateList.append(templates.render(TEMPLATE_NAME, {
+                            list: announcementsContainer,
+                            update:announcements[i]
+                        }));
+                    }
+                });
 
                 $updateList.show('blind', function () {
                     var list = data.updates.updateList,
@@ -152,7 +141,6 @@
     }
 
     function init() {
-        templates.preLoad(TEMPLATE_NAME, '/resources/templates/admin/update-item.tmpl');
         $updateList = $('ol.entityList');
 
         restyleRemove();
@@ -182,4 +170,4 @@
         constants               : constants,
         requestMoreAnnouncements: requestAnnouncements
     });
-}(travi.framework));
+}(travi, travi.framework));
