@@ -8,7 +8,6 @@
         <include name="client/js/**/*.js" />
         <exclude name="client/js/form/openid.js" />
         <exclude name="client/js/date/**/*.js" />
-        <exclude name="client/js/jquery/**/*.js" />
         <exclude name="client/js/pngFix/**/*.js" />
         <exclude name="client/js/reflection/**/*.js" />
         <exclude name="client/js/qunit/**/*.js" />
