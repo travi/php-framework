@@ -1,7 +1,11 @@
 <li class="entityBlock {{=update.type}}">
     <ul class="actions">
         {{#each list.actions}}
-        <li class="{{=$ctx.toLower(text)}}-item"></li>
+        <li class="{{=$ctx.toLower(text)}}-item">
+            <form action="#" method="post">
+                <label for="text">text</label><input id="text" name="someName" type="text"/>
+            </form>
+        </li>
         {{/each}}
     </ul>
 </li>

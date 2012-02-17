@@ -72,38 +72,6 @@
             .after("<a class='item-action' href='#'>Remove</a>");
     }
 
-    function initPagination() {
-
-
-        $('ul.pagination a.more, ul.pagination a.prev').click(function () {
-            var $this = $(this);
-
-            $.getJSON($this.attr('href'), function (data) {
-                var i,
-                    updateContainer = data.updates.updateList,
-                    updates = updateContainer.entities,
-                    updateCount = updates.length;
-
-                templates.get(TEMPLATE_NAME).then(function () {
-                    for (i = 0; i < updateCount; i = i + 1) {
-                        $updateList.append(
-                            templates.render(
-                                TEMPLATE_NAME,
-                                {
-                                    list: updateContainer,
-                                    update: updates[i]
-                                }
-                            )
-                        );
-                    }
-                    restyleRemove();
-                });
-            });
-
-            return false;
-        });
-    }
-
     function requestAnnouncements(eventData) {
         $.getJSON(eventData.url, function (data) {
             var i,
@@ -118,7 +86,7 @@
                     for (i = 0; i < l; i += 1) {
                         $updateList.append(templates.render(TEMPLATE_NAME, {
                             list: announcementsContainer,
-                            update:announcements[i]
+                            update: announcements[i]
                         }));
                     }
                 });
@@ -128,6 +96,8 @@
                         offset = parseInt(list.offset, 10) || 0,
                         limit = parseInt(list.limit, 10),
                         total = parseInt(list.totalEntities, 10);
+
+                    restyleRemove();
 
                     travi.publish(constants.get('PAGE_EVENT'), {
                         offset: offset,
@@ -155,7 +125,7 @@
             resizable:  false
         });
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
-//        initPagination();
+
         travi.subscribe(pagination.events.NEXT_PAGE_REQUESTED, requestAnnouncements);
         travi.subscribe(pagination.events.PREV_PAGE_REQUESTED, requestAnnouncements);
     }

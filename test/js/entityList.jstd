@@ -173,7 +173,9 @@ TestCase('EntityListTests', {
         assertEquals(this.entities.length, $('.entityList > li').length);
         assertEquals(this.entities.length, $('.entityList > li.entityBlock').length);
         assertEquals(1, $('.entityList > li.someType').length);
-        assertEquals(this.entities.length, $('.entityList li.someaction-item').length);
+        assertEquals(this.entities.length, $('.entityList li.remove-item').length);
+        assertEquals(this.entities.length, $("li.remove-item form").length);
+        assertEquals(0, $("li.remove-item form:visible").length);
 
         this.assertEventPublished();
     },
@@ -202,7 +204,7 @@ TestCase('EntityListTests', {
                     updateList: {
                         actions: [
                             {
-                                text: 'someAction',
+                                text: 'Remove',
                                 link: 'someLink'
                             }
                         ],
