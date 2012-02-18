@@ -75,7 +75,7 @@ class FrontController
 
                 $controller->doAction($this->Request, $this->Response);
             } else {
-                throw new NotFoundException('Controller Not Found!');
+                throw new NotFoundException($controllerName . ' Controller Not Found!');
             }
         } catch (NotFoundException $e) {
             $this->respondWithError(404, $e);
