@@ -6,15 +6,7 @@
 
     <fileset id="js.files" dir="../" >
         <include name="client/js/**/*.js" />
-        <exclude name="client/js/form/openid.js" />
-        <exclude name="client/js/date/**/*.js" />
-        <exclude name="client/js/pngFix/**/*.js" />
-        <exclude name="client/js/reflection/**/*.js" />
         <exclude name="client/js/qunit/**/*.js" />
-        <exclude name="client/js/modernizr/**/*.js" />
-        <exclude name="client/js/LABjs/**/*.js" />
-        <exclude name="client/js/techPatterns/**/*.js" />
-        <exclude name="client/js/instant/**/*.js" />
     </fileset>
     <fileset id="js.exclude.overrides" dir="../client/js/" >
         <include name="qunit/**/bootstrap.js" />

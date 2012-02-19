@@ -1,4 +1,4 @@
-(function () {
+(function (travi) {
     "use strict";
 
     var getNameAndValueFromPair = function (pair) {
@@ -95,4 +95,4 @@
         clearAll: clearAll,
         value: valueOf
     });
-}());
+}(travi));

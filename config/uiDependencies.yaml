@@ -24,7 +24,7 @@ pagination:
     - travi
 
 entityList:
-  local: /resources/shared/js/list/entityList.js
+  local: /resources/shared/js/travi/framework/entityList.js
   jsDependencies:
     - jqueryUi
     - ajaxForm
@@ -36,7 +36,7 @@ entityList:
     update-item: /resources/templates/admin/update-item.tmpl
 
 cookieUtil:
-  local: /resources/shared/js/cookies/cookies.js
+  local: /resources/shared/js/travi/framework/cookies.js
   jsDependencies:
     - framework
 
