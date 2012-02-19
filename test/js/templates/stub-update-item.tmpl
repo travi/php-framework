@@ -1,6 +1,7 @@
-<li class="entityBlock {{=update.type}}">
+{{#each updates}}
+<li class="entityBlock {{=type}}">
     <ul class="actions">
-        {{#each list.actions}}
+        {{#each $parent.parent.data.list.actions}}
         <li class="{{=$ctx.toLower(text)}}-item">
             <form action="#" method="post">
                 <label for="text">text</label><input id="text" name="someName" type="text"/>
@@ -9,3 +10,4 @@
         {{/each}}
     </ul>
 </li>
+{{/each}}

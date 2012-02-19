@@ -74,21 +74,17 @@
 
     function requestAnnouncements(eventData) {
         $.getJSON(eventData.url, function (data) {
-            var i,
-                announcementsContainer = data.updates.updateList,
-                announcements = announcementsContainer.entities,
-                l = announcements.length;
+            var announcementsContainer = data.updates.updateList,
+                announcements = announcementsContainer.entities;
 
             $updateList.hide('blind', function () {
                 $updateList.empty();
 
                 templates.get(TEMPLATE_NAME).then(function () {
-                    for (i = 0; i < l; i += 1) {
-                        $updateList.append(templates.render(TEMPLATE_NAME, {
-                            list: announcementsContainer,
-                            update: announcements[i]
-                        }));
-                    }
+                    $updateList.append(templates.render(TEMPLATE_NAME, {
+                        list: announcementsContainer,
+                        updates: announcements
+                    }));
                 });
 
                 $updateList.show('blind', function () {
