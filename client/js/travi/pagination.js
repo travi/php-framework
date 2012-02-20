@@ -32,7 +32,7 @@
     }
 
     function updateOffset($link, newOffset) {
-        $link.attr('href', $link.attr('href').replace(/offset=\d*/, 'offset=' + newOffset));
+        $link.attr('href', $link.attr('href').replace(/offset=[\-\d]*/, 'offset=' + newOffset));
     }
 
     function updateLinkVisibility(eventData) {
