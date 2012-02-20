@@ -128,10 +128,10 @@ reflection:
   local: /resources/shared/thirdparty/reflection/reflection.js
 
 instant:
-  local: "/resources/shared/js/instant/instant.js"
+  local: /resources/shared/thirdparty/instant/instant.js
 
 pngFix:
-  local: "/resources/shared/js/pngFix/DD_belatedPNG.js"
+  local: /resources/shared/thirdparty/pngFix/DD_belatedPNG.js
 
 dateFormat:
   local: /resources/shared/thirdparty/date/date.format.js
