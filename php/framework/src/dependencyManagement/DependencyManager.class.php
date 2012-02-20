@@ -8,7 +8,6 @@ class DependencyManager
     const SITE_THEME_ENHANCED_KEY = 'siteThemeEnhanced';
     const THIS_PAGE_KEY = 'thisPage';
     const THIS_PAGE_ENHANCED_KEY = 'thisPageEnhanced';
-    const MIN_DIR = '/min';
 
     /** @var \ClientDependencies */
     private $clientDependencyDefinitions;
@@ -25,6 +24,8 @@ class DependencyManager
 
     const RESOURCES = '/resources';
     const SHARED_RESOURCES = '/resources/shared';
+    const MIN_DIR = '/min';
+    const THIRDPARTY = 'thirdparty';
 
     public function addJavaScript($script)
     {
@@ -288,7 +289,21 @@ class DependencyManager
 
     private function replaceWithMinifiedVersion($dependency)
     {
-        return preg_replace('/\/(css|js)\//', '/min/$1/', $dependency, 1);
+        if (strpos($dependency, self::THIRDPARTY)) {
+            return preg_replace(
+                '/\/(' . self::THIRDPARTY . ')\//',
+                self::MIN_DIR . '/$1/',
+                $dependency,
+                1
+            );
+        } else {
+            return preg_replace(
+                '/\/(css|js)\//',
+                self::MIN_DIR . '/$1/',
+                $dependency,
+                1
+            );
+        }
     }
 
     private function resolveFileUri($sheet)
