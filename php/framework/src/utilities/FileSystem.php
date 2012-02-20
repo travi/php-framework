@@ -6,6 +6,8 @@ class FileSystem
 {
     const PATH_TO_STYLE_SHEETS = '/resources/css/';
     const PATH_TO_SHARED_STYLE_SHEETS = '/resources/shared/css/';
+    const PATH_TO_SHARED = '/resources/shared/';
+    const PATH_TO_SHARED_THIRDPARTY = '/resources/shared/thirdparty/';
     const PAGE_STYLE_SHEET_DIR = 'pages/';
     const CSS_EXT = '.css';
 
@@ -18,7 +20,7 @@ class FileSystem
     {
         if (strstr($sheet, self::PATH_TO_STYLE_SHEETS)) {
             $pathToSheet = $this->sitePath . '/doc_root' . $sheet;
-        } elseif (strstr($sheet, self::PATH_TO_SHARED_STYLE_SHEETS)) {
+        } elseif (strstr($sheet, self::PATH_TO_SHARED)) {
             $pathToSheet = $this->sharedPath . '/client' . substr($sheet, strlen('/resources/shared'));
         } elseif (strstr($sheet, '//')) {
             return false;
