@@ -10,8 +10,6 @@
 
         $updateList;
 
-    constants.set('PAGE_EVENT', 'page-loaded');
-
     function setMessage(confirmation) {
         $("#confirmation").text(confirmation);
     }

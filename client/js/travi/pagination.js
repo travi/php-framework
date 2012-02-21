@@ -14,6 +14,7 @@
         };
 
     constants.set('HIDDEN_CLASS', 'outOfRange');
+    constants.set('PAGE_EVENT', 'page-loaded');
 
     function handleInteraction(e) {
         var $this = $(e.target),
