@@ -146,6 +146,25 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             )
         );
     }
+
+    public function testSiteFeedFromConfig()
+    {
+        $someFeed = 'some feed';
+
+        $response = new Response(array('siteFeed' => $someFeed));
+
+        $this->assertEquals(
+            array(
+                array(
+                     'link' => $someFeed,
+                     'title' => Response::SITE_FEED_KEY,
+                     'type' => AbstractResponse::LINK_ATTR_RSS_TYPE,
+                     'rel' => AbstractResponse::LINK_ATTR_REL_ALTERNATE
+                )
+            ),
+            $response->getLinkTags()
+        );
+    }
 }
 
 class ResponseShunt extends Response
