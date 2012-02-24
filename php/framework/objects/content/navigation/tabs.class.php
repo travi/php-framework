@@ -14,5 +14,3 @@ class Tabs extends NavigationObject
         $this->setTemplate('components/tabs.tpl');
     }
 }
- 
-?>
