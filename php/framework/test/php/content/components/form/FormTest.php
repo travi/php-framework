@@ -27,6 +27,13 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertSame('name', $this->form->getName());
     }
 
+    public function testMethodFromOptions()
+    {
+        $method = 'some method';
+        $form = new Form(array('method' => $method));
+        $this->assertEquals($method, $form->getMethod());
+    }
+
     public function testMethodDefaultsToPost()
     {
         $this->assertSame('post', $this->form->getMethod());
