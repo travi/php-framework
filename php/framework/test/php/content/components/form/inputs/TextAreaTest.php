@@ -12,7 +12,7 @@ class TextAreaTest extends PHPUnit_Framework_TestCase
     /**
      * @var TextArea
      */
-    protected $object;
+    protected $textArea;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -23,49 +23,34 @@ class TextAreaTest extends PHPUnit_Framework_TestCase
         $options = array();
         $options['rows'] = 4;
 
-        $this->object = new TextArea($options);
+        $this->textArea = new TextArea($options);
     }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
-
-    /**
-     * @todo Implement testGetRows().
-     */
     public function testGetRows()
     {
-        $this->assertSame(4, $this->object->getRows());
+        $this->assertSame(4, $this->textArea->getRows());
     }
 
-    /**
-     * @todo Implement testGetRowsDefault().
-     */
     public function testGetRowsDefault()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $textArea = new TextArea(array());
+
+        $this->assertEquals(null, $textArea->getRows());
     }
 
     public function testClassName()
     {
-        $this->assertSame('textInput', $this->object->getClass());
+        $this->assertSame('textInput', $this->textArea->getClass());
     }
 
     public function testType()
     {
-        $this->assertNull($this->object->getType());
+        $this->assertNull($this->textArea->getType());
     }
 
     public function testTemplate()
     {
-        $this->assertSame('components/form/textArea.tpl', $this->object->getTemplate());
+        $this->assertSame('components/form/textArea.tpl', $this->textArea->getTemplate());
     }
 }
 ?>

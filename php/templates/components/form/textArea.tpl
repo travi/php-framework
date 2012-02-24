@@ -1,4 +1,5 @@
 <label for="{$field->getName()}">{$field->getLabel()}</label>
-<textarea name="{$field->getName()}" id="{$field->getName()}" rows="{$field->getRows()}" class="{$field->getClass()}">
+{assign var="rowCount" value=$field->getRows()}
+<textarea name="{$field->getName()}" id="{$field->getName()}"{if !empty($rowCount)} rows="{$rowCount}"{/if} class="{$field->getClass()}">
 {$field->getValue()}
 </textarea>
