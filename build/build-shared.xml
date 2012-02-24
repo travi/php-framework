@@ -9,11 +9,6 @@
         </not>
     </condition>
 
-    <condition property="simpletest.report.format" value="-junit">
-        <contains string="${computer.hostname}" substring="teamcity"/>
-    </condition>
-
-
     <path id="js.lint.classpath">
         <fileset dir="${ant.lib}">
             <include name="${jslint4java.jar}"/>
