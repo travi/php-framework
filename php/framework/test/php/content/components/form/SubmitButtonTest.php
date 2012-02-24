@@ -31,17 +31,6 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @todo Implement testSetConfirmation().
-     */
-    public function testSetConfirmation()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testClassName()
     {
         $this->assertSame('submitButton', $this->object->getClass());

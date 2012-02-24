@@ -4,8 +4,6 @@ require_once 'inputs/Input.php';
 
 class SubmitButton extends Input
 {
-    protected $confirmation;
-
     public function __construct($options)
     {
         parent::__construct($options);
@@ -22,24 +20,4 @@ class SubmitButton extends Input
         $this->addJavaScript('jqueryUi');
         $this->addJsInit('$("input[type=submit]").button()');
     }
-
-    //TODO need to replace this technique using UI dialog
-    public function setConfirmation($confirmation)
-    {
-        $this->confirmation = $confirmation;
-    }
-
-    //public function __toString()
-    //{
-    //    $string = '
-    //                    <input type="'.$this->type.'" name="'.$this->name.'"
-    //id="'.$this->name.'" value="'.$this->value.
-    //                '" class="'.$this->class.'"';
-    //    if(!empty($this->confirmation))
-    //        $string .= ' onclick="if (confirm(\''.$this->confirmation.'\'))
-    //    return true; else return false;"';
-    //    $string .= '/>';
-    //
-    //    return $string;
-    //}
 }
