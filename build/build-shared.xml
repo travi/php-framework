@@ -129,6 +129,21 @@
         </exec>
     </target>
 
+    <target name="phpcs-legacy" description="PHP Code Sniffer">
+        <mkdir dir="${build.logs}"/>
+        <exec executable="phpcs">
+            <arg line="--version"/>
+        </exec>
+        <exec dir="${src.dir}/../"
+              executable="phpcs"
+              output="${build.logs}/checkstyle-legacy.xml"
+              failonerror="true">
+            <arg line="--standard=${shared.dir}/codingStandard.xml"/>
+            <arg line="--ignore=*/coverage/*"/>
+            <arg line="--report=checkstyle ."/>
+        </exec>
+    </target>
+
     <target name="phpcpd" description="PHP Copy/Paste Detector">
         <exec dir="${src.dir}"
               executable="phpcpd"
