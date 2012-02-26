@@ -41,9 +41,13 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('format');
         $mockResponse->expects($this->once())
             ->method('setContent')
-            ->with($this->equalTo(array(
-                'key1' => 'someContent'
-            )));
+            ->with(
+                $this->equalTo(
+                    array(
+                    'key1' => 'someContent'
+                    )
+                )
+            );
 
         //in created controller
         $mockResponse->expects($this->once())
