@@ -12,4 +12,14 @@ class Test extends AbstractController
     {
         $response->setTitle('Test');
     }
+
+    /**
+     * @param $request Request
+     * @param $response Response
+     * @return void
+     */
+    public function throwsError(&$request, &$response)
+    {
+        throw new Exception;
+    }
 }

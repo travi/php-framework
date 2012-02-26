@@ -1,8 +1,8 @@
 <?php
-
 require_once dirname(__FILE__) . '/../../../objects/page/abstractResponse.class.php';
-require_once dirname(__FILE__).'/../abstract.controller.php';
-require_once dirname(__FILE__).'/../../exception/NotFound.exception.php';
+require_once dirname(__FILE__) . '/../abstract.controller.php';
+require_once dirname(__FILE__) . '/../../exception/NotFound.exception.php';
+include_once dirname(__FILE__) . '/../error.controller.php';
 
 class FrontController
 {
@@ -13,33 +13,6 @@ class FrontController
 
     private $config;
 
-    /**
-     * @PdInject config
-     * @param $config
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @PdInject request
-     * @param $request
-     */
-    public function setRequest($request)
-    {
-        $this->Request = $request;
-    }
-
-    /**
-     * @PdInject response
-     * @param $response
-     */
-    public function setResponse($response)
-    {
-        $this->Response = $response;
-    }
-
     public function processRequest()
     {
         if ($this->Request->isAdmin()) {
@@ -49,13 +22,16 @@ class FrontController
                 $this->respondWithError(500, $e);
             }
         }
-        $this->dispatchToController();
-        $this->sendResponse();
 
-        return $this->Response;
+        try{
+            $this->dispatchToController();
+            $this->sendResponse();
+        } catch (NotFoundException $e) {
+            $this->respondWithError(404, $e);
+        } catch (Exception $e) {
+            $this->respondWithError(500, $e);
+        }
     }
-
-
 
     private function dispatchToController()
     {
@@ -66,22 +42,22 @@ class FrontController
                           . $extraPathParts
                           . $controllerName . '.controller.php';
 
-        try {
             if (is_file($controllerPath)) {
                 include_once $controllerPath;
 
                 /** @var $controller AbstractController */
-                $controller = Pd_Make::name($controllerName);
+                $controller = $this->getController($controllerName);
 
                 $controller->doAction($this->Request, $this->Response);
             } else {
                 throw new NotFoundException($controllerName . ' Controller Not Found!');
             }
-        } catch (NotFoundException $e) {
-            $this->respondWithError(404, $e);
-        } catch (Exception $e) {
-            $this->respondWithError(500, $e);
-        }
+    }
+
+    protected function getController($controllerName)
+    {
+        $controller = Pd_Make::name($controllerName);
+        return $controller;
     }
 
     private function sendResponse()
@@ -90,28 +66,31 @@ class FrontController
          * TODO: this feels like the wrong place for this
          * should it go in the doAction of the abstract controller?
          * or the Response object?
+         * Update: Should probably go in the HtmlRenderer
          */
-        $template = $this->Response->getPageTemplate();
-        $templateByConvention = '/'
-                    . $this->Request->getController() . '/'
-                    . $this->Request->getAction()
-                    . '.tpl';
-
-        if (empty($template)
-            && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
-        ) {
-            $this->Response->setPageTemplate($templateByConvention);
-        }
+//        $template = $this->Response->getPageTemplate();
+//        $templateByConvention = '/'
+//                    . $this->Request->getController() . '/'
+//                    . $this->Request->getAction()
+//                    . '.tpl';
+//
+//        if (empty($template)
+//            && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
+//        ) {
+//            $this->Response->setPageTemplate($templateByConvention);
+//        }
         $this->Response->format();
     }
 
     private function respondWithError($errorCode, $exception = null)
     {
-        include_once dirname(__FILE__) . '/../error.controller.php';
-        $error = new ErrorController();
-        $error->doAction($this->Request, $this->Response, 'error' . $errorCode, $exception);
+        $this->errorController->doAction(
+            $this->Request,
+            $this->Response,
+            'error' . $errorCode,
+            $exception
+        );
         $this->sendResponse();
-        exit;
     }
 
     private function authenticate($user, $pass)
@@ -169,5 +148,41 @@ class FrontController
             //Show Unauthorized page if user chooses cancel
             $this->respondWithError(401);
         }
+    }
+
+    /**
+     * @PdInject config
+     * @param $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * @PdInject request
+     * @param $request
+     */
+    public function setRequest($request)
+    {
+        $this->Request = $request;
+    }
+
+    /**
+     * @PdInject response
+     * @param $response
+     */
+    public function setResponse($response)
+    {
+        $this->Response = $response;
+    }
+
+    /**
+     * @param $controller
+     * @PdInject new:ErrorController
+     */
+    public function setErrorController($controller)
+    {
+        $this->errorController = $controller;
     }
 }
