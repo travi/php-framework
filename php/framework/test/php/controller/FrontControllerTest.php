@@ -82,8 +82,8 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $mockRequest = $this->getMock('Request');
         $mockRequest->expects($this->any())
-                ->method('getController')
-                ->will($this->returnValue('test'));
+            ->method('getController')
+            ->will($this->returnValue('test'));
 
         //in created controller
         $mockRequest->expects($this->once())
