@@ -32,7 +32,9 @@
                             <ul class="actions">
                 {foreach from=$row item=actions}
                     {if !isset($actions['active']) || $actions['active'] == TRUE}
-                                    <li class="item-action {$actions['class']}"><a href="{$actions['link']}{$entity->getId()}">{$actions['text']}</a></li>
+                                    <li class="{$actions['class']}">
+                                        <a class="item-action" href="{$actions['link']}{$entity->getId()}">{$actions['text']}</a>
+                                    </li>
                     {/if}
                 {/foreach}
                         </ul>

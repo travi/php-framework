@@ -28,16 +28,16 @@ ul.actions li.edit-item a{
 ul.actions li.remove-item a{
 	background-image: url(/resources/shared/img/famfamfam/delete.png);
 }
-ul.actions li.add-photo{
+ul.actions li.add-photo a{
 	background-image: url(/resources/shared/img/famfamfam/image_add.png);
 }
-ul.actions li.manage-photos{
+ul.actions li.manage-photos a{
 	background-image: url(/resources/shared/img/famfamfam/images.png);
 }
-ul.actions li.add-note{
+ul.actions li.add-note a{
 	background-image: url(/resources/shared/img/famfamfam/note_add.png);
 }
-ul.actions li.manage-notes{
+ul.actions li.manage-notes a{
 	background-image: url(/resources/shared/img/famfamfam/note.png);
 }    
 ol.entityList{
