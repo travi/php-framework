@@ -29,6 +29,7 @@ class FrontController
         } catch (NotFoundException $e) {
             $this->respondWithError(404, $e);
         } catch (Exception $e) {
+            //TODO: can this be done in a way that PhpUnit exceptions dont get caught?
             $this->respondWithError(500, $e);
         }
     }
@@ -48,7 +49,11 @@ class FrontController
             /** @var $controller AbstractController */
             $controller = $this->getController($controllerName);
 
-            $controller->doAction($this->Request, $this->Response);
+            $modelMap = $controller->doAction($this->Request, $this->Response);
+
+            if (!empty($modelMap)) {
+                $this->Response->setContent($modelMap);
+            }
         } else {
             throw new NotFoundException($controllerName . ' Controller Not Found!');
         }

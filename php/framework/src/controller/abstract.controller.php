@@ -9,7 +9,7 @@ abstract class AbstractController
      * @param $response Response
      * @param string $action
      * @param string $extra
-     * @return void
+     * @return array
      */
     public function doAction(&$request, &$response, $action = '', $extra = '')
     {
@@ -18,7 +18,7 @@ abstract class AbstractController
         }
 
         if (method_exists($this, $action)) {
-            $this->$action($request, $response, $extra);
+            return $this->$action($request, $response, $extra);
         } else {
             throw new NotFoundException($action . ' Action Not Found!');
         }

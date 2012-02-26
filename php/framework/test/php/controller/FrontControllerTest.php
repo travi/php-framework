@@ -39,11 +39,41 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $mockResponse = $this->getMock('Response');
         $mockResponse->expects($this->once())
             ->method('format');
+        $mockResponse->expects($this->once())
+            ->method('setContent')
+            ->with($this->equalTo(array(
+                'key1' => 'someContent'
+            )));
 
         //in created controller
         $mockResponse->expects($this->once())
             ->method('setTitle')
             ->with($this->equalTo('Test'));
+
+        $this->frontController->setRequest($mockRequest);
+        $this->frontController->setResponse($mockResponse);
+
+        $this->frontController->processRequest();
+    }
+
+    public function testSetContentOnlyCalledIfContentReturned()
+    {
+        $mockRequest = $this->getMock('Request');
+        $mockRequest->expects($this->any())
+            ->method('isAdmin')
+            ->will($this->returnValue(false));
+        $mockRequest->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue('test'));
+
+        //in created controller
+        $mockRequest->expects($this->once())
+            ->method('getAction')
+            ->will($this->returnValue('noContentToReturn'));
+
+        $mockResponse = $this->getMock('Response');
+        $mockResponse->expects($this->never())
+            ->method('setContent');
 
         $this->frontController->setRequest($mockRequest);
         $this->frontController->setResponse($mockResponse);
