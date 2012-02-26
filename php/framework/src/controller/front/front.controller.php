@@ -62,23 +62,6 @@ class FrontController
 
     private function sendResponse()
     {
-        /**
-         * TODO: this feels like the wrong place for this
-         * should it go in the doAction of the abstract controller?
-         * or the Response object?
-         * Update: Should probably go in the HtmlRenderer
-         */
-//        $template = $this->Response->getPageTemplate();
-//        $templateByConvention = '/'
-//                    . $this->Request->getController() . '/'
-//                    . $this->Request->getAction()
-//                    . '.tpl';
-//
-//        if (empty($template)
-//            && file_exists($this->config['sitePath'] . '/app/view/pages' . $templateByConvention)
-//        ) {
-//            $this->Response->setPageTemplate($templateByConvention);
-//        }
         $this->Response->format();
     }
 

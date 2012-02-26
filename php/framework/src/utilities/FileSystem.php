@@ -16,6 +16,15 @@ class FileSystem
     private $sitePath;
     private $sharedPath;
 
+    /**
+     * @param $pathToTemplate
+     * @return bool
+     */
+    public function pageTemplateExists($pathToTemplate)
+    {
+        return $this->fileExists($this->sitePath . '/app/view/pages/' . $pathToTemplate);
+    }
+
     public function styleSheetExists($sheet)
     {
         if (strstr($sheet, self::PATH_TO_STYLE_SHEETS)) {

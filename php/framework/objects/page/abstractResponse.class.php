@@ -284,7 +284,9 @@ abstract class AbstractResponse
         } else {
             /** @var $htmlRenderer HtmlRenderer */
             $htmlRenderer = Pd_Make::name('HtmlRenderer');
+
             $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
+
             echo $htmlRenderer->format($this->getContent(), $this);
         }
     }

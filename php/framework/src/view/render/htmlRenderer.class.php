@@ -9,6 +9,8 @@ class HtmlRenderer extends Renderer
     private $dependencyManager;
     /** @var Request */
     private $request;
+    /** @var FileSystem */
+    private $fileSystem;
 
     /**
      * @param $data
@@ -21,12 +23,36 @@ class HtmlRenderer extends Renderer
         $this->dependencyManager->loadPageDependencies();
         $this->dependencyManager->addCacheBusters();
 
+        $this->setPageTemplateByConvention($page);
+
         $this->smarty->clearAllAssign();
         $this->smarty->assign('dependencies', $this->dependencyManager->getDependenciesInProperForm());
         $this->smarty->assign('page', $page);
         $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
 
         $this->smarty->display($this->layoutTemplate);
+    }
+
+    /**
+     * @param $page AbstractResponse
+     */
+    public function setPageTemplateByConvention(&$page)
+    {
+        $pageTemplate = $page->getPageTemplate();
+
+        if (empty($pageTemplate)) {
+            $controller = $this->request->getController();
+            $action = $this->request->getAction();
+            $pathToTemplate = $controller . '/' . $action . '.tpl';
+
+            if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
+                $page->setPageTemplate($pathToTemplate);
+            } else {
+                include_once dirname(__FILE__) . '/../../exception/MissingPageTemplate.exception.php';
+
+                throw new MissingPageTemplateException();
+            }
+        }
     }
 
     private function shouldShowMetaViewport()
@@ -68,5 +94,14 @@ class HtmlRenderer extends Renderer
     public function setRequest($request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * @param $fileSystem
+     * @PdInject fileSystem
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
     }
 }
