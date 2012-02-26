@@ -2,7 +2,7 @@
 require_once dirname(__FILE__) . '/../../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__) . '/../abstract.controller.php';
 require_once dirname(__FILE__) . '/../../exception/NotFound.exception.php';
-include_once dirname(__FILE__) . '/../error.controller.php';
+require_once dirname(__FILE__) . '/../error.controller.php';
 
 class FrontController
 {
@@ -42,16 +42,16 @@ class FrontController
                           . $extraPathParts
                           . $controllerName . '.controller.php';
 
-            if (is_file($controllerPath)) {
-                include_once $controllerPath;
+        if (is_file($controllerPath)) {
+            include_once $controllerPath;
 
-                /** @var $controller AbstractController */
-                $controller = $this->getController($controllerName);
+            /** @var $controller AbstractController */
+            $controller = $this->getController($controllerName);
 
-                $controller->doAction($this->Request, $this->Response);
-            } else {
-                throw new NotFoundException($controllerName . ' Controller Not Found!');
-            }
+            $controller->doAction($this->Request, $this->Response);
+        } else {
+            throw new NotFoundException($controllerName . ' Controller Not Found!');
+        }
     }
 
     protected function getController($controllerName)
