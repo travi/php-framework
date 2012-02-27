@@ -103,7 +103,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             ->with('../status/status.tpl');
         $response->expects($this->once())
             ->method('addToResponse')
-            ->with('status', Response::NOT_IMPLEMENTED);
+            ->with('status', Response::NOT_ALLOWED);
 
         $response->setStatus(Response::NOT_ALLOWED);
     }
