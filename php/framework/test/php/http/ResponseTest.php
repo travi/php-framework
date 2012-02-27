@@ -84,13 +84,26 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('501 Not Implemented', Response::NOT_IMPLEMENTED);
     }
 
-    public function testSettingStatusAddsHeader()
+    public function testSettingStatusAddsHeaderAndSetsPageTemplate()
     {
         /** @var $response Response */
-        $response = $this->getMock('ResponseShunt', array('setHeader'));
+        $response = $this->getMock(
+            'ResponseShunt',
+            array(
+                'setHeader',
+                'setPageTemplate',
+                'addToResponse'
+            )
+        );
         $response->expects($this->once())
             ->method('setHeader')
             ->with('HTTP/1.1 ' . Response::NOT_ALLOWED);
+        $response->expects($this->once())
+            ->method('setPageTemplate')
+            ->with('../status/status.tpl');
+        $response->expects($this->once())
+            ->method('addToResponse')
+            ->with('status', Response::NOT_IMPLEMENTED);
 
         $response->setStatus(Response::NOT_ALLOWED);
     }

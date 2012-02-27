@@ -63,6 +63,8 @@ class Response extends AbstractResponse
     {
         if (in_array($status, $this->definedStatuses)) {
             $this->setHeader('HTTP/1.1 ' . $status);
+            $this->setPageTemplate('../status/status.tpl');
+            $this->addToResponse('status', self::NOT_IMPLEMENTED);
         } else {
             throw new InvalidHttpStatusException();
         }
