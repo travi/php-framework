@@ -11,10 +11,7 @@ class EntityList extends ContentObject
     public function __construct()
     {
         $this->addJavaScript('entityList');
-    }
-    public function setEdit($script, $confirmation="")
-    {
-        $this->addAction("Edit", $script, $confirmation);
+        $this->addAction("Edit", '');
     }
     public function setRemove($script, $confirmation="")
     {
@@ -83,4 +80,3 @@ class EntityList extends ContentObject
         return $this->totalEntities;
     }
 }
-?>

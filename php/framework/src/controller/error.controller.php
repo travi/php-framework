@@ -44,6 +44,7 @@ class ErrorController extends AbstractController
         $response->setTitle('Internal Server Error');
         $response->setPageTemplate('../error/500.tpl');
         //TODO: only show this in dev mode, but log it in other environments
+        $response->addToResponse('type', get_class($error));
         $response->addToResponse('message', $error->getMessage());
         $response->addToResponse('trace', $error->getTrace());
     }

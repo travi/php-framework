@@ -63,10 +63,16 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
         $this->response->expects($this->at(2))
             ->method('addToResponse')
             ->with(
+                $this->equalTo('type'),
+                $this->equalTo('NotFoundException')
+            );
+        $this->response->expects($this->at(3))
+            ->method('addToResponse')
+            ->with(
                 $this->equalTo('message'),
                 $this->equalTo($errorMessage)
             );
-        $this->response->expects($this->at(3))
+        $this->response->expects($this->at(4))
             ->method('addToResponse')
             ->with(
                 $this->equalTo('trace')
