@@ -7,7 +7,7 @@ class FieldSet extends FormElementGroup
     /** @var string */
     private $legend;
 
-    public function __construct($options)
+    public function __construct($options = array())
     {
         $this->legend = $options['legend'];
         foreach ($options['fields'] as $field) {
@@ -18,5 +18,10 @@ class FieldSet extends FormElementGroup
     public function getLegend()
     {
         return $this->legend;
+    }
+
+    public function setLegend($legend)
+    {
+        $this->legend = $legend;
     }
 }
