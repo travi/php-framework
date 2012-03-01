@@ -8,10 +8,16 @@ class EntityList extends ContentObject
     private $offset;
     private $totalEntities;
 
+    const EDIT_KEY = "Edit";
+
     public function __construct()
     {
         $this->addJavaScript('entityList');
-        $this->addAction("Edit", '');
+        $this->addAction(self::EDIT_KEY, '');
+    }
+    public function setEdit($path)
+    {
+        $this->entities[self::EDIT_KEY] = $path;
     }
     public function setRemove($script, $confirmation="")
     {
