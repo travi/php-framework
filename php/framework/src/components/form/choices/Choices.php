@@ -43,27 +43,36 @@ abstract class Choices extends DependantObject implements Field
     {
         foreach ($options as $option) {
             if (is_array($option)) {
-                if (isset($this->value) && $this->value == $option['value']) {
-                    $selected = true;
-                } elseif ($option['selected']) {
-                    $selected = true;
-                } else {
-                    $selected = false;
-                }
-
-                $this->addOption($option['label'], $option['value'], $selected);
+                $this->addOption(
+                    $option['label'],
+                    $option['value'],
+                    $this->isThisOptionSelected($option)
+                );
             } else {
-                $this->addOption($option);
+                $this->addOption($option, null, $this->isThisOptionSelected($option));
             }
         }
     }
 
-    public function addOption($option,$value="", $selected=false, $disabled=false)
+    private function isThisOptionSelected($option)
     {
-        $optionAR = array(  'option'    => $option,
-                            'value'     => $value,
-                            'selected'  => $selected,
-                            'disabled'  => $disabled);
+        if (isset($this->value) && ($this->value === $option['value']) || ($this->value === $option)) {
+            return true;
+        } elseif (is_array($option) && $option['selected']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addOption($option, $value="", $selected=false, $disabled=false)
+    {
+        $optionAR = array(
+            'option'    => $option,
+            'value'     => $value,
+            'selected'  => $selected,
+            'disabled'  => $disabled
+        );
 
         array_push($this->options, $optionAR);
     }

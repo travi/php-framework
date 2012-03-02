@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/../../src/components/form/FieldSet.php';
 require_once dirname(__FILE__) . '/../../src/components/form/Field.php';
 require_once dirname(__FILE__) . '/../../src/components/form/inputs/Input.php';
 require_once dirname(__FILE__) . '/../../src/components/form/inputs/TextInput.php';
+require_once dirname(__FILE__) . '/../../src/components/form/inputs/NumberInput.php';
 require_once dirname(__FILE__) . '/../../src/components/form/inputs/FileInput.php';
 require_once dirname(__FILE__) . '/../../src/components/form/inputs/PasswordInput.php';
 require_once dirname(__FILE__) . '/../../src/components/form/inputs/HiddenInput.php';
