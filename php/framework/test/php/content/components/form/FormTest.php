@@ -165,11 +165,13 @@ class FormTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->form->addFormElement($textInput);
-        $this->form->addFormElement(new FieldSet(
-            array(
-                'fields' => array($dateInput)
+        $this->form->addFormElement(
+            new FieldSet(
+                array(
+                    'fields' => array($dateInput)
+                )
             )
-        ));
+        );
 
         $dateError = 'this is the date error message';
         $textError = 'this is the text error message';
