@@ -305,22 +305,17 @@ abstract class AbstractResponse
     public function redirect($status, $msg, $location)
     {
         $this->setTitle("Results");
+        $this->setPageTemplate('../status/result.tpl');
 
-        $this->content = '
-            <div class="entry">
-                <div class="entry-message">';
-        if ($status == "good") {
-            $this->content .= '
-                    <div class="good">'.$msg.'</div>';
-        } elseif ($status == "bad" || $status == "undo") {
-            $this->content .= '
-                    <div class="bad">'.$msg.'</div>';
+        if ($status === "good") {
+            $status = 'good';
+        } elseif ($status === "bad" || $status === "undo") {
+            $status = 'bad';
         }
-        $this->content .= '
-                    <p>You will be redirected in 5 seconds.</p>
-                    <p>Feel free to choose another option on the left if you do not want to wait.</p>
-                </div>
-            </div>';
+
+        $this->addToResponse('message', $msg);
+        $this->addToResponse('status', $status);
+
         array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
     }
 }

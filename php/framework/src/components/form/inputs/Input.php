@@ -10,6 +10,7 @@ abstract class Input extends ContentObject implements Field
     private $type;					//type attribute for this field
     private $value;					//value attribute for this field
     private $class;					//class attribute for this field
+    private $error;
 
     public function __construct($options)
     {
@@ -81,5 +82,15 @@ abstract class Input extends ContentObject implements Field
     public function getValidations()
     {
         return $this->validations;
+    }
+
+    public function setValidationError($message)
+    {
+        $this->error = $message;
+    }
+
+    public function getValidationError()
+    {
+        return $this->error;
     }
 }

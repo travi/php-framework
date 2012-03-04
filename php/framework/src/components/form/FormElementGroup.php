@@ -64,4 +64,25 @@ abstract class FormElementGroup extends contentObject implements FormElement
     //        }
     //        return parent::checkDependencies($object);
     //    }
+
+    /**
+     * @param $fieldName
+     * @return Field
+     */
+    public function getFieldByName($fieldName)
+    {
+        $formElements = $this->getFormElements();
+
+        foreach ($formElements as $element) {
+            if (is_a($element, 'Field') && $element->getName() === $fieldName) {
+                return $element;
+            } elseif (is_a($element, 'FormElementGroup')) {
+                $field = $element->getFieldByName($fieldName);
+
+                if (!empty($field)) {
+                    return $field;
+                }
+            }
+        }
+    }
 }

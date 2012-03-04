@@ -11,7 +11,11 @@ class FieldSet extends FormElementGroup
     {
         $this->legend = $options['legend'];
         foreach ($options['fields'] as $field) {
-            $this->addFormElement(new $field['type']($field));
+            if (is_a($field, 'Field')) {
+                $this->addFormElement($field);
+            } else {
+                $this->addFormElement(new $field['type']($field));
+            }
         }
     }
 

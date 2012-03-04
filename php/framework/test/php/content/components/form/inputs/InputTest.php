@@ -117,5 +117,12 @@ class InputTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(array('validation1', 'validation2'), $this->input->getValidations());
     }
+
+    public function testValidationError()
+    {
+        $message = 'some message';
+        $this->input->setValidationError($message);
+
+        $this->assertEquals($message, $this->input->getValidationError());
+    }
 }
-?>

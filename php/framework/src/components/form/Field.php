@@ -7,4 +7,6 @@ interface Field
     public function getValidations();
     public function getName();
     public function addValidation($validation);
+    public function setValidationError($message);
+    public function getValidationError();
 }

@@ -20,6 +20,8 @@ abstract class Choices extends DependantObject implements Field
     protected $settings = array();
     protected $options = array();       //implemented as an n x 4 two-dimensional array
 
+    private $error;
+
     public function __construct($settings=array())
     {
         $this->label = $settings['label'];
@@ -112,6 +114,16 @@ abstract class Choices extends DependantObject implements Field
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    public function setValidationError($message)
+    {
+        $this->error = $message;
+    }
+
+    public function getValidationError()
+    {
+        return $this->error;
     }
 }
 

@@ -123,6 +123,70 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertSame($validations, $dependencies['validations'][$anyField->getName()]);
     }
 
+    public function testGetFieldByName()
+    {
+        $textName = 'test_text';
+        $dateName = 'test_date';
+        $textInput = new TextInput(
+            array(
+                'name' => $textName
+            )
+        );
+        $dateInput = new DateInput(
+            array(
+                'name' => $dateName
+            )
+        );
+        $this->form->addFormElement($textInput);
+        $this->form->addFormElement(new FieldSet(
+            array(
+                'fields' => array($dateInput)
+            )
+        ));
+
+        $this->assertSame($textInput, $this->form->getFieldByName($textName));
+        $this->assertSame($dateInput, $this->form->getFieldByName($dateName));
+    }
+
+    public function testValidationErrorsMappedToProperFields()
+    {
+        $textName = 'test_text';
+        $dateName = 'test_date';
+        $textInput = new TextInput(
+            array(
+                'name' => $textName
+            )
+        );
+        $dateInput = new DateInput(
+            array(
+                'name' => $dateName
+            )
+        );
+        $this->form->addFormElement($textInput);
+        $this->form->addFormElement(new FieldSet(
+            array(
+                'fields' => array($dateInput)
+            )
+        ));
+
+        $dateError = 'this is the date error message';
+        $textError = 'this is the text error message';
+        $errors = array(
+            $dateName => $dateError,
+            $textName => $textError
+        );
+
+        $this->form->mapErrorMessagesToFields($errors);
+
+        $this->assertEquals($textError, $this->form->getFieldByName($textName)->getValidationError());
+        $this->assertEquals($dateError, $this->form->getFieldByName($dateName)->getValidationError());
+    }
+
+    public function testMappingEmptyErrorsListCausesNoIssues()
+    {
+        $this->form->mapErrorMessagesToFields();
+    }
+
     private function getAnyValidations()
     {
         return array('required');
@@ -153,4 +217,3 @@ class FormTest extends PHPUnit_Framework_TestCase
         return $field;
     }
 }
-?>
