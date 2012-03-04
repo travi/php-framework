@@ -138,11 +138,13 @@ class FormTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->form->addFormElement($textInput);
-        $this->form->addFormElement(new FieldSet(
-            array(
-                'fields' => array($dateInput)
+        $this->form->addFormElement(
+            new FieldSet(
+                array(
+                    'fields' => array($dateInput)
+                )
             )
-        ));
+        );
 
         $this->assertSame($textInput, $this->form->getFieldByName($textName));
         $this->assertSame($dateInput, $this->form->getFieldByName($dateName));
