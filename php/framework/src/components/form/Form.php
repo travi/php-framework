@@ -105,7 +105,6 @@ class Form extends FormElementGroup
     public function mapErrorMessagesToFields($errors)
     {
         foreach ($errors as $fieldName => $error) {
-            echo $fieldName;
             $this->getFieldByName($fieldName)->setValidationError($error);
         }
     }
