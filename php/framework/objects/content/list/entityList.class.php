@@ -15,13 +15,15 @@ class EntityList extends ContentObject
         $this->addJavaScript('entityList');
         $this->addAction(self::EDIT_KEY, '');
     }
+
     public function setEdit($path)
     {
         $this->entities[self::EDIT_KEY] = $path;
     }
-    public function setRemove($script, $confirmation="")
+
+    public function setRemove($path, $confirmation="")
     {
-        $this->addAction("Remove", $script, $confirmation);
+        $this->addAction("Remove", $path, $confirmation);
     }
     public function addEntity($entity)
     {
