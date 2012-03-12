@@ -72,7 +72,7 @@
 
     function requestAnnouncements(eventData) {
         $.getJSON(eventData.url, function (data) {
-            var announcementsContainer = data.updates.updateList,
+            var announcementsContainer = data.list,
                 announcements = announcementsContainer.entities;
 
             $updateList.hide('blind', function () {
@@ -86,10 +86,9 @@
                 });
 
                 $updateList.show('blind', function () {
-                    var list = data.updates.updateList,
-                        offset = parseInt(list.offset, 10) || 0,
-                        limit = parseInt(list.limit, 10),
-                        total = parseInt(list.totalEntities, 10);
+                    var offset = parseInt(announcementsContainer.offset, 10) || 0,
+                        limit = parseInt(announcementsContainer.limit, 10),
+                        total = parseInt(announcementsContainer.totalEntities, 10);
 
                     restyleRemove();
 

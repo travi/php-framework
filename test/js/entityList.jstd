@@ -200,19 +200,17 @@ TestCase('EntityListTests', {
 
         sinon.stub(jQuery, 'ajax', function (options) {
             options.success.call(null, {
-                updates: {
-                    updateList: {
-                        actions: [
-                            {
-                                text: 'Remove',
-                                link: 'someLink'
-                            }
-                        ],
-                        entities: testCase.entities,
-                        offset: 10,
-                        limit: 5,
-                        totalEntities: "34"
-                    }
+                list: {
+                    actions: [
+                        {
+                            text: 'Remove',
+                            link: 'someLink'
+                        }
+                    ],
+                    entities: testCase.entities,
+                    offset: 10,
+                    limit: 5,
+                    totalEntities: "34"
                 }
             });
         });
