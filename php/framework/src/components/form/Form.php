@@ -111,4 +111,9 @@ class Form extends FormElementGroup
             $this->getFieldByName($fieldName)->setValidationError($error);
         }
     }
+
+    public function hasErrors()
+    {
+        return false;
+    }
 }
