@@ -140,6 +140,41 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete();
     }
 
+    public function testGetFieldByName()
+    {
+        $textName = 'test_text';
+        $textNameSetToName = 'name';
+        $dateName = 'test_date';
+        $textInput = new TextInput(
+            array(
+                'name' => $textName
+            )
+        );
+        $textInput2 = new TextInput(
+            array(
+                'name' => $textNameSetToName
+            )
+        );
+        $dateInput = new DateInput(
+            array(
+                'name' => $dateName
+            )
+        );
+        $this->group->addFormElement($textInput);
+        $this->group->addFormElement($textInput2);
+        $this->group->addFormElement(
+            new FieldSet(
+                array(
+                    'fields' => array($dateInput)
+                )
+            )
+        );
+
+        $this->assertSame($textInput, $this->group->getFieldByName($textName));
+        $this->assertSame($dateInput, $this->group->getFieldByName($dateName));
+        $this->assertSame($textInput2, $this->group->getFieldByName($textNameSetToName));
+    }
+
     private function getAnyValidations()
     {
         return array('required');
