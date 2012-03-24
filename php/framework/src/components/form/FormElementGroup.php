@@ -71,6 +71,10 @@ abstract class FormElementGroup extends contentObject implements FormElement
      */
     public function getFieldByName($fieldName)
     {
+        if ('name' === $fieldName) {
+            $fieldName = 'name_value';
+        }
+
         $formElements = $this->getFormElements();
 
         foreach ($formElements as $element) {
