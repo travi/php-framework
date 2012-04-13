@@ -51,7 +51,7 @@ class PicasaService
 
         $album->setTitle((string) $responseXml->title);
         $ns_gphoto = $responseXml->children($namespaces['gphoto']);
-        $album->setid((int) $ns_gphoto->id);
+        $album->setId((int) $ns_gphoto->id);
         $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
 
         $album->setThumbnail($this->setThumbDetails($responseXml->entry[0]));
@@ -103,7 +103,7 @@ class PicasaService
 
             /** @var $album Album */
             $album = new Album();
-            $album->setid((int)$ns_gphoto->id);
+            $album->setId((int)$ns_gphoto->id);
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
 

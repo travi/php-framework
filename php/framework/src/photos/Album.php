@@ -44,7 +44,7 @@ class Album
         return $this->id;
     }
 
-    public function setid($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
