@@ -1,9 +1,4 @@
 <?php
-/**
- * Created on Feb 13, 2011
- * By Matt Travi
- * programmer@travi.org
- */
 require_once 'Choices.php';
 
 class SelectionBox extends Choices

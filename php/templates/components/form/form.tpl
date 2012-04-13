@@ -6,6 +6,8 @@
         {include file="components/form/fieldset.tpl" fieldset=$formElement}
     {elseif is_a($formElement,'Input')}
         {include file=$formElement->getTemplate() field=$formElement}
+    {elseif is_a($formElement,'Choices')}
+        {include file=$formElement->getTemplate() field=$formElement}
     {/if}
 {/foreach}
 </form>
