@@ -9,12 +9,12 @@ class NavigationObject extends ContentObject
     /** @var string */
     private $sectionTemplate;
 
-    public function addSection($title,$content='')
+    public function addSection($title, $content = '')
     {
         $this->setSection($title, $content);
     }
 
-    public function setSection($title,$content='')
+    public function setSection($title, $content = '')
     {
         $this->sections[$title] = $content;
     }
@@ -39,12 +39,12 @@ class NavigationObject extends ContentObject
         return $this->sectionTemplate;
     }
 
-    public function addSectionContent($title,$content)
+    public function addSectionContent($title, $content)
     {
         $this->setSection($title, $content);
     }
 
-    public function addSectionContentLinks($title,$items=array())
+    public function addSectionContentLinks($title, $items = array())
     {
         $this->setSection($title, $items);
     }
