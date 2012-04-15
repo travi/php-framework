@@ -173,8 +173,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Andrea & I', $album->getTitle());
         $this->assertEquals(5504692126816759025, $album->getId());
         $this->assertEquals(
-            'https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/' .
-            'AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG',
+            'https://lh4.googleusercontent.com/-Ii1cVigA49I/TGSYUwDNbPE' .
+                '/AAAAAAAAGV4/EZ6QKMtAhIU/s160-c/AndreaI.jpg',
             $album->getThumbnail()->getUrl()
         );
     }

@@ -54,7 +54,7 @@ class PicasaService
         $album->setId((int) $ns_gphoto->id);
         $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
 
-        $album->setThumbnail($this->setThumbDetails($responseXml->entry[0]));
+        $album->setThumbnail($this->setAlbumThumbnailDetails($responseXml));
 
         return $album;
     }
@@ -180,6 +180,13 @@ class PicasaService
 
         $thumbnail = new Thumbnail();
         $thumbnail->setUrl((string) $thumb_attr['url']);
+        return $thumbnail;
+    }
+
+    private function setAlbumThumbnailDetails($responseXml)
+    {
+        $thumbnail = new Thumbnail();
+        $thumbnail->setUrl((string) $responseXml->icon);
         return $thumbnail;
     }
 
