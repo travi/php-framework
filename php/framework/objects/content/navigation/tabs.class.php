@@ -3,7 +3,7 @@ require_once'navigation.class.php';
   
 class Tabs extends NavigationObject
 {
-    function Tabs($options=array())
+    function __construct()
     {
         $this->addJavaScript('jqueryUi');
         $this->addJsInit(
