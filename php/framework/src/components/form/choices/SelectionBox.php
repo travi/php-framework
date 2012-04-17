@@ -11,6 +11,17 @@ class SelectionBox extends Choices
         parent::__construct($options);
         $this->setTemplate('components/form/selectionBox.tpl');
     }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
     protected function optionAdder($options=array())
     {
         if ($this->settings['optGroups']) {
