@@ -69,6 +69,7 @@ abstract class FormElementGroup extends contentObject implements FormElement
 
         $formElements = $this->getFormElements();
 
+        /** @var $element Field */
         foreach ($formElements as $element) {
             if (is_a($element, 'Field') && $element->getName() === $fieldName) {
                 return $element;
