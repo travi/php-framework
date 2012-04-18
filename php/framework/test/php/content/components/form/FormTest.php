@@ -164,6 +164,30 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->form->mapErrorMessagesToFields();
     }
 
+    public function testHasErrorsReturnsFalseWhenValid()
+    {
+        $field = $this->getMock('TextInput');
+        $field->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+
+        $this->form->addFormElement($field);
+
+        $this->assertFalse($this->form->hasErrors());
+    }
+
+    public function testHasErrorsReturnsTrueWhenInvalid()
+    {
+        $field = $this->getMock('TextInput');
+        $field->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(false));
+
+        $this->form->addFormElement($field);
+
+        $this->assertTrue($this->form->hasErrors());
+    }
+
     private function getAnyValidations()
     {
         return array('required');

@@ -114,6 +114,6 @@ class Form extends FormElementGroup
 
     public function hasErrors()
     {
-        return false;
+        return !$this->isValid();
     }
 }

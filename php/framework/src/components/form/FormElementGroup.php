@@ -47,6 +47,18 @@ abstract class FormElementGroup extends contentObject implements FormElement
 
         return $validations;
     }
+
+    public function isValid()
+    {
+        /** @var $formElement FormElement */
+        foreach ($this->formElements as $formElement) {
+            if (!$formElement->isValid()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
     
     public function getDependencies()
     {

@@ -93,4 +93,13 @@ abstract class Input extends ContentObject implements Field
     {
         return $this->error;
     }
+
+    public function isValid()
+    {
+        if (in_array('required', $this->getValidations()) && empty($this->value)) {
+            return false;
+        }
+
+        return true;
+    }
 }

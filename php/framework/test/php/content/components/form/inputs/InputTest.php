@@ -125,4 +125,25 @@ class InputTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($message, $this->input->getValidationError());
     }
+
+    public function testValidIfNoValidationErrors()
+    {
+        $this->assertTrue($this->input->isValid());
+    }
+
+    public function testNotValidWhenRequiredFieldHasNoValue()
+    {
+        $this->input->addValidation('required');
+        $this->input->setValue('');
+
+        $this->assertFalse($this->input->isValid());
+    }
+
+    public function testValidWhenRequiredFieldHasValue()
+    {
+        $this->input->addValidation('required');
+        $this->input->setValue('something');
+
+        $this->assertTrue($this->input->isValid());
+    }
 }
