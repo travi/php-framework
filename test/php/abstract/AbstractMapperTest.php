@@ -5,6 +5,9 @@ require_once dirname(__FILE__) . '/../../../php/framework/objects/content/list/e
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 {
+    protected abstract function assertFormHasProperFields($form);
+    protected abstract function assertFieldValuesSetCorrectly($form);
+
     /**
      * @param $field RadioButtons
      * @param $options
