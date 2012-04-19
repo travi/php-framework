@@ -5,7 +5,15 @@ require_once dirname(__FILE__) . '/../../../php/framework/objects/content/list/e
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @abstract
+     * @param $form Form
+     */
     protected abstract function assertFormHasProperFields($form);
+    /**
+     * @abstract
+     * @param $form Form
+     */
     protected abstract function assertFieldValuesSetCorrectly($form);
 
     /**
