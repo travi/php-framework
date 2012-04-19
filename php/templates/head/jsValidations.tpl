@@ -1,5 +1,5 @@
 {foreach from=$validations key=form item=list}
-                $('form[name="{$form}"]').validate({literal}{{/literal}
+                $('form{if !empty($form)}[name="{$form}"]{/if}').validate({literal}{{/literal}
 {if $form->debug}
                     debug: true,
 {/if}
