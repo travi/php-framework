@@ -79,6 +79,11 @@ abstract class Choices extends DependantObject implements Field
         array_push($this->options, $optionAR);
     }
 
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -124,6 +129,16 @@ abstract class Choices extends DependantObject implements Field
     public function getValidationError()
     {
         return $this->error;
+    }
+
+    public function isValid()
+    {
+        if (in_array('required', $this->getValidations()) && empty($this->value)) {
+            $this->setValidationError($this->label . ' is required');
+            return false;
+        }
+
+        return true;
     }
 }
 

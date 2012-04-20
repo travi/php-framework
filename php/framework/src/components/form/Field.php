@@ -9,4 +9,5 @@ interface Field
     public function addValidation($validation);
     public function setValidationError($message);
     public function getValidationError();
+    public function isValid();
 }
