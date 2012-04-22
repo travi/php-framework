@@ -139,7 +139,23 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSetValueMarksOptionAsSelectedInList()
+    public function testSetValueMarksSimpleOptionAsSelectedInList()
+    {
+        $someValue = 'option 1';
+        $options = array(
+            $someValue,
+            'option 2'
+        );
+        $this->choices->addOptions($options);
+
+        $this->choices->setValue($someValue);
+
+        $returnedValue = $this->choices->getValue();
+        $this->assertEquals($someValue, $returnedValue);
+        $this->assertSelectedOptionIs($returnedValue, $this->choices->getOptions());
+    }
+
+    public function testSetValueMarksComplexOptionAsSelectedInList()
     {
         $someValue = 'something';
         $options = array(
@@ -166,7 +182,11 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         $selected = 'provided selection (' . $value . ') is not selected';
         foreach ($options as $option) {
             if ($option['selected'] === true) {
-                $selected = $option['value'];
+                if (empty($option['value'])) {
+                    $selected = $option['option'];
+                } else {
+                    $selected = $option['value'];
+                }
             }
         }
         $this->assertEquals($value, $selected);

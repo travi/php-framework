@@ -57,7 +57,11 @@ abstract class Choices extends DependantObject implements Field
 
     private function isThisOptionSelected($option)
     {
-        if (isset($this->value) && ($this->value === $option['value']) || ($this->value === $option)) {
+        if (isset($this->value) && ($this->value === $option['value'])) {
+            return true;
+        } elseif ($this->value === $option) {
+            return true;
+        } elseif (empty($option['value']) && ($this->value === $option['option'])) {
             return true;
         } elseif (is_array($option) && $option['selected']) {
             return true;
