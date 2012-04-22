@@ -28,6 +28,7 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 
     protected function assertChoicesSelectionOptionIs($value, $options)
     {
+        $selected = 'provided selection (' . $value . ') is not available';
         foreach ($options as $option) {
             if ($option['selected'] === true) {
                 $selected = $option['option'];

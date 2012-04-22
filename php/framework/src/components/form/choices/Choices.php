@@ -97,6 +97,12 @@ abstract class Choices extends DependantObject implements Field
     {
         return $this->name;
     }
+
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
     public function getLabel()
     {
         return $this->label;
