@@ -1,10 +1,4 @@
 <?php
-/**
- * Created on Feb 13, 2011
- * By Matt Travi
- * programmer@travi.org
- */
-
 require_once dirname(__FILE__).'/../Field.php';
 
 abstract class Choices extends DependantObject implements Field
@@ -41,7 +35,8 @@ abstract class Choices extends DependantObject implements Field
         $this->setTemplate('components/form/choices.tpl');
     }
 
-    public function addOptions($options) {
+    public function addOptions($options)
+    {
         $this->optionAdder($options);
     }
 
