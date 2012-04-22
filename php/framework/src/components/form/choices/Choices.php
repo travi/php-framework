@@ -41,6 +41,10 @@ abstract class Choices extends DependantObject implements Field
         $this->setTemplate('components/form/choices.tpl');
     }
 
+    public function addOptions($options) {
+        $this->optionAdder($options);
+    }
+
     protected function optionAdder($options=array())
     {
         foreach ($options as $option) {
@@ -84,6 +88,11 @@ abstract class Choices extends DependantObject implements Field
         $this->value = $value;
     }
 
+    public function getValue()
+    {
+        return $this->value;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -94,6 +103,12 @@ abstract class Choices extends DependantObject implements Field
     }
     public function getOptions()
     {
+        foreach ($this->options as &$option) {
+            if ($this->isThisOptionSelected($option)) {
+                $option['selected'] = true;
+            }
+        }
+
         return $this->options;
     }
     public function getType()

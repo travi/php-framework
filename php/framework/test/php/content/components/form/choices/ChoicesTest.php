@@ -102,4 +102,73 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->choices->isValid());
     }
+
+    public function testAddOptionsCreatesProperOptionList()
+    {
+        $text1 = 'option 1';
+        $value1 = 'some value';
+        $text2 = 'option 2';
+        $value2 = 'some other value';
+        $this->choices->addOptions(array(
+            array(
+                'label' => $text1,
+                'value' => $value1
+            ),
+            array(
+                'label' => $text2,
+                'value' => $value2
+            )
+        ));
+
+        $this->assertEquals(
+            array(
+                array(
+                    'option' => $text1,
+                    'value' => $value1,
+                    'selected' => '',
+                    'disabled' => ''
+                ),
+                array(
+                    'option' => $text2,
+                    'value' => $value2,
+                    'selected' => '',
+                    'disabled' => ''
+                )
+            ),
+            $this->choices->getOptions()
+        );
+    }
+
+    public function testSetValueMarksOptionAsSelectedInList()
+    {
+        $someValue = 'something';
+        $options = array(
+            array(
+                'label' => 'option 1',
+                'value' => $someValue
+            ),
+            array(
+                'label' => 'option 2',
+                'value' => 'some other value'
+            )
+        );
+        $this->choices->addOptions($options);
+
+        $this->choices->setValue($someValue);
+
+        $returnedValue = $this->choices->getValue();
+        $this->assertEquals($someValue, $returnedValue);
+        $this->assertSelectedOptionIs($returnedValue, $this->choices->getOptions());
+    }
+
+    private function assertSelectedOptionIs($value, $options)
+    {
+        $selected = 'provided selection (' . $value . ') is not selected';
+        foreach ($options as $option) {
+            if ($option['selected'] === true) {
+                $selected = $option['value'];
+            }
+        }
+        $this->assertEquals($value, $selected);
+    }
 }
