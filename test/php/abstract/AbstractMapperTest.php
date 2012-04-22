@@ -10,11 +10,20 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
      * @param $form Form
      */
     protected abstract function assertFormHasProperFields($form);
+
     /**
-     * @abstract
+     * @param $values
      * @param $form Form
      */
-    protected abstract function assertFieldValuesSetCorrectly($form);
+    protected function assertFieldValuesSetCorrectly($values, $form)
+    {
+        $count = 0;
+        foreach ($values as $field => $value) {
+            $this->assertEquals($value, $form->getFieldByName($field)->getValue());
+            $count++;
+        }
+        $this->assertEquals(sizeof($values), $count);
+    }
 
     /**
      * @param $field RadioButtons
