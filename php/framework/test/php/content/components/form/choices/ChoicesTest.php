@@ -109,16 +109,18 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         $value1 = 'some value';
         $text2 = 'option 2';
         $value2 = 'some other value';
-        $this->choices->addOptions(array(
+        $this->choices->addOptions(
             array(
-                'label' => $text1,
-                'value' => $value1
-            ),
-            array(
-                'label' => $text2,
-                'value' => $value2
+                array(
+                    'label' => $text1,
+                    'value' => $value1
+                ),
+                array(
+                    'label' => $text2,
+                    'value' => $value2
+                )
             )
-        ));
+        );
 
         $this->assertEquals(
             array(
