@@ -12,6 +12,7 @@ TestCase('SlideNavTests', {
 
         assertEquals(1, $navToggle.length);
         assertEquals('Navigation', $navToggle.text());
+        assertEquals(1, $navToggle.find('.ui-icon ui-icon-triangle-1-s').length);
     },
 
     'test visibility of menu': function () {

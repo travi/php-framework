@@ -33,7 +33,10 @@
     Plugin.prototype.init = function () {
         var $this = $(this.element);
 
-        $this.prepend('<a class="' + this._defaults.toggleClass + '">Navigation</a>');
+        $this.prepend('<a class="' + this._defaults.toggleClass + '">' +
+            'Navigation' +
+            '<span class="ui-icon ui-icon-triangle-1-s"/>' +
+            '</a>');
         $this.find('.' + this._defaults.toggleClass).on('click', toggleMenu);
     };
 
