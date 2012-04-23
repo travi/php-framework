@@ -1,6 +1,8 @@
 TestCase('SlideNavTests', {
     setUp: function() {
-        $('body').append('<nav id="primaryNav"><ul style="display: none"></ul></nav>');
+        $('body').append('<nav id="primaryNav"><ul style="display: none">' +
+            '<li><ul id="innerList" style="display: none"></ul></li>' +
+            '</ul></nav>');
 
         this.$nav = $('#primaryNav');
 
@@ -28,5 +30,14 @@ TestCase('SlideNavTests', {
         $navToggle.click();
 
         assertFalse($list.is(':visible'));
+    },
+
+    'test only top level list displayed when menu shown': function () {
+        var $innerList = this.$nav.find('#innerList'),
+            $navToggle = this.$nav.find('.navToggle');
+
+        $navToggle.click();
+
+        assertFalse($innerList.is(':visible'));
     }
 });

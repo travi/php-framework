@@ -27,7 +27,7 @@
 
     function toggleMenu(e) {
         e.preventDefault();
-        $(this).parent().find('ul').slideToggle();
+        $(this).parent().find(' > ul').slideToggle();
     }
 
     Plugin.prototype.init = function () {
