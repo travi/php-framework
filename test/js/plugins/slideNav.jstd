@@ -1,5 +1,5 @@
 TestCase('SlideNavTests', {
-    setUp: function() {
+    setUp: function () {
         $('body').append('<nav id="primaryNav"><ul style="display: none">' +
             '<li><ul id="innerList" style="display: none"></ul></li>' +
             '</ul></nav>');
