@@ -1,0 +1,12 @@
+TestCase('SlideNavTests', {
+    setUp: function() {
+        $('body').append('<nav id="primaryNav"><ul></ul></nav>');
+    },
+
+    'test "Navigation" added': function () {
+        var $nav = $('#primaryNav');
+        $nav.slideNav();
+
+        assertEquals('Navigation', $nav.text());
+    }
+});

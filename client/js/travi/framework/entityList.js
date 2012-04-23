@@ -77,7 +77,6 @@
 
             $updateList.hide('blind', function () {
                 $updateList.empty();
-
                 templates.get(TEMPLATE_NAME).then(function () {
                     $updateList.append(templates.render(TEMPLATE_NAME, {
                         list: announcementsContainer,
