@@ -10,7 +10,7 @@
     // Create the defaults once
     var pluginName = 'slideNav',
         defaults = {
-            propertyName: "value"
+            toggleClass: "navToggle"
         };
 
     // The actual plugin constructor
@@ -25,8 +25,16 @@
         this.init();
     }
 
+    function toggleMenu(e) {
+        e.preventDefault();
+        $(this).parent().find('ul').slideToggle();
+    }
+
     Plugin.prototype.init = function () {
-        $(this.element).prepend('Navigation');
+        var $this = $(this.element);
+
+        $this.prepend('<a class="' + this._defaults.toggleClass + '">Navigation</a>');
+        $this.find('.' + this._defaults.toggleClass).on('click', toggleMenu);
     };
 
     $.fn[pluginName] = function (options) {
