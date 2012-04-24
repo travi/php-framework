@@ -54,7 +54,9 @@ class DependencyManager
                     }
                     $script = $this->clientDependencyDefinitions->resolveFileURI($script);
                 }
-                array_push($this->requirementLists['js'], $script);
+                if (!empty($script)) {
+                    array_push($this->requirementLists['js'], $script);
+                }
             }
         }
     }

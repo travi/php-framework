@@ -525,4 +525,9 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         //            $dependencies['css']
         //        );
     }
+
+    public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
+    {
+        $this->markTestIncomplete('get coverage around empty check on script b4 adding');
+    }
 }

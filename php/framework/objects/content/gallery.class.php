@@ -7,4 +7,3 @@ class GalleryComponent extends ContentObject
         $this->addJavaScript('gallery');
     }
 }
-?>

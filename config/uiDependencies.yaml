@@ -61,13 +61,13 @@ gallery:
   cssDependencies:
     - /resources/css/pages/gallery/carousel.css
   desktop:
-      local: /resources/js/photos/gallery.js
-      jsDependencies:
-        - travi
-        - /resources/js/photos/previewPane.js
-        - carousel
-        - lightbox
-        - reflection
+    local: /resources/js/photos/gallery.js
+    jsDependencies:
+      - travi
+      - /resources/js/photos/previewPane.js
+      - carousel
+      - lightbox
+      - reflection
 
 #=======jQuery======
 jquery:
