@@ -1,11 +1,11 @@
-(function (global, framework) {
+(function (global, travi) {
     "use strict";
 
     var refresh = function () {
         global.location.reload();
     };
 
-    framework.namespace('location', {
+    travi.namespace('location', {
         refresh: refresh
     });
-}(this, travi.framework));
+}(this, travi));

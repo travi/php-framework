@@ -10,6 +10,8 @@ framework:
   jsDependencies:
     - travi
     - template
+    - cookieUtil
+    - locationUtil
   clientTemplates:
     chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
 
@@ -36,14 +38,10 @@ entityList:
     update-item: /resources/templates/admin/update-item.tmpl
 
 cookieUtil:
-  local: /resources/shared/js/travi/framework/cookies.js
-  jsDependencies:
-    - framework
+  local: /resources/shared/js/travi/cookies.js
 
 locationUtil:
-  local: /resources/shared/js/travi/framework/location.js
-  jsDependencies:
-    - framework
+  local: /resources/shared/js/travi/location.js
 
 carousel:
   cssDependencies:

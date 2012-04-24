@@ -61,4 +61,4 @@
         strictEqual(cookieUtil.value(desiredCookie), valueOfDesired);
     });
 
-}(travi.framework.cookies));
+}(travi.cookies));

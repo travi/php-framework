@@ -2,6 +2,9 @@
     "use strict";
 
     var templates = travi.templates,
+        cookies = travi.cookies,
+        location = travi.location,
+
         templateName = 'chooseEnhancement',
 
         ENHANCEMENT_VERSION_KEY = "enhancementVersion",
@@ -25,17 +28,17 @@
         },
 
         setEnhancementVersionTo = function (versionKey) {
-            travi.framework.cookies.create(
+            cookies.create(
                 ENHANCEMENT_VERSION_KEY,
                 versionKey,
                 DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
             );
-            travi.framework.location.refresh();
+            location.refresh();
         },
 
         resetVersion = function () {
-            travi.framework.cookies.remove(ENHANCEMENT_VERSION_KEY);
-            travi.framework.location.refresh();
+            cookies.remove(ENHANCEMENT_VERSION_KEY);
+            location.refresh();
         },
 
         detectEnhancementVersion = function () {
@@ -47,13 +50,13 @@
         },
 
         setInitialEnhancementVersion = function () {
-            if (!travi.framework.cookies.exists(ENHANCEMENT_VERSION_KEY)) {
+            if (!cookies.exists(ENHANCEMENT_VERSION_KEY)) {
                 detectEnhancementVersion(setEnhancementVersionTo, MOBILE_ENHANCEMENT_VERSION, DESKTOP_ENHANCEMENT_VERSION);
             }
         },
 
         addLinksToChooseVersion = function () {
-            var currentEnhancement = travi.framework.cookies.value(ENHANCEMENT_VERSION_KEY),
+            var currentEnhancement = cookies.value(ENHANCEMENT_VERSION_KEY),
                 alternateEnhancement;
 
             if (currentEnhancement === MOBILE_ENHANCEMENT_VERSION) {
@@ -81,11 +84,13 @@
 
         init = function () {
             setInitialEnhancementVersion();
-            addLinksToChooseVersion();
+            $(addLinksToChooseVersion);
         };
 
     travi.namespace('framework', {
         init: init,
         namespace: travi.namespace
     });
+
+    init();
 }(travi));

@@ -88,7 +88,7 @@
             }
         };
 
-    travi.namespace("framework.cookies", {
+    travi.namespace("cookies", {
         exists: exists,
         create: create,
         remove: remove,
