@@ -22,14 +22,18 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     private $anyController = 'testController';
     private $anyAction = 'testAction';
 
-    /**
-     * @var Response
-     */
-    protected $response;
+    /** @var Response */
+    private $response;
+    /** @var Request */
+    private $request;
 
     protected function setUp()
     {
-        $this->response = new Response;
+        $this->request = $this->getMock('Request');
+
+        $this->response = new Response();
+        $this->response->setRequest($this->request);
+        $this->response->init(array());
         $this->response->setSiteName($this->someSiteName);
     }
 
@@ -164,7 +168,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $someFeed = 'some feed';
 
-        $response = new Response(array('siteFeed' => $someFeed));
+        $response = new Response();
+        $response->setRequest($this->request);
+        $response->init(array('siteFeed' => $someFeed));
 
         $this->assertEquals(
             array(
@@ -177,6 +183,39 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             ),
             $response->getLinkTags()
         );
+    }
+
+    public function testPrimaryNav()
+    {
+        $nav = array('text1' => 'link1', 'text2' => 'link2');
+        $this->response->setPrimaryNav($nav);
+        $this->assertSame($nav, $this->response->getMainNav());
+    }
+
+    public function testAdminNavAddedIfAdmin()
+    {
+        $nav = array('text1' => 'link1', 'text2' => 'link2');
+
+        $this->request->expects($this->once())
+            ->method('isAdmin')
+            ->will($this->returnValue(true));
+
+        $this->response->setAdminNav($nav);
+
+        $this->assertEquals($nav, $this->response->getAdminNav());
+    }
+
+    public function testAdminNavNotAddedIfNotAdmin()
+    {
+        $nav = array('text1' => 'link1', 'text2' => 'link2');
+
+        $this->request->expects($this->once())
+            ->method('isAdmin')
+            ->will($this->returnValue(false));
+
+        $this->response->setAdminNav($nav);
+
+        $this->assertNull($this->response->getAdminNav());
     }
 }
 

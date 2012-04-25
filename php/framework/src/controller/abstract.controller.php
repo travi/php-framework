@@ -9,6 +9,7 @@ abstract class AbstractController
      * @param $response Response
      * @param string $action
      * @param string $extra
+     * @throws NotFoundException
      * @return array
      */
     public function doAction(&$request, &$response, $action = '', $extra = '')

@@ -35,6 +35,7 @@ class HtmlRenderer extends Renderer
 
     /**
      * @param $page AbstractResponse
+     * @throws MissingPageTemplateException
      */
     public function setPageTemplateByConvention(&$page)
     {

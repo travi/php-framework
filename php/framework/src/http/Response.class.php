@@ -13,6 +13,9 @@ class Response extends AbstractResponse
 
     const SITE_FEED_KEY = 'Site Feed';
 
+    /** @var Request */
+    private $request;
+
     private $definedStatuses = array(
         self::NOT_ALLOWED,
         self::NOT_IMPLEMENTED
@@ -22,8 +25,24 @@ class Response extends AbstractResponse
     private $tagLine;
     private $config;
 
-    public function __construct($config)
+
+    /**
+     * @param $request Request
+     * @PdInject request
+     */
+    public function setRequest($request)
     {
+        $this->request = $request;
+    }
+
+    /**
+     * @PdInject config
+     * @param $config
+     */
+    public function init($config)
+    {
+        $this->config = $config;
+
         $this->setSiteName($config['siteName']);
         $this->setSiteHeader($config['siteHeader']);
         $this->setTagLine($config['tagLine']);
@@ -32,6 +51,7 @@ class Response extends AbstractResponse
         }
         $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
+        $this->setAdminNav($config['adminNav']);
 
         //temporarily set the layout template here until moving it to $View
         $this->setLayoutTemplate($config['template']['layout']);
@@ -73,5 +93,17 @@ class Response extends AbstractResponse
     protected function setHeader($header)
     {
         header($header);
+    }
+
+    public function setAdminNav($nav)
+    {
+        if ($this->request->isAdmin()) {
+            $this->nav->addSection('admin', $nav);
+        }
+    }
+
+    public function getAdminNav()
+    {
+        return $this->nav->getSection('admin');
     }
 }

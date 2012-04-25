@@ -175,11 +175,6 @@ abstract class AbstractResponse
         return $this->nav->getSection('main');
     }
 
-    public function getAdminNav()
-    {
-        return $this->nav->getSection('admin');
-    }
-
 
     public function setSubNav($section)
     {

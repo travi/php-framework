@@ -14,8 +14,8 @@
 {/if}
 {assign var="adminNav" value=$page->getAdminNav()}
 {if !empty($adminNav)}
-            <nav>
-                <ul class="sideNav" id="adminNav">
+            <nav class="sideNav" id="adminNav">
+                <ul>
 {foreach key=navItem item=navLink from=$adminNav}
                     <li><a href="{$navLink}">{$navItem}</a></li>
 {/foreach}

@@ -168,30 +168,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @todo refactor to that the Navigation object is initialized
-     */
-    public function testSetPrimaryNav()
-    {
-        //        $nav = array('text1' => 'link1', 'text2' => 'link2');
-        //        $this->object->setPrimaryNav($nav);
-        //        $this->assertSame($nav, $this->object->getNav());
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetMainNav().
-     */
-    public function testGetPrimaryNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @todo Implement testSetSubNav().
      */
     public function testSetSubNav()

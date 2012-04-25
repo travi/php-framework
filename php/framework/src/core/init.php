@@ -35,6 +35,9 @@ $config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.y
 
 
 $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
+$config['adminNav'] = $config['nav']['admin'];
+unset($config['nav']['admin']);
+
 $config['debug'] = true;         //TODO: make this automated based on environment
 $config['docRoot'] = DOC_ROOT;
 
@@ -42,20 +45,20 @@ $config['docRoot'] = DOC_ROOT;
 //Initialize Dependency Injection Container
 $container = Pd_Container::get();
 
+//Add Dependencies
+$container->dependencies()->set('config', $config);
+$container->dependencies()->set('uiDeps', $uiDeps);
+
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
 $container->dependencies()->set('request', Pd_Make::name('Request'));
-$container->dependencies()->set('response', new Response($config));
+$container->dependencies()->set('response', Pd_Make::name('Response'));
 
 
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set('Smarty', smartyInit());
-
-//Add Dependencies
-$container->dependencies()->set('config', $config);
-$container->dependencies()->set('uiDeps', $uiDeps);
 
 $container->dependencies()->set(
     'dependencyManager',
