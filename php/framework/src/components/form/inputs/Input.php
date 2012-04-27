@@ -9,7 +9,7 @@ abstract class Input extends ContentObject implements Field
     protected $validations = array();	//list of validations
     private $type;					//type attribute for this field
     private $value;					//value attribute for this field
-    private $class;					//class attribute for this field
+    protected $class;					//class attribute for this field
     private $error;
 
     public function __construct($options)

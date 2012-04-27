@@ -20,4 +20,21 @@ class SubmitButton extends Input
         $this->addJavaScript('jqueryUi');
         $this->addJsInit('$("input[type=submit]").button()');
     }
+
+    public function isOuterButton($bool)
+    {
+        $this->isOuterButton = $bool;
+    }
+
+    public function getClass()
+    {
+        if ($this->isOuterButton)
+        {
+            $this->class .= ' outerButton';
+        }
+
+        return $this->class;
+    }
+
+
 }

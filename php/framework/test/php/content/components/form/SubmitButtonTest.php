@@ -31,12 +31,11 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
      */
     public function testClassNameOutsideFieldSet()
     {
-        $button = new SubmitButton(array('class' => 'submitButton outerButton'));
-        $this->assertSame('submitButton outerButton', $button->getClass());
+        $button = new SubmitButton();
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $button->isOuterButton(true);
+
+        $this->assertSame('submitButton outerButton', $button->getClass());
     }
 
     public function testType()
