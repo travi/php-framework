@@ -136,8 +136,6 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
         $dependencies = $this->group->getDependencies();
         $this->assertContains('jsDep', $dependencies['scripts']);
-
-        $this->markTestIncomplete();
     }
 
     public function testGetFieldByName()
