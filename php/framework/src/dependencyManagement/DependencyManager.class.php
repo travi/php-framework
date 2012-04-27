@@ -138,7 +138,8 @@ class DependencyManager
         }
 
         $thisController = $controllerList[strtolower($this->request->getController())];
-        $thisPage = $thisController[$this->request->getAction()];
+        $action = $this->request->getAction();
+        $thisPage = $thisController[$action];
 
         $this->addDependencies($this->pageDependenciesLists['site']);
         $this->addDependencies($thisPage);

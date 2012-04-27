@@ -31,6 +31,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     private $mobileInit = 'some device specific initialization';
 
     private $dependencyDefinition;
+    const SOME_ADMIN_ACTION = 'someAdminAction';
+    const SOME_ADMIN_CONTROLLER = 'someAdminController';
 
 
     /** @var FileSystem */
@@ -78,7 +80,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
              ),
              strtolower($this->anyController) => $anyPageDependencies,
              'admin' => array(
-                 strtoLower($this->anyController) => $anyPageDependencies
+                 strtolower(self::SOME_ADMIN_CONTROLLER) => array(
+                     self::SOME_ADMIN_ACTION => array(
+                         'pageStyle' => $this->pageStyle
+                     )
+                 )
              )
         );
     }
@@ -502,13 +508,21 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testAdminDependenciesHandledJustLikeOtherPages()
     {
-        $this->request->expects($this->any())
+        $request = $this->getMock('Request');
+        $request->expects($this->once())
             ->method('isAdmin')
             ->will($this->returnValue(true));
-        $this->request->expects($this->any())
+        $request->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue(self::SOME_ADMIN_CONTROLLER));
+        $request->expects($this->once())
             ->method('getAction')
-            ->will($this->returnValue('someOtherAction'));
-        $this->dependencyManager->setRequest($this->request);
+            ->will($this->returnValue(self::SOME_ADMIN_ACTION));
+        $this->dependencyManager->setRequest($request);
+
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->will($this->returnValue(true));
 
         $this->dependencyManager->setPageDependenciesLists($this->dependencyDefinition);
 
@@ -516,14 +530,12 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $dependencies = $this->dependencyManager->getDependencies();
 
-        $this->markTestIncomplete('Why does the verification of the above expectations not fail?');
-
-        //        $this->assertSame(
-        //            array(
-        //                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
-        //            ),
-        //            $dependencies['css']
-        //        );
+        $this->assertSame(
+            array(
+                 DependencyManager::THIS_PAGE_KEY => $this->pageStyle
+            ),
+            $dependencies['css']
+        );
     }
 
     public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
