@@ -28,8 +28,7 @@ class SubmitButton extends Input
 
     public function getClass()
     {
-        if ($this->isOuterButton)
-        {
+        if ($this->isOuterButton) {
             $this->class .= ' outerButton';
         }
 
