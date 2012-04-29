@@ -9,34 +9,34 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     /**
      * @var AbstractResponse
      */
-    protected $object;
+    protected $response;
 
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('AbstractResponse');
+        $this->response = $this->getMockForAbstractClass('AbstractResponse');
     }
 
     public function testSiteName()
     {
         $siteName = 'siteName';
-        $this->object->setSiteName($siteName);
-        $this->assertSame($siteName, $this->object->getSiteName());
+        $this->response->setSiteName($siteName);
+        $this->assertSame($siteName, $this->response->getSiteName());
     }
 
     public function testTitle()
     {
         $title = 'title';
-        $this->object->setTitle($title);
-        $this->assertSame($title, $this->object->getTitle());
+        $this->response->setTitle($title);
+        $this->assertSame($title, $this->response->getTitle());
     }
 
     public function testTitleWithSiteName()
     {
         $title = 'title';
         $siteName = 'siteName';
-        $this->object->setSiteName($siteName);
-        $this->object->setTitle($title);
-        $this->assertSame($title.' | '.$siteName, $this->object->getDecoratedTitle());
+        $this->response->setSiteName($siteName);
+        $this->response->setTitle($title);
+        $this->assertSame($title.' | '.$siteName, $this->response->getDecoratedTitle());
     }
 
     /**
@@ -65,40 +65,40 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     {
         $siteHeader = 'siteHeader';
         $siteName = 'siteName';
-        $this->object->setSiteName($siteName);
-        $this->object->setSiteHeader($siteHeader);
-        $this->assertSame($siteHeader, $this->object->getHeader());
+        $this->response->setSiteName($siteName);
+        $this->response->setSiteHeader($siteHeader);
+        $this->assertSame($siteHeader, $this->response->getHeader());
     }
 
     public function testSiteHeaderLeftBlank()
     {
         $siteHeader = 'siteHeader';
         $siteName = 'siteName';
-        $this->object->setSiteName($siteName);
-        $this->object->setSiteHeader();
-        $this->assertSame($siteName, $this->object->getHeader());
+        $this->response->setSiteName($siteName);
+        $this->response->setSiteHeader();
+        $this->assertSame($siteName, $this->response->getHeader());
     }
 
     public function testSubHeader()
     {
         $subHeader = 'subHeader';
-        $this->object->setSubHeader($subHeader);
-        $this->assertSame($subHeader, $this->object->getSubHeader());
+        $this->response->setSubHeader($subHeader);
+        $this->assertSame($subHeader, $this->response->getSubHeader());
     }
 
     public function testSetContent()
     {
         $content = 'content';
-        $this->object->setContent($content);
-        $this->assertSame($content, $this->object->getContent());
+        $this->response->setContent($content);
+        $this->assertSame($content, $this->response->getContent());
     }
 
     public function testAddToResponse()
     {
         $content = 'content';
         $description = 'description';
-        $this->object->addToResponse($description, $content);
-        $this->assertSame(array($description => $content), $this->object->getContent());
+        $this->response->addToResponse($description, $content);
+        $this->assertSame(array($description => $content), $this->response->getContent());
     }
 
     public function testAddLinkTag()
@@ -108,7 +108,7 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $title = 'title';
         $type = 'type';
 
-        $this->object->addLinkTag($link, $rel, $title, $type);
+        $this->response->addLinkTag($link, $rel, $title, $type);
         $this->assertSame(
             array(
                  array(
@@ -118,7 +118,7 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
                      'rel'   => $rel
                  )
             ),
-            $this->object->getLinkTags()
+            $this->response->getLinkTags()
         );
     }
 
@@ -126,7 +126,7 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     {
         $feed = 'feed';
         $title = 'title';
-        $this->object->addFeed($feed, $title);
+        $this->response->addFeed($feed, $title);
         $this->assertSame(
             array(
                  array(
@@ -136,14 +136,14 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
                      'rel'   => 'alternate'
                  )
             ),
-            $this->object->getLinkTags()
+            $this->response->getLinkTags()
         );
     }
 
     public function testAddFeedNoTitle()
     {
         $feed = 'feed';
-        $this->object->addFeed($feed);
+        $this->response->addFeed($feed);
         $this->assertSame(
             array(
                  array(
@@ -153,39 +153,17 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
                      'rel'   => 'alternate'
                  )
             ),
-            $this->object->getLinkTags()
+            $this->response->getLinkTags()
         );
     }
 
     public function testMetaTag()
     {
         $tag = 'tag';
-        $this->object->addMetaTag($tag);
+        $this->response->addMetaTag($tag);
         $this->assertSame(
             array('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />',$tag),
-            $this->object->getMetaTags()
-        );
-    }
-
-    /**
-     * @todo Implement testSetSubNav().
-     */
-    public function testSetSubNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetSubNav().
-     */
-    public function testGetSubNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+            $this->response->getMetaTags()
         );
     }
 
@@ -236,40 +214,29 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
     public function testLayoutTemplate()
     {
         $template = 'template';
-        $this->object->setLayoutTemplate($template);
-        $this->assertSame($template, $this->object->getLayoutTemplate());
+        $this->response->setLayoutTemplate($template);
+        $this->assertSame($template, $this->response->getLayoutTemplate());
     }
 
     public function testSetPageTemplate()
     {
         $template = 'template';
-        $this->object->setPageTemplate($template);
-        $this->assertSame($template, $this->object->getPageTemplate());
+        $this->response->setPageTemplate($template);
+        $this->assertSame($template, $this->response->getPageTemplate());
     }
 
     public function testClientTemplate()
     {
         $template = 'template';
         $name = 'name';
-        $this->object->addClientTemplate($name, $template);
-        $this->assertSame(array($name => $template), $this->object->getClientTemplates());
+        $this->response->addClientTemplate($name, $template);
+        $this->assertSame(array($name => $template), $this->response->getClientTemplates());
     }
 
     /**
      * @todo Implement testDisplay().
      */
     public function testDisplay()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGoog_analytics().
-     */
-    public function testGoog_analytics()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

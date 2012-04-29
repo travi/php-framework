@@ -215,6 +215,20 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
         $this->assertNull($this->response->getAdminNav());
     }
+
+    public function testSubNav()
+    {
+        $subNav = array(
+            array(
+                'text' => 'something',
+                'link' => 'some link'
+            )
+        );
+
+        $this->response->setSubNav($subNav);
+
+        $this->assertEquals($subNav, $this->response->getSubNav());
+    }
 }
 
 class ResponseShunt extends Response

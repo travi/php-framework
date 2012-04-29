@@ -282,7 +282,7 @@ abstract class AbstractResponse
 
             $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
 
-            echo $htmlRenderer->format($this->getContent(), $this);
+            $htmlRenderer->format($this->getContent(), $this);
         }
     }
 
