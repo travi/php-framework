@@ -46,11 +46,13 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->fileSystem = $this->getMock('FileSystem');
         $this->environmentUtility = $this->getMock('Environment');
         $this->request = $this->getMock('Request');
+        $this->clientDependencyDefinitions = $this->getMock('ClientDependencies');
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
         $this->dependencyManager->setFileSystem($this->fileSystem);
         $this->dependencyManager->setRequest($this->request);
+        $this->dependencyManager->setClientDependencyDefinitions($this->clientDependencyDefinitions);
 
         $this->request->expects($this->any())
             ->method('getController')
@@ -538,9 +540,51 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             $dependencies['css']
         );
     }
+//
+//    public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
+//    {
+//        $request = $this->getMock('Request');
+//        $request->expects($this->once())
+//            ->method('isAdmin')
+//            ->will($this->returnValue(false));
+//        $request->expects($this->once())
+//            ->method('getController')
+//            ->will($this->returnValue($this->anyController));
+//        $request->expects($this->once())
+//            ->method('getAction')
+//            ->will($this->returnValue($this->otherAction));
+//        $request->expects($this->exactly(2))
+//            ->method('getEnhancementVersion')
+//            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+//        $this->dependencyManager->setRequest($request);
+//
+//        $this->clientDependencyDefinitions->expects($this->once())
+//            ->method('resolveFileURI')
+//            ->will($this->returnValue(''));
+//
+//        $this->dependencyManager->setPageDependenciesLists(
+//            array(
+//                strtolower($this->anyController) => array(
+//                    $this->otherAction => array(
+//                        'js' => array(
+//                            'desktopOnlyWidget'
+//                        )
+//                    )
+//                )
+//            )
+//        );
+//
+//        $this->dependencyManager->loadPageDependencies();
+//
+//        $dependencies = $this->dependencyManager->getDependencies();
+//
+//        $this->assertEquals(array(), $dependencies['js']);
+//    }
 
-    public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
+    public function testEmptyStringNotAddedWhenReturnedAsDependency()
     {
+        $widget = 'someWidgetWithDeps';
+
         $request = $this->getMock('Request');
         $request->expects($this->once())
             ->method('isAdmin')
@@ -551,22 +595,28 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $request->expects($this->once())
             ->method('getAction')
             ->will($this->returnValue($this->otherAction));
-        $request->expects($this->exactly(2))
-            ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
         $this->dependencyManager->setRequest($request);
 
-        $clientDependencyDefinitions = $this->getMock('ClientDependencies');
-        $clientDependencyDefinitions->expects($this->once())
-            ->method('resolveFileURI');
-        $this->dependencyManager->setClientDependencyDefinitions($clientDependencyDefinitions);
+        $jsDependency = '/some/dep/that/isnt/defined/as/a/component';
+        $this->clientDependencyDefinitions->expects($this->at(1))
+            ->method('getDependenciesFor')
+            ->with($widget)
+            ->will(
+                $this->returnValue(
+                    array(
+                        'jsDependencies' => array(
+                            $jsDependency
+                        )
+                    )
+                )
+            );
 
         $this->dependencyManager->setPageDependenciesLists(
             array(
                 strtolower($this->anyController) => array(
                     $this->otherAction => array(
                         'js' => array(
-                            'desktopOnlyWidget'
+                            $widget
                         )
                     )
                 )
@@ -577,6 +627,6 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $dependencies = $this->dependencyManager->getDependencies();
 
-        $this->assertEquals(array(), $dependencies['js']);
+        $this->assertEquals(array($jsDependency), $dependencies['js']);
     }
 }
