@@ -566,46 +566,6 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             $dependencies['css']
         );
     }
-//
-//    public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
-//    {
-//        $request = $this->getMock('Request');
-//        $request->expects($this->once())
-//            ->method('isAdmin')
-//            ->will($this->returnValue(false));
-//        $request->expects($this->once())
-//            ->method('getController')
-//            ->will($this->returnValue($this->anyController));
-//        $request->expects($this->once())
-//            ->method('getAction')
-//            ->will($this->returnValue($this->otherAction));
-//        $request->expects($this->exactly(2))
-//            ->method('getEnhancementVersion')
-//            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
-//        $this->dependencyManager->setRequest($request);
-//
-//        $this->clientDependencyDefinitions->expects($this->once())
-//            ->method('resolveFileURI')
-//            ->will($this->returnValue(''));
-//
-//        $this->dependencyManager->setPageDependenciesLists(
-//            array(
-//                strtolower($this->anyController) => array(
-//                    $this->otherAction => array(
-//                        'js' => array(
-//                            'desktopOnlyWidget'
-//                        )
-//                    )
-//                )
-//            )
-//        );
-//
-//        $this->dependencyManager->loadPageDependencies();
-//
-//        $dependencies = $this->dependencyManager->getDependencies();
-//
-//        $this->assertEquals(array(), $dependencies['js']);
-//    }
 
     public function testEmptyStringNotAddedWhenReturnedAsDependency()
     {
