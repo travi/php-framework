@@ -19,6 +19,8 @@ class DependencyManager
     private $envUtil;
     /** @var Request */
     private $request;
+    /** @var Session */
+    private $session;
 
     private $pageDependenciesLists = array();
 
@@ -375,7 +377,7 @@ class DependencyManager
     {
         $dependencies = $this->getDependencies();
 
-        if (!$this->envUtil->isLocal()) {
+        if (!$this->envUtil->isLocal() && !$this->session->isDebug()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');
         }
@@ -420,5 +422,14 @@ class DependencyManager
     public function setRequest($request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * @param $session Session
+     * @PdInject session
+     */
+    public function setSession($session)
+    {
+        $this->session = $session;
     }
 }

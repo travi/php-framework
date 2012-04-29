@@ -1,6 +1,4 @@
 <?php
-require_once 'PHPUnit/Framework.php';
-
 require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
 
 class ResponseTest extends PHPUnit_Framework_TestCase

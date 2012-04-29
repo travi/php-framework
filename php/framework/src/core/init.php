@@ -2,6 +2,7 @@
 require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
 require_once dirname(__FILE__).'/../http/Request.class.php';
 require_once dirname(__FILE__).'/../http/Response.class.php';
+require_once dirname(__FILE__).'/../http/Session.class.php';
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
@@ -54,6 +55,7 @@ $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
 $container->dependencies()->set('request', Pd_Make::name('Request'));
 $container->dependencies()->set('response', Pd_Make::name('Response'));
+$container->dependencies()->set('session', Pd_Make::name('Session'));
 
 
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));

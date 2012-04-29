@@ -34,6 +34,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     const SOME_ADMIN_ACTION = 'someAdminAction';
     const SOME_ADMIN_CONTROLLER = 'someAdminController';
     private $otherAction = 'someOtherAction';
+    public $session;
 
 
     /** @var FileSystem */
@@ -47,12 +48,15 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->environmentUtility = $this->getMock('Environment');
         $this->request = $this->getMock('Request');
         $this->clientDependencyDefinitions = $this->getMock('ClientDependencies');
+        $this->session = $this->getMock('Session');
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
         $this->dependencyManager->setFileSystem($this->fileSystem);
         $this->dependencyManager->setRequest($this->request);
         $this->dependencyManager->setClientDependencyDefinitions($this->clientDependencyDefinitions);
+        $this->dependencyManager->setEnvironmentUtility($this->environmentUtility);
+        $this->dependencyManager->setSession($this->session);
 
         $this->request->expects($this->any())
             ->method('getController')
@@ -253,7 +257,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testReturnsMinifiedFormOfJsAndCss()
+    public function testReturnsMinifiedFormOfJsAndCssWhenNotLocal()
     {
         $script = "/js/some script";
         $sheet = "/css/some sheet";
@@ -263,11 +267,10 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->with($sheet)
             ->will($this->returnValue(true));
 
-        /** @var $environmentUtility Environment */
         $this->environmentUtility->expects($this->once())
-            ->method('isLocal');
+            ->method('isLocal')
+            ->will($this->returnValue(false));
 
-        $this->dependencyManager->setEnvironmentUtility($this->environmentUtility);
         $this->dependencyManager->addStyleSheet($sheet);
         $this->dependencyManager->addJavaScript($script);
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
@@ -292,12 +295,10 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->with($sheet)
             ->will($this->returnValue(true));
 
-        /** @var $environmentUtility Environment */
         $this->environmentUtility->expects($this->once())
             ->method('isLocal')
             ->will($this->returnValue(true));
 
-        $this->dependencyManager->setEnvironmentUtility($this->environmentUtility);
         $this->dependencyManager->addStyleSheet($sheet);
         $this->dependencyManager->addJavaScript($script);
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
@@ -314,8 +315,33 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testReturnsFullSourceFormOfJsAndCssWhenDebug()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $script = "/js/some script";
+        $sheet = "/css/some sheet";
+
+        $this->fileSystem->expects($this->at(0))
+            ->method('styleSheetExists')
+            ->with($sheet)
+            ->will($this->returnValue(true));
+
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(false));
+
+        $this->session->expects($this->once())
+            ->method('isDebug')
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->addStyleSheet($sheet);
+        $this->dependencyManager->addJavaScript($script);
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertNotNull($dependencies);
+        $this->assertSame(
+            array(
+                'css' => array($sheet),
+                'js' => array($script)
+            ),
+            $dependencies
         );
     }
 
