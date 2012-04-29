@@ -33,6 +33,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     private $dependencyDefinition;
     const SOME_ADMIN_ACTION = 'someAdminAction';
     const SOME_ADMIN_CONTROLLER = 'someAdminController';
+    private $otherAction = 'someOtherAction';
 
 
     /** @var FileSystem */
@@ -540,6 +541,42 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testComponentWithOnlyDesktopJsDoesNotAddEmptyEntryWhenMobile()
     {
-        $this->markTestIncomplete('get coverage around empty check on script b4 adding');
+        $request = $this->getMock('Request');
+        $request->expects($this->once())
+            ->method('isAdmin')
+            ->will($this->returnValue(false));
+        $request->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue($this->anyController));
+        $request->expects($this->once())
+            ->method('getAction')
+            ->will($this->returnValue($this->otherAction));
+        $request->expects($this->exactly(2))
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+        $this->dependencyManager->setRequest($request);
+
+        $clientDependencyDefinitions = $this->getMock('ClientDependencies');
+        $clientDependencyDefinitions->expects($this->once())
+            ->method('resolveFileURI');
+        $this->dependencyManager->setClientDependencyDefinitions($clientDependencyDefinitions);
+
+        $this->dependencyManager->setPageDependenciesLists(
+            array(
+                strtolower($this->anyController) => array(
+                    $this->otherAction => array(
+                        'js' => array(
+                            'desktopOnlyWidget'
+                        )
+                    )
+                )
+            )
+        );
+
+        $this->dependencyManager->loadPageDependencies();
+
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertEquals(array(), $dependencies['js']);
     }
 }

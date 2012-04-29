@@ -52,10 +52,9 @@ class DependencyManager
                             $this->addClientTemplate($name, $dependency);
                         }
                     }
-                    $script = $this->clientDependencyDefinitions->resolveFileURI($script);
                 }
-                if (!empty($script)) {
-                    array_push($this->requirementLists['js'], $script);
+                if (!empty($fileURI)) {
+                    array_push($this->requirementLists['js'], $fileURI);
                 }
             }
         }
@@ -137,7 +136,8 @@ class DependencyManager
             $controllerList = $this->pageDependenciesLists;
         }
 
-        $thisController = $controllerList[strtolower($this->request->getController())];
+        $str = $this->request->getController();
+        $thisController = $controllerList[strtolower($str)];
         $action = $this->request->getAction();
         $thisPage = $thisController[$action];
 
