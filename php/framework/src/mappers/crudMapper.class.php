@@ -37,4 +37,12 @@ abstract class CrudMapper
             $form->getFieldByName($field)->setValue($value);
         }
     }
+
+    /**
+     * @param $form Form
+     */
+    protected function mapRequestValuesToForm($form)
+    {
+        $this->setFieldValues($form, $_POST);
+    }
 }
