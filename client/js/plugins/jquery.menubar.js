@@ -48,7 +48,8 @@
                     at: "left top",
                     of: window
                 }).hide();
-            });
+            }
+        );
     };
 
     $.fn[pluginName] = function (options) {
