@@ -26,7 +26,7 @@
     Plugin.prototype.init = function () {
         var $this = $(this.element);
 
-        $this.find('ul').hide().menu();
+        $this.find('ul').hide().menu().before('<span class="ui-icon ui-icon-triangle-1-s"></span>');
 
         $this.find('>li').hover(
             function () {

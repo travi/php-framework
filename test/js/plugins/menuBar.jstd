@@ -30,5 +30,12 @@ TestCase('MenuBarTests', {
         $('#menuBar li').eq(0).mouseleave();
 
         assertFalse($('#menuBar ul').eq(0).is(':visible'));
+    },
+
+    'test indicator icon added': function () {
+        var $indicators = $('#menuBar > li > span');
+        assertEquals(2, $indicators.length);
+        assertTrue($indicators.hasClass('ui-icon'));
+        assertTrue($indicators.hasClass('ui-icon-triangle-1-s'));
     }
 });

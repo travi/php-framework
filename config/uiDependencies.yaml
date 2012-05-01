@@ -77,7 +77,7 @@ jquery:
     jqueryUi:
       local: /resources/shared/thirdparty/jquery/ui/jquery-ui.js
       cssDependencies:
-        - "jqueryUiTheme"
+        - jqueryUiTheme
 
     #------jQuery Plug-ins------
 
