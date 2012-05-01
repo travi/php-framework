@@ -1,0 +1,6 @@
+ul.menuBar ul.ui-menu{
+    position: absolute;
+}
+ul.menuBar > li{
+    display: inline-block;
+}

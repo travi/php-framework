@@ -15,6 +15,7 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('tabs', NavigationFactory::TABS);
         $this->assertEquals('accordion', NavigationFactory::ACCORDION);
+        $this->assertEquals('menuBar', NavigationFactory::MENU_BAR);
     }
 
     public function testBuildAccordion()
@@ -25,6 +26,11 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
     public function testBuildTabs()
     {
         $this->assertType('Tabs', $this->factory->build(NavigationFactory::TABS));
+    }
+
+    public function testBuildMenuBar()
+    {
+        $this->assertType('MenuBar', $this->factory->build(NavigationFactory::MENU_BAR));
     }
 
     /**
