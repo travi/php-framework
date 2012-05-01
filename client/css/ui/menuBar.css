@@ -1,4 +1,5 @@
-ul.menuBar ul.ui-menu{
+html.js ul.menuBar ul.ui-menu{
+    display: none;
     position: absolute;
 }
 ul.menuBar > li{
