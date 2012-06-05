@@ -153,4 +153,8 @@ class Request
         return $this->enhancementVersion;
     }
 
+    public function getHost()
+    {
+        return $_SERVER['HTTP_HOST'];
+    }
 }

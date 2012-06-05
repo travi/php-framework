@@ -8,13 +8,20 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
     const SOME_CATEGORY = 'some category';
     const URL_1 = 'url 1';
     const URL_2 = 'url 2';
+    const SOME_ID = 3456;
+    const SOME_HOST = 'some host';
 
     /** @var AlbumRssMapper */
     private $mapper;
+    /** @var Request */
+    private $request;
 
     public function setUp()
     {
         $this->mapper = new AlbumRssMapper();
+        $this->request = $this->getMock('Request');
+
+        $this->mapper->setRequest($this->request);
     }
 
     public function testAlbumMappedToFeedItem()
@@ -30,9 +37,14 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
         $photo2->setThumbnail($thumb2);
 
         $album = new Album();
+        $album->setId(self::SOME_ID);
         $album->setTitle(self::SOME_TITLE);
         $album->setCategory(self::SOME_CATEGORY);
         $album->setPhotos(array($photo1, $photo2));
+
+        $this->request->expects($this->once())
+            ->method('getHost')
+            ->will($this->returnValue(self::SOME_HOST));
 
         /** @var $feedItem FeedItem */
         $feedItem = $this->mapper->mapToFeedItem($album);
@@ -43,6 +55,10 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<ul><li>' . self::URL_1 . '</li><li>' . self::URL_2 . '</li></ul>',
             $feedItem->description
+        );
+        $this->assertEquals(
+            'http://' . self::SOME_HOST . '/gallery/?album=' . self::SOME_ID,
+            $feedItem->link
         );
     }
 

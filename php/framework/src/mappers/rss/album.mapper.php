@@ -2,6 +2,8 @@
 
 class AlbumRssMapper
 {
+    /** @var Request */
+    private $request;
 
     /**
      * @param $album Album
@@ -13,6 +15,7 @@ class AlbumRssMapper
 
         $feedItem->title = $album->getTitle();
         $feedItem->category = $album->getCategory();
+        $feedItem->link = 'http://' . $this->request->getHost() . '/gallery/?album=' . $album->getId();
 
         $description = '<ul>';
         /** @var $photo Photo */
@@ -35,5 +38,14 @@ class AlbumRssMapper
         }
 
         return $feedItems;
+    }
+
+    /**
+     * @param $request
+     * @PdInject request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 }
