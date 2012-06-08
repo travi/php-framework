@@ -20,7 +20,7 @@ class AlbumRssMapper
         $description = '<ul>';
         /** @var $photo Photo */
         foreach ($album->getPhotos() as $photo) {
-            $description .= '<li>' . $photo->getThumbnail()->getUrl() . '</li>';
+            $description .= '<li><img src="' . $photo->getThumbnail()->getUrl() . '"/></li>';
         }
         $description .= '</ul>';
 

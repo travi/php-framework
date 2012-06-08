@@ -53,7 +53,7 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::SOME_TITLE, $feedItem->title);
         $this->assertEquals(self::SOME_CATEGORY, $feedItem->category);
         $this->assertEquals(
-            '<ul><li>' . self::URL_1 . '</li><li>' . self::URL_2 . '</li></ul>',
+            '<ul><li><img src="' . self::URL_1 . '"/></li><li><img src="' . self::URL_2 . '"/></li></ul>',
             $feedItem->description
         );
         $this->assertEquals(
