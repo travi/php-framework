@@ -11,6 +11,11 @@ class SessionTest extends PHPUnit_Framework_TestCase
         $this->session = new Session();
     }
 
+    public function tearDown()
+    {
+        unset($_SESSION[Session::LOGGED_IN_USER]);
+    }
+
     public function testDebugModeReturnsFalseForNow()
     {
         $this->assertFalse($this->session->isDebug());
