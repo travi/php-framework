@@ -13,4 +13,8 @@ class Session
     {
         unset($_SESSION[self::LOGGED_IN_USER]);
     }
+
+    public function setLoggedInUser()
+    {
+    }
 }
