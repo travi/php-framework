@@ -216,4 +216,87 @@
             </gml:Point>
         </georss:where>
     </entry>
+    <entry>
+        <id>
+            https://picasaweb.google.com/data/entry/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946
+        </id>
+        <published>2012-06-24T15:42:39.000Z</published>
+        <updated>2012-06-24T15:46:18.178Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/>
+        <title type='text'>VID_20120610_200029.m4v</title>
+        <summary type='text'>Tug of war while I try to wipe wax from the truck</summary>
+        <summary type='text'/>
+        <content type='image/jpeg'
+                 src='https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/AAAAAAAAJpg/N1bST9ObDQE/s1600/VID_20120610_200029.m4v.jpg'/>
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/feed/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946'/>
+        <link rel='alternate' type='text/html'
+              href='https://picasaweb.google.com/107098889836094611170/Smokey#5757629399969544946'/>
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html'
+              href='https://picasaweb.google.com/lh/photo/pOaLcUnXOhfNzImdm-sSCNMTjNZETYmyPJy0liipFm0'/>
+        <link rel='self' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/entry/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946'/>
+        <link rel='edit' type='application/atom+xml'
+              href='https://picasaweb.google.com/data/entry/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946/5?tok=QUI1UGxRYnlZcXYwQmxrTlVfOXBWYjR2S0lyWW52U3VoQToxMzQxMTYwNTYxNTI2'/>
+        <link rel='edit-media' type='image/jpeg'
+              href='https://picasaweb.google.com/data/media/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946/5?tok=QUI1UGxRWVJEa216aTVCTl9UeWU5UmxZRC1MZ1V1YU55UToxMzQxMTYwNTYxNTI2'/>
+        <link rel='media-edit' type='image/jpeg'
+              href='https://picasaweb.google.com/data/media/api/user/107098889836094611170/albumid/5757611626531765057/photoid/5757629399969544946/5?tok=QUI1UGxRWVJEa216aTVCTl9UeWU5UmxZRC1MZ1V1YU55UToxMzQxMTYwNTYxNTI2'/>
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html'
+              href='https://picasaweb.google.com/lh/reportAbuse?uname=107098889836094611170&amp;aid=5757611626531765057&amp;iid=5757629399969544946'/>
+        <gphoto:id>5757629399969544946</gphoto:id>
+        <gphoto:version>5</gphoto:version>
+        <gphoto:position>32.0</gphoto:position>
+        <gphoto:albumid>5757611626531765057</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:videostatus>final</gphoto:videostatus>
+        <gphoto:originalvideo width='1280' height='720' type='MOV' duration='100' channels='2' samplingrate='32.0'
+                              videoCodec='H264' audioCodec='AAC' fps='90000.0'/>
+        <gphoto:width>720</gphoto:width>
+        <gphoto:height>1280</gphoto:height>
+        <gphoto:size>75831393</gphoto:size>
+        <gphoto:client>picasa</gphoto:client>
+        <gphoto:checksum>5e82597f</gphoto:checksum>
+        <gphoto:timestamp>1339358530000</gphoto:timestamp>
+        <gphoto:imageVersion>9880</gphoto:imageVersion>
+        <gphoto:commentingEnabled>true</gphoto:commentingEnabled>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='3' name='Attribution-Noncommercial-No Derivative'
+                        url='http://creativecommons.org/licenses/by-nc-nd/3.0'>ATTRIBUTION_NON_COMMERCIAL_NO_DERIVATIVES
+        </gphoto:license>
+        <exif:tags>
+            <exif:time>1339358530000</exif:time>
+            <exif:imageUniqueID>01cded5c2015ffad93bfd85236c007f8</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content
+                    url='https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/AAAAAAAAJpg/N1bST9ObDQE/s1600/VID_20120610_200029.m4v.jpg'
+                    height='1280' width='720' type='image/jpeg' medium='image'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=5&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=637906962649DE9C2888412DABEBF7A1DCE528C4.B848DAB89D19BEBBFFA38A5D9EAB80B27CAB1D66&amp;key=lh1'
+                    height='240' width='136' type='application/x-shockwave-flash' medium='video'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=18&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=92F4A8A9CF326902E30CF6B669F3DD715CD095E3.CF2450B7783E34EBEC77D75753CDB2A8AEF62531&amp;key=lh1'
+                    height='360' width='202' type='video/mpeg4' medium='video'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=34&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=52DEABEB8F092A0220B6AA68C7795214B60617A5.55E9D14A4C7373FFF09CE62812C30AAB6EF3035&amp;key=lh1'
+                    height='360' width='202' type='application/x-shockwave-flash' medium='video'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=35&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=501ADE78535C3F09E2286714B5B2BDE39CB55D6F.6CD7B3CC10DAE2FDE1E5B75CE176D99BE97CE11F&amp;key=lh1'
+                    height='480' width='270' type='application/x-shockwave-flash' medium='video'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=22&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=B3929D86A776C91DB28BED29E20827C3674884A.98E20D0F8AA7DF52270C160554221BD711A21BD6&amp;key=lh1'
+                    height='720' width='406' type='video/mpeg4' medium='video'/>
+            <media:content
+                    url='http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&amp;itag=37&amp;source=picasa&amp;cmo=sensitive_content%3Dyes&amp;ip=0.0.0.0&amp;ipbits=0&amp;expire=1343752561&amp;sparams=id,itag,source,ip,ipbits,expire&amp;signature=98A3F79B5F29F8F3988BCB03AFE999821C211F7E.460E76C2EFBBE65A04226A1CB0EA8175976F9835&amp;key=lh1'
+                    height='1080' width='608' type='video/mpeg4' medium='video'/>
+            <media:credit>Matt Travi</media:credit>
+            <media:description type='plain'/>
+            <media:keywords/>
+            <media:thumbnail
+                    url='https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/AAAAAAAAJpg/N1bST9ObDQE/s75-c/VID_20120610_200029.m4v.jpg'
+                    height='75' width='75'/>
+            <media:title type='plain'>VID_20120610_200029.m4v</media:title>
+        </media:group>
+    </entry>
 </feed>

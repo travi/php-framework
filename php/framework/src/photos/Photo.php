@@ -1,14 +1,8 @@
 <?php
-require_once 'License.php';
-require_once 'Image.php';
+require_once 'Media.php';
 
-class Photo extends Image
+class Photo extends Media
 {
-    /** @var Thumbnail */
-    private $thumbnail;
-    /** @var License */
-    private $license;
-
     public function getOriginal()
     {
         return $this->url;
@@ -17,45 +11,5 @@ class Photo extends Image
     public function setOriginal($uri)
     {
         $this->url = $uri;
-    }
-
-    public function getThumbnail()
-    {
-        return $this->thumbnail;
-    }
-
-    public function setThumbnail($thumb)
-    {
-        $this->thumbnail = $thumb;
-    }
-
-    public function getLicense()
-    {
-        return $this->license;
-    }
-
-    public function setLicense($license)
-    {
-        $this->license = $license;
-    }
-
-    public function getPreview()
-    {
-        return $this->preview;
-    }
-
-    public function setPreview($url)
-    {
-        $this->preview = $url;
-    }
-
-    public function getCaption()
-    {
-        return $this->caption;
-    }
-
-    public function setCaption($caption)
-    {
-        $this->caption = $caption;
     }
 }

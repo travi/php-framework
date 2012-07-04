@@ -15,7 +15,7 @@ class JsonRendererTest extends PHPUnit_Framework_TestCase
         $json = $jsonRenderer->format(array('album' => $album));
 
         $this->assertEquals(
-            '{"album":{"title":"someTitle","photos":[{"original":"someUrl","url":"someUrl"}]}}',
+            '{"album":{"title":"someTitle","photos":[{"original":"someUrl"}]}}',
             $json
         );
     }

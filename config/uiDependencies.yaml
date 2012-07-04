@@ -66,6 +66,7 @@ gallery:
       - carousel
       - lightbox
       - reflection
+      - http://cdn.sublimevideo.net/js/ws9xvgbm.js
 
 #=======jQuery======
 jquery:

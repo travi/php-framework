@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../http/RestClient.php';
 require_once 'Album.php';
+require_once 'Video.php';
 
 class PicasaService
 {
@@ -15,6 +16,11 @@ class PicasaService
     const MAX_WIDTH_KEY = 'w';
     const MAX_SIZE_KEY = 's';
     const MAX_HEIGHT_KEY = 'h';
+    const MPEG_VIDEO_TYPE = 'video/mpeg4';
+    const MOBILE_SIZE = 360;
+    const VIDEO_MEDIUM = 'video';
+    const STANDARD_SIZE = 720;
+    const HIGH_DEF_SIZE = 1080;
 
     /** @var RestClient */
     private $restClient;
@@ -118,36 +124,46 @@ class PicasaService
 
     private function createPhotoListFrom($responseBody, $options)
     {
-        $xml = new SimpleXMLElement($responseBody);
+        $mediaList = array();
+        try{
+            $xml = new SimpleXMLElement($responseBody);
+        } catch (Exception $e) {
+            return $mediaList;
+        }
+
         $namespaces = $xml->getNamespaces(true);
 
-        $photos = array();
         foreach ($xml->entry as $entry) {
             $ns_gphoto = $entry->children($namespaces['gphoto']);
 
             $license_attr = $ns_gphoto->license->attributes();
 
-            /** @var $photo Photo */
-            $photo = new Photo();
             $originalUrl = (string)$entry->content['src'];
-            $photo->setOriginal($originalUrl);
 
-            if ($options['preview']) {
-                $photo->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
+            if ($this->isVideo($entry, $namespaces)) {
+                $media = new Video();
+                $this->setVideoVersions($media, $entry, $namespaces);
+            } else {
+                $media = new Photo();
+                $media->setOriginal($originalUrl);
             }
 
-            $photo->setThumbnail($this->setThumbDetails($entry));
-            $photo->setCaption((string) $entry->summary[0]);
+            if ($options['preview']) {
+                $media->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
+            }
+
+            $media->setThumbnail($this->setThumbDetails($entry));
+            $media->setCaption((string) $entry->summary[0]);
 
             $license = new License();
             $license->setId((int) $license_attr['id']);
             $license->setName((string) $license_attr['name']);
             $license->setUrl((string) $license_attr['url']);
-            $photo->setLicense($license);
+            $media->setLicense($license);
 
-            array_push($photos, $photo);
+            array_push($mediaList, $media);
         }
-        return $photos;
+        return $mediaList;
     }
 
     private function defineImageWidth($originalUrl, $width)
@@ -211,6 +227,53 @@ class PicasaService
             return self::CROPPED_KEY;
         } else {
             return self::UNCROPPED_KEY;
+        }
+    }
+
+    private function isVideo($entry, $namespaces)
+    {
+        $ns_media = $entry->children($namespaces['media']);
+
+        $versions = $ns_media->group->content;
+
+        foreach ($versions as $version) {
+            $attributes = $version->attributes();
+            if (self::VIDEO_MEDIUM === (string)$attributes->medium) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $video Video
+     * @param $entry
+     */
+    private function setVideoVersions($video, $entry, $namespaces)
+    {
+        $ns_media = $entry->children($namespaces['media']);
+
+        $versions = $ns_media->group->content;
+
+        foreach ($versions as $version) {
+            $attributes = $version->attributes();
+            if (self::VIDEO_MEDIUM === (string)$attributes->medium && self::MPEG_VIDEO_TYPE === (string)$attributes->type) {
+                $width = (int)$attributes->width;
+                $height = (int)$attributes->height;
+
+                if (self::MOBILE_SIZE === $width || self::MOBILE_SIZE === $height) {
+                    $video->setMobile((string)$attributes->url);
+                }
+
+                if (self::STANDARD_SIZE === $width || self::STANDARD_SIZE === $height) {
+                    $video->setStandard((string)$attributes->url);
+                }
+
+                if (self::HIGH_DEF_SIZE === $width || self::HIGH_DEF_SIZE === $height) {
+                    $video->setHighDef((string)$attributes->url);
+                }
+            }
         }
     }
 }
