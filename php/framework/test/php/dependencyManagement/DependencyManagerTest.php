@@ -259,8 +259,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testReturnsMinifiedFormOfJsAndCssWhenNotLocal()
     {
-        $script = "/js/some script";
-        $sheet = "/css/some sheet";
+        $script = "/resources/js/some script";
+        $sheet = "/resources/css/some sheet";
 
         $this->fileSystem->expects($this->at(0))
             ->method('styleSheetExists')
@@ -278,8 +278,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($dependencies);
         $this->assertSame(
             array(
-                'css' => array(DependencyManager::MIN_DIR . $sheet),
-                'js' => array(DependencyManager::MIN_DIR . $script)
+                'css' => array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet'),
+                'js' => array('/resources' . DependencyManager::MIN_DIR . '/js/some script')
             ),
             $dependencies
         );

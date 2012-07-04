@@ -303,8 +303,8 @@ class DependencyManager
             );
         } else {
             return preg_replace(
-                '/\/(css|js)\//',
-                self::MIN_DIR . '/$1/',
+                '/\/(resources.*)\/(css|js)\//',
+                '/$1' . self::MIN_DIR . '/$2/',
                 $dependency,
                 1
             );
