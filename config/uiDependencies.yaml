@@ -53,7 +53,15 @@ carousel:
       - bbq
       - template
     clientTemplates:
-      thumbnail: "/resources/templates/thumbnail.tmpl"
+      thumbnail: /resources/templates/thumbnail.tmpl
+
+previewPane:
+  desktop:
+    local: /resources/js/photos/previewPane.js
+    jsDependencies:
+      - template
+    clientTemplates:
+      videoStage: /resources/templates/videoStage.tmpl
 
 gallery:
   cssDependencies:
@@ -62,8 +70,8 @@ gallery:
     local: /resources/js/photos/gallery.js
     jsDependencies:
       - travi
-      - /resources/js/photos/previewPane.js
       - carousel
+      - previewPane
       - lightbox
       - reflection
       - http://cdn.sublimevideo.net/js/ws9xvgbm.js
