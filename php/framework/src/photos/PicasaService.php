@@ -249,6 +249,7 @@ class PicasaService
     /**
      * @param $video Video
      * @param $entry
+     * @param $namespaces
      */
     private function setVideoVersions($video, $entry, $namespaces)
     {
@@ -258,8 +259,7 @@ class PicasaService
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
-            if (
-                self::VIDEO_MEDIUM === (string)$attributes->medium
+            if (self::VIDEO_MEDIUM === (string)$attributes->medium
                 && self::MPEG_VIDEO_TYPE === (string)$attributes->type
             ) {
                 $width = (int)$attributes->width;
