@@ -258,7 +258,10 @@ class PicasaService
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
-            if (self::VIDEO_MEDIUM === (string)$attributes->medium && self::MPEG_VIDEO_TYPE === (string)$attributes->type) {
+            if (
+                self::VIDEO_MEDIUM === (string)$attributes->medium
+                && self::MPEG_VIDEO_TYPE === (string)$attributes->type
+            ) {
                 $width = (int)$attributes->width;
                 $height = (int)$attributes->height;
 
