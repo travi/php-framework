@@ -327,7 +327,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 'preview' => array(
                     'width' => 600
                 )
-            ));
+            )
+        );
 
         /** @var $video Video */
         $video = $mediaList[3];
@@ -335,25 +336,25 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=18&source=picasa&' .
-                'cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,' .
-                'source,ip,ipbits,expire&signature=92F4A8A9CF326902E30CF6B669F3DD715CD095E3.' .
-                'CF2450B7783E34EBEC77D75753CDB2A8AEF62531&key=lh1',
+            'cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,' .
+            'source,ip,ipbits,expire&signature=92F4A8A9CF326902E30CF6B669F3DD715CD095E3.' .
+            'CF2450B7783E34EBEC77D75753CDB2A8AEF62531&key=lh1',
             $video->getMobile()
         );
 
         $this->assertEquals(
             'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=22&source=picasa' .
-                '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,ip,' .
-                'ipbits,expire&signature=B3929D86A776C91DB28BED29E20827C3674884A.' .
-                '98E20D0F8AA7DF52270C160554221BD711A21BD6&key=lh1',
+            '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,ip,' .
+            'ipbits,expire&signature=B3929D86A776C91DB28BED29E20827C3674884A.' .
+            '98E20D0F8AA7DF52270C160554221BD711A21BD6&key=lh1',
             $video->getStandard()
         );
 
         $this->assertEquals(
             'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=37&source=picasa' .
-                '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,' .
-                'ip,ipbits,expire&signature=98A3F79B5F29F8F3988BCB03AFE999821C211F7E.' .
-                '460E76C2EFBBE65A04226A1CB0EA8175976F9835&key=lh1',
+            '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,' .
+            'ip,ipbits,expire&signature=98A3F79B5F29F8F3988BCB03AFE999821C211F7E.' .
+            '460E76C2EFBBE65A04226A1CB0EA8175976F9835&key=lh1',
             $video->getHighDef()
         );
 
@@ -361,9 +362,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             $video,
             array(
                 'preview' => 'https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/' .
-                    'AAAAAAAAJpg/N1bST9ObDQE/w600/VID_20120610_200029.m4v.jpg',
+                'AAAAAAAAJpg/N1bST9ObDQE/w600/VID_20120610_200029.m4v.jpg',
                 'thumbnail' => 'https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/' .
-                    'AAAAAAAAJpg/N1bST9ObDQE/s75-c/VID_20120610_200029.m4v.jpg',
+                'AAAAAAAAJpg/N1bST9ObDQE/s75-c/VID_20120610_200029.m4v.jpg',
                 'caption' => 'Tug of war while I try to wipe wax from the truck'
             )
         );
