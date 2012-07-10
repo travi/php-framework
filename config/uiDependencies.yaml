@@ -48,12 +48,6 @@ carousel:
     - /resources/css/pages/gallery/carousel.css
   desktop:
     local: /resources/js/photos/carousel.js
-    jsDependencies:
-      - framework
-      - bbq
-      - template
-    clientTemplates:
-      thumbnail: /resources/templates/thumbnail.tmpl
 
 previewPane:
   desktop:
@@ -63,9 +57,20 @@ previewPane:
     clientTemplates:
       videoStage: /resources/templates/videoStage.tmpl
 
-gallery:
+thumbnails:
+  local: /resources/js/photos/thumbnails.js
   cssDependencies:
-    - /resources/css/pages/gallery/carousel.css
+    - /resources/css/pages/gallery/thumbnails.css
+  jsDependencies:
+    - framework
+    - bbq
+    - template
+  clientTemplates:
+    thumbnail: /resources/templates/thumbnail.tmpl
+
+gallery:
+  jsDependencies:
+      - thumbnails
   desktop:
     local: /resources/js/photos/gallery.js
     jsDependencies:

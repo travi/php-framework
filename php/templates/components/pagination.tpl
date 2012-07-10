@@ -1,4 +1,4 @@
-        <ul class="pagination"{if !empty($paginatorId)} id="{$paginatorId}"{/if}>
+        <ul class="pagination{if !empty($class)} {$class}{/if}"{if !empty($paginatorId)} id="{$paginatorId}"{/if}>
             <li{if $offset lte 0} class="outOfRange"{/if}><a href="{$path}/?offset={$prevOff|escape}" class="prev">back</a></li>
             {if $totalItems > $nextOff}
             <li class="{if $offset lte 0}outOfRange {/if}pipeDivider"> | </li>
