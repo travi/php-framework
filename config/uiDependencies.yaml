@@ -52,10 +52,6 @@ carousel:
 previewPane:
   desktop:
     local: /resources/js/photos/previewPane.js
-    jsDependencies:
-      - template
-    clientTemplates:
-      videoStage: /resources/templates/videoStage.tmpl
 
 thumbnails:
   local: /resources/js/photos/thumbnails.js
@@ -68,6 +64,14 @@ thumbnails:
   clientTemplates:
     thumbnail: /resources/templates/thumbnail.tmpl
 
+videoPlayer:
+  local: /resources/js/video/player.js
+  jsDependencies:
+    - http://cdn.sublimevideo.net/js/ws9xvgbm.js
+    - template
+  clientTemplates:
+    videoStage: /resources/templates/videoStage.tmpl
+
 gallery:
   jsDependencies:
       - thumbnails
@@ -79,7 +83,7 @@ gallery:
       - previewPane
       - lightbox
       - reflection
-      - http://cdn.sublimevideo.net/js/ws9xvgbm.js
+      - videoPlayer
 
 #=======jQuery======
 jquery:
