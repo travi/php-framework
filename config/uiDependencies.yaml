@@ -80,10 +80,10 @@ gallery:
     jsDependencies:
       - travi
       - carousel
+      - videoPlayer
       - previewPane
       - lightbox
       - reflection
-      - videoPlayer
 
 #=======jQuery======
 jquery:
