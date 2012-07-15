@@ -1,5 +1,6 @@
 <?php
- 
+require_once dirname(__FILE__) . '/../../src/utilities/FileSystem.php';
+
 class FileSystemTest extends PHPUnit_Framework_TestCase
 {
     const ANY_STYLE_SHEET = 'something';
