@@ -206,22 +206,16 @@ class Uploader
         switch($errno) {
         case 0: //no error; possible file attack!
             return ("There was a problem with your upload");
-            break;
         case 1: //uploaded file exceeds the upload_max_filesize directive in phpini
             return ("The file you are trying to upload is too big");
-            break;
         case 2: //uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the html form
             return ("The file you are trying to upload is too big");
-            break;
         case 3: //uploaded file was only partially uploaded
             return ("The file you are trying upload was only partially uploaded");
-            break;
         case 4: //no file was uploaded
             return ("You must select a file for upload");
-            break;
         default: //a default error, just in case! :)
             return ("There was an unknown problem with your upload");
-            break;
         }
     }
 
