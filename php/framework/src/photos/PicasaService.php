@@ -57,7 +57,7 @@ class PicasaService
 
         $album->setTitle((string) $responseXml->title);
         $ns_gphoto = $responseXml->children($namespaces['gphoto']);
-        $album->setId((int) $ns_gphoto->id);
+        $album->setId($ns_gphoto->id);
         $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
 
         $album->setThumbnail($this->setAlbumThumbnailDetails($responseXml));
