@@ -109,7 +109,7 @@ class PicasaService
 
             /** @var $album Album */
             $album = new Album();
-            $album->setId((int)$ns_gphoto->id);
+            $album->setId((string)$ns_gphoto->id);
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
 
