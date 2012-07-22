@@ -15,7 +15,6 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     private $restClient;
     const ANY_ALBUM_ID = 'someAlbumId';
     const SOME_SIZE = 14;
-    const COERCION_STRING = 'some string';
 
     /** @var PicasaService */
     private $picasaWeb;
@@ -74,10 +73,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
             $firstAlbum->getUrl()
         );
-        $this->assertEquals(
-            self::COERCION_STRING . '5575255329214352817',
-            self::COERCION_STRING . $firstAlbum->getId()
-        );
+        $this->assertEquals(5575, $firstAlbum->getId());
 
         $thumbnail = new Thumbnail();
         $thumbnail->setUrl(
