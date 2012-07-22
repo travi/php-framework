@@ -73,7 +73,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
             $firstAlbum->getUrl()
         );
-        $this->assertEquals((string)'5575255329214352817', (string)$firstAlbum->getId());
+        $this->assertEquals('5575255329214352817', $firstAlbum->getId(), '', 100);
 
         $thumbnail = new Thumbnail();
         $thumbnail->setUrl(
