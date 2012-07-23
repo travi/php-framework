@@ -123,9 +123,10 @@
         <exec dir="${src.dir}"
               executable="phpcs"
               failonerror="true">
+            <arg line="-s"/>
             <arg line="--standard=${shared.dir}/codingStandard.xml"/>
-            <arg line="--report-full"/>
             <arg line="--report-checkstyle=${build.logs}/checkstyle.xml ."/>
+            <arg line="--report-full"/>
         </exec>
     </target>
 
