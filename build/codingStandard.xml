@@ -7,6 +7,8 @@
         <exclude name="PEAR.Commenting.FunctionComment"/>
         <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
         <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+        <!--in here because of problems with switch statements-->
+        <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.Indent"/>
     </rule>
     <rule ref="Generic.Files.LineLength">
         <properties>
