@@ -137,11 +137,12 @@
         </exec>
         <exec dir="${src.dir}/../"
               executable="phpcs"
-              output="${build.logs}/checkstyle-legacy.xml"
               failonerror="true">
+            <arg line="-s"/>
             <arg line="--standard=${shared.dir}/codingStandard.xml"/>
             <arg line="--ignore=*/coverage/*"/>
-            <arg line="--report=checkstyle ."/>
+            <arg line="--report-checkstyle=${build.logs}/checkstyle-legacy.xml ."/>
+            <arg line="--report-full"/>
         </exec>
     </target>
 
