@@ -183,7 +183,7 @@
         <scp
             file="${dist.dir}/site.zip"
             todir="${server.username}@${server.host}:${server.path}"
-            trust="yes"
+            trust="true"
             sftp="true"
             preserveLastmodified="true"
             keyfile="${keyfile}"
