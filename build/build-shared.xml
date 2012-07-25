@@ -159,6 +159,11 @@
         <property file="/Users/travi/properties.properties"/>
     </target>
 
+    <target name="sshFromLinux">
+        <property name="keyfile" value="${linux.keyfile}"/>
+        <property file="/home/travi/properties.properties"/>
+    </target>
+
     <target name="toQA">
         <property name="server.host" value="${qa.server.host}"/>
         <property name="database.url" value="${qa.database.url}"/>
