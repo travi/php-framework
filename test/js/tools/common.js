@@ -1,9 +1,19 @@
 travi.test = travi.test || {};
 
 travi.test.common = {
-    restore: function (functionName) {
-        if (functionName.restore) {
-            functionName.restore();
+    restore: function (toRestore) {
+        function restoreFunction(functionName) {
+            if (functionName.restore) {
+                functionName.restore();
+            }
+        }
+
+        if ($.isArray(toRestore)) {
+            $(toRestore).each(function () {
+                restoreFunction(this);
+            });
+        } else {
+            restoreFunction(toRestore);
         }
     },
 
