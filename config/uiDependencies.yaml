@@ -52,6 +52,8 @@ carousel:
 previewPane:
   desktop:
     local: /resources/js/photos/previewPane.js
+    clientTemplates:
+      previewPane: /resources/templates/previewPane.tmpl
 
 thumbnails:
   local: /resources/js/photos/thumbnails.js
