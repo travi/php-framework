@@ -370,6 +370,15 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    //probably a better way to handle this but better than how it is now
+    public function testNullObjectReturnedWhenInvalidResponseWhenAlbumRequested()
+    {
+        $album = $this->picasaWeb->getAlbum();
+
+        $this->assertNotNull($album);
+        $this->assertEquals(new Album(), $album);
+    }
+
     public function testEmptyListReturnedWhenInvalidResponseWhenPhotosWereRequested()
     {
         $mediaList = $this->picasaWeb->getPhotos();

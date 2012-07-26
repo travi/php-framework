@@ -52,7 +52,11 @@ class PicasaService
         $responseBody = $this->restClient->getResponseBody();
         $album->setPhotos($this->createPhotoListFrom($responseBody, $options));
 
-        $responseXml = new SimpleXMLElement($responseBody);
+        try {
+            $responseXml = new SimpleXMLElement($responseBody);
+        } catch (Exception $e) {
+            return $album;
+        }
         $namespaces = $responseXml->getNamespaces(true);
 
         $album->setTitle((string) $responseXml->title);
@@ -125,7 +129,7 @@ class PicasaService
     private function createPhotoListFrom($responseBody, $options)
     {
         $mediaList = array();
-        try{
+        try {
             $xml = new SimpleXMLElement($responseBody);
         } catch (Exception $e) {
             return $mediaList;
