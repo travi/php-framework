@@ -200,7 +200,7 @@
             keyfile="${keyfile}"
             passphrase="${passphrase}"
             trust="true"
-            commandResource="build/deploy.txt"
+            commandResource="${pathToDeployScript}deploy.txt"
         />
     </target>
 
