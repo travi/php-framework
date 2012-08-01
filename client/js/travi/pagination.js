@@ -1,7 +1,8 @@
-(function (framework) {
+(function (travi) {
     "use strict";
 
     var constants = travi.constants,
+        eventsModule = travi.events,
 
         $paginationControls,
         $divider,
@@ -29,7 +30,7 @@
             eventName = events.PREV_PAGE_REQUESTED;
         }
 
-        framework.publish(eventName, {url: $this.attr('href')});
+        eventsModule.publish(eventName, {url: $this.attr('href')});
     }
 
     function updateOffset($link, newOffset) {
@@ -66,12 +67,12 @@
 
         $paginationControls.find('a').click(handleInteraction);
 
-        travi.subscribe('page-loaded', updateLinks);
+        eventsModule.subscribe('page-loaded', updateLinks);
     }
 
     $(init);
 
-    framework.namespace('pagination', {
+    travi.namespace('pagination', {
         init: init,
         events: events,
         constants: constants,

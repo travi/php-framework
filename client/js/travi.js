@@ -56,9 +56,6 @@
         getStyleSheet   : getStyleSheet,
         namespace       : namespace,
         constants       : constants,
-        enableConstants : constants,
-        publish         : global.amplify.publish,
-        subscribe       : global.amplify.subscribe,
-        unsubscribe     : global.amplify.unsubscribe
+        enableConstants : constants
     };
 }(this));

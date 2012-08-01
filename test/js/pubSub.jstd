@@ -1,7 +1,9 @@
 travi.test.testCase('PubSubTests', {
+    events: travi.events,
+
     'test pub/sub methods exposed': function () {
-        assertFunction(travi.publish);
-        assertFunction(travi.subscribe);
-        assertFunction(travi.unsubscribe);
+        assertFunction(this.events.publish);
+        assertFunction(this.events.subscribe);
+        assertFunction(this.events.unsubscribe);
     }
 });

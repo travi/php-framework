@@ -3,17 +3,22 @@ travi:
   local: /resources/shared/js/travi.js
   jsDependencies:
     - jquery
-    - amplify
 
 framework:
   local: /resources/shared/js/travi/framework.js
   jsDependencies:
-    - travi
+    - events
     - template
     - cookieUtil
     - locationUtil
   clientTemplates:
     chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
+
+events:
+  local: /resources/shared/js/travi/events.js
+  jsDependencies:
+    - travi
+    - amplify
 
 template:
   local: /resources/shared/js/travi/templates.js
@@ -23,7 +28,7 @@ template:
 pagination:
   local: /resources/shared/js/travi/pagination.js
   jsDependencies:
-    - travi
+    - events
 
 entityList:
   local: /resources/shared/js/travi/framework/entityList.js
@@ -80,7 +85,7 @@ gallery:
   desktop:
     local: /resources/js/photos/gallery.js
     jsDependencies:
-      - travi
+      - events
       - carousel
       - videoPlayer
       - previewPane

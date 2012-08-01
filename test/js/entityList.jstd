@@ -2,6 +2,7 @@ TestCase('EntityListTests', {
     entityList: travi.framework.entityList,
     pagination: travi.pagination,
     templates: travi.templates,
+    events: travi.events,
 
     entities: [
         {
@@ -23,9 +24,17 @@ TestCase('EntityListTests', {
     ],
 
     setUp: function () {
-        travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
-        travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
+        var testCase = this;
+
         $('body').append($.render({}, 'entityList'));
+
+        sinon.stub(this.events, 'subscribe', function (eventName, callback) {
+            if (testCase.pagination.events.NEXT_PAGE_REQUESTED === eventName) {
+                testCase.nextPageCallback = callback;
+            } else if (testCase.pagination.events.PREV_PAGE_REQUESTED === eventName) {
+                testCase.prevPageCallback = callback;
+            }
+        });
 
         this.entityList.init();
 
@@ -40,12 +49,13 @@ TestCase('EntityListTests', {
     },
 
     tearDown: function () {
-        travi.test.common.restore(jQuery.ajax);
-        travi.test.common.restore(travi.publish);
-        travi.test.common.restore(travi.templates.get);
+        travi.test.common.restore([
+            jQuery.ajax,
+            this.events.publish,
+            this.events.subscribe,
+            this.templates.get
+        ]);
 
-        travi.unsubscribe(this.pagination.events.NEXT_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
-        travi.unsubscribe(this.pagination.events.PREV_PAGE_REQUESTED, this.entityList.requestMoreAnnouncements);
         this.$confirmation.dialog('destroy').remove();
     },
 
@@ -101,9 +111,9 @@ TestCase('EntityListTests', {
     'test request for next page loads more announcements': function () {
         var url = 'nextUrl';
         this.stubRequestForAnnouncements();
-        sinon.stub(travi, 'publish');
+        sinon.stub(this.events, 'publish');
 
-        amplify.publish(this.pagination.events.NEXT_PAGE_REQUESTED, {url: url});
+        this.nextPageCallback({url: url});
 
         assert(jQuery.ajax.calledOnce);
         this.assertAjaxCallMadeWith({
@@ -118,9 +128,9 @@ TestCase('EntityListTests', {
     'test request for prev page loads more announcements': function () {
         var url = 'prevUrl';
         this.stubRequestForAnnouncements();
-        sinon.stub(travi, 'publish');
+        sinon.stub(this.events, 'publish');
 
-        amplify.publish(this.pagination.events.PREV_PAGE_REQUESTED, {url: url});
+        this.prevPageCallback({url: url});
 
         assert(jQuery.ajax.calledOnce);
         this.assertAjaxCallMadeWith({
@@ -194,8 +204,8 @@ TestCase('EntityListTests', {
         var call,
             eventData;
 
-        assert(travi.publish.calledOnce);
-        call = travi.publish.getCall(0);
+        assert(this.events.publish.calledOnce);
+        call = this.events.publish.getCall(0);
         assertEquals(this.entityList.constants.get('PAGE_EVENT'), call.args[0]);
 
         eventData = call.args[1];

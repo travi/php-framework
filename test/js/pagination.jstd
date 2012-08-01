@@ -1,21 +1,31 @@
 travi.test.testCase("PaginationTest", {
     pagination: travi.pagination,
+    events: travi.events,
 
     PAGE_LOADED: 'page-loaded',
     HIDDEN_CLASS: 'outOfRange',
 
     setUp: function () {
-        travi.unsubscribe(this.PAGE_LOADED, this.pagination.update);
+        var testCase = this;
 
         $('body').append($.render({}, 'pagination'));
+
+        sinon.stub(this.events, 'subscribe', function (eventName, callback) {
+            if (testCase.PAGE_LOADED === eventName) {
+                testCase.pageLoadedCallback = callback;
+            }
+        });
+
         this.pagination.init();
 
-        sinon.stub(travi, 'publish');
+        sinon.stub(this.events, 'publish');
     },
 
     tearDown: function () {
-        travi.test.common.restore(travi.publish);
-        travi.unsubscribe(this.PAGE_LOADED, this.pagination.update);
+        travi.test.common.restore([
+            this.events.publish,
+            this.events.subscribe
+        ]);
     },
 
     'test events defined properly': function () {
@@ -34,8 +44,8 @@ travi.test.testCase("PaginationTest", {
 
         $('a.more').click();
 
-        assert(travi.publish.calledOnce);
-        call = travi.publish.getCall(0);
+        assert(this.events.publish.calledOnce);
+        call = this.events.publish.getCall(0);
         assertEquals(
             this.pagination.events.NEXT_PAGE_REQUESTED,
             call.args[0]
@@ -48,8 +58,8 @@ travi.test.testCase("PaginationTest", {
 
         $('a.prev').click();
 
-        assert(travi.publish.calledOnce);
-        call = travi.publish.getCall(0);
+        assert(this.events.publish.calledOnce);
+        call = this.events.publish.getCall(0);
         assertEquals(
             this.pagination.events.PREV_PAGE_REQUESTED,
             call.args[0]
@@ -61,7 +71,7 @@ travi.test.testCase("PaginationTest", {
         var newPrevOffset = 'newPrev',
             newNextOffset = 'newNext';
 
-        amplify.publish(this.PAGE_LOADED, {
+        this.pageLoadedCallback({
             nextOffset: newNextOffset,
             prevOffset: newPrevOffset
         });
@@ -84,7 +94,7 @@ travi.test.testCase("PaginationTest", {
     },
 
     'test next link hidden when at end': function () {
-        amplify.publish(this.PAGE_LOADED, {
+        this.pageLoadedCallback({
             offset: 1,
             nextOffset: 5,
             prevOffset: -5,

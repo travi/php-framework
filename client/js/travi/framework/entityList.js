@@ -4,6 +4,7 @@
     var constants = travi.constants,
         templates = travi.templates,
         pagination = travi.pagination,
+        events = travi.events,
 
         TEMPLATE_NAME = 'update-item',
         buttonText,
@@ -91,7 +92,7 @@
 
                     restyleRemove();
 
-                    travi.publish(constants.get('PAGE_EVENT'), {
+                    events.publish(constants.get('PAGE_EVENT'), {
                         offset: offset,
                         nextOffset: offset + limit,
                         prevOffset: offset - limit,
@@ -118,8 +119,8 @@
         });
         $('a.add-item').button({icons: {primary: 'ui-action-circle-plus'}});
 
-        travi.subscribe(pagination.events.NEXT_PAGE_REQUESTED, requestAnnouncements);
-        travi.subscribe(pagination.events.PREV_PAGE_REQUESTED, requestAnnouncements);
+        events.subscribe(pagination.events.NEXT_PAGE_REQUESTED, requestAnnouncements);
+        events.subscribe(pagination.events.PREV_PAGE_REQUESTED, requestAnnouncements);
     }
 
     $(init);
