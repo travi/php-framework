@@ -1,9 +1,23 @@
 (function (travi, global) {
     'use strict';
 
+    var amplify = global.amplify;
+
+    function publish() {
+        amplify.publish();
+    }
+
+    function subscribe() {
+        amplify.subscribe();
+    }
+
+    function unsubscribe() {
+        amplify.unsubscribe();
+    }
+
     travi.namespace('events', {
-        publish         : global.amplify.publish,
-        subscribe       : global.amplify.subscribe,
-        unsubscribe     : global.amplify.unsubscribe
+        publish         : publish,
+        subscribe       : subscribe,
+        unsubscribe     : unsubscribe
     });
 }(travi, this));

@@ -1,9 +1,26 @@
 travi.test.testCase('PubSubTests', {
+    common: travi.test.common,
     events: travi.events,
 
+    tearDown: function () {
+        this.common.restore([
+            amplify.publish,
+            amplify.subscribe,
+            amplify.unsubscribe
+        ]);
+    },
+
     'test pub/sub methods exposed': function () {
-        assertFunction(this.events.publish);
-        assertFunction(this.events.subscribe);
-        assertFunction(this.events.unsubscribe);
+        sinon.spy(amplify, 'publish');
+        sinon.spy(amplify, 'subscribe');
+        sinon.spy(amplify, 'unsubscribe');
+
+        this.events.publish();
+        this.events.subscribe();
+        this.events.unsubscribe();
+
+        sinon.assert.calledOnce(amplify.publish);
+        sinon.assert.calledOnce(amplify.subscribe);
+        sinon.assert.calledOnce(amplify.unsubscribe);
     }
 });
