@@ -160,4 +160,4 @@ dateFormat:
   local: /resources/shared/thirdparty/date/date.format.js
 
 amplify:
-  local: /resources/shared/thirdparty/amplify/amplify.js
+  local: /resources/shared/thirdparty/amplify/amplify.core.js

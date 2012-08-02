@@ -2,6 +2,10 @@ travi.test.testCase('PubSubTests', {
     common: travi.test.common,
     events: travi.events,
 
+    eventName: 'some-event',
+    callback: function () {},
+    data: {},
+
     tearDown: function () {
         this.common.restore([
             amplify.publish,
@@ -10,17 +14,30 @@ travi.test.testCase('PubSubTests', {
         ]);
     },
 
-    'test pub/sub methods exposed': function () {
+    'test publish mapped to amplify': function () {
         sinon.spy(amplify, 'publish');
-        sinon.spy(amplify, 'subscribe');
-        sinon.spy(amplify, 'unsubscribe');
 
-        this.events.publish();
-        this.events.subscribe();
-        this.events.unsubscribe();
+        this.events.publish(this.eventName, this.data);
 
         sinon.assert.calledOnce(amplify.publish);
+        sinon.assert.calledWith(amplify.publish, this.eventName, this.data);
+    },
+
+    'test subscribe mapped to amplify': function () {
+        sinon.spy(amplify, 'subscribe');
+
+        this.events.subscribe(this.eventName, this.callback);
+
         sinon.assert.calledOnce(amplify.subscribe);
+        sinon.assert.calledWith(amplify.subscribe, this.eventName, this.callback);
+    },
+
+    'test unsubscribe mapped to amplify': function () {
+        sinon.spy(amplify, 'unsubscribe');
+
+        this.events.unsubscribe(this.eventName, this.callback);
+
         sinon.assert.calledOnce(amplify.unsubscribe);
+        sinon.assert.calledWith(amplify.unsubscribe, this.eventName, this.callback);
     }
 });

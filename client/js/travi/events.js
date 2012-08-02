@@ -3,16 +3,16 @@
 
     var amplify = global.amplify;
 
-    function publish() {
-        amplify.publish();
+    function publish(eventName, data) {
+        amplify.publish(eventName, data);
     }
 
-    function subscribe() {
-        amplify.subscribe();
+    function subscribe(eventName, callback) {
+        amplify.subscribe(eventName, callback);
     }
 
-    function unsubscribe() {
-        amplify.unsubscribe();
+    function unsubscribe(eventName, callback) {
+        amplify.unsubscribe(eventName, callback);
     }
 
     travi.namespace('events', {
