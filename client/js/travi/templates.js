@@ -41,8 +41,18 @@
         }
     }
 
-    function renderTemplate(templateName, data) {
+    function render(data, templateName) {
         return $.render(data || {}, templateName);
+    }
+
+    function renderTemplate(templateName, data, callback) {
+        if (callback) {
+            getTemplate(templateName).then(function () {
+                callback(render(data, templateName));
+            });
+        } else {
+            return render(data, templateName);
+        }
     }
 
     function init() {
