@@ -11,3 +11,8 @@ $.fx.off = true;
 travi.templates.preLoad('update-item', '/test/test/js/templates/stub-update-item.tmpl');
 travi.templates.preLoad('entityList', '/test/test/js/templates/entity-list.tmpl');
 travi.templates.preLoad('pagination', '/test/test/js/templates/pagination.tmpl');
+
+$.ajax = function () {
+    fail('ajax not stubbed properly');
+};
+
