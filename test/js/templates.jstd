@@ -11,8 +11,8 @@ TestCase("TemplateTests", {
     tearDown: function () {
         travi.test.common.restore(jQuery.ajax);
         travi.test.common.restore(jQuery.Deferred);
-        travi.test.common.restore(jQuery.template);
-        travi.test.common.restore(jQuery.render);
+        travi.test.common.restore(jQuery.templates);
+        travi.test.common.restore(jQuery.render[this.templateName]);
         travi.test.common.restore(this.templates.get);
         travi.test.common.restore(this.templates.preLoad);
     },
@@ -36,7 +36,7 @@ TestCase("TemplateTests", {
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
         sinon.spy(constructedDeferred, 'resolve');
 
-        sinon.spy(jQuery, 'template');
+        sinon.spy(jQuery, 'templates');
 
         promise = travi.templates.preLoad(this.templateName, pathToTemplate);
 
@@ -77,7 +77,7 @@ TestCase("TemplateTests", {
                 data: 'something'
             };
 
-        sinon.stub(jQuery, 'render').returns('renderedTemplate');
+        sinon.stub(jQuery.render, this.templateName).returns('renderedTemplate');
 
         renderedTemplate = travi.templates.render(this.templateName, dataForTemplate);
 
@@ -96,7 +96,7 @@ TestCase("TemplateTests", {
             renderedTemplate = 'renderedTemplate';
         constructedDeferred.resolve();
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
-        sinon.stub(jQuery, 'render').returns(renderedTemplate);
+        sinon.stub(jQuery.render, this.templateName).returns(renderedTemplate);
 
         travi.templates.render(this.templateName, dataForTemplate, callback);
 
@@ -113,11 +113,11 @@ TestCase("TemplateTests", {
             callback = sinon.spy(),
             renderedTemplate = 'renderedTemplate';
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
-        sinon.stub(jQuery, 'render');
+        sinon.stub(jQuery.render, this.templateName);
 
         travi.templates.render(this.templateName, dataForTemplate, callback);
 
-        sinon.assert.notCalled($.render);
+        sinon.assert.notCalled($.render[this.templateName]);
         sinon.assert.notCalled(callback);
     },
 
@@ -148,9 +148,8 @@ TestCase("TemplateTests", {
     },
 
     assertTemplateRenderedWithData: function (data) {
-        assert(jQuery.render.calledOnce);
-        assertSame(data, jQuery.render.getCall(0).args[0]);
-        assertSame(this.templateName, jQuery.render.getCall(0).args[1]);
+        assert(jQuery.render[this.templateName].calledOnce);
+        assertSame(data, jQuery.render[this.templateName].getCall(0).args[0]);
     },
 
     assertPromiseResolvedAfterCachingTemplate: function (deferred) {
@@ -158,9 +157,9 @@ TestCase("TemplateTests", {
     },
 
     assertTemplateWasCached: function (templateName, templateAsString) {
-        assert(jQuery.template.calledOnce);
-        assertEquals(templateName, jQuery.template.getCall(0).args[0]);
-        assertEquals(templateAsString, jQuery.template.getCall(0).args[1]);
+        assert(jQuery.templates.calledOnce);
+        assertEquals(templateName, jQuery.templates.getCall(0).args[0]);
+        assertEquals(templateAsString, jQuery.templates.getCall(0).args[1]);
     },
 
     assertPromiseWasReturned: function (returnedPromise, promise) {

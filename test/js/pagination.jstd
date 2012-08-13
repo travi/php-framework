@@ -8,7 +8,7 @@ travi.test.testCase("PaginationTest", {
     setUp: function () {
         var testCase = this;
 
-        $('body').append($.render({}, 'pagination'));
+        $('body').append($.render.pagination());
 
         sinon.stub(this.events, 'subscribe', function (eventName, callback) {
             if (testCase.PAGE_LOADED === eventName) {

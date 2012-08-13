@@ -26,7 +26,7 @@ TestCase('EntityListTests', {
     setUp: function () {
         var testCase = this;
 
-        $('body').append($.render({}, 'entityList'));
+        $('body').append($.render.entityList({}));
 
         sinon.stub(this.events, 'subscribe', function (eventName, callback) {
             if (testCase.pagination.events.NEXT_PAGE_REQUESTED === eventName) {

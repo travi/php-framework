@@ -66,9 +66,9 @@
             }
 
             templates.get(templateName).then(function () {
-                $('footer').append($.render({
+                $('footer').append(templates.render(templateName, {
                     alternateEnhancement: alternateEnhancement
-                }, templateName));
+                }));
 
                 $('#' + DESKTOP_CHOICE + 'Version').click(function () {
                     setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);

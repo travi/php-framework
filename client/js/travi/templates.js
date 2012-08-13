@@ -5,7 +5,7 @@
         TEMPLATE_EXT = '.tmpl',
         loadedTemplates = {};
 
-    $.views.registerHelpers({
+    $.views.helpers({
         toLower: function (string) {
             return string.toLowerCase();
         }
@@ -22,7 +22,7 @@
             type: 'get',
             dataType: 'text',
             success: function (template) {
-                $.template(templateName, template);
+                $.templates(templateName, template);
                 deferred.resolve();
             }
         });
@@ -42,7 +42,7 @@
     }
 
     function render(data, templateName) {
-        return $.render(data || {}, templateName);
+        return $.render[templateName](data || {});
     }
 
     function renderTemplate(templateName, data, callback) {
