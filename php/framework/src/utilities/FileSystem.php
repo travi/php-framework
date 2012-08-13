@@ -11,6 +11,9 @@ class FileSystem
     const PAGE_STYLE_SHEET_DIR = 'pages/';
     const CSS_EXT = '.css';
 
+    const WRITING_ONLY = 'w';
+    const READING_ONLY = 'r';
+
     /** @var Request */
     private $request;
     private $sitePath;
@@ -69,6 +72,32 @@ class FileSystem
     public function fileExists($file)
     {
         return file_exists($file);
+    }
+
+    public function createFile($fileName, $pathToFile)
+    {
+        $fileHandle = fopen($pathToFile . $fileName, self::WRITING_ONLY) or die('cant open file');
+        fclose($fileHandle);
+    }
+
+    public function readFile($fileName, $pathToFile)
+    {
+        $file = $pathToFile . $fileName;
+
+        $fileHandle = fopen($file, self::READING_ONLY) or die('cant open file');
+        $fileContents = fread($fileHandle, filesize($file));
+        fclose($fileHandle);
+
+        return $fileContents;
+    }
+
+    public function writeToFile($fileName, $pathToFile, $contents)
+    {
+        $fileHandle = fopen($pathToFile . $fileName, self::WRITING_ONLY) or die('cant open file');
+
+        fwrite($fileHandle, $contents);
+
+        fclose($fileHandle);
     }
 
     /**
