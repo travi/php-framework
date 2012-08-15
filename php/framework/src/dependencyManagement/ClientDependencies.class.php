@@ -1,4 +1,6 @@
 <?php
+
+require_once dirname(__FILE__) . '/../exception/MissingLocalPathToResourceException.php';
  
 class ClientDependencies
 {
@@ -60,7 +62,7 @@ class ClientDependencies
             $item[self::LOCAL] = $dep[self::LOCAL];
         } else {
             if (empty($dep[Request::DESKTOP_ENHANCEMENT])) {
-                throw new Exception('Local URI required for ' . $name);
+                throw new MissingLocalPathToResourceException($name);
             }
         }
 

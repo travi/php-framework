@@ -46,7 +46,8 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException           Exception
+     * @expectedException           MissingLocalPathToResourceException
+     * @expectedExceptionMessage    Local URI required for invalidComponent
      */
     public function testComponentWithoutLocalPathThrowsException()
     {

@@ -67,7 +67,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $firstAlbum = $albums[0];
 
         $this->assertNonEmptyArray($albums);
-        $this->assertType('Album', $firstAlbum);
+        $this->assertInstanceOf('Album', $firstAlbum);
         $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
         $this->assertEquals(
             "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
@@ -117,7 +117,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertNonEmptyArray($photos);
         $this->assertEquals(4, count($photos));
 
-        $this->assertType('Photo', $firstPhoto);
+        $this->assertInstanceOf('Photo', $firstPhoto);
         $this->assertEquals(
             "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/" .
             "AAAAAAAAF7I/x08IKQbCNjw/s1600/IMG_1245.JPG",
@@ -155,7 +155,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertNotNull($album);
-        $this->assertType('Album', $album);
+        $this->assertInstanceOf('Album', $album);
         $this->assertNonEmptyArray($album->getPhotos());
 
         $this->assertEquals('Andrea & I', $album->getTitle());
@@ -332,7 +332,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
         /** @var $video Video */
         $video = $mediaList[3];
-        $this->assertType('Video', $video);
+        $this->assertInstanceOf('Video', $video);
 
         $this->assertEquals(
             'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=18&source=picasa&' .

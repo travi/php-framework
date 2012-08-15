@@ -1,14 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once dirname(__FILE__).'/../../../objects/page/abstractResponse.class.php';
 require_once dirname(__FILE__).'/../../../src/dependencyManagement/DependencyManager.class.php';
 
 class AbstractResponseTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var AbstractResponse
-     */
+    /** @var AbstractResponse */
     protected $response;
 
     protected function setUp()

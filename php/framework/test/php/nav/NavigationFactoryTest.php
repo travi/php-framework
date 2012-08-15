@@ -20,17 +20,17 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testBuildAccordion()
     {
-        $this->assertType('Accordion', $this->factory->build(NavigationFactory::ACCORDION));
+        $this->assertInstanceOf('Accordion', $this->factory->build(NavigationFactory::ACCORDION));
     }
 
     public function testBuildTabs()
     {
-        $this->assertType('Tabs', $this->factory->build(NavigationFactory::TABS));
+        $this->assertInstanceOf('Tabs', $this->factory->build(NavigationFactory::TABS));
     }
 
     public function testBuildMenuBar()
     {
-        $this->assertType('MenuBar', $this->factory->build(NavigationFactory::MENU_BAR));
+        $this->assertInstanceOf('MenuBar', $this->factory->build(NavigationFactory::MENU_BAR));
     }
 
     /**

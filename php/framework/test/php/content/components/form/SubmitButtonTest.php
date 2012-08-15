@@ -1,13 +1,11 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once dirname(__FILE__).'/../../../../../src/components/form/SubmitButton.php';
 
 class SubmitButtonTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var SubmitButton
-     */
+    /** @var SubmitButton */
     protected $object;
 
     protected function setUp()

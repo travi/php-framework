@@ -49,7 +49,7 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
         /** @var $feedItem FeedItem */
         $feedItem = $this->mapper->mapToFeedItem($album);
 
-        $this->assertType('FeedItem', $feedItem);
+        $this->assertInstanceOf('FeedItem', $feedItem);
         $this->assertEquals(self::SOME_TITLE, $feedItem->title);
         $this->assertEquals(self::SOME_CATEGORY, $feedItem->category);
         $this->assertEquals(
