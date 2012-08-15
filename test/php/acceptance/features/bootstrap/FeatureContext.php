@@ -10,10 +10,10 @@ use Behat\Gherkin\Node\PyStringNode,
 //
 // Require 3rd-party libraries here:
 //
-//   require_once 'PHPUnit/Autoload.php';
-//   require_once 'PHPUnit/Framework/Assert/Functions.php';
-//
-require_once dirname(__FILE__) . '/../../../../../php/framework/src/utilities/FileSystem.php';
+   require_once 'PHPUnit/Autoload.php';
+   require_once 'PHPUnit/Framework/Assert/Functions.php';
+
+   require_once dirname(__FILE__) . '/../../../../../php/framework/src/utilities/FileSystem.php';
 
 /**
  * Features context.
@@ -55,10 +55,6 @@ class FeatureContext extends BehatContext
      */
     public function theFrameworkShouldReceiveTheFollowingStringSomeText($fileContents)
     {
-        if ((string) $fileContents !== trim($this->fileContents)) {
-            throw new Exception(
-                'Actual contents are: ' . $this->fileContents
-            );
-        }
+        assertEquals($fileContents, trim($this->fileContents));
     }
 }
