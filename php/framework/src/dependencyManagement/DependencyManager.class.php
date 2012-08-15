@@ -16,7 +16,7 @@ class DependencyManager
     /** @var FileSystem */
     private $fileSystem;
     /** @var Environment */
-    private $envUtil;
+    private $environment;
     /** @var Request */
     private $request;
     /** @var Session */
@@ -377,7 +377,7 @@ class DependencyManager
     {
         $dependencies = $this->getDependencies();
 
-        if (!$this->envUtil->isLocal() && !$this->session->isDebug()) {
+        if (!$this->environment->isLocal() && !$this->session->isDebug()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');
         }
@@ -411,7 +411,7 @@ class DependencyManager
      */
     public function setEnvironmentUtility($env)
     {
-        $this->envUtil = $env;
+        $this->environment = $env;
     }
 
     /**
