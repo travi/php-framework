@@ -98,6 +98,7 @@
 
     <target name="behat">
         <mkdir dir="${build.logs}"/>
+        <mkdir dir="${build.logs}/behat"/>
         <exec dir="../test/php/acceptance"
               executable="php"
               failonerror='true'>
