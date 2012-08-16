@@ -95,4 +95,13 @@
     <target name="deploy-framework">
         <antcall target="deploy"/>
     </target>
+
+    <target name="behat">
+        <mkdir dir="${build.logs}"/>
+        <exec dir="../test/php/acceptance"
+              executable="../../../vendor/bin/behat"
+              failonerror='true'>
+            <arg line="-f progress,junit --out ,${build.logs}/behat"/>
+        </exec>
+    </target>
 </project>
