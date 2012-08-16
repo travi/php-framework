@@ -3,6 +3,7 @@ build/coverage/*
 build/logs/*
 build/site/*
 build/dist/*
+vendor/*
 
 syntax: regexp
 \.DS_Store

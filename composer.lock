@@ -1,0 +1,14 @@
+{
+    "hash": "a9776cebafce7925b33cfa3fc187fd1e",
+    "packages": [
+
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "behat/behat": 0
+    }
+}
