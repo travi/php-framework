@@ -139,7 +139,7 @@
               executable="phpcs"
               failonerror="true">
             <arg line="-s"/>
-            <arg line="--standard=${shared.dir}/codingStandard.xml"/>
+            <arg line="--standard=${shared.dir}/build/codingStandard.xml"/>
             <arg line="--ignore=*/coverage/*"/>
             <arg line="--report-checkstyle=${build.logs}/checkstyle-legacy.xml ."/>
             <arg line="--report-full"/>
