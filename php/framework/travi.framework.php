@@ -4,8 +4,6 @@ $config = array();
 session_start();
 if (isset($_SESSION['debug'])) {
     $config['debug'] = true;
-} else {
-    $config['debug'] = DEBUG;
 }
 
 
