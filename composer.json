@@ -1,4 +1,13 @@
 {
+    "name": "travi/framework",
+    "description": "web framework",
+    "authors": [
+        {
+            "name": "Matt Travi",
+            "email": "programmer@travi.org",
+            "homepage": "http://travi.org"
+        }
+    ],
     "require": {
         "smarty/smarty": "3.1.*@stable"
     },
