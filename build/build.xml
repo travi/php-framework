@@ -99,9 +99,9 @@
     <target name="behat">
         <mkdir dir="${build.logs}"/>
         <exec dir="../test/php/acceptance"
-              executable="../../../lib/behat.phar"
+              executable="php"
               failonerror='true'>
-            <arg line="-f progress,junit --out ,${build.logs}/behat"/>
+            <arg line="../../../lib/behat.phar -f progress,junit --out ,${build.logs}/behat"/>
         </exec>
     </target>
 </project>
