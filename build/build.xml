@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <project name="framework" default="gates">
-    <property name="shared.dir" value="${basedir}"/>
+    <property name="shared.dir" value="${basedir}/.."/>
     <import file="build-shared.xml"/>
     <property file="build.properties" />
 
@@ -97,12 +97,11 @@
     </target>
 
     <target name="behat">
-        <mkdir dir="${build.logs}"/>
         <mkdir dir="${build.logs}/behat"/>
-        <exec dir="../test/php/acceptance"
+        <exec dir="${shared.dir}/test/php/acceptance"
               executable="php"
               failonerror='true'>
-            <arg line="../../../lib/behat.phar -f progress,junit --out ,${build.logs}/behat"/>
+            <arg line="${shared.dir}/lib/behat.phar -f junit,progress --out ${build.logs}/behat,"/>
         </exec>
     </target>
 </project>
