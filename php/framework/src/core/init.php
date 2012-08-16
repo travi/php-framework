@@ -106,8 +106,6 @@ function smartyInit()
 
     $smartyConfig = $config['smarty'];
 
-//    include_once $smartyConfig['pathToSmarty'];
-
     $smarty = Pd_Make::name('Smarty');
 
     $smarty->template_dir = array(
