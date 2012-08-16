@@ -24,8 +24,8 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
 
         $this->dependencyManager = $this->getMock('DependencyManager');
         $this->smarty = $this->getMockBuilder('Smarty')
-                            ->disableOriginalConstructor()
-                            ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->request = $this->getMock('Request');
         $this->page = $this->getMock('Response');
 
