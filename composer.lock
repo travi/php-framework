@@ -1,7 +1,10 @@
 {
-    "hash": "a9776cebafce7925b33cfa3fc187fd1e",
+    "hash": "24131702a9dad5e4473522b1df92676c",
     "packages": [
-
+        {
+            "package": "smarty/smarty",
+            "version": "v3.1.11"
+        }
     ],
     "packages-dev": null,
     "aliases": [
@@ -9,6 +12,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "smarty/smarty": 0,
         "behat/behat": 0
     }
 }

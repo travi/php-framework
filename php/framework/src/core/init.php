@@ -8,11 +8,7 @@ set_include_path(
     get_include_path() . PATH_SEPARATOR .
     dirname(__FILE__).'/../../../thirdparty/PHP-Dependency/library/'
 );
-
-function __autoload($class_name)
-{
-    include_once str_replace('_', '/', $class_name) . '.php';
-}
+require dirname(__FILE__).'/../../../../vendor/autoload.php';
 
 //Get Config
 //Temp definition
@@ -110,7 +106,7 @@ function smartyInit()
 
     $smartyConfig = $config['smarty'];
 
-    include_once $smartyConfig['pathToSmarty'];
+//    include_once $smartyConfig['pathToSmarty'];
 
     $smarty = Pd_Make::name('Smarty');
 
