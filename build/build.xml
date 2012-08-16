@@ -78,7 +78,7 @@
               executable="phpcs"
               output="${build.logs}/checkstyle-legacy.xml"
               failonerror="true">
-            <arg line="--standard=${shared.dir}/codingStandard.xml"/>
+            <arg line="--standard=${shared.dir}/build/codingStandard.xml"/>
             <arg line="--report=checkstyle ."/>
         </exec>
     </target>
