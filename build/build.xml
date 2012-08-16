@@ -101,7 +101,7 @@
         <exec dir="${shared.dir}/test/php/acceptance"
               executable="php"
               failonerror='true'>
-            <arg line="${shared.dir}/lib/behat.phar -f junit,progress --out ${build.logs}/behat,"/>
+            <arg line="${shared.dir}/vendor/bin/behat -f junit,progress --out ${build.logs}/behat,"/>
         </exec>
     </target>
 </project>
