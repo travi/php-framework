@@ -22,6 +22,7 @@
     </fileset>
 
     <fileset id="to.deploy" dir="${shared.dir}/../">
+        <include name="vendor/**"/>
         <include name="php/**"/>
         <include name="client/**"/>
         <include name="config/**"/>
@@ -93,6 +94,11 @@
     </target>
 
     <target name="deploy-framework">
+        <exec dir="${shared.dir}"
+              executable="php"
+              failonerror='true'>
+            <arg line="${shared.dir}/lib/composer.phar install"/>
+        </exec>
         <antcall target="deploy"/>
     </target>
 
