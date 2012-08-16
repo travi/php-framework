@@ -1,5 +1,4 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../thirdparty/smarty/Smarty.class.php';
 
 class HtmlRendererTest extends PHPUnit_Framework_TestCase
 {
@@ -24,7 +23,9 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->htmlRenderer = new HtmlRenderer();
 
         $this->dependencyManager = $this->getMock('DependencyManager');
-        $this->smarty = $this->getMock('Smarty');
+        $this->smarty = $this->getMockBuilder('Smarty')
+                            ->disableOriginalConstructor()
+                            ->getMock();
         $this->request = $this->getMock('Request');
         $this->page = $this->getMock('Response');
 
