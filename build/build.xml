@@ -21,7 +21,7 @@
         <exclude name="test/js/tools/**/*.js" />
     </fileset>
 
-    <fileset id="to.deploy" dir="${shared.dir}/../">
+    <fileset id="to.deploy" dir="${shared.dir}/">
         <include name="vendor/**"/>
         <include name="php/**"/>
         <include name="client/**"/>
