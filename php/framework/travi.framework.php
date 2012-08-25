@@ -27,20 +27,8 @@ define('PROCESS', FRAMEWORK_PATH . 'controllers/displayProcess.php');
 require_once 'objects/dependantObject.class.php';
 
 
-importFrameworkObjects('src/dependencyManagement/');
-
-//Page Objects
-importFrameworkObjects('objects/page/');
-importSiteObjects('page/');
-
 //Content Objects
 importFrameworkObjects('objects/content/');
-
-//Ajax Content Objects
-//require_once('objects/content/ajax/fileUpload.ajax.class.php');
-
-//Utility Objects
-importFrameworkObjects('objects/utility/');
 
 
 //Define UI Dependencies
@@ -52,11 +40,6 @@ $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 function importFrameworkObjects($relPath)
 {
     importObjectsFromDir(FRAMEWORK_PATH.$relPath);
-}
-
-function importSiteObjects($relPath)
-{
-    importObjectsFromDir(SITE_OBJECTS.$relPath);
 }
 
 function importObjectsFromDir($dir)
