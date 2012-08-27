@@ -1,8 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../objects/page/abstractResponse.class.php';
-require_once dirname(__FILE__).'/../../../src/dependencyManagement/DependencyManager.class.php';
+use Travi\framework\page\AbstractResponse;
 
 class AbstractResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -11,7 +9,7 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->response = $this->getMockForAbstractClass('AbstractResponse');
+        $this->response = $this->getMockForAbstractClass('Travi\\framework\\page\\AbstractResponse');
     }
 
     public function testSiteName()

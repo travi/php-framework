@@ -1,5 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../../../objects/content/navigation/navigation.class.php';
+
+use Travi\framework\content\navigation\NavigationObject;
 
 class NavigationObjectTest extends PHPUnit_Framework_TestCase
 {

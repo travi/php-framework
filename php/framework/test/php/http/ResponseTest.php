@@ -1,5 +1,8 @@
 <?php
-require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
+
+use Travi\framework\page\AbstractResponse,
+    Travi\framework\http\Response,
+    Travi\framework\http\Request;
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -27,7 +30,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->request = $this->getMock('Request');
+        $this->request = $this->getMock('Travi\\framework\\http\\Request');
 
         $this->response = new Response();
         $this->response->setRequest($this->request);
@@ -119,7 +122,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidHttpStatusException
+     * @expectedException Travi\framework\exception\InvalidHttpStatusException
      */
     public function testSettingUnDefinedStatusThrowsException()
     {

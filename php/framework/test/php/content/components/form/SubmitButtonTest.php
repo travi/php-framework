@@ -1,21 +1,21 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../src/components/form/SubmitButton.php';
+use Travi\framework\components\Forms\SubmitButton,
+    Travi\framework\components\Forms\inputs\Input;
 
 class SubmitButtonTest extends PHPUnit_Framework_TestCase
 {
     /** @var SubmitButton */
-    protected $object;
+    protected $submitButton;
 
     protected function setUp()
     {
-        $this->object = new SubmitButton;
+        $this->submitButton = new SubmitButton;
     }
 
     public function testClassName()
     {
-        $this->assertSame('submitButton', $this->object->getClass());
+        $this->assertSame('submitButton', $this->submitButton->getClass());
     }
 
     public function testAlternateClassName()
@@ -38,27 +38,27 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
 
     public function testType()
     {
-        $this->assertSame('submit', $this->object->getType());
+        $this->assertSame('submit', $this->submitButton->getType());
     }
 
     public function testTemplate()
     {
-        $this->assertSame('components/form/input.tpl', $this->object->getTemplate());
+        $this->assertSame('components/form/input.tpl', $this->submitButton->getTemplate());
     }
 
     public function testGetJavaScripts()
     {
-        $this->assertSame(array('jqueryUi'), $this->object->getJavaScripts());
+        $this->assertSame(array('jqueryUi'), $this->submitButton->getJavaScripts());
     }
 
     public function testGetJsInits()
     {
-        $this->assertSame(array('$("input[type=submit]").button()'), $this->object->getJsInits());
+        $this->assertSame(array('$("input[type=submit]").button()'), $this->submitButton->getJsInits());
     }
 
     public function testGetName()
     {
-        $this->assertSame('submit', $this->object->getName());
+        $this->assertSame('submit', $this->submitButton->getName());
     }
 }
 ?>

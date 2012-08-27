@@ -1,9 +1,8 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../src/controller/crud.controller.php';
-require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
-require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
+use Travi\framework\http\Response,
+    Travi\framework\http\Request,
+    Travi\framework\controller\CrudController;
 
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +17,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->partiallyMockedController = $this->getMock(
-            'CrudController',
+            'Travi\\framework\\controller\\CrudController',
             array(
                 'getList',
                 'getById',
@@ -29,7 +28,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         );
 
         $this->response = new Response(array());
-        $this->mockRequest = $this->getMock('Request');
+        $this->mockRequest = $this->getMock('Travi\\framework\\http\\Request');
     }
 
     public function testGetListRoutesToProperMethod()
@@ -102,7 +101,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->mockRequest->expects($this->once())
             ->method('getId');
 
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_ALLOWED);
@@ -128,7 +127,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testGetListDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
@@ -140,7 +139,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testGetByIdDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
@@ -152,7 +151,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testAddToListDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
@@ -164,7 +163,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateByIdDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
@@ -176,7 +175,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteByIdDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Response');
+        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);

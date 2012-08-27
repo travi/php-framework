@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
+use Travi\framework\http\Request;
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {

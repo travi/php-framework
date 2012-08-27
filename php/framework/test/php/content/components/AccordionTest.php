@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../objects/content/navigation/accordion.class.php';
+use Travi\framework\content\navigation\Accordion;
 
 class AccordionTest extends PHPUnit_Framework_TestCase
 {

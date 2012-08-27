@@ -1,10 +1,8 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'test.controller.php';
-require_once dirname(__FILE__).'/../../../../../objects/page/abstractResponse.class.php';
-require_once dirname(__FILE__).'/../../../../../src/http/Request.class.php';
-require_once dirname(__FILE__).'/../../../../../src/http/Response.class.php';
+
+use Travi\framework\http\Request,
+    Travi\framework\http\Response;
 
 class TestTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +17,7 @@ class TestTest extends PHPUnit_Framework_TestCase
     {
         $this->controller = new test;
 
-        $requestStub = $this->getMock('Request');
+        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
@@ -29,7 +27,7 @@ class TestTest extends PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        $responseStub = $this->getMock('Response');
+        $responseStub = $this->getMock('Travi\\framework\\http\\Response');
         $responseStub->expects($this->once())
             ->method('setTitle')
             ->with('Test');
@@ -37,4 +35,3 @@ class TestTest extends PHPUnit_Framework_TestCase
         $this->controller->index($this->request, $responseStub);
     }
 }
-?>

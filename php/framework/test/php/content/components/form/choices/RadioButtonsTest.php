@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/RadioButtons.php';
+use Travi\framework\components\Forms\choices\RadioButtons;
 
 class RadioButtonsTest extends PHPUnit_Framework_TestCase
 {
@@ -20,4 +19,3 @@ class RadioButtonsTest extends PHPUnit_Framework_TestCase
         $this->assertSame('radioButton', $this->object->getClass());
     }
 }
-?>

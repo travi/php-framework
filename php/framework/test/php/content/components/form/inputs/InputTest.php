@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/inputs/Input.php';
+use Travi\framework\components\Forms\inputs\Input;
 
 class InputTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +18,10 @@ class InputTest extends PHPUnit_Framework_TestCase
         $options['value'] = 'value';
         $options['validations'] = array('validation1', 'validation2');
 
-        $this->input = $this->getMockForAbstractClass('Input', array($options));
+        $this->input = $this->getMockForAbstractClass(
+            'Travi\\framework\\components\\Forms\\inputs\\Input',
+            array($options)
+        );
     }
 
     public function testAddValidation()
@@ -38,7 +40,10 @@ class InputTest extends PHPUnit_Framework_TestCase
         $options['validations'] = array('validation1', 'validation2');
 
         /** @var $input Input */
-        $input = $this->getMockForAbstractClass('Input', array($options));
+        $input = $this->getMockForAbstractClass(
+            'Travi\\framework\\components\\Forms\\inputs\\Input',
+            array($options)
+        );
 
         $this->assertSame('input_name', $input->getName());
     }

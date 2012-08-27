@@ -1,9 +1,7 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../src/controller/front/front.controller.php';
-require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
-require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
+use Travi\framework\controller\front\FrontController,
+    Travi\framework\controller\ErrorController;
 
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +21,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function testProcessRequest()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
@@ -36,7 +34,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('index'));
 
-        $mockResponse = $this->getMock('Response');
+        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
         $mockResponse->expects($this->once())
@@ -62,7 +60,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function testSetContentOnlyCalledIfContentReturned()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
@@ -75,7 +73,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('noContentToReturn'));
 
-        $mockResponse = $this->getMock('Response');
+        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
         $mockResponse->expects($this->never())
             ->method('setContent');
 
@@ -87,16 +85,16 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function test404()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getController')
             ->will($this->returnValue('nonExistantPage'));
 
-        $mockResponse = $this->getMock('Response');
+        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
 
-        $errorController = $this->getMock('ErrorController');
+        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(
@@ -114,7 +112,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function test500()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('getController')
             ->will($this->returnValue('test'));
@@ -124,11 +122,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('throwsError'));
 
-        $mockResponse = $this->getMock('Response');
+        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
 
-        $errorController = $this->getMock('ErrorController');
+        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(

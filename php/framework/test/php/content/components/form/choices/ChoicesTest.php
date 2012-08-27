@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/Choices.php';
+use Travi\framework\components\Forms\choices\Choices;
 
 class ChoicesTest extends PHPUnit_Framework_TestCase
 {
@@ -12,7 +11,7 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     {
         $settings = array('label' => 'label');
 
-        $this->choices = $this->getMockForAbstractClass('Choices', array($settings));
+        $this->choices = $this->getMockForAbstractClass('Travi\\framework\\components\\Forms\\choices\\Choices', array($settings));
     }
 
     public function testAddOption()
@@ -39,7 +38,10 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
 
     public function testGetNameConstructorSettings()
     {
-        $this->choices = $this->getMockForAbstractClass('Choices', array(array('name' => 'name')));
+        $this->choices = $this->getMockForAbstractClass(
+            'Travi\\framework\\components\\Forms\\choices\\Choices',
+            array(array('name' => 'name'))
+        );
 
         $this->assertSame('name', $this->choices->getName());
     }

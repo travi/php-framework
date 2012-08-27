@@ -1,5 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../src/utilities/FileSystem.php';
+
+use Travi\framework\utilities\FileSystem;
 
 class FileSystemTest extends PHPUnit_Framework_TestCase
 {

@@ -1,5 +1,5 @@
 {
-    "name": "travi/framework",
+    "name": "Travi/framework",
     "description": "web framework",
     "authors": [
         {
@@ -19,7 +19,7 @@
     "autoload": {
         "psr-0": {
             "Pd": "php/thirdparty/PHP-Dependency/library/",
-            "travi\\framework": [
+            "Travi\\framework": [
                 "php/framework/objects",
                 "php/framework/src"
             ]

@@ -1,10 +1,10 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../src/components/form/Form.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/FieldSet.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/TextInput.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/FileInput.php';
+use Travi\framework\components\Forms\Form,
+    Travi\framework\components\Forms\FieldSet,
+    Travi\framework\components\Forms\inputs\Input,
+    Travi\framework\components\Forms\inputs\DateInput,
+    Travi\framework\components\Forms\inputs\TextInput;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -166,7 +166,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testHasErrorsReturnsFalseWhenValid()
     {
-        $field = $this->getMock('TextInput');
+        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
         $field->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(true));
@@ -178,7 +178,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testHasErrorsReturnsTrueWhenInvalid()
     {
-        $field = $this->getMock('TextInput');
+        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
         $field->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(false));
@@ -195,7 +195,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     private function getAnyField()
     {
-        $field = $this->getMock('TextInput');
+        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
 
         $field->expects($this->any())
             ->method('getName')

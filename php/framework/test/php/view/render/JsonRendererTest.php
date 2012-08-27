@@ -1,5 +1,9 @@
 <?php
 
+use Travi\framework\view\render\JsonRenderer,
+    Travi\framework\photos\Album,
+    Travi\framework\photos\Photo;
+
 class JsonRendererTest extends PHPUnit_Framework_TestCase
 {
     public function testObjectSerializedToJson()

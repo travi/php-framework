@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/inputs/NumberInput.php';
+use Travi\framework\components\Forms\inputs\NumberInput;
 
 class NumberInputTest extends PHPUnit_Framework_TestCase
 {

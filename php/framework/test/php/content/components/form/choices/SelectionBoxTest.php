@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/SelectionBox.php';
+use Travi\framework\components\Forms\choices\SelectionBox;
 
 class SelectionBoxTest extends PHPUnit_Framework_TestCase
 {

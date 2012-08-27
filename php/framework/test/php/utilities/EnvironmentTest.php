@@ -1,5 +1,7 @@
 <?php
 
+use Travi\framework\utilities\Environment;
+
 class EnvironmentTest extends PHPUnit_Framework_TestCase
 {
     const PROD_URL = 'prodUrl';

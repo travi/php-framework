@@ -1,8 +1,11 @@
 <?php
+
+use Travi\framework\http\Response,
+    Travi\framework\http\Request,
+    Travi\framework\utilities\FileSystem,
+    Travi\framework\dependencyManagement\DependencyManager;
+
 require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
-require_once dirname(__FILE__).'/../http/Request.class.php';
-require_once dirname(__FILE__).'/../http/Response.class.php';
-require_once dirname(__FILE__).'/../http/Session.class.php';
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
@@ -49,9 +52,9 @@ $container->dependencies()->set('uiDeps', $uiDeps);
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
-$container->dependencies()->set('request', Pd_Make::name('Request'));
-$container->dependencies()->set('response', Pd_Make::name('Response'));
-$container->dependencies()->set('session', Pd_Make::name('Session'));
+$container->dependencies()->set('request', Pd_Make::name('Travi\\framework\\http\\Request'));
+$container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\http\\Response'));
+$container->dependencies()->set('session', Pd_Make::name('Travi\\framework\\http\\Session'));
 
 
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
@@ -63,10 +66,6 @@ $container->dependencies()->set(
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
 );
 
-
-
-
-
 /**
  * @param $sitePath
  * @param $sharedPath
@@ -74,10 +73,8 @@ $container->dependencies()->set(
  */
 function fileSystemInit($sitePath, $sharedPath)
 {
-    include_once dirname(__FILE__) . '/../utilities/FileSystem.php';
-
     /** @var $fileSystem FileSystem */
-    $fileSystem = Pd_Make::name('FileSystem');
+    $fileSystem = Pd_Make::name('Travi\\framework\\utilities\\FileSystem');
     $fileSystem->setSitePath($sitePath);
     $fileSystem->setSharedPath($sharedPath);
     return $fileSystem;
@@ -89,10 +86,8 @@ function fileSystemInit($sitePath, $sharedPath)
  */
 function environmentInit($prodUrl)
 {
-    include_once dirname(__FILE__) . '/../utilities/Environment.php';
-
     /** @var $environment Environment */
-    $environment = Pd_Make::name('Environment');
+    $environment = Pd_Make::name('Travi\\framework\\utilities\\Environment');
     $environment->setProductionUrl($prodUrl);
     return $environment;
 }
@@ -132,10 +127,8 @@ function smartyInit()
  */
 function dmInit($pageDepLists, $theme)
 {
-    include_once dirname(__FILE__) . '/../dependencyManagement/DependencyManager.class.php';
-
     /** @var $dependencyManager DependencyManager */
-    $dependencyManager = Pd_Make::name('DependencyManager');
+    $dependencyManager = Pd_Make::name('Travi\\framework\\dependencyManagement\\DependencyManager');
     $dependencyManager->setPageDependenciesLists($pageDepLists);
     $dependencyManager->setSiteTheme('/resources/css/' . $theme);
     return $dependencyManager;

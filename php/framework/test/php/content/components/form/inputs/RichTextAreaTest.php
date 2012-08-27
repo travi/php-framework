@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/inputs/RichTextArea.php';
+use Travi\framework\components\Forms\inputs\RichTextArea;
 
 class RichTextAreaTest extends PHPUnit_Framework_TestCase
 {

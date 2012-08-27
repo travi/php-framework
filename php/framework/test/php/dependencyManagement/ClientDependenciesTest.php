@@ -1,6 +1,7 @@
 <?php
-require_once dirname(__FILE__) . '/../../../src/http/Request.class.php';
 
+use Travi\framework\dependencyManagement\ClientDependencies,
+    Travi\framework\http\Request;
 
 class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 {
@@ -46,7 +47,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException           MissingLocalPathToResourceException
+     * @expectedException           Travi\framework\exception\MissingLocalPathToResourceException
      * @expectedExceptionMessage    Local URI required for invalidComponent
      */
     public function testComponentWithoutLocalPathThrowsException()
@@ -62,7 +63,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testDesktopSpecificDependencyMapping()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
@@ -89,7 +90,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testBaseDependencyMappingWhenEnhancementDefined()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
@@ -132,7 +133,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testPluginsIncludeParentAsDependency()
     {
-        $mockRequest = $this->getMock('Request');
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));

@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/inputs/TextInput.php';
+use Travi\framework\components\Forms\inputs\TextInput;
 
 class TextInputTest extends PHPUnit_Framework_TestCase
 {
@@ -25,6 +24,6 @@ class TextInputTest extends PHPUnit_Framework_TestCase
 
     public function testTemplate()
     {
-        $this->assertSame('components/form/inputWithLabel.tpl', $this->object->getTemplate());        
+        $this->assertSame('components/form/inputWithLabel.tpl', $this->object->getTemplate());
     }
 }

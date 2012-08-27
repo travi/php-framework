@@ -1,5 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../../../src/http/Session.class.php';
+
+use Travi\framework\http\Session;
 
 class SessionTest extends PHPUnit_Framework_TestCase
 {

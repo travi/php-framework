@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../objects/content/navigation/menuBar.class.php';
+use Travi\framework\content\navigation\MenuBar;
 
 class MenuBarTest extends PHPUnit_Framework_TestCase
 {

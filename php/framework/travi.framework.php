@@ -24,11 +24,8 @@ require_once SITE_ROOT.'config/framework/framework.conf';
 
 define('PROCESS', FRAMEWORK_PATH . 'controllers/displayProcess.php');
 
-require_once 'objects/dependantObject.class.php';
-
-
 //Content Objects
-importFrameworkObjects('objects/content/');
+//importFrameworkObjects('objects/content/');
 
 
 //Define UI Dependencies

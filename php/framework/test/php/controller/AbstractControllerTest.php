@@ -1,10 +1,9 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../src/controller/abstract.controller.php';
-require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
-require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
-require_once dirname(__FILE__).'/../../../src/exception/NotFound.exception.php';
+use Travi\framework\controller\AbstractController,
+    Travi\framework\http\Request,
+    Travi\framework\http\Response,
+    Travi\framework\exception\NotFoundException;
 
 class AbstractControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -17,9 +16,9 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->controller = $this->getMockForAbstractClass('AbstractController');
+        $this->controller = $this->getMockForAbstractClass('Travi\\framework\\controller\\AbstractController');
 
-        $requestStub = $this->getMock('Request');
+        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getController')
             ->will($this->returnValue('test'));
@@ -28,11 +27,11 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue('index'));
         $this->requestStub = $requestStub;
 
-        $this->responseStub = $this->getMock('Response');
+        $this->responseStub = $this->getMock('Travi\\framework\\http\\Response');
     }
 
     /**
-     * @expectedException NotFoundException
+     * @expectedException Travi\framework\exception\NotFoundException
      */
     public function testDoActionGivesNotFoundException()
     {

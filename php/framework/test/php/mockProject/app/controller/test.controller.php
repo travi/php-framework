@@ -1,5 +1,8 @@
 <?php
-require_once dirname(__FILE__).'/../../../../../src/controller/abstract.controller.php';
+
+use Travi\framework\controller\AbstractController,
+    Travi\framework\http\Request,
+    Travi\framework\http\Response;
 
 class Test extends AbstractController
 {
@@ -30,10 +33,11 @@ class Test extends AbstractController
     /**
      * @param $request Request
      * @param $response Response
+     * @throws Exception
      * @return void
      */
     public function throwsError(&$request, &$response)
     {
-        throw new Exception;
+        throw new \Exception;
     }
 }

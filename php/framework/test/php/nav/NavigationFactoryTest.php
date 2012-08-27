@@ -1,5 +1,7 @@
 <?php
-require_once dirname(__FILE__).'/../../../objects/content/navigation/navigation.factory.php';
+
+use Travi\framework\content\navigation\NavigationFactory,
+    Travi\framework\exception\NavigationTypeNotAnOptionException;
 
 class NavigationFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -20,21 +22,30 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testBuildAccordion()
     {
-        $this->assertInstanceOf('Accordion', $this->factory->build(NavigationFactory::ACCORDION));
+        $this->assertInstanceOf(
+            'Travi\\framework\\content\\navigation\\Accordion',
+            $this->factory->build(NavigationFactory::ACCORDION)
+        );
     }
 
     public function testBuildTabs()
     {
-        $this->assertInstanceOf('Tabs', $this->factory->build(NavigationFactory::TABS));
+        $this->assertInstanceOf(
+            'Travi\\framework\\content\\navigation\\Tabs',
+            $this->factory->build(NavigationFactory::TABS)
+        );
     }
 
     public function testBuildMenuBar()
     {
-        $this->assertInstanceOf('MenuBar', $this->factory->build(NavigationFactory::MENU_BAR));
+        $this->assertInstanceOf(
+            'Travi\\framework\\content\\navigation\\MenuBar',
+            $this->factory->build(NavigationFactory::MENU_BAR)
+        );
     }
 
     /**
-     * @expectedException NavigationTypeNotAnOption
+     * @expectedException Travi\framework\exception\NavigationTypeNotAnOptionException
      * @expectedExceptionMessage someInvalidOption is not a valid navigation type
      */
     public function testBuildInvalidOption()

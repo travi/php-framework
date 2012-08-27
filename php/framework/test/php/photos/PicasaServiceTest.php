@@ -1,9 +1,12 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../src/photos/PicasaService.php';
-require_once dirname(__FILE__).'/../../../src/photos/Photo.php';
-require_once dirname(__FILE__).'/../../../src/photos/Thumbnail.php';
-require_once dirname(__FILE__).'/../../../src/http/RestClient.php';
+use Travi\framework\http\RestClient,
+    Travi\framework\photos\PicasaService,
+    Travi\framework\photos\Album,
+    Travi\framework\photos\Thumbnail,
+    Travi\framework\photos\Photo,
+    Travi\framework\photos\Video,
+    Travi\framework\photos\License;
 
 class PicasaServiceTest extends PHPUnit_Framework_TestCase
 {
@@ -22,7 +25,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->picasaWeb = new PicasaService();
-        $this->restClient = $this->getMock('RestClient');
+        $this->restClient = $this->getMock('Travi\\framework\\http\\RestClient');
 
         $this->picasaWeb->setServiceUser(self::SOME_USER_ID);
         $this->picasaWeb->setRestClient($this->restClient);
@@ -67,7 +70,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $firstAlbum = $albums[0];
 
         $this->assertNonEmptyArray($albums);
-        $this->assertInstanceOf('Album', $firstAlbum);
+        $this->assertInstanceOf('Travi\\framework\\photos\\Album', $firstAlbum);
         $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
         $this->assertEquals(
             "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
@@ -117,7 +120,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertNonEmptyArray($photos);
         $this->assertEquals(4, count($photos));
 
-        $this->assertInstanceOf('Photo', $firstPhoto);
+        $this->assertInstanceOf('Travi\\framework\\photos\\Photo', $firstPhoto);
         $this->assertEquals(
             "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/" .
             "AAAAAAAAF7I/x08IKQbCNjw/s1600/IMG_1245.JPG",
@@ -155,7 +158,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertNotNull($album);
-        $this->assertInstanceOf('Album', $album);
+        $this->assertInstanceOf('Travi\\framework\\photos\\Album', $album);
         $this->assertNonEmptyArray($album->getPhotos());
 
         $this->assertEquals('Andrea & I', $album->getTitle());
@@ -332,7 +335,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
         /** @var $video Video */
         $video = $mediaList[3];
-        $this->assertInstanceOf('Video', $video);
+        $this->assertInstanceOf('Travi\\framework\\photos\\Video', $video);
 
         $this->assertEquals(
             'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=18&source=picasa&' .

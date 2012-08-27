@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../objects/dependantObject.class.php';
+use Travi\framework\DependantObject;
 
 class DependantObjectTest extends PHPUnit_Framework_TestCase
 {
@@ -12,7 +11,7 @@ class DependantObjectTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('DependantObject');
+        $this->object = $this->getMockForAbstractClass('Travi\\framework\\DependantObject');
     }
 
     public function testStyleSheet()

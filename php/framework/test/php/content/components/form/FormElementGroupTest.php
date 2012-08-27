@@ -1,67 +1,61 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../src/components/form/FormElementGroup.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/FieldSet.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/TextInput.php';
-require_once dirname(__FILE__).'/../../../../../src/components/form/inputs/FileInput.php';
+use Travi\framework\components\Forms\FormElementGroup,
+    Travi\framework\components\Forms\FieldSet,
+    Travi\framework\components\Forms\inputs\Input,
+    Travi\framework\components\Forms\inputs\TextInput,
+    Travi\framework\components\Forms\inputs\FileInput,
+    Travi\framework\components\Forms\inputs\DateInput;
 
 class FormElementGroupTest extends PHPUnit_Framework_TestCase
 {
+    private $fileInputType = 'Travi\\framework\\components\\Forms\\inputs\\FileInput';
     /** @var FormElementGroup */
     private $group;
 
     protected function setUp()
     {
-        $this->group = $this->getMockForAbstractClass('FormElementGroup');
+        $this->group = $this->getMockForAbstractClass('Travi\\framework\\components\\Forms\\FormElementGroup');
     }
 
     public function testDoesNotContainFileInput()
     {
-        $this->assertFalse($this->group->containsFormElementType("FileInput"));
+        $this->assertFalse($this->group->containsFormElementType($this->fileInputType));
     }
 
     public function testInnerGroupDoesNotContainFileInput()
     {
-        $fileInputType = 'FileInput';
-
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
             ->method('containsFormElementType')
-            ->with($this->equalTo($fileInputType))
+            ->with($this->equalTo($this->fileInputType))
             ->will($this->returnValue(false));
 
         $this->group->addFormElement($anyGroup);
-        
-        $this->assertFalse($this->group->containsFormElementType("FileInput"));
+
+        $this->assertFalse($this->group->containsFormElementType($this->fileInputType));
     }
 
     public function testContainsFileInput()
     {
-        $fileInputType = 'FileInput';
+        $this->group->addFormElement($this->getMock($this->fileInputType));
 
-        $fileInput = $this->getMock($fileInputType);
-
-        $this->group->addFormElement($fileInput);
-
-        $this->assertTrue($this->group->containsFormElementType($fileInputType));
+        $this->assertTrue($this->group->containsFormElementType($this->fileInputType));
     }
 
     public function testContainsFileInputInAGroup()
     {
-        $fileInputType = 'FileInput';
-
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
             ->method('containsFormElementType')
-            ->with($this->equalTo($fileInputType))
+            ->with($this->equalTo($this->fileInputType))
             ->will($this->returnValue(true));
 
         $this->group->addFormElement($anyGroup);
 
-        $this->assertTrue($this->group->containsFormElementType($fileInputType));
+        $this->assertTrue($this->group->containsFormElementType($this->fileInputType));
     }
 
     public function testGroupAcceptsFields()
@@ -180,12 +174,12 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
     private function getAnyField()
     {
-        return $this->getMock('TextInput');
+        return $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
     }
 
     private function getAnyGroup()
     {
-        return $this->getMock('Fieldset');
+        return $this->getMock('Travi\\framework\\components\\Forms\\FieldSet');
     }
 
     private function getAnyFieldWithValidations($validations = array())

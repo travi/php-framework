@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/inputs/HiddenInput.php';
+use Travi\framework\components\Forms\inputs\HiddenInput;
 
 class HiddenInputTest extends PHPUnit_Framework_TestCase
 {

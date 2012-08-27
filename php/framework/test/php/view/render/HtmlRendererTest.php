@@ -1,5 +1,10 @@
 <?php
 
+use Travi\framework\dependencyManagement\DependencyManager,
+    Travi\framework\http\Request,
+    Travi\framework\http\Response,
+    Travi\framework\view\render\HtmlRenderer;
+
 class HtmlRendererTest extends PHPUnit_Framework_TestCase
 {
     const SOME_LAYOUT_TEMPLATE = 'some layout template';
@@ -22,12 +27,12 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
     {
         $this->htmlRenderer = new HtmlRenderer();
 
-        $this->dependencyManager = $this->getMock('DependencyManager');
+        $this->dependencyManager = $this->getMock('Travi\\framework\\dependencyManagement\\DependencyManager');
         $this->smarty = $this->getMockBuilder('Smarty')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMock('Request');
-        $this->page = $this->getMock('Response');
+        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->page = $this->getMock('Travi\\framework\\http\\Response');
 
         $this->htmlRenderer->setDependencyManager($this->dependencyManager);
         $this->htmlRenderer->setSmarty($this->smarty);
@@ -84,7 +89,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue(self::SOME_ACTION));
 
-        $fileSystem = $this->getMock('FileSystem');
+        $fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
         $fileSystem->expects($this->once())
             ->method('pageTemplateExists')
             ->with($pathToTemplate)
@@ -103,7 +108,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException MissingPageTemplateException
+     * @expectedException Travi\framework\exception\MissingPageTemplateException
      */
     public function testExceptionThrownIfCannotSetPageTemplate()
     {
@@ -116,7 +121,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue(self::SOME_ACTION));
 
-        $fileSystem = $this->getMock('FileSystem');
+        $fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
         $fileSystem->expects($this->once())
             ->method('pageTemplateExists')
             ->with($pathToTemplate)

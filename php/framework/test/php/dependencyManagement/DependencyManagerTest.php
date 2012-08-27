@@ -1,7 +1,9 @@
 <?php
-require_once dirname(__FILE__) . '/../../../src/utilities/Environment.php';
-require_once dirname(__FILE__) . '/../../../src/dependencyManagement/DependencyManager.class.php';
-require_once dirname(__FILE__) . '/../../../src/http/Request.class.php';
+
+use Travi\framework\dependencyManagement\DependencyManager,
+    Travi\framework\dependencyManagement\ClientDependencies,
+    Travi\framework\components\Forms\Form,
+    Travi\framework\http\Request;
 
 class DependencyManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -44,11 +46,11 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock('FileSystem');
-        $this->environmentUtility = $this->getMock('Environment');
-        $this->request = $this->getMock('Request');
-        $this->clientDependencyDefinitions = $this->getMock('ClientDependencies');
-        $this->session = $this->getMock('Session');
+        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
+        $this->environmentUtility = $this->getMock('Travi\\framework\\utilities\\Environment');
+        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->clientDependencyDefinitions = $this->getMock('Travi\\framework\\dependencyManagement\\ClientDependencies');
+        $this->session = $this->getMock('Travi\\framework\\http\\Session');
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
@@ -537,7 +539,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testAdminDependenciesHandledJustLikeOtherPages()
     {
-        $request = $this->getMock('Request');
+        $request = $this->getMock('Travi\\framework\\http\\Request');
         $request->expects($this->once())
             ->method('isAdmin')
             ->will($this->returnValue(true));
@@ -571,7 +573,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $widget = 'someWidgetWithDeps';
 
-        $request = $this->getMock('Request');
+        $request = $this->getMock('Travi\\framework\\http\\Request');
         $request->expects($this->once())
             ->method('isAdmin')
             ->will($this->returnValue(false));

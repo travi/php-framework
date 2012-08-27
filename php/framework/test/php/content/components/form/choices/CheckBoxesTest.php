@@ -1,7 +1,6 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../../../../src/components/form/choices/CheckBoxes.php';
+use Travi\framework\components\Forms\choices\CheckBoxes;
 
 class CheckBoxesTest extends PHPUnit_Framework_TestCase
 {
@@ -20,4 +19,3 @@ class CheckBoxesTest extends PHPUnit_Framework_TestCase
         $this->assertSame('checkbox', $this->object->getClass());
     }
 }
-?>

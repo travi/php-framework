@@ -1,10 +1,9 @@
 <?php
-require_once 'PHPUnit/Autoload.php';
 
-require_once dirname(__FILE__).'/../../../src/http/Request.class.php';
-require_once dirname(__FILE__).'/../../../src/http/Response.class.php';
-require_once dirname(__FILE__).'/../../../src/exception/NotFound.exception.php';
-require_once dirname(__FILE__).'/../../../src/controller/error.controller.php';
+use Travi\framework\exception\NotFoundException,
+    Travi\framework\http\Request,
+    Travi\framework\http\Response,
+    Travi\framework\controller\ErrorController;
 
 class ErrorControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -19,12 +18,12 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->controller = new ErrorController;
 
-        $requestStub = $this->getMock('Request');
+        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
 
-        $responseStub = $this->getMock('Response');
+        $responseStub = $this->getMock('Travi\\framework\\http\\Response');
 
         $this->request = $requestStub;
         $this->response = $responseStub;
@@ -64,7 +63,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             ->method('addToResponse')
             ->with(
                 $this->equalTo('type'),
-                $this->equalTo('NotFoundException')
+                $this->equalTo('Travi\\framework\\exception\\NotFoundException')
             );
         $this->response->expects($this->at(3))
             ->method('addToResponse')
