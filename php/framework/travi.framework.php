@@ -19,37 +19,4 @@ define('WEB_ROOT', join($levels, "/")."/");
 define('FRAMEWORK_PATH', dirname(__FILE__).'/');
 define('INCLUDE_PATH', WEB_ROOT . 'include/');
 
-require_once FRAMEWORK_PATH.'../thirdparty/spyc/spyc.php';
 require_once SITE_ROOT.'config/framework/framework.conf';
-
-define('PROCESS', FRAMEWORK_PATH . 'controllers/displayProcess.php');
-
-//Content Objects
-//importFrameworkObjects('objects/content/');
-
-
-//Define UI Dependencies
-$uiDeps = Spyc::YAMLLoad(INCLUDE_PATH.'config/uiDependencies.yaml');
-$siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
-$uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
-
-
-function importFrameworkObjects($relPath)
-{
-    importObjectsFromDir(FRAMEWORK_PATH.$relPath);
-}
-
-function importObjectsFromDir($dir)
-{
-    $objects = glob($dir."*.class.php");
-    foreach ($objects as $object) {
-        include_once $object;
-    }
-
-    $dirs = glob($dir."*");
-    foreach ($dirs as $innerDir) {
-        if (is_dir($innerDir)) {
-            importObjectsFromDir($innerDir."/");
-        }
-    }
-}

@@ -22,7 +22,7 @@ $config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
 
 //global vars for legacy stuff
 //TODO: clean this up once refactored
-$uiDeps = Spyc::YAMLLoad(dirname(__FILE__).'/../../../../config/uiDependencies.yaml');
+$uiDeps = Spyc::YAMLLoad(__DIR__ . '/../../../../config/uiDependencies.yaml');
 $siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
 
 //to make legacy stuff work
