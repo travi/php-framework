@@ -13,7 +13,10 @@ use Behat\Gherkin\Node\PyStringNode,
    require_once 'PHPUnit/Autoload.php';
    require_once 'PHPUnit/Framework/Assert/Functions.php';
 
-   require_once dirname(__FILE__) . '/../../../../../php/framework/src/utilities/FileSystem.php';
+
+    require_once __DIR__ . '/../../../../../vendor/autoload.php';
+
+use Travi\framework\utilities\FileSystem;
 
 /**
  * Features context.
