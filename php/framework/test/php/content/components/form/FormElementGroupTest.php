@@ -15,7 +15,9 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->group = $this->getMockForAbstractClass('Travi\\framework\\components\\Forms\\FormElementGroup');
+        $this->group = $this->getMockForAbstractClass(
+            'Travi\\framework\\components\\Forms\\FormElementGroup'
+        );
     }
 
     public function testDoesNotContainFileInput()

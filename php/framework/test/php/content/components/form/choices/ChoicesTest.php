@@ -11,7 +11,10 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     {
         $settings = array('label' => 'label');
 
-        $this->choices = $this->getMockForAbstractClass('Travi\\framework\\components\\Forms\\choices\\Choices', array($settings));
+        $this->choices = $this->getMockForAbstractClass(
+            'Travi\\framework\\components\\Forms\\choices\\Choices',
+            array($settings)
+        );
     }
 
     public function testAddOption()

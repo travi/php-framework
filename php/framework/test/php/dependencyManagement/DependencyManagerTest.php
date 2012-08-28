@@ -49,7 +49,9 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
         $this->environmentUtility = $this->getMock('Travi\\framework\\utilities\\Environment');
         $this->request = $this->getMock('Travi\\framework\\http\\Request');
-        $this->clientDependencyDefinitions = $this->getMock('Travi\\framework\\dependencyManagement\\ClientDependencies');
+        $this->clientDependencyDefinitions = $this->getMock(
+            'Travi\\framework\\dependencyManagement\\ClientDependencies'
+        );
         $this->session = $this->getMock('Travi\\framework\\http\\Session');
 
         $this->dependencyManager = new DependencyManager();

@@ -16,7 +16,9 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->controller = $this->getMockForAbstractClass('Travi\\framework\\controller\\AbstractController');
+        $this->controller = $this->getMockForAbstractClass(
+            'Travi\\framework\\controller\\AbstractController'
+        );
 
         $requestStub = $this->getMock('Travi\\framework\\http\\Request');
         $requestStub->expects($this->any())

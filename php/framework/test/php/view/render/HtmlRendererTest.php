@@ -27,7 +27,9 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
     {
         $this->htmlRenderer = new HtmlRenderer();
 
-        $this->dependencyManager = $this->getMock('Travi\\framework\\dependencyManagement\\DependencyManager');
+        $this->dependencyManager = $this->getMock(
+            'Travi\\framework\\dependencyManagement\\DependencyManager'
+        );
         $this->smarty = $this->getMockBuilder('Smarty')
             ->disableOriginalConstructor()
             ->getMock();
