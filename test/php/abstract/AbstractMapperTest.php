@@ -1,7 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../../php/framework/objects/content/form.class.php';
-require_once dirname(__FILE__) . '/../../../php/framework/objects/content/Lists/entityBlock.class.php';
-require_once dirname(__FILE__) . '/../../../php/framework/objects/content/Lists/entityList.class.php';
+
+use Travi\framework\components\Forms\Form;
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 {

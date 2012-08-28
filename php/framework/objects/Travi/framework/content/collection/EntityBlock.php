@@ -1,5 +1,7 @@
 <?php
 
+namespace Travi\framework\content\collection;
+
 class EntityBlock
 {
     private $title;

@@ -1,6 +1,8 @@
 <?php
 
-require_once 'Input.php';
+namespace Travi\framework\components\Forms\inputs;
+
+use Travi\framework\components\Forms\inputs\Input;
 
 class OpenIdInput extends Input
 {
