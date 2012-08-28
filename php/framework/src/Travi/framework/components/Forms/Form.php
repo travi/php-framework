@@ -39,9 +39,10 @@ class Form extends FormElementGroup
                 if (!empty($formElement['fields'])) {
                     $this->addFormElement(new \Travi\framework\components\Forms\Fieldset($formElement));
                 } else if (!empty($formElement['type'])) {
-//                    $this->addFormElement(
-//                        new self::FORMS_NAMESPACE . $formElement['type']($formElement)
-//                    );
+                    $type = self::FORMS_NAMESPACE . $formElement['type'];
+                    $this->addFormElement(
+                        new $type($formElement)
+                    );
                 }
             }
         }
