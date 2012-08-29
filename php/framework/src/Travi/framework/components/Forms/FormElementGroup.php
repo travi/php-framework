@@ -28,7 +28,7 @@ abstract class FormElementGroup extends ContentObject implements FormElement
         foreach ($this->formElements as $formElement) {
             if (is_a($formElement, $type)) {
                 return true;
-            } elseif (is_a($formElement, 'Travi\\framework\\components\\Forms\\FormElementGroup')) {
+            } elseif (is_a($formElement, Form::FORMS_NAMESPACE . 'FormElementGroup')) {
                 /** @var $formElement FormElementGroup */
                 if ($formElement->containsFormElementType($type)) {
                     return true;

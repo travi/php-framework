@@ -13,7 +13,7 @@ class FieldSet extends FormElementGroup
     {
         $this->legend = $options['legend'];
         foreach ($options['fields'] as $field) {
-            if (is_a($field, 'Travi\\framework\\components\\Forms\\Field')) {
+            if (is_a($field, Form::FORMS_NAMESPACE . 'Field')) {
                 $this->addFormElement($field);
             } else {
                 $this->addFormElement(new $field['type']($field));

@@ -3,11 +3,12 @@
 namespace Travi\framework\components\Forms;
 
 use Travi\framework\components\Forms\FormElementGroup,
-    Travi\framework\components\Forms\Input;
+    Travi\framework\components\Forms\inputs\Input,
+    Travi\framework\components\Forms\FieldSet;
 
 class Form extends FormElementGroup
 {
-    const FORMS_NAMESPACE = "Travi\\framwork\\components\\Forms\\";
+    const FORMS_NAMESPACE = "Travi\\framework\\components\\Forms\\";
     /** @var string */
     private $name;
     /** @var string */
@@ -37,9 +38,9 @@ class Form extends FormElementGroup
         if (!empty($options['fieldsets'])) {
             foreach ($options['fieldsets'] as $formElement) {
                 if (!empty($formElement['fields'])) {
-                    $this->addFormElement(new \Travi\framework\components\Forms\Fieldset($formElement));
+                    $this->addFormElement(new Fieldset($formElement));
                 } else if (!empty($formElement['type'])) {
-                    $type = self::FORMS_NAMESPACE . $formElement['type'];
+                    $type = $formElement['type'];
                     $this->addFormElement(
                         new $type($formElement)
                     );
@@ -74,7 +75,7 @@ class Form extends FormElementGroup
 
     public function getEncType()
     {
-        if ($this->containsFormElementType("FileInput")) {
+        if ($this->containsFormElementType(self::FORMS_NAMESPACE . 'inputs\\FileInput')) {
             $this->encodingType = "multipart/form-data";
         }
         return $this->encodingType;

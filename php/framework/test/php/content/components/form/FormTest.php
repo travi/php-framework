@@ -66,7 +66,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testGetEncTypeWithFileInputPresent()
     {
-        $anyField = $this->getMock('FileInput');
+        $anyField = $this->getMock(Form::FORMS_NAMESPACE . 'inputs\\FileInput');
 
         $this->form->addFormElement($anyField);
 
