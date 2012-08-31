@@ -6,7 +6,7 @@ use Travi\framework\content\ContentObject;
 
 class GalleryComponent extends ContentObject
 {
-    function GalleryComponent()
+    function __construct()
     {
         $this->addJavaScript('gallery');
     }
