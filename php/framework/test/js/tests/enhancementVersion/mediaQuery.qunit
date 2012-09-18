@@ -4,8 +4,15 @@
     var enhancementVersionConstants = fwork.constants();
 
     module("Screen width based version", {
+        setUp: function () {
+            console.log('here');
+            sinon.stub(travi.templates, 'get');
+        },
         teardown: function () {
-            fwork.cookies.clearAll();
+            travi.cookies.clearAll();
+            travi.test.common.restore([
+                Modernizr.mq
+            ]);
         }
     });
 
@@ -22,26 +29,20 @@
     });
 
     test("Enhancement version set to mobile when screen width reported within smartphone range", function () {
-        Modernizr.init();
-        Modernizr.expect(
-            'mq',
-            {
-                withValue: 'only screen and (min-width: 320px) and (max-width: 480px)',
-                returnValue: true
-            }
-        );
-        fwork.location.init();
-        fwork.location.expect('refresh');
+        sinon.stub(Modernizr, 'mq').returns(true);
+        sinon.stub(travi.location, 'refresh');
 
         fwork.init();
 
-        ok(Modernizr.verify());
+        sinon.assert.calledWith('only screen and (min-width: 320px) and (max-width: 480px)');
+        sinon.assert.calledOnce(travi.location.refresh);
         strictEqual('mobile', fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
 
     test("Enhancement version set to desktop at higher screen width", function () {
-        Modernizr.init();
+        sinon.stub(Modernizr, 'mq').returns(false);
+        sinon.stub(travi.location, 'refresh');
         Modernizr.expect(
             'mq',
             {
@@ -54,7 +55,8 @@
 
         fwork.init();
 
-        ok(Modernizr.verify());
+        sinon.assert.calledWith('only screen and (min-width: 320px) and (max-width: 480px)');
+        sinon.assert.notCalled(travi.location.refresh);
         strictEqual('desktop', fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
         ok(fwork.location.verify(), "reloads to get proper resources");
     });
@@ -62,10 +64,10 @@
     test("cookie not set if already set", function () {
         var existingCookieValue = 'test';
 
-        fwork.cookies.create(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY, existingCookieValue, 10);
+        travi.cookies.create(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY, existingCookieValue, 10);
 
         fwork.init();
 
-        strictEqual(existingCookieValue, fwork.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
+        strictEqual(existingCookieValue, travi.cookies.value(enhancementVersionConstants.ENHANCEMENT_VERSION_KEY));
     });
 }(travi.framework));

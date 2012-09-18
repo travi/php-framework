@@ -51,7 +51,11 @@
 
         setInitialEnhancementVersion = function () {
             if (!cookies.exists(ENHANCEMENT_VERSION_KEY)) {
-                detectEnhancementVersion(setEnhancementVersionTo, MOBILE_ENHANCEMENT_VERSION, DESKTOP_ENHANCEMENT_VERSION);
+                detectEnhancementVersion(
+                    setEnhancementVersionTo,
+                    MOBILE_ENHANCEMENT_VERSION,
+                    DESKTOP_ENHANCEMENT_VERSION
+                );
             }
         },
 
@@ -89,7 +93,8 @@
 
     travi.namespace('framework', {
         init: init,
-        namespace: travi.namespace
+        namespace: travi.namespace,
+        constants: getConstants
     });
 
     init();

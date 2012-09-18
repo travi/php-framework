@@ -59,7 +59,7 @@
         loadedTemplates = {};
     }
 
-    travi.namespace("templates", {
+    travi.namespace('templates', {
         get: getTemplate,
         preLoad: getTemplate,
         render: renderTemplate,

@@ -6,11 +6,11 @@
 
     module("Choose Version", {
         setup: function () {
-            Modernizr.init();
-            Modernizr.expect('mq', {returnValue: true});
+            sinon.stub(Modernizr, 'mq').returns(true);
         },
         teardown: function () {
-            fwork.cookies.clearAll();
+            travi.test.common.restore(Modernizr.mq);
+            travi.cookies.clearAll();
         }
     });
 
