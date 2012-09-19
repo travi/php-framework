@@ -15,13 +15,16 @@ TestCase('Choose Enhancement Version', {
             }
         });
         sinon.stub(Modernizr, 'mq');
+        sinon.stub(this.cookies, 'create');
+        sinon.stub(this.cookies, 'value');
     },
 
     tearDown: function () {
-        travi.cookies.clearAll();
         travi.test.common.restore([
             this.templates.get,
             this.location.refresh,
+            this.cookies.create,
+            this.cookies.value,
             Modernizr.mq
         ]);
     },
@@ -58,7 +61,7 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test Mobile link shown when desktop version active': function () {
-        Modernizr.mq.returns(false);
+        this.cookies.value.returns(this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
 
         this.framework.init();
 
@@ -69,7 +72,7 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test desktop link shown when mobile version active': function () {
-        Modernizr.mq.returns(true);
+        this.cookies.value.returns(this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
 
         this.framework.init();
 
@@ -80,32 +83,38 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test Switch to Desktop version': function () {
-        Modernizr.mq.returns(true);
+        this.cookies.value.returns(this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
 
         this.framework.init();
         this.location.refresh.reset();
 
         $('#desktopVersion').click();
 
-        assertEquals(
-            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY),
-            this.framework.constants().DESKTOP_ENHANCEMENT_VERSION
+        sinon.assert.calledOnce(this.cookies.create);
+        sinon.assert.calledWith(
+            this.cookies.create,
+            this.framework.constants().ENHANCEMENT_VERSION_KEY,
+            this.framework.constants().DESKTOP_ENHANCEMENT_VERSION,
+            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);
 
     },
 
     'test Switch to Mobile version': function () {
-        Modernizr.mq.returns(false);
+        this.cookies.value.returns(this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
 
         this.framework.init();
         this.location.refresh.reset();
 
         $('#mobileVersion').click();
 
-        assertEquals(
-            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY),
-            this.framework.constants().MOBILE_ENHANCEMENT_VERSION
+        sinon.assert.calledOnce(this.cookies.create);
+        sinon.assert.calledWith(
+            this.cookies.create,
+            this.framework.constants().ENHANCEMENT_VERSION_KEY,
+            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);
     }

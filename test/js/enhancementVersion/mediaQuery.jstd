@@ -9,14 +9,17 @@ TestCase('Screen Width Detection', {
                 callback();
             }
         });
+        sinon.stub(this.cookies, 'exists').returns(false);
+        sinon.stub(this.cookies, 'create');
     },
 
     tearDown: function () {
-        travi.cookies.clearAll();
         travi.test.common.restore([
             this.templates.get,
             Modernizr.mq,
-            travi.location.refresh
+            travi.location.refresh,
+            this.cookies.exists,
+            this.cookies.create
         ]);
     },
 
@@ -38,13 +41,17 @@ TestCase('Screen Width Detection', {
 
         this.framework.init();
 
+        sinon.assert.calledOnce(Modernizr.mq);
         sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
-        sinon.assert.calledOnce(travi.location.refresh);
-        assertEquals(
-            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
-            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY)
-        );
 
+        sinon.assert.calledOnce(this.cookies.create);
+        sinon.assert.calledWith(
+            this.cookies.create,
+            this.framework.constants().ENHANCEMENT_VERSION_KEY,
+            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+        );
+        sinon.assert.calledOnce(travi.location.refresh);
     },
 
     'test Enhancement version set to desktop at higher screen width': function () {
@@ -53,11 +60,16 @@ TestCase('Screen Width Detection', {
 
         this.framework.init();
 
+        sinon.assert.calledOnce(Modernizr.mq);
         sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
-        sinon.assert.calledOnce(travi.location.refresh);
-        assertEquals(
+
+        sinon.assert.calledOnce(this.cookies.create);
+        sinon.assert.calledWith(
+            this.cookies.create,
+            this.framework.constants().ENHANCEMENT_VERSION_KEY,
             this.framework.constants().DESKTOP_ENHANCEMENT_VERSION,
-            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY)
+            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
+        sinon.assert.calledOnce(travi.location.refresh);
     }
 });
