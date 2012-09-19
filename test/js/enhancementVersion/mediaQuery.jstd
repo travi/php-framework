@@ -1,0 +1,63 @@
+TestCase('Screen Width Detection', {
+    framework: travi.framework,
+    templates: travi.templates,
+    cookies: travi.cookies,
+
+    setUp: function () {
+        sinon.stub(this.templates, 'get').returns({
+            then: function (callback) {
+                callback();
+            }
+        });
+    },
+
+    tearDown: function () {
+        travi.cookies.clearAll();
+        travi.test.common.restore([
+            this.templates.get,
+            Modernizr.mq,
+            travi.location.refresh
+        ]);
+    },
+
+    'test Enhancement version cookie name defined as what server is expecting': function () {
+        assertEquals('enhancementVersion', this.framework.constants().ENHANCEMENT_VERSION_KEY);
+    },
+
+    'test mobile enhancement version cookie value defined as what server is expecting': function () {
+        assertEquals('mobile', this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
+    },
+
+    'test desktop enhancement version cookie value defined as what server is expecting': function () {
+        assertEquals('desktop', this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
+    },
+
+    'test Enhancement version set to mobile when screen width reported within smartphone range': function () {
+        sinon.stub(Modernizr, 'mq').returns(true);
+        sinon.stub(travi.location, 'refresh');
+
+        this.framework.init();
+
+        sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
+        sinon.assert.calledOnce(travi.location.refresh);
+        assertEquals(
+            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY)
+        );
+
+    },
+
+    'test Enhancement version set to desktop at higher screen width': function () {
+        sinon.stub(Modernizr, 'mq').returns(false);
+        sinon.stub(travi.location, 'refresh');
+
+        this.framework.init();
+
+        sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
+        sinon.assert.calledOnce(travi.location.refresh);
+        assertEquals(
+            this.framework.constants().DESKTOP_ENHANCEMENT_VERSION,
+            this.cookies.value(this.framework.constants().ENHANCEMENT_VERSION_KEY)
+        );
+    }
+});

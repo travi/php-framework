@@ -1,0 +1,3 @@
+var Modernizr = {
+    mq: function () {}
+};
