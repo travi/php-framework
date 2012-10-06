@@ -118,11 +118,4 @@
             <arg line="${shared.dir}/vendor/bin/behat -f junit,progress --out ${build.logs}/behat,"/>
         </exec>
     </target>
-
-    <target name="jstestdriver">
-        <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true">
-            <arg line="--tests all"/>
-            <arg line="--server http://localhost:9876"/>
-        </java>
-    </target>
 </project>
