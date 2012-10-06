@@ -11,6 +11,7 @@ TestCase('Screen Width Detection', {
         });
         sinon.stub(this.cookies, 'exists').returns(false);
         sinon.stub(this.cookies, 'create');
+        sinon.stub(this.cookies, 'value');
     },
 
     tearDown: function () {
@@ -19,6 +20,7 @@ TestCase('Screen Width Detection', {
             Modernizr.mq,
             travi.location.refresh,
             this.cookies.exists,
+            this.cookies.value,
             this.cookies.create
         ]);
     },

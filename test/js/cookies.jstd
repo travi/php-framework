@@ -3,6 +3,10 @@ TestCase('CookieTests', {
 
     DAYS_BEFORE_EXP: 1,
 
+    setUp: function () {
+        this.cookies.clearAll();
+    },
+
     tearDown: function () {
         this.cookies.clearAll();
     },
