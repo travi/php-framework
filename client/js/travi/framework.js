@@ -97,5 +97,5 @@
         constants: getConstants
     });
 
-//    init();
+    init();
 }(travi));
