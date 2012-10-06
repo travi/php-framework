@@ -268,10 +268,22 @@
         <mkdir dir="${build.logs}/jstd"/>
         <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true">
             <arg line="--tests all"/>
+            <arg line="--config ${jstd.conf}"/>
+            <arg line="--server http://localhost:9876"/>
+            <arg line="--raiseOnFailure true"/>
+        </java>
+    </target>
+
+    <target name="jstestdriver2">
+        <mkdir dir="${build.logs}/jstd"/>
+        <exec failonerror="true" executable="java">
+            <arg line="-jar ${ant.lib}${jstestdriver.jar}"/>
+            <arg line="--tests all"/>
+            <arg line="--config ${jstd.conf}"/>
             <arg line="--testOutput ${build.logs}/jstd/"/>
             <arg line="--server http://localhost:9876"/>
             <arg line="--verbose"/>
-        </java>
+        </exec>
     </target>
 
     <target name="clean">
