@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="framework" default="gates">
     <property name="shared.dir" value="${basedir}/.."/>
     <import file="build-shared.xml"/>
@@ -117,5 +117,12 @@
               failonerror='true'>
             <arg line="${shared.dir}/vendor/bin/behat -f junit,progress --out ${build.logs}/behat,"/>
         </exec>
+    </target>
+
+    <target name="jstestdriver">
+        <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true">
+            <arg line="--tests all"/>
+            <arg line="--server http://localhost:9876"/>
+        </java>
     </target>
 </project>
