@@ -1,7 +1,7 @@
 TestCase('Screen Width Detection', {
-    framework: travi.framework,
     templates: travi.templates,
     cookies: travi.cookies,
+    enhancements: travi.enhancements,
 
     setUp: function () {
         sinon.stub(this.templates, 'get').returns({
@@ -26,22 +26,22 @@ TestCase('Screen Width Detection', {
     },
 
     'test Enhancement version cookie name defined as what server is expecting': function () {
-        assertEquals('enhancementVersion', this.framework.constants().ENHANCEMENT_VERSION_KEY);
+        assertEquals('enhancementVersion', this.enhancements.constants().ENHANCEMENT_VERSION_KEY);
     },
 
     'test mobile enhancement version cookie value defined as what server is expecting': function () {
-        assertEquals('mobile', this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
+        assertEquals('mobile', this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION);
     },
 
     'test desktop enhancement version cookie value defined as what server is expecting': function () {
-        assertEquals('desktop', this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
+        assertEquals('desktop', this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION);
     },
 
     'test Enhancement version set to mobile when screen width reported within smartphone range': function () {
         sinon.stub(Modernizr, 'mq').returns(true);
         sinon.stub(travi.location, 'refresh');
 
-        this.framework.init();
+        this.enhancements.init();
 
         sinon.assert.calledOnce(Modernizr.mq);
         sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
@@ -49,9 +49,9 @@ TestCase('Screen Width Detection', {
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(
             this.cookies.create,
-            this.framework.constants().ENHANCEMENT_VERSION_KEY,
-            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
-            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
+            this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(travi.location.refresh);
     },
@@ -60,7 +60,7 @@ TestCase('Screen Width Detection', {
         sinon.stub(Modernizr, 'mq').returns(false);
         sinon.stub(travi.location, 'refresh');
 
-        this.framework.init();
+        this.enhancements.init();
 
         sinon.assert.calledOnce(Modernizr.mq);
         sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
@@ -68,9 +68,9 @@ TestCase('Screen Width Detection', {
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(
             this.cookies.create,
-            this.framework.constants().ENHANCEMENT_VERSION_KEY,
-            this.framework.constants().DESKTOP_ENHANCEMENT_VERSION,
-            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
+            this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION,
+            this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(travi.location.refresh);
     }

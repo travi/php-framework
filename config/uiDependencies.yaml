@@ -8,17 +8,22 @@ framework:
   local: /resources/shared/js/travi/framework.js
   jsDependencies:
     - events
-    - template
-    - cookieUtil
-    - locationUtil
-  clientTemplates:
-    chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
+    - enhancements
 
 events:
   local: /resources/shared/js/travi/events.js
   jsDependencies:
     - travi
     - amplify
+
+enhancements:
+  local: /resources/shared/js/travi/enhancements.js
+  jsDependencies:
+    - template
+    - cookieUtil
+    - locationUtil
+  clientTemplates:
+    chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
 
 template:
   local: /resources/shared/js/travi/templates.js

@@ -1,8 +1,8 @@
 TestCase('Choose Enhancement Version', {
     location: travi.location,
     templates: travi.templates,
-    framework: travi.framework,
     cookies: travi.cookies,
+    enhancements: travi.enhancements,
 
     choiceListId: 'versions',
 
@@ -30,19 +30,19 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test mobile choice defined as external code expects': function () {
-        assertEquals('mobile', this.framework.constants().MOBILE_CHOICE);
+        assertEquals('mobile', this.enhancements.constants().MOBILE_CHOICE);
     },
 
     'test desktop choice defined as external code expects': function () {
-        assertEquals('desktop', this.framework.constants().DESKTOP_CHOICE);
+        assertEquals('desktop', this.enhancements.constants().DESKTOP_CHOICE);
     },
 
     'test basic choice defined as external code expects': function () {
-        assertEquals('basic', this.framework.constants().BASIC_CHOICE);
+        assertEquals('basic', this.enhancements.constants().BASIC_CHOICE);
     },
 
     'test version toggle links added to page': function () {
-        this.framework.init();
+        this.enhancements.init();
 
         var choiceGroupId = 'enhancementVersion',
             choicesExplainationId = 'explainChooseVersion',
@@ -53,39 +53,39 @@ TestCase('Choose Enhancement Version', {
 
         assertEquals(this.choiceListId, $('footer ul').attr('id'));
         assertEquals(2, $enhancementChoices.length);
-        assertEquals(this.framework.constants().BASIC_CHOICE, $enhancementChoices.eq(0).text());
+        assertEquals(this.enhancements.constants().BASIC_CHOICE, $enhancementChoices.eq(0).text());
 
-        assertEquals(this.framework.constants().BASIC_CHOICE + 'Version', $enhancementChoices.eq(0).attr('id'));
+        assertEquals(this.enhancements.constants().BASIC_CHOICE + 'Version', $enhancementChoices.eq(0).attr('id'));
         assertEquals(choiceGroupId, $('#' + this.choiceListId).parent().attr('id'));
         assertEquals(choiceGroupId, $('#' + choicesExplainationId).parent().attr('id'));
     },
 
     'test Mobile link shown when desktop version active': function () {
-        this.cookies.value.returns(this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION);
 
-        this.framework.init();
+        this.enhancements.init();
 
         var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
-        assertEquals(this.framework.constants().MOBILE_CHOICE, $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.framework.constants().MOBILE_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        assertEquals(this.enhancements.constants().MOBILE_CHOICE, $enhancementChoices.eq(1).text().trim());
+        assertEquals(this.enhancements.constants().MOBILE_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
     },
 
     'test desktop link shown when mobile version active': function () {
-        this.cookies.value.returns(this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION);
 
-        this.framework.init();
+        this.enhancements.init();
 
         var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
-        assertEquals(this.framework.constants().DESKTOP_CHOICE, $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.framework.constants().DESKTOP_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        assertEquals(this.enhancements.constants().DESKTOP_CHOICE, $enhancementChoices.eq(1).text().trim());
+        assertEquals(this.enhancements.constants().DESKTOP_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
     },
 
     'test Switch to Desktop version': function () {
-        this.cookies.value.returns(this.framework.constants().MOBILE_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION);
 
-        this.framework.init();
+        this.enhancements.init();
         this.cookies.create.reset();
         this.location.refresh.reset();
 
@@ -94,18 +94,18 @@ TestCase('Choose Enhancement Version', {
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(
             this.cookies.create,
-            this.framework.constants().ENHANCEMENT_VERSION_KEY,
-            this.framework.constants().DESKTOP_ENHANCEMENT_VERSION,
-            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
+            this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION,
+            this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);
 
     },
 
     'test Switch to Mobile version': function () {
-        this.cookies.value.returns(this.framework.constants().DESKTOP_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION);
 
-        this.framework.init();
+        this.enhancements.init();
         this.cookies.create.reset();
         this.location.refresh.reset();
 
@@ -114,9 +114,9 @@ TestCase('Choose Enhancement Version', {
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(
             this.cookies.create,
-            this.framework.constants().ENHANCEMENT_VERSION_KEY,
-            this.framework.constants().MOBILE_ENHANCEMENT_VERSION,
-            this.framework.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
+            this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);
     }
