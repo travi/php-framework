@@ -42,7 +42,7 @@
     }
 
     function preLoadTemplates(templates, pathToSingleTemplate) {
-        if ('string' === typeof(templates)) {
+        if ('string' === typeof templates) {
             return getTemplate(templates, pathToSingleTemplate);
         } else {
             var templateName;
