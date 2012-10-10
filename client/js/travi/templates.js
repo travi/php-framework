@@ -41,6 +41,20 @@
         }
     }
 
+    function getTemplates(templates, pathToSingleTemplate) {
+        if ('string' === typeof(templates)) {
+            return getTemplate(templates, pathToSingleTemplate);
+        } else {
+            var templateName;
+
+            for (templateName in templates) {
+                if (templates.hasOwnProperty(templateName)) {
+                    getTemplate(templateName, templates[templateName]);
+                }
+            }
+        }
+    }
+
     function render(data, templateName) {
         return $.render[templateName](data || {});
     }
@@ -61,7 +75,7 @@
 
     travi.namespace('templates', {
         get: getTemplate,
-        preLoad: getTemplate,
+        preLoad: getTemplates,
         render: renderTemplate,
         init: init
     });

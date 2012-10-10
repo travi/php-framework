@@ -2,6 +2,7 @@ TestCase("TemplateTests", {
     templates: travi.templates,
 
     templateName: 'someName',
+    pathToTemplate: '/path/to/template',
     templateAsString: 'template',
 
     setUp: function () {
@@ -26,8 +27,7 @@ TestCase("TemplateTests", {
     },
 
     "test preloading template requests it from the server, caches it, and returns the promise": function () {
-        var pathToTemplate = '/path/to/template',
-            call,
+        var call,
             promise,
             promiseToReturn = {},
             constructedDeferred = {
@@ -42,11 +42,11 @@ TestCase("TemplateTests", {
 
         sinon.spy(jQuery, 'templates');
 
-        promise = travi.templates.preLoad(this.templateName, pathToTemplate);
+        promise = this.templates.preLoad(this.templateName, this.pathToTemplate);
 
         assert(jQuery.ajax.calledOnce);
         call = jQuery.ajax.getCall(0);
-        assertEquals(pathToTemplate, call.args[0].url);
+        assertEquals(this.pathToTemplate, call.args[0].url);
         assertEquals("GET".toLowerCase(), call.args[0].type);
         assertEquals("text", call.args[0].dataType);
 
@@ -56,9 +56,16 @@ TestCase("TemplateTests", {
     },
 
     'test preLoad can accept a list': function () {
-        this.templates.preLoad({
+        var anotherTemplateName = 'anotherTemplate',
+            pathToAnotherTemplate = '/path/to/another/template',
+            templates = {};
+        templates[this.templateName] = this.pathToTemplate;
+        templates[anotherTemplateName] = pathToAnotherTemplate;
+        this.templates.preLoad(templates);
 
-        });
+        sinon.assert.callCount($.ajax, Object.keys(templates).length);
+        assertEquals(this.pathToTemplate, $.ajax.getCall(0).args[0].url);
+        assertEquals(pathToAnotherTemplate, $.ajax.getCall(1).args[0].url);
     },
 
     "test that getting a template by name requests it from the server and returns the promise": function () {
