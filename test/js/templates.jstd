@@ -5,16 +5,24 @@ TestCase("TemplateTests", {
     templateAsString: 'template',
 
     setUp: function () {
+        var testCase = this;
+
+        sinon.stub(jQuery, 'ajax', function (options) {
+            options.success(testCase.templateAsString);
+        });
+
         travi.templates.init();
     },
 
     tearDown: function () {
-        travi.test.common.restore(jQuery.ajax);
-        travi.test.common.restore(jQuery.Deferred);
-        travi.test.common.restore(jQuery.templates);
-        travi.test.common.restore(jQuery.render[this.templateName]);
-        travi.test.common.restore(this.templates.get);
-        travi.test.common.restore(this.templates.preLoad);
+        travi.test.common.restore([
+            jQuery.ajax,
+            jQuery.Deferred,
+            jQuery.templates,
+            jQuery.render[this.templateName],
+            this.templates.get,
+            this.templates.preLoad
+        ]);
     },
 
     "test preloading template requests it from the server, caches it, and returns the promise": function () {
@@ -27,12 +35,8 @@ TestCase("TemplateTests", {
                     return promiseToReturn;
                 },
                 resolve: function () {}
-            },
-            testCase = this;
+            };
 
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, testCase.templateAsString);
-        });
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
         sinon.spy(constructedDeferred, 'resolve');
 
@@ -51,15 +55,13 @@ TestCase("TemplateTests", {
         this.assertPromiseWasReturned(promiseToReturn, promise);
     },
 
-    "test the ability to get a template by name is exposed as a method": function () {
-        assertFunction(travi.templates.get);
+    'test preLoad can accept a list': function () {
+        this.templates.preLoad({
+
+        });
     },
 
     "test that getting a template by name requests it from the server and returns the promise": function () {
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, this.templateAsString);
-        });
-
         var promise = travi.templates.get(this.templateName);
 
         assertEquals(
@@ -87,31 +89,39 @@ TestCase("TemplateTests", {
     },
 
     'test callback called after template loaded from server': function () {
-        sinon.stub(jQuery, 'ajax');
         var constructedDeferred = new $.Deferred(),
             dataForTemplate = {
                 data: 'something'
             },
             callback = sinon.spy(),
             renderedTemplate = 'renderedTemplate';
+
+        this.templates.preLoad(this.templateName);
+
         constructedDeferred.resolve();
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
         sinon.stub(jQuery.render, this.templateName).returns(renderedTemplate);
 
-        travi.templates.render(this.templateName, dataForTemplate, callback);
+        this.templates.render(this.templateName, dataForTemplate, callback);
+
+        sinon.assert.calledOnce($.render[this.templateName]);
+        sinon.assert.calledWith($.render[this.templateName], dataForTemplate);
 
         sinon.assert.calledOnce(callback);
         sinon.assert.calledWith(callback, renderedTemplate);
     },
 
     'test callback not called when template not loaded': function () {
-        sinon.stub(jQuery, 'ajax');
         var constructedDeferred = new $.Deferred(),
             dataForTemplate = {
                 data: 'something'
             },
             callback = sinon.spy(),
             renderedTemplate = 'renderedTemplate';
+
+        travi.test.common.restore($.ajax);
+        sinon.stub($, 'ajax');
+
         sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
         sinon.stub(jQuery.render, this.templateName);
 
@@ -122,10 +132,6 @@ TestCase("TemplateTests", {
     },
 
     "test that template is not requested from server if already cached": function () {
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, this.templateAsString);
-        });
-
         travi.templates.get(this.templateName);
         travi.templates.get(this.templateName);
 
@@ -133,10 +139,6 @@ TestCase("TemplateTests", {
     },
 
     "test that caching does not prevent other templates from loading from server": function () {
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, this.templateAsString);
-        });
-
         travi.templates.get(this.templateName);
         travi.templates.get('someOtherTemplateName');
 
