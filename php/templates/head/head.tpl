@@ -20,9 +20,5 @@
         <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
 {/foreach}
         <script type="text/javascript" src="/resources/shared/{if $page->isProduction()}min/{/if}thirdparty/modernizr/modernizr.min.js"> </script>
-{foreach item=script from=$dependencies['js']}
-        <script type="text/javascript" src="{$script}"> </script>
-{/foreach}
-{include file='head/jsInit.tpl'}
-{include file='head/clientTemplates.tpl'}
+{include file='head/jsInclude.tpl'}
     </head>
