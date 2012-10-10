@@ -2,11 +2,16 @@
 {assign var='externalTemplates' value=$dependencies['clientTemplates']}
 {if !empty($initArray) || !empty($externalTemplates)}
         <script type="text/javascript" >
+{if !empty($externalTemplates)}
+            travi.templates.preLoad({
 {foreach key=name item=path from=$externalTemplates}
-            travi.templates.preLoad('{$name}', '{$path}');
+                '{$name}': '{$path}'{if !$smarty.foreach.val.last},{/if}
+
 {/foreach}
+            });
+{/if}
 {if !empty($initArray)}
-            $(document).ready(function () {literal}{{/literal}
+            $(function () {literal}{{/literal}
 {foreach item=init from=$initArray}
                 {$init}
 {/foreach}

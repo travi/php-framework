@@ -41,7 +41,7 @@
         }
     }
 
-    function getTemplates(templates, pathToSingleTemplate) {
+    function preLoadTemplates(templates, pathToSingleTemplate) {
         if ('string' === typeof(templates)) {
             return getTemplate(templates, pathToSingleTemplate);
         } else {
@@ -75,7 +75,7 @@
 
     travi.namespace('templates', {
         get: getTemplate,
-        preLoad: getTemplates,
+        preLoad: preLoadTemplates,
         render: renderTemplate,
         init: init
     });
