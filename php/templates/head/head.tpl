@@ -20,5 +20,4 @@
         <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
 {/foreach}
         <script type="text/javascript" src="/resources/shared/{if $page->isProduction()}min/{/if}thirdparty/modernizr/modernizr.min.js"> </script>
-{include file='head/jsInclude.tpl'}
     </head>
