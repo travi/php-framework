@@ -26,5 +26,17 @@ travi.test.common = {
 
             return promise;
         });
+    },
+
+    assertObjectsHaveSameValues:function (expected, actual) {
+        for (var key in expected) {
+            if (expected.hasOwnProperty(key)) {
+                assertEquals(expected[key], actual[key]);
+            }
+        }
+    },
+
+    assertAjaxCallMadeWith:function (expected, actual) {
+        this.assertObjectsHaveSameValues(expected, actual);
     }
 };

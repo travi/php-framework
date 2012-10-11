@@ -1,4 +1,6 @@
 TestCase('EntityListTests', {
+    common: travi.test.common,
+
     entityList: travi.framework.entityList,
     pagination: travi.pagination,
     templates: travi.templates,
@@ -99,9 +101,9 @@ TestCase('EntityListTests', {
         $('.ui-dialog-buttonpane button').eq(0).click();
 
         assert(jQuery.ajax.calledOnce);
-        this.assertAjaxCallMadeWith({
+        this.common.assertAjaxCallMadeWith({
             url: '/admin/updates/45',
-            method: 'post',
+            type: 'post',
             dataType: 'json'
         }, jQuery.ajax.getCall(0).args[0]);
 
@@ -116,9 +118,9 @@ TestCase('EntityListTests', {
         this.nextPageCallback({url: url});
 
         assert(jQuery.ajax.calledOnce);
-        this.assertAjaxCallMadeWith({
+        this.common.assertAjaxCallMadeWith({
             url: url,
-            method: 'get',
+            type: 'get',
             dataType: 'json'
         }, jQuery.ajax.getCall(0).args[0]);
 
@@ -133,9 +135,9 @@ TestCase('EntityListTests', {
         this.prevPageCallback({url: url});
 
         assert(jQuery.ajax.calledOnce);
-        this.assertAjaxCallMadeWith({
+        this.common.assertAjaxCallMadeWith({
             url: url,
-            method: 'get',
+            type: 'get',
             dataType: 'json'
         }, jQuery.ajax.getCall(0).args[0]);
 
@@ -181,12 +183,6 @@ TestCase('EntityListTests', {
     assertModalDialogIsShown: function () {
         assert(this.$confirmation.is(':visible'));
         assertEquals(1, $('div.ui-widget-overlay').length, 1);
-    },
-
-    assertAjaxCallMadeWith: function (expected, options) {
-        assertEquals(expected.url, options.url);
-        assertEquals(expected.method, options.type);
-        assertEquals(expected.dataType, options.dataType);
     },
 
     assertLoadedDataAddedToList: function () {

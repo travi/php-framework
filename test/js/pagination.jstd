@@ -8,7 +8,11 @@ travi.test.testCase("PaginationTest", {
     setUp: function () {
         var testCase = this;
 
-        $('body').append($.render.pagination());
+        $('body').append($.render.pagination({
+            controller: 'controller',
+            nextOffset: 34,
+            prevOffset: -24
+        }));
 
         sinon.stub(this.events, 'subscribe', function (eventName, callback) {
             if (testCase.PAGE_LOADED === eventName) {
@@ -44,7 +48,7 @@ travi.test.testCase("PaginationTest", {
 
         $('a.more').click();
 
-        assert(this.events.publish.calledOnce);
+        sinon.assert.calledOnce(this.events.publish);
         call = this.events.publish.getCall(0);
         assertEquals(
             this.pagination.events.NEXT_PAGE_REQUESTED,
