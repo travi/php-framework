@@ -27,8 +27,7 @@ TestCase("TemplateTests", {
     },
 
     "test preloading template requests it from the server, caches it, and returns the promise": function () {
-        var call,
-            promise,
+        var promise,
             promiseToReturn = {},
             constructedDeferred = {
                 promise: function () {
@@ -45,10 +44,11 @@ TestCase("TemplateTests", {
         promise = this.templates.preLoad(this.templateName, this.pathToTemplate);
 
         assert(jQuery.ajax.calledOnce);
-        call = jQuery.ajax.getCall(0);
-        assertEquals(this.pathToTemplate, call.args[0].url);
-        assertEquals("GET".toLowerCase(), call.args[0].type);
-        assertEquals("text", call.args[0].dataType);
+        travi.test.common.assertAjaxCallMadeWith({
+            type: 'get',
+            dataType: 'text',
+            url: this.pathToTemplate
+        }, jQuery.ajax.getCall(0).args[0]);
 
         this.assertPromiseResolvedAfterCachingTemplate(constructedDeferred);
         this.assertTemplateWasCached(this.templateName, this.templateAsString);
