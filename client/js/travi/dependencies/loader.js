@@ -52,7 +52,7 @@
 
     function init() {
         loaded = {
-            js:[]
+            js: []
         };
     }
 
