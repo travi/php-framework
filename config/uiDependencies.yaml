@@ -7,8 +7,12 @@ travi:
 framework:
   local: /resources/shared/js/travi/framework.js
   jsDependencies:
+    - dependencyLoader
     - events
     - enhancements
+
+dependencyLoader:
+  local: /resources/shared/js/travi/dependencies/loader.js
 
 events:
   local: /resources/shared/js/travi/events.js

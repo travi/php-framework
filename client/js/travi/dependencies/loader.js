@@ -60,4 +60,6 @@
         load: get,
         init: init
     });
+
+    init();
 }(travi, this));
