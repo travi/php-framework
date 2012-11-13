@@ -13,6 +13,8 @@ framework:
 
 dependencyLoader:
   local: /resources/shared/js/travi/dependencies/loader.js
+  jsDependencies:
+    - travi
 
 events:
   local: /resources/shared/js/travi/events.js
