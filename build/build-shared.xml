@@ -270,7 +270,7 @@
             <arg line="--tests all"/>
             <arg line="--config ${jstd.conf}"/>
             <arg line="--testOutput ${build.logs}/jstd/"/>
-            <arg line="--server http://localhost:9876"/>
+            <arg line="--server http://192.168.1.142:9876"/>
             <arg line="--raiseOnFailure true"/>
         </java>
     </target>
