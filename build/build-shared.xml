@@ -266,7 +266,7 @@
 
     <target name="jstestdriver">
         <mkdir dir="${build.logs}/jstd"/>
-        <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true">
+        <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true" dir="${site.dir}">
             <arg line="--tests all"/>
             <arg line="--config ${jstd.conf}"/>
             <arg line="--testOutput ${build.logs}/jstd/"/>
