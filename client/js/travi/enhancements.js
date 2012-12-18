@@ -1,3 +1,5 @@
+travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhancementVersion.tmpl');
+
 (function (travi) {
     "use strict";
 
