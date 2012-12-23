@@ -102,14 +102,6 @@
         <antcall target="deploy"/>
     </target>
 
-    <target name="update-dependencies">
-        <exec dir="${shared.dir}"
-              executable="php"
-              failonerror='true'>
-            <arg line="${shared.dir}/lib/composer.phar install --dev"/>
-        </exec>
-    </target>
-
     <target name="behat">
         <mkdir dir="${build.logs}/behat"/>
         <exec dir="${shared.dir}/test/php/acceptance"

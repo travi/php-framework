@@ -232,6 +232,14 @@
         />
     </target>
 
+    <target name="update-dependencies">
+        <exec dir="${site.dir}"
+              executable="php"
+              failonerror='true'>
+            <arg line="${shared.dir}/lib/composer.phar install --dev"/>
+        </exec>
+    </target>
+
     <macrodef name="update-site-database">
         <attribute name="database"/>
         <attribute name="changeLogFile"/>
