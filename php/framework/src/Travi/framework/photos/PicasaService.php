@@ -269,6 +269,9 @@ class PicasaService
                 $width = (int)$attributes->width;
                 $height = (int)$attributes->height;
 
+                $video->setWidth($width);
+                $video->setHeight($height);
+
                 if (self::MOBILE_SIZE === $width || self::MOBILE_SIZE === $height) {
                     $video->setMobile((string)$attributes->url);
                 }

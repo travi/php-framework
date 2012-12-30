@@ -371,6 +371,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 'caption' => 'Tug of war while I try to wipe wax from the truck'
             )
         );
+
+        $this->assertEquals(608, $video->getWidth());
+        $this->assertEquals(1080, $video->getHeight());
     }
 
     //probably a better way to handle this but better than how it is now

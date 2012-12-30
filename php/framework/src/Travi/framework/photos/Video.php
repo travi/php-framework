@@ -10,6 +10,9 @@ class Video extends Media
     private $standard;
     private $highDef;
 
+    private $width;
+    private $height;
+
     public function getMobile()
     {
         return $this->mobile;
@@ -38,5 +41,25 @@ class Video extends Media
     public function setHighDef($version)
     {
         $this->highDef = $version;
+    }
+
+    public function setWidth($width)
+    {
+        $this->width = $width;
+    }
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
     }
 }
