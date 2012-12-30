@@ -88,6 +88,15 @@
         </exec>
     </target>
 
+    <target name="behat">
+        <mkdir dir="${build.logs}/behat"/>
+        <exec dir="${site.dir}/test/php/acceptance"
+              executable="php"
+              failonerror='true'>
+            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --ansi --out ${build.logs}/behat,"/>
+        </exec>
+    </target>
+
     <target name="jsLint">
         <mkdir dir="${build.logs}"/>
         <antcall target="jsLint-src"/>

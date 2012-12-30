@@ -51,7 +51,9 @@ class Response extends AbstractResponse
         }
         $this->nav = new NavigationObject();  //TODO: need to refactor this
         $this->setPrimaryNav($config['nav']);
-        $this->setAdminNav($config['adminNav']);
+        if ($this->request->isAdmin()) {
+            $this->setAdminNav($config['adminNav']);
+        }
 
         //temporarily set the layout template here until moving it to $View
         $this->setLayoutTemplate($config['template']['layout']);
