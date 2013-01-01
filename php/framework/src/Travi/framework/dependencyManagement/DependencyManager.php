@@ -147,13 +147,19 @@ class DependencyManager
             $controllerList = $this->pageDependenciesLists;
         }
 
-        $thisController = $controllerList[strtolower($this->request->getController())];
-        $action = $this->request->getAction();
-        $thisPage = $thisController[$action];
+        $controllerName = strtolower($this->request->getController());
+        echo $controllerName;
+        if (isset($controllerList[$controllerName])) {
+            $thisController = $controllerList[$controllerName];
+            $action = $this->request->getAction();
+            $thisPage = $thisController[$action];
 
-        $this->addDependencies($this->pageDependenciesLists['site']);
-        $this->addDependencies($thisPage);
-        $this->setPageStyle($thisPage['pageStyle']);
+            $this->addDependencies($this->pageDependenciesLists['site']);
+            $this->addDependencies($thisPage);
+            $this->setPageStyle($thisPage['pageStyle']);
+        } else {
+            $this->setPageStyle();
+        }
     }
 
     public function getScripts()
@@ -354,10 +360,14 @@ class DependencyManager
 
     public function getPageStyle()
     {
-        return $this->requirementLists['css'][self::THIS_PAGE_KEY];
+        $cssLists = $this->requirementLists['css'];
+
+        if (isset($cssLists[self::THIS_PAGE_KEY])) {
+            return $cssLists[self::THIS_PAGE_KEY];
+        }
     }
 
-    public function setPageStyle($thisPageStyle)
+    public function setPageStyle($thisPageStyle = '')
     {
         $currentPageStyle = $this->getPageStyle();
 

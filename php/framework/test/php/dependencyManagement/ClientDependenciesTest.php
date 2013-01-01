@@ -39,8 +39,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             array(
-                'local'             => self::PATH_TO_SOME_COMPONENT,
-                'cdn'               => ''
+                'local'             => self::PATH_TO_SOME_COMPONENT
             ),
             $this->dependencies->getDependenciesFor(self::SOME_COMPONENT)
         );
@@ -118,7 +117,6 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 'local' => self::PATH_TO_SOME_COMPONENT,
-                'cdn' => '',
                 'jsDependencies' => array(
                     self::SOME_JS_FILE,
                     'jquery'
@@ -158,7 +156,6 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 'local' => self::PATH_TO_SOME_COMPONENT,
-                'cdn' => '',
                 'jsDependencies' => array(
                     self::SOME_JS_FILE
                 ),

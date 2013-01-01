@@ -28,7 +28,9 @@ class ClientDependencies
     {
         $this->lazyInit();
 
-        return $this->jsNeeds[$resource][self::LOCAL];
+        if (isset($this->jsNeeds[$resource])) {
+            return $this->jsNeeds[$resource][self::LOCAL];
+        }
     }
 
     private function flattenDeps($deps = array(), $requirement = null)
@@ -69,7 +71,9 @@ class ClientDependencies
             }
         }
 
-        $item['cdn'] = $dep['cdn'];
+        if (isset($dep['cdn'])) {
+            $item['cdn'] = $dep['cdn'];
+        }
 
         $this->addDependenciesToListForComponent($dep, $item, self::JS_DEPENDENCIES_KEY, $requirement);
         $this->addDependenciesToListForComponent($dep, $item, self::CSS_DEPENDENCIES_KEY);

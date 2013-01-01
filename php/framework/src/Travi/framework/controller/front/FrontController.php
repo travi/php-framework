@@ -65,8 +65,7 @@ class FrontController
 
     protected function getController($controllerName)
     {
-        $controller = \Pd_Make::name($controllerName);
-        return $controller;
+        return \Pd_Make::name($controllerName);
     }
 
     private function sendResponse()

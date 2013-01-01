@@ -59,7 +59,8 @@ $container->dependencies()->set('session', Pd_Make::name('Travi\\framework\\http
 
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
-$container->dependencies()->set('Smarty', smartyInit());
+
+$container->dependencies()->set('Smarty', smartyInit($config['smarty'], $config['debug']));
 
 $container->dependencies()->set(
     'dependencyManager',
@@ -93,14 +94,12 @@ function environmentInit($prodUrl)
 }
 
 /**
+ * @param $smartyConfig
+ * @param $debug
  * @return Smarty
  */
-function smartyInit()
+function smartyInit($smartyConfig, $debug)
 {
-    global $config;
-
-    $smartyConfig = $config['smarty'];
-
     $smarty = Pd_Make::name('Smarty');
 
     $smarty->template_dir = array(
@@ -111,7 +110,7 @@ function smartyInit()
     $smarty->cache_dir = $smartyConfig['smartyCacheDir'];
     $smarty->config_dir = $smartyConfig['smartyConfigDir'];
 
-    if ($config['debug']) {
+    if ($debug) {
         $smarty->force_compile = true;
     } else {
         $smarty->compile_check = false;
