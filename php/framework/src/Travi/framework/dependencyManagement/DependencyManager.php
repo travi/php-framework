@@ -148,7 +148,6 @@ class DependencyManager
         }
 
         $controllerName = strtolower($this->request->getController());
-        echo $controllerName;
         if (isset($controllerList[$controllerName])) {
             $thisController = $controllerList[$controllerName];
             $action = $this->request->getAction();
