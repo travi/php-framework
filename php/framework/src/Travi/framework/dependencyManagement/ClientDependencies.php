@@ -21,7 +21,9 @@ class ClientDependencies
     {
         $this->lazyInit();
 
-        return $this->jsNeeds[$item];
+        if (isset($this->jsNeeds[$item])) {
+            return $this->jsNeeds[$item];
+        }
     }
 
     public function resolveFileURI($resource)

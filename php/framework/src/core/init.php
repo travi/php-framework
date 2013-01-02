@@ -3,7 +3,8 @@
 use Travi\framework\http\Response,
     Travi\framework\http\Request,
     Travi\framework\utilities\FileSystem,
-    Travi\framework\dependencyManagement\DependencyManager;
+    Travi\framework\dependencyManagement\DependencyManager,
+    Travi\framework\utilities\Environment;
 
 require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
 
