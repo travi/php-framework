@@ -14,6 +14,8 @@ class FrontController
     private $Request;
     /** @var $Response Response */
     private $Response;
+    /** @var ErrorController */
+    private $errorController;
 
     private $config;
 
