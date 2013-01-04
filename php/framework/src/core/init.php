@@ -6,7 +6,7 @@ use Travi\framework\http\Response,
     Travi\framework\dependencyManagement\DependencyManager,
     Travi\framework\utilities\Environment;
 
-require_once dirname(__FILE__).'/../../../thirdparty/spyc/spyc.php';
+require_once __DIR__ . '/../../../thirdparty/spyc/spyc.php';
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .

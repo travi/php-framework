@@ -67,7 +67,13 @@ class FrontController
 
     protected function getController($controllerName)
     {
-        return \Pd_Make::name($controllerName);
+        $fromContext = \Pd_Container::get()->dependencies()->get($controllerName . '-controller');
+
+        if (isset($fromContext)) {
+            return $fromContext;
+        } else {
+            return \Pd_Make::name($controllerName);
+        }
     }
 
     private function sendResponse()
