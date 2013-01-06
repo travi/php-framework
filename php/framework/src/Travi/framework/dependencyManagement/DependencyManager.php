@@ -155,7 +155,13 @@ class DependencyManager
 
             $this->addDependencies($this->pageDependenciesLists['site']);
             $this->addDependencies($thisPage);
-            $this->setPageStyle($thisPage['pageStyle']);
+
+            if (isset($thisPage['pageStyle'])) {
+                $thisPageStyle = $thisPage['pageStyle'];
+            } else {
+                $thisPageStyle = null;
+            }
+            $this->setPageStyle($thisPageStyle);
         } else {
             $this->setPageStyle();
         }

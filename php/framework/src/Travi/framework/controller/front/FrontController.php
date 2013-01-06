@@ -81,6 +81,10 @@ class FrontController
         $this->Response->format();
     }
 
+    /**
+     * @param $errorCode
+     * @param null $exception Exception
+     */
     private function respondWithError($errorCode, $exception = null)
     {
         $this->errorController->doAction(

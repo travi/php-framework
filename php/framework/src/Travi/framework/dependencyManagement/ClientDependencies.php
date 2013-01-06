@@ -30,7 +30,7 @@ class ClientDependencies
     {
         $this->lazyInit();
 
-        if (isset($this->jsNeeds[$resource])) {
+        if (isset($this->jsNeeds[$resource]) && isset($this->jsNeeds[$resource][self::LOCAL])) {
             return $this->jsNeeds[$resource][self::LOCAL];
         }
     }

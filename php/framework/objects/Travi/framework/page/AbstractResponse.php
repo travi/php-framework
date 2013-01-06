@@ -30,6 +30,9 @@ abstract class AbstractResponse
     protected $content = array();
     protected $currentSiteSection;
 
+    /** @var JsonRenderer */
+    protected $jsonRenderer;
+
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
     //////////////////////////////////////////////////////////////////////////
@@ -275,8 +278,7 @@ abstract class AbstractResponse
         $acceptHeader = $_SERVER['HTTP_ACCEPT'];
 
         if (strstr($acceptHeader, "application/json")) {
-            $jsonRenderer = new JsonRenderer();
-            echo $jsonRenderer->format($this->getContent());
+            echo $this->jsonRenderer->format($this->getContent());
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
         } else {
@@ -316,4 +318,18 @@ abstract class AbstractResponse
 
         array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
     }
+
+    ////////////////////////////////////////////////////////
+    //               Dependencies                         //
+    ////////////////////////////////////////////////////////
+
+    /**
+     * @param $renderer JsonRenderer
+     * @PdInject new:\Travi\framework\view\render\JsonRenderer
+     */
+    public function setJsonRenderer($renderer)
+    {
+        $this->jsonRenderer = $renderer;
+    }
 }
+
