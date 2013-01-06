@@ -150,8 +150,7 @@
               failonerror="true">
             <arg line="-s"/>
             <arg line="--standard=${shared.dir}/build/codingStandard.xml"/>
-            <arg line="--ignore=*/coverage/*"/>
-            <arg line="--ignore=*vendor/*"/>
+            <arg line="--ignore=*/coverage/*,vendor/*"/>
             <arg line="--report-checkstyle=${build.logs}/checkstyle-legacy.xml ."/>
             <arg line="--report-full"/>
         </exec>
