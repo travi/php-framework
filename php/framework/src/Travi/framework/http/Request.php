@@ -15,12 +15,16 @@ class Request
     const MOBILE_ENHANCEMENT = 'mobile';
     const DESKTOP_ENHANCEMENT = 'desktop';
 
+    /** @var array */
+    private $filters = array();
     /** @var string */
     private $requestMethod;
     /** @var string */
     private $uri;
     /** @var array */
     private $uriParts;
+    /** @var boolean */
+    private $isRestful = false;
     /** @var boolean */
     private $admin;
     /** @var string */
@@ -51,6 +55,21 @@ class Request
 
     private function resolveDataParts()
     {
+        foreach ($this->uriParts as $part) {
+            if (is_numeric($part)) {
+                $this->isRestful = true;
+            }
+        }
+
+        if ($this->isRestful) {
+            $this->resolvePartsFromRestfulUri();
+        } else {
+            $this->resolvePartsFromNonRestfulUri();
+        }
+    }
+
+    private function resolvePartsFromNonRestfulUri()
+    {
         if ($this->uriParts[1] === 'index.php') {
             array_shift($this->uriParts);
         }
@@ -80,6 +99,24 @@ class Request
         if (!empty($this->uriParts[3])) {
             $this->setId($this->uriParts[3]);
         }
+    }
+
+    private function resolvePartsFromRestfulUri()
+    {
+        $last = array_pop($this->uriParts);
+        if (empty($last)) {
+            $last = array_pop($this->uriParts);
+        }
+        $this->controller = $last;
+
+        $this->getPathFilters();
+    }
+
+    private function getPathFilters()
+    {
+        $filterId = array_pop($this->uriParts);
+        $filter = array_pop($this->uriParts);
+        $this->filters[$filter] = $filterId;
     }
 
     /**
@@ -160,5 +197,10 @@ class Request
     public function getHost()
     {
         return $_SERVER['HTTP_HOST'];
+    }
+
+    public function getFilters()
+    {
+        return $this->filters;
     }
 }

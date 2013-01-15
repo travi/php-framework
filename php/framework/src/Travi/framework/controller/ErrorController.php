@@ -39,10 +39,11 @@ class ErrorController extends AbstractController
     /**
      * @param  $request Request
      * @param  $response Response
+     * @param $filters
      * @param  $error \Exception
      * @return void
      */
-    public function error500(&$request, &$response, $error)
+    public function error500(&$request, &$response, $filters, $error)
     {
         //TODO: also include link to contact page...
         header('HTTP/1.1 500 Internal Server Error');

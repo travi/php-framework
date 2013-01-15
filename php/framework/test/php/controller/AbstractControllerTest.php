@@ -7,6 +7,7 @@ use Travi\framework\controller\AbstractController,
 
 class AbstractControllerTest extends PHPUnit_Framework_TestCase
 {
+    private $filters = array('filter' => 1234);
     /** @var AbstractController */
     protected $controller;
     /** @var Request */
@@ -27,6 +28,9 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
+        $requestStub->expects($this->once())
+            ->method('getFilters')
+            ->will($this->returnValue($this->filters));
         $this->requestStub = $requestStub;
 
         $this->responseStub = $this->getMock('Travi\\framework\\http\\Response');

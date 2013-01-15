@@ -29,6 +29,28 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('home', $this->request->getController());
     }
 
+    public function testPathFilter()
+    {
+        $controller = 'images';
+        $this->request->setURI('/albums/1234/' . $controller . '/');
+        $this->assertSame(false, $this->request->isAdmin());
+        $this->assertSame($controller, $this->request->getController());
+    }
+
+    public function testPathFilterWithTrailingSlash()
+    {
+        $controller = 'images';
+        $filter = 'albums';
+        $filterId = '1234';
+        $filters = array();
+        $filters[$filter] = $filterId;
+
+        $this->request->setURI('/' . $filter . '/' . $filterId . '/' . $controller);
+        $this->assertSame(false, $this->request->isAdmin());
+        $this->assertSame($controller, $this->request->getController());
+        $this->assertEquals($filters, $this->request->getFilters());
+    }
+
     public function testGetAction()
     {
         $this->assertSame(false, $this->request->isAdmin());

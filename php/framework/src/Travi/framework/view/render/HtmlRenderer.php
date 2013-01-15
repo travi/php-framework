@@ -58,7 +58,7 @@ class HtmlRenderer extends Renderer
             if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
                 $page->setPageTemplate($pathToTemplate);
             } else {
-                throw new MissingPageTemplateException();
+                throw new MissingPageTemplateException('No Page Template Available');
             }
         }
     }
