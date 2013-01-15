@@ -77,7 +77,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
                 $this->equalTo('trace')
             );
 
-        $this->controller->error500($this->request, $this->response, new NotFoundException($errorMessage));
+        $this->controller->error500($this->request, $this->response, null, new NotFoundException($errorMessage));
     }
 
     public function testError401()
