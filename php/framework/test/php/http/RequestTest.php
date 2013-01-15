@@ -16,6 +16,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->request = $request;
     }
 
+    public function tearDown()
+    {
+        $this->request->setController('null');
+        $this->request->setAction('null');
+    }
+
     public function testGetController()
     {
         $this->assertSame(false, $this->request->isAdmin());
@@ -35,6 +41,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->request->setURI('/albums/1234/' . $controller . '/');
         $this->assertSame(false, $this->request->isAdmin());
         $this->assertSame($controller, $this->request->getController());
+        $this->assertSame('index', $this->request->getAction());
     }
 
     public function testPathFilterWithTrailingSlash()

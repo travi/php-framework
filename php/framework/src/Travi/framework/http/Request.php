@@ -108,6 +108,7 @@ class Request
             $last = array_pop($this->uriParts);
         }
         $this->controller = $last;
+        $this->action = 'index';
 
         $this->getPathFilters();
     }
@@ -202,5 +203,15 @@ class Request
     public function getFilters()
     {
         return $this->filters;
+    }
+
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+    }
+
+    public function setAction($action)
+    {
+        $this->action = $action;
     }
 }
