@@ -35,6 +35,8 @@ abstract class AbstractResponse
 
     /** @var JsonRenderer */
     protected $jsonRenderer;
+    /** @var HtmlRenderer */
+    protected $htmlRenderer;
 
     //////////////////////////////////////////////////////////////////////////
     //                          Configuration                               //
@@ -283,12 +285,9 @@ abstract class AbstractResponse
         } else if (strstr($acceptHeader, "text/xml")) {
             return;
         } else {
-            /** @var $htmlRenderer HtmlRenderer */
-            $htmlRenderer = \Pd_Make::name('Travi\\framework\\view\\render\\HtmlRenderer');
+            $this->htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
 
-            $htmlRenderer->setLayoutTemplate($this->getLayoutTemplate());
-
-            $htmlRenderer->format($this->getContent(), $this);
+            $this->htmlRenderer->format($this->getContent(), $this);
         }
     }
 
@@ -331,6 +330,16 @@ abstract class AbstractResponse
     public function setJsonRenderer($renderer)
     {
         $this->jsonRenderer = $renderer;
+    }
+
+
+    /**
+     * @param $renderer HtmlRenderer
+     * @PdInject new:\Travi\framework\view\render\HtmlRenderer
+     */
+    public function setHtmlRenderer($renderer)
+    {
+        $this->htmlRenderer = $renderer;
     }
 
     /**

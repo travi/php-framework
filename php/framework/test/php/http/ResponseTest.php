@@ -3,7 +3,8 @@
 use Travi\framework\page\AbstractResponse,
     Travi\framework\http\Response,
     Travi\framework\http\Request,
-    Travi\framework\utilities\Environment;
+    Travi\framework\utilities\Environment,
+    Travi\framework\view\render\HtmlRenderer;
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -294,6 +295,25 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
 
         $this->assertFalse($this->response->isProduction());
+    }
+
+    public function testHtmlRendererUsedWhenAcceptHeaderSetToHtml()
+    {
+        $template = 'some layout template';
+        $content = 'some content';
+        $this->response->setLayoutTemplate($template);
+        $this->response->setContent($content);
+
+        $renderer = $this->getMock('\\Travi\\framework\\view\\render\\HtmlRenderer');
+        $renderer->expects($this->once())
+            ->method('setLayoutTemplate')
+            ->with($template);
+        $renderer->expects($this->once())
+            ->method('format')
+            ->with($content, $this->response);
+        $this->response->setHtmlRenderer($renderer);
+
+        $this->response->format();
     }
 }
 

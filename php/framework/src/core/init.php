@@ -54,19 +54,20 @@ $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
 $container->dependencies()->set('request', Pd_Make::name('Travi\\framework\\http\\Request'));
-$container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\http\\Response'));
+
 $container->dependencies()->set('session', Pd_Make::name('Travi\\framework\\http\\Session'));
-
-
-$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
-
-$container->dependencies()->set('Smarty', smartyInit($config['smarty'], $config['debug']));
-
+$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
 $container->dependencies()->set(
     'dependencyManager',
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
 );
+$container->dependencies()->set('Smarty', smartyInit($config['smarty'], $config['debug']));
+
+$container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\http\\Response'));
+
+
+
 
 /**
  * @param $sitePath
