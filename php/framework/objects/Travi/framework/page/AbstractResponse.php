@@ -4,7 +4,8 @@ namespace Travi\framework\page;
 
 use Travi\framework\content\navigation\NavigationObject,
     Travi\framework\view\render\JsonRenderer,
-    Travi\framework\view\render\HtmlRenderer;
+    Travi\framework\view\render\HtmlRenderer,
+    Travi\framework\utilities\Environment;
 
 abstract class AbstractResponse
 {
@@ -27,6 +28,8 @@ abstract class AbstractResponse
     protected $body;
     /** @var NavigationObject */
     protected $nav;
+    /** @var Environment */
+    protected $environment;
     protected $content = array();
     protected $currentSiteSection;
 
@@ -59,12 +62,12 @@ abstract class AbstractResponse
 
     public function getDecoratedTitle()
     {
-        if (ENV == 'development') {
+        if ($this->environment->isLocal()) {
             $decoratedTitle = '[dev] ';
-        } else if (ENV == 'test') {
-            $decoratedTitle = '[test] ';
-        } else {
+        } else if ($this->environment->isProduction()) {
             $decoratedTitle = '';
+        } else {
+            $decoratedTitle = '[test] ';
         }
 
         $decoratedTitle .= $this->title;
@@ -263,9 +266,7 @@ abstract class AbstractResponse
 
     public function isProduction()
     {
-        global $config;
-
-        return (strpos($_SERVER["HTTP_HOST"], $config['productionUrl']) !== false);
+        return $this->environment->isProduction();
     }
 
 
@@ -330,6 +331,14 @@ abstract class AbstractResponse
     public function setJsonRenderer($renderer)
     {
         $this->jsonRenderer = $renderer;
+    }
+
+    /**
+     * @param $env Environment
+     * @PdInject environment
+     */
+    public function setEnvironment($env) {
+        $this->environment = $env;
     }
 }
 

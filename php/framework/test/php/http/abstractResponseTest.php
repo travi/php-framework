@@ -26,37 +26,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $this->assertSame($title, $this->response->getTitle());
     }
 
-    public function testTitleWithSiteName()
-    {
-        $title = 'title';
-        $siteName = 'siteName';
-        $this->response->setSiteName($siteName);
-        $this->response->setTitle($title);
-        $this->assertSame($title.' | '.$siteName, $this->response->getDecoratedTitle());
-    }
-
-    /**
-     * @todo Implement testTitleDevEnv().
-     */
-    public function testTitleDevEnv()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testTitleTestEnv().
-     */
-    public function testTitleTestEnv()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testSiteHeader()
     {
         $siteHeader = 'siteHeader';
@@ -68,7 +37,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
 
     public function testSiteHeaderLeftBlank()
     {
-        $siteHeader = 'siteHeader';
         $siteName = 'siteName';
         $this->response->setSiteName($siteName);
         $this->response->setSiteHeader();

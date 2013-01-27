@@ -181,7 +181,7 @@ class DependencyManager
 
     public function addDependencies($dependencies = array(), $component = null)
     {
-        if (!empty($dependencies['production']) && ENV === 'production') {
+        if ($this->environment->isProduction() && !empty($dependencies['production'])) {
             $this->addDependencies($dependencies['production']);
         }
         if (!empty($dependencies['scripts'])) {

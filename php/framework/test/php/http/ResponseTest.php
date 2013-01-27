@@ -2,7 +2,8 @@
 
 use Travi\framework\page\AbstractResponse,
     Travi\framework\http\Response,
-    Travi\framework\http\Request;
+    Travi\framework\http\Request,
+    Travi\framework\utilities\Environment;
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -23,6 +24,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     private $anyController = 'testController';
     private $anyAction = 'testAction';
 
+    /** @var Environment */
+    private $environment;
+
     /** @var Response */
     private $response;
     /** @var Request */
@@ -30,12 +34,17 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        $prodUrl = 'something.com';
+
         $this->request = $this->getMock('Travi\\framework\\http\\Request');
 
         $this->response = new Response();
         $this->response->setRequest($this->request);
         $this->response->init(array());
         $this->response->setSiteName($this->someSiteName);
+
+        $this->environment = $this->getMock('Travi\\framework\\utilities\\Environment');
+        $this->response->setEnvironment($this->environment);
     }
 
     public function testTitle()
@@ -45,8 +54,25 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertSame($this->someTitle, $this->response->getTitle());
     }
 
+    public function testTitleWithSiteName()
+    {
+        $this->environment->expects($this->any())
+            ->method('isProduction')
+            ->will($this->returnValue(true));
+
+        $title = 'title';
+        $siteName = 'siteName';
+        $this->response->setSiteName($siteName);
+        $this->response->setTitle($title);
+        $this->assertSame($title.' | '.$siteName, $this->response->getDecoratedTitle());
+    }
+
     public function testDecoratedTitle()
     {
+        $this->environment->expects($this->any())
+            ->method('isProduction')
+            ->will($this->returnValue(true));
+
         $this->response->setTitle($this->someTitle);
 
         $this->assertSame(
@@ -55,11 +81,23 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * cannot test these two properly because of the use of constants
-     *
+    public function testDecoratedTitleProdEnvironment() {
+        $this->environment->expects($this->any())
+            ->method('isProduction')
+            ->will($this->returnValue(true));
+
+        $this->response->setTitle($this->someTitle);
+
+        $this->assertSame(
+            $this->someTitle . ' | ' . $this->someSiteName,
+            $this->response->getDecoratedTitle()
+        );
+    }
+
     public function testDecoratedTitleDevEnvironment() {
-        define('ENV', 'development');
+        $this->environment->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(true));
         $this->response->setTitle($this->someTitle);
 
         $this->assertSame(
@@ -69,7 +107,12 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     }
 
     public function testDecoratedTitleTestEnvironment() {
-        define('ENV', 'test');
+        $this->environment->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(false));
+        $this->environment->expects($this->once())
+            ->method('isProduction')
+            ->will($this->returnValue(false));
         $this->response->setTitle($this->someTitle);
 
         $this->assertSame(
@@ -77,7 +120,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             $this->response->getDecoratedTitle()
         );
     }
-     */
 
     public function testMethodNotAllowedDefinedProperly()
     {
@@ -231,6 +273,24 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->response->setSubNav($subNav);
 
         $this->assertEquals($subNav, $this->response->getSubNav());
+    }
+
+    public function testProductionResolvesTrue()
+    {
+        $this->environment->expects($this->once())
+            ->method('isProduction')
+            ->will($this->returnValue(true));
+
+        $this->assertTrue($this->response->isProduction());
+    }
+
+    public function testProductionResolvesFalseWhenNot()
+    {
+        $this->environment->expects($this->once())
+            ->method('isProduction')
+            ->will($this->returnValue(false));
+
+        $this->assertFalse($this->response->isProduction());
     }
 }
 
