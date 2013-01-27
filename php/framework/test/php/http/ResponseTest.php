@@ -81,7 +81,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDecoratedTitleProdEnvironment() {
+    public function testDecoratedTitleProdEnvironment()
+    {
         $this->environment->expects($this->any())
             ->method('isProduction')
             ->will($this->returnValue(true));
@@ -94,7 +95,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDecoratedTitleDevEnvironment() {
+    public function testDecoratedTitleDevEnvironment()
+    {
         $this->environment->expects($this->once())
             ->method('isLocal')
             ->will($this->returnValue(true));
@@ -106,7 +108,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDecoratedTitleTestEnvironment() {
+    public function testDecoratedTitleTestEnvironment()
+    {
         $this->environment->expects($this->once())
             ->method('isLocal')
             ->will($this->returnValue(false));

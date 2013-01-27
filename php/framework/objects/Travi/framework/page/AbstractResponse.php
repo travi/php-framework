@@ -337,7 +337,8 @@ abstract class AbstractResponse
      * @param $env Environment
      * @PdInject environment
      */
-    public function setEnvironment($env) {
+    public function setEnvironment($env)
+    {
         $this->environment = $env;
     }
 }
