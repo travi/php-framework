@@ -129,6 +129,31 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSiteDependenciesAddedEvenIfPageDoesNotHaveExtra()
+    {
+
+        $siteDeps = array(
+            'js' => array('script1.js', 'script2.js'),
+            'css' => array('sheet1.css', 'sheet2.css')
+        );
+        $this->dependencyManager->setPageDependenciesLists(
+            array(
+                 'site' => $siteDeps
+            )
+        );
+
+        $this->dependencyManager->loadPageDependencies();
+
+        $this->assertSame(
+            $siteDeps['js'],
+            $this->dependencyManager->getScripts()
+        );
+        $this->assertSame(
+            $siteDeps['css'],
+            $this->dependencyManager->getStyleSheets()
+        );
+    }
+
     public function testPageStyleNotSetIfEmpty()
     {
         $this->fileSystem->expects($this->once())
