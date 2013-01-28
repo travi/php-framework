@@ -20,8 +20,10 @@ class ErrorController extends AbstractController
         header('HTTP/1.1 404 Not Found');
         $response->setTitle('Page Could Not Be Found');
         $response->setPageTemplate('../error/404.tpl');
-        //TODO: only show this in dev mode, but log it in other environments
-        $response->addToResponse('errorMessage', $error->getMessage());
+        if (isset($error)) {
+            //TODO: only show this in dev mode, but log it in other environments
+            $response->addToResponse('errorMessage', $error->getMessage());
+        }
     }
 
     /**

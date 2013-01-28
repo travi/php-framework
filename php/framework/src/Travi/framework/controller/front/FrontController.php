@@ -6,7 +6,8 @@ use Travi\framework\http\Response,
     Travi\framework\http\Request,
     Travi\framework\exception\NotFoundException,
     Travi\framework\controller\AbstractController,
-    Travi\framework\controller\ErrorController;
+    Travi\framework\controller\ErrorController,
+    Travi\framework\utilities\FileSystem;
 
 class FrontController
 {
@@ -16,6 +17,8 @@ class FrontController
     private $Response;
     /** @var ErrorController */
     private $errorController;
+    /** @var FileSystem */
+    private $fileSystem;
 
     private $config;
 
@@ -35,7 +38,7 @@ class FrontController
         } catch (NotFoundException $e) {
             $this->respondWithError(404, $e);
         } catch (\Exception $e) {
-            //TODO: can this be done in a way that PhpUnit exceptions dont get caught?
+            //TODO: can this be done in a way that PhpUnit exceptions don't get caught?
             $this->respondWithError(500, $e);
         }
     }
@@ -49,11 +52,9 @@ class FrontController
                           . $extraPathParts
                           . $controllerName . '.controller.php';
 
-        if (is_file($controllerPath)) {
-            include_once $controllerPath;
-
+        if ($this->controllerExists($controllerPath)) {
             /** @var $controller AbstractController */
-            $controller = $this->getController($controllerName);
+            $controller = $this->getController($controllerName, $controllerPath);
 
             $modelMap = $controller->doAction($this->Request, $this->Response);
 
@@ -65,8 +66,15 @@ class FrontController
         }
     }
 
-    protected function getController($controllerName)
+    private function controllerExists($controllerPath)
     {
+        return $this->fileSystem->fileExists($controllerPath);
+    }
+
+    protected function getController($controllerName, $controllerPath)
+    {
+        include_once $controllerPath;
+
         $fromContext = \Pd_Container::get()->dependencies()->get($controllerName . '-controller');
 
         if (isset($fromContext)) {
@@ -187,5 +195,14 @@ class FrontController
     public function setErrorController($controller)
     {
         $this->errorController = $controller;
+    }
+
+    /**
+     * @param $env FileSystem
+     * @PdInject new:Travi\framework\utilities\FileSystem
+     */
+    public function setFileSystem($env)
+    {
+        $this->fileSystem = $env;
     }
 }

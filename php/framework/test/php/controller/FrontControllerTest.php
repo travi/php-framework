@@ -1,33 +1,45 @@
 <?php
 
 use Travi\framework\controller\front\FrontController,
-    Travi\framework\controller\ErrorController;
+    Travi\framework\controller\ErrorController,
+    Travi\framework\utilities\FileSystem;
 
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var FrontController
-     */
+    private $pathToDocRoot = '/path/to/doc/root/';
+    private $controllerName = 'test';
+    /** @var FrontController */
     protected $frontController;
+    /** @var FileSystem */
+    private $fileSystem;
 
     public function setUp()
     {
         $this->frontController = new FrontControllerShunt();
 
-        $config = array('docRoot' => dirname(__FILE__) . '/../mockProject/doc_root/');
+        $config = array('docRoot' => $this->pathToDocRoot);
 
         $this->frontController->setConfig($config);
+        $this->frontController->setErrorController(new ErrorController());
+
+        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
+        $this->frontController->setFileSystem($this->fileSystem);
     }
 
     public function testProcessRequest()
     {
+        $this->fileSystem->expects($this->once())
+            ->method('fileExists')
+            ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
+            ->will($this->returnValue(true));
+
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
         $mockRequest->expects($this->once())
             ->method('getController')
-            ->will($this->returnValue('test'));
+            ->will($this->returnValue($this->controllerName));
 
         //in created controller
         $mockRequest->expects($this->once())
@@ -42,7 +54,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(
                     array(
-                    'key1' => 'someContent'
+                        'key1' => 'someContent'
                     )
                 )
             );
@@ -58,15 +70,45 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->frontController->processRequest();
     }
 
+    public function testGetAdminController()
+    {
+        $this->fileSystem->expects($this->once())
+            ->method('fileExists')
+            ->with($this->pathToDocRoot . '../app/controller/admin/' . $this->controllerName . '.controller.php')
+            ->will($this->returnValue(true));
+
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest->expects($this->any())
+            ->method('isAdmin')
+            ->will($this->returnValue(true));
+        $mockRequest->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue($this->controllerName));
+
+        //in created controller
+        $mockRequest->expects($this->once())
+            ->method('getAction');
+
+        $this->frontController->setRequest($mockRequest);
+        $this->frontController->setResponse($this->getMock('Travi\\framework\\http\\Response'));
+
+        $this->frontController->processRequest();
+    }
+
     public function testSetContentOnlyCalledIfContentReturned()
     {
+        $this->fileSystem->expects($this->once())
+            ->method('fileExists')
+            ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
+            ->will($this->returnValue(true));
+
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
         $mockRequest->expects($this->once())
             ->method('getController')
-            ->will($this->returnValue('test'));
+            ->will($this->returnValue($this->controllerName));
 
         //in created controller
         $mockRequest->expects($this->once())
@@ -112,10 +154,15 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function test500()
     {
+        $this->fileSystem->expects($this->once())
+            ->method('fileExists')
+            ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
+            ->will($this->returnValue(true));
+
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('getController')
-            ->will($this->returnValue('test'));
+            ->will($this->returnValue($this->controllerName));
 
         //in created controller
         $mockRequest->expects($this->once())
