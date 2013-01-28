@@ -147,13 +147,14 @@ class DependencyManager
             $controllerList = $this->pageDependenciesLists;
         }
 
+        $this->addDependencies($this->pageDependenciesLists['site']);
+
         $controllerName = strtolower($this->request->getController());
         if (isset($controllerList[$controllerName])) {
             $thisController = $controllerList[$controllerName];
             $action = $this->request->getAction();
             $thisPage = $thisController[$action];
 
-            $this->addDependencies($this->pageDependenciesLists['site']);
             $this->addDependencies($thisPage);
 
             if (isset($thisPage['pageStyle'])) {
