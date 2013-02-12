@@ -74,7 +74,12 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->fileSystem->expects($this->once())
             ->method('fileExists')
-            ->with($this->pathToDocRoot . '../app/controller/admin/' . $this->controllerName . '.controller.php')
+            ->with(
+                $this->pathToDocRoot .
+                    '../app/controller/admin/' .
+                    $this->controllerName .
+                    '.controller.php'
+            )
             ->will($this->returnValue(true));
 
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
