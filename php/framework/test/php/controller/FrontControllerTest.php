@@ -76,9 +76,9 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('fileExists')
             ->with(
                 $this->pathToDocRoot .
-                    '../app/controller/admin/' .
-                    $this->controllerName .
-                    '.controller.php'
+                '../app/controller/admin/' .
+                $this->controllerName .
+                '.controller.php'
             )
             ->will($this->returnValue(true));
 
