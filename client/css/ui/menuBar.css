@@ -2,6 +2,6 @@ html.js ul.menuBar ul.ui-menu{
     display: none;
     position: absolute;
 }
-ul.menuBar > li{
+html.js ul.menuBar > li{
     display: inline-block;
 }
