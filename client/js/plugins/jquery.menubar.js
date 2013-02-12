@@ -17,8 +17,8 @@
 
         this.options = $.extend({}, defaults, options);
 
-        this._defaults = defaults;
-        this._name = pluginName;
+        this.defaults = defaults;
+        this.name = pluginName;
 
         this.init();
     }

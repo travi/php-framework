@@ -33,24 +33,23 @@
     function getTemplate(templateName, templateUrl) {
         if (loadedTemplates[templateName]) {
             return loadedTemplates[templateName];
-        } else {
-            return loadTemplate(
-                templateName,
-                templateUrl || TEMPLATE_DIRECTORY + templateName + TEMPLATE_EXT
-            );
         }
+        return loadTemplate(
+            templateName,
+            templateUrl || TEMPLATE_DIRECTORY + templateName + TEMPLATE_EXT
+        );
     }
 
     function preLoadTemplates(templates, pathToSingleTemplate) {
+        var templateName;
+
         if ('string' === typeof templates) {
             return getTemplate(templates, pathToSingleTemplate);
-        } else {
-            var templateName;
+        }
 
-            for (templateName in templates) {
-                if (templates.hasOwnProperty(templateName)) {
-                    getTemplate(templateName, templates[templateName]);
-                }
+        for (templateName in templates) {
+            if (templates.hasOwnProperty(templateName)) {
+                getTemplate(templateName, templates[templateName]);
             }
         }
     }

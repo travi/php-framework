@@ -18,7 +18,7 @@
                 i;
 
             for (i = 0; i < levelCount; i += 1) {
-                if (typeof object[levels[i]] === "undefined") {
+                if (object[levels[i]] === undefined) {
                     if (i === levelCount - 1) {
                         object[levels[i]] = provided || {};
                     } else {

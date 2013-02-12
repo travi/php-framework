@@ -45,9 +45,9 @@
 
         if (promise) {
             return promise;
-        } else {
-            return load(module);
         }
+
+        return load(module);
     }
 
     function init() {
