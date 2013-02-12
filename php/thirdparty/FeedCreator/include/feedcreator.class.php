@@ -1047,7 +1047,7 @@ class RSSCreator091 extends FeedCreator {
 		$feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
 		$feed.= $this->_createGeneratorComment();
 		$feed.= $this->_createStylesheetReferences();
-		$feed.= "<rss version=\"".$this->RSSVersion."\">\n"; 
+		$feed.= "<rss version=\"".$this->RSSVersion."\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
 		$feed.= "    <channel>\n";
 		$feed.= "        <title>".FeedCreator::iTrunc(htmlspecialchars($this->title),100)."</title>\n";
 		$this->descriptionTruncSize = 500;
@@ -1055,6 +1055,7 @@ class RSSCreator091 extends FeedCreator {
 		$feed.= "        <link>".$this->link."</link>\n";
 		$now = new FeedDate();
 		$feed.= "        <lastBuildDate>".htmlspecialchars($now->rfc822())."</lastBuildDate>\n";
+		$feed.= "        <atom:link href=\"http://travi.org/rss\" rel=\"self\" type=\"application/rss+xml\" />\n";
 		$feed.= "        <generator>".FEEDCREATOR_VERSION."</generator>\n";
 
 		if ($this->image!=null) {
