@@ -103,8 +103,23 @@ class Request
 
     private function resolvePartsFromRestfulUri()
     {
+        if ($this->uriParts[1] === 'index.php') {
+            array_shift($this->uriParts);
+        }
+
+        if ($this->uriParts[1] === 'admin') {
+            $this->admin = true;
+            array_shift($this->uriParts);
+        } else {
+            $this->admin = false;
+        }
+
         $last = array_pop($this->uriParts);
         if (empty($last)) {
+            $last = array_pop($this->uriParts);
+        }
+        if (is_numeric($last)) {
+            $this->setId($last);
             $last = array_pop($this->uriParts);
         }
         $this->controller = $last;
