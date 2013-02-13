@@ -54,7 +54,7 @@ class FrontController
 
         if ($this->controllerExists($controllerPath)) {
             /** @var $controller AbstractController */
-            $controller = $this->getController($controllerName, $controllerPath);
+            $controller = $this->getController($controllerName, $controllerPath, $this->Request->isAdmin());
 
             $modelMap = $controller->doAction($this->Request, $this->Response);
 
@@ -71,7 +71,7 @@ class FrontController
         return $this->fileSystem->fileExists($controllerPath);
     }
 
-    protected function getController($controllerName, $controllerPath)
+    protected function getController($controllerName, $controllerPath, $isAdmin)
     {
         include_once $controllerPath;
 
@@ -80,6 +80,9 @@ class FrontController
         if (isset($fromContext)) {
             return $fromContext;
         } else {
+            if ($isAdmin) {
+                $controllerName .= 'Admin';
+            }
             return \Pd_Make::name($controllerName);
         }
     }
