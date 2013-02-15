@@ -68,7 +68,6 @@ class FrontController
 
     private function controllerExists($controllerPath)
     {
-        echo $controllerPath;
         return $this->fileSystem->fileExists($controllerPath);
     }
 
