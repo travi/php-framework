@@ -7,7 +7,9 @@
             {if $totalItems > $nextOff}
             <li class="{if $offset lte 0}outOfRange {/if}pipeDivider"> | </li>
             <li>
-                <a href="{$path}/?offset={$nextOff|escape}{foreach from=$additionalParams key='param' item='paramValue'}&{$param}={$paramValue}{/foreach}" class="more">more</a>
+                <a href="{$path}/?offset={$nextOff|escape}{foreach from=$additionalParams key='param' item='paramValue'}&{$param}={$paramValue}{/foreach}" class="more">
+                    more
+                </a>
             </li>
             {/if}
         </ul>

@@ -77,7 +77,6 @@ thumbnails:
     - /resources/css/pages/gallery/thumbnails.css
   jsDependencies:
     - framework
-    - bbq
     - template
   clientTemplates:
     thumbnail: /resources/templates/thumbnail.tmpl
@@ -142,9 +141,6 @@ jquery:
 
     jsRender:
       local: "/resources/shared/thirdparty/jquery/plugins/template/jsrender.js"
-
-    bbq:
-      local: "/resources/shared/thirdparty/jquery/plugins/bbq/jquery.bbq.js"
 
     validation:
       local: "/resources/shared/thirdparty/jquery/plugins/validation/jquery.validate.min.js"
