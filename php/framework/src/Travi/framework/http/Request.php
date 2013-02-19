@@ -10,7 +10,7 @@ class Request
     const POST = 'POST';
     const DELETE = 'DELETE';
 
-    const ENHANCEMENT_VERSION_KEY = 'enhancementVersion';
+    const ENHANCEMENT_VERSION_KEY = 'ev';
     const BASE_ENHANCEMENT = 'base';
     const SMALL_ENHANCEMENT = 'small';
     const LARGE_ENHANCEMENT = 'large';

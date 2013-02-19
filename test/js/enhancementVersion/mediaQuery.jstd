@@ -26,15 +26,7 @@ TestCase('Screen Width Detection', {
     },
 
     'test Enhancement version cookie name defined as what server is expecting': function () {
-        assertEquals('enhancementVersion', this.enhancements.constants().ENHANCEMENT_VERSION_KEY);
-    },
-
-    'test mobile enhancement version cookie value defined as what server is expecting': function () {
-        assertEquals('small', this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION);
-    },
-
-    'test desktop enhancement version cookie value defined as what server is expecting': function () {
-        assertEquals('large', this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION);
+        assertEquals('ev', this.enhancements.constants().ENHANCEMENT_VERSION_KEY);
     },
 
     'test Enhancement version set to mobile when screen width reported within smartphone range': function () {

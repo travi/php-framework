@@ -116,7 +116,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testKeyDefinedProperlyForEnhancementVersionKey()
     {
-        $this->assertSame('enhancementVersion', Request::ENHANCEMENT_VERSION_KEY);
+        $this->assertSame('ev', Request::ENHANCEMENT_VERSION_KEY);
     }
 
     public function testKeyDefinedProperlyForBaseEnhancementVersion()

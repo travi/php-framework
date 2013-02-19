@@ -35,11 +35,11 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test mobile choice defined as external code expects': function () {
-        assertEquals('small', this.enhancements.constants().MOBILE_CHOICE);
+        assertEquals('small', this.enhancements.constants().SMALL_SCREEN_CHOICE);
     },
 
     'test desktop choice defined as external code expects': function () {
-        assertEquals('large', this.enhancements.constants().DESKTOP_CHOICE);
+        assertEquals('large', this.enhancements.constants().LARGE_SCREEN_CHOICE);
     },
 
     'test basic choice defined as external code expects': function () {
@@ -73,7 +73,7 @@ TestCase('Choose Enhancement Version', {
         var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
         assertEquals('small screen', $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.enhancements.constants().MOBILE_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        assertEquals(this.enhancements.constants().SMALL_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
     },
 
     'test desktop link shown when mobile version active': function () {
@@ -84,7 +84,7 @@ TestCase('Choose Enhancement Version', {
         var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
         assertEquals('large screen', $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.enhancements.constants().DESKTOP_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        assertEquals(this.enhancements.constants().LARGE_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
     },
 
     'test Switch to Desktop version': function () {
@@ -95,7 +95,7 @@ TestCase('Choose Enhancement Version', {
         this.cookies.create.reset();
         this.location.refresh.reset();
 
-        $('#' + constants.DESKTOP_ENHANCEMENT_VERSION + 'Version').click();
+        $('#' + constants.LARGE_SCREEN_CHOICE + 'Version').click();
 
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(
@@ -116,7 +116,7 @@ TestCase('Choose Enhancement Version', {
         this.cookies.create.reset();
         this.location.refresh.reset();
 
-        $('#' + constants.MOBILE_ENHANCEMENT_VERSION + 'Version').click();
+        $('#' + constants.SMALL_SCREEN_CHOICE + 'Version').click();
 
         sinon.assert.calledOnce(this.cookies.create);
         sinon.assert.calledWith(

@@ -1,5 +1,3 @@
-travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhancementVersion.tmpl');
-
 (function (travi) {
     "use strict";
 
@@ -7,12 +5,10 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
         cookies = travi.cookies,
         location = travi.location,
 
-        ENHANCEMENT_VERSION_KEY = "enhancementVersion",
+        ENHANCEMENT_VERSION_KEY = 'ev',
         DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION = 10,
-        MOBILE_ENHANCEMENT_VERSION = 'small',
-        DESKTOP_ENHANCEMENT_VERSION = 'large',
-        SMALL_SCREEN_CHOICE = MOBILE_ENHANCEMENT_VERSION,
-        LARGE_SCREEN_CHOICE = DESKTOP_ENHANCEMENT_VERSION,
+        SMALL_SCREEN_CHOICE = 'small',
+        LARGE_SCREEN_CHOICE = 'large',
         BASIC_CHOICE = 'basic',
         SMALL_COOKIE_VALUE = 's',
         LARGE_COOKIE_VALUE = 'l';
@@ -80,10 +76,8 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
         return {
             ENHANCEMENT_VERSION_KEY: ENHANCEMENT_VERSION_KEY,
             DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION: DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION,
-            MOBILE_ENHANCEMENT_VERSION: MOBILE_ENHANCEMENT_VERSION,
-            DESKTOP_ENHANCEMENT_VERSION: DESKTOP_ENHANCEMENT_VERSION,
-            MOBILE_CHOICE: SMALL_SCREEN_CHOICE,
-            DESKTOP_CHOICE: LARGE_SCREEN_CHOICE,
+            SMALL_SCREEN_CHOICE: SMALL_SCREEN_CHOICE,
+            LARGE_SCREEN_CHOICE: LARGE_SCREEN_CHOICE,
             BASIC_CHOICE: BASIC_CHOICE,
             LARGE_COOKIE_VALUE: LARGE_COOKIE_VALUE,
             SMALL_COOKIE_VALUE: SMALL_COOKIE_VALUE
