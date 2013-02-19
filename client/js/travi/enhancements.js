@@ -9,10 +9,10 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
 
         ENHANCEMENT_VERSION_KEY = "enhancementVersion",
         DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION = 10,
-        MOBILE_ENHANCEMENT_VERSION = "mobile",
-        DESKTOP_ENHANCEMENT_VERSION = "desktop",
-        MOBILE_CHOICE = MOBILE_ENHANCEMENT_VERSION,
-        DESKTOP_CHOICE = DESKTOP_ENHANCEMENT_VERSION,
+        MOBILE_ENHANCEMENT_VERSION = 'small',
+        DESKTOP_ENHANCEMENT_VERSION = 'large',
+        SMALL_SCREEN_CHOICE = MOBILE_ENHANCEMENT_VERSION,
+        LARGE_SCREEN_CHOICE = DESKTOP_ENHANCEMENT_VERSION,
         BASIC_CHOICE = 'basic',
 
         templateName = 'chooseEnhancement';
@@ -51,24 +51,28 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
 
     function addLinksToChooseVersion() {
         var currentEnhancement = cookies.value(ENHANCEMENT_VERSION_KEY),
-            alternateEnhancement;
+            alternateEnhancement,
+            alternateEnhancementText;
 
         if (currentEnhancement === MOBILE_ENHANCEMENT_VERSION) {
-            alternateEnhancement = DESKTOP_CHOICE;
+            alternateEnhancement = LARGE_SCREEN_CHOICE;
+            alternateEnhancementText = 'large screen';
         } else if (currentEnhancement === DESKTOP_ENHANCEMENT_VERSION) {
-            alternateEnhancement = MOBILE_CHOICE;
+            alternateEnhancement = SMALL_SCREEN_CHOICE;
+            alternateEnhancementText = 'small screen';
         }
 
-        templates.get(templateName).then(function () {
-            $('footer').append(templates.render(templateName, {
-                alternateEnhancement: alternateEnhancement
-            }));
+        templates.render(templateName, {
+            alternateEnhancement: alternateEnhancement,
+            alternateEnhancementText: alternateEnhancementText
+        }, function (renderedTemplate) {
+            $('footer').append(renderedTemplate);
 
-            $('#' + DESKTOP_CHOICE + 'Version').click(function () {
+            $('#' + LARGE_SCREEN_CHOICE + 'Version').click(function () {
                 setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
             });
 
-            $('#' + MOBILE_CHOICE + 'Version').click(function () {
+            $('#' + SMALL_SCREEN_CHOICE + 'Version').click(function () {
                 setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
             });
 
@@ -82,8 +86,8 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
             DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION: DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION,
             MOBILE_ENHANCEMENT_VERSION: MOBILE_ENHANCEMENT_VERSION,
             DESKTOP_ENHANCEMENT_VERSION: DESKTOP_ENHANCEMENT_VERSION,
-            MOBILE_CHOICE: MOBILE_CHOICE,
-            DESKTOP_CHOICE: DESKTOP_CHOICE,
+            MOBILE_CHOICE: SMALL_SCREEN_CHOICE,
+            DESKTOP_CHOICE: LARGE_SCREEN_CHOICE,
             BASIC_CHOICE: BASIC_CHOICE
         };
     }

@@ -46,19 +46,19 @@ class ClientDependencies
         foreach ($deps as $name => $dep) {
             $this->mapConfigDetails($dep, $name, $requirement);
             if ($this->desktopVersionRequested() && $this->desktopEnhancementsDefined($dep)) {
-                $this->mapConfigDetails($dep[Request::DESKTOP_ENHANCEMENT], $name, $requirement);
+                $this->mapConfigDetails($dep[Request::LARGE_ENHANCEMENT], $name, $requirement);
             }
         }
     }
 
     private function desktopEnhancementsDefined($dep)
     {
-        return !empty($dep[Request::DESKTOP_ENHANCEMENT]);
+        return !empty($dep[Request::LARGE_ENHANCEMENT]);
     }
 
     private function desktopVersionRequested()
     {
-        return $this->request->getEnhancementVersion() === Request::DESKTOP_ENHANCEMENT;
+        return $this->request->getEnhancementVersion() === Request::LARGE_ENHANCEMENT;
     }
 
     private function mapConfigDetails($dep, $name, $requirement)
@@ -68,7 +68,7 @@ class ClientDependencies
         if (!empty($dep[self::LOCAL])) {
             $item[self::LOCAL] = $dep[self::LOCAL];
         } else {
-            if (empty($dep[Request::DESKTOP_ENHANCEMENT])) {
+            if (empty($dep[Request::LARGE_ENHANCEMENT])) {
                 throw new MissingLocalPathToResourceException($name);
             }
         }

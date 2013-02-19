@@ -66,7 +66,7 @@ class HtmlRenderer extends Renderer
     private function shouldShowMetaViewport()
     {
         $enhancementVersion = $this->request->getEnhancementVersion();
-        return ($enhancementVersion === Request::MOBILE_ENHANCEMENT
+        return ($enhancementVersion === Request::SMALL_ENHANCEMENT
                 || $enhancementVersion === Request::BASE_ENHANCEMENT);
     }
 

@@ -71,7 +71,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $anyPageDependencies = array(
             $this->anyAction => array(
-                'mobile' => array(
+                'small' => array(
                     'jsInits' => array(
                         $this->mobileInit
                     )
@@ -380,7 +380,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+            ->will($this->returnValue(Request::SMALL_ENHANCEMENT));
 
         $this->dependencyManager->loadPageDependencies();
 
@@ -401,7 +401,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+            ->will($this->returnValue(Request::SMALL_ENHANCEMENT));
 
         $this->fileSystem->expects($this->any())
             ->method('styleSheetExists')
@@ -432,7 +432,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::MOBILE_ENHANCEMENT));
+            ->will($this->returnValue(Request::SMALL_ENHANCEMENT));
 
         $this->fileSystem->expects($this->at(1))
             ->method('styleSheetExists')
@@ -461,7 +461,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
 
         $this->fileSystem->expects($this->at(0))
             ->method('styleSheetExists')
@@ -490,7 +490,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
 
         $this->fileSystem->expects($this->at(1))
             ->method('styleSheetExists')
@@ -519,7 +519,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
 
         $this->fileSystem->expects($this->at(1))
             ->method('styleSheetExists')
@@ -550,7 +550,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->request->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
 
         $this->dependencyManager->addStyleSheet($remoteFile);
 

@@ -346,10 +346,10 @@ class DependencyManager
     {
         $enhancementVersion = $this->request->getEnhancementVersion();
         $enhancedFile = '';
-        if ($enhancementVersion === Request::MOBILE_ENHANCEMENT) {
+        if ($enhancementVersion === Request::SMALL_ENHANCEMENT) {
             $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
             return $enhancedFile;
-        } elseif ($enhancementVersion === Request::DESKTOP_ENHANCEMENT) {
+        } elseif ($enhancementVersion === Request::LARGE_ENHANCEMENT) {
             $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
             return $enhancedFile;
         }

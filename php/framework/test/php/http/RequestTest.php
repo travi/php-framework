@@ -126,12 +126,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testKeyDefinedProperlyForMobileEnhancementVersion()
     {
-        $this->assertSame('mobile', Request::MOBILE_ENHANCEMENT);
+        $this->assertSame('small', Request::SMALL_ENHANCEMENT);
     }
 
     public function testKeyDefinedProperlyForDesktopEnhancementVersion()
     {
-        $this->assertSame('desktop', Request::DESKTOP_ENHANCEMENT);
+        $this->assertSame('large', Request::LARGE_ENHANCEMENT);
     }
 
     public function testBaseReturnedAsEnhancementVersionWhenCookieNotSet()
@@ -142,7 +142,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testVersionFromCookieReturnedAsEnhancementVersion()
     {
-        $this->request->setEnhancementVersion(Request::DESKTOP_ENHANCEMENT);
-        $this->assertEquals(Request::DESKTOP_ENHANCEMENT, $this->request->getEnhancementVersion());
+        $this->request->setEnhancementVersion(Request::LARGE_ENHANCEMENT);
+        $this->assertEquals(Request::LARGE_ENHANCEMENT, $this->request->getEnhancementVersion());
     }
 }

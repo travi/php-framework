@@ -62,11 +62,11 @@ locationUtil:
 carousel:
   cssDependencies:
     - /resources/css/pages/gallery/carousel.css
-  desktop:
+  large:
     local: /resources/js/photos/carousel.js
 
 previewPane:
-  desktop:
+  large:
     local: /resources/js/photos/previewPane.js
     clientTemplates:
       previewPane: /resources/templates/previewPane.tmpl
@@ -92,7 +92,7 @@ videoPlayer:
 gallery:
   jsDependencies:
       - thumbnails
-  desktop:
+  large:
     local: /resources/js/photos/gallery.js
     jsDependencies:
       - events

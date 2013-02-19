@@ -12,8 +12,8 @@ class Request
 
     const ENHANCEMENT_VERSION_KEY = 'enhancementVersion';
     const BASE_ENHANCEMENT = 'base';
-    const MOBILE_ENHANCEMENT = 'mobile';
-    const DESKTOP_ENHANCEMENT = 'desktop';
+    const SMALL_ENHANCEMENT = 'small';
+    const LARGE_ENHANCEMENT = 'large';
 
     /** @var array */
     private $filters = array();

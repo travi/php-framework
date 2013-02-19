@@ -65,13 +65,13 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
         $this->dependencies->setRequest($mockRequest);
 
         $this->dependencies->setUiDeps(
             array(
                 self::SOME_COMPONENT    => array(
-                    'desktop'   =>  array(
+                    'large'   =>  array(
                         'local' =>  self::PATH_TO_SOME_COMPONENT,
                         'jsDependencies'    => array(
                             'jquery'
@@ -92,7 +92,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
         $this->dependencies->setRequest($mockRequest);
 
         $this->dependencies->setUiDeps(
@@ -104,7 +104,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
                     'jsDependencies' => array(
                         self::SOME_JS_FILE
                     ),
-                    'desktop'   =>  array(
+                    'large'   =>  array(
                         'local' =>  self::PATH_TO_SOME_COMPONENT,
                         'jsDependencies'    => array(
                             'jquery'
@@ -134,7 +134,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('getEnhancementVersion')
-            ->will($this->returnValue(Request::DESKTOP_ENHANCEMENT));
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
         $this->dependencies->setRequest($mockRequest);
 
         $this->dependencies->setUiDeps(

@@ -1,3 +1,3 @@
 var Modernizr = {
-    mq: function () {}
+    mq: function (s) {}
 };
