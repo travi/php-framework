@@ -29,6 +29,11 @@ TestCase('Choose Enhancement Version', {
         ]);
     },
 
+    'test cookie values defined as server expects': function () {
+        assertEquals('s', this.enhancements.constants().SMALL_COOKIE_VALUE);
+        assertEquals('l', this.enhancements.constants().LARGE_COOKIE_VALUE);
+    },
+
     'test mobile choice defined as external code expects': function () {
         assertEquals('small', this.enhancements.constants().MOBILE_CHOICE);
     },
@@ -61,7 +66,7 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test Mobile link shown when desktop version active': function () {
-        this.cookies.value.returns(this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().LARGE_COOKIE_VALUE);
 
         this.enhancements.init();
 
@@ -72,7 +77,7 @@ TestCase('Choose Enhancement Version', {
     },
 
     'test desktop link shown when mobile version active': function () {
-        this.cookies.value.returns(this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(this.enhancements.constants().SMALL_COOKIE_VALUE);
 
         this.enhancements.init();
 
@@ -84,7 +89,7 @@ TestCase('Choose Enhancement Version', {
 
     'test Switch to Desktop version': function () {
         var constants = this.enhancements.constants();
-        this.cookies.value.returns(constants.MOBILE_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(constants.SMALL_COOKIE_VALUE);
 
         this.enhancements.init();
         this.cookies.create.reset();
@@ -96,7 +101,7 @@ TestCase('Choose Enhancement Version', {
         sinon.assert.calledWith(
             this.cookies.create,
             constants.ENHANCEMENT_VERSION_KEY,
-            constants.DESKTOP_ENHANCEMENT_VERSION,
+            constants.LARGE_COOKIE_VALUE,
             constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);
@@ -105,7 +110,7 @@ TestCase('Choose Enhancement Version', {
 
     'test Switch to Mobile version': function () {
         var constants = this.enhancements.constants();
-        this.cookies.value.returns(constants.DESKTOP_ENHANCEMENT_VERSION);
+        this.cookies.value.returns(constants.LARGE_COOKIE_VALUE);
 
         this.enhancements.init();
         this.cookies.create.reset();
@@ -117,7 +122,7 @@ TestCase('Choose Enhancement Version', {
         sinon.assert.calledWith(
             this.cookies.create,
             constants.ENHANCEMENT_VERSION_KEY,
-            constants.MOBILE_ENHANCEMENT_VERSION,
+            constants.SMALL_COOKIE_VALUE,
             constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(this.location.refresh);

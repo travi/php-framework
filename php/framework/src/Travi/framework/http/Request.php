@@ -14,6 +14,8 @@ class Request
     const BASE_ENHANCEMENT = 'base';
     const SMALL_ENHANCEMENT = 'small';
     const LARGE_ENHANCEMENT = 'large';
+    const LARGE_COOKIE_VALUE = 'l';
+    const SMALL_COOKIE_VALUE = 's';
 
     /** @var array */
     private $filters = array();
@@ -177,7 +179,16 @@ class Request
         if (empty($version)) {
             $this->enhancementVersion = self::BASE_ENHANCEMENT;
         } else {
-            $this->enhancementVersion = $version;
+            $this->setVersionBasedOnCookieValue($version);
+        }
+    }
+
+    public function setVersionBasedOnCookieValue($version)
+    {
+        if (self::LARGE_COOKIE_VALUE === $version) {
+            $this->enhancementVersion = self::LARGE_ENHANCEMENT;
+        } else {
+            $this->enhancementVersion = self::SMALL_ENHANCEMENT;
         }
     }
 

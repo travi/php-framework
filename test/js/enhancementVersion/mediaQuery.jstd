@@ -50,7 +50,7 @@ TestCase('Screen Width Detection', {
         sinon.assert.calledWith(
             this.cookies.create,
             this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
-            this.enhancements.constants().MOBILE_ENHANCEMENT_VERSION,
+            this.enhancements.constants().SMALL_COOKIE_VALUE,
             this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(travi.location.refresh);
@@ -69,7 +69,7 @@ TestCase('Screen Width Detection', {
         sinon.assert.calledWith(
             this.cookies.create,
             this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
-            this.enhancements.constants().DESKTOP_ENHANCEMENT_VERSION,
+            this.enhancements.constants().LARGE_COOKIE_VALUE,
             this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
         );
         sinon.assert.calledOnce(travi.location.refresh);

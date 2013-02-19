@@ -14,8 +14,8 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
         SMALL_SCREEN_CHOICE = MOBILE_ENHANCEMENT_VERSION,
         LARGE_SCREEN_CHOICE = DESKTOP_ENHANCEMENT_VERSION,
         BASIC_CHOICE = 'basic',
-
-        templateName = 'chooseEnhancement';
+        SMALL_COOKIE_VALUE = 's',
+        LARGE_COOKIE_VALUE = 'l';
 
     function setEnhancementVersionTo(versionKey) {
         cookies.create(
@@ -33,19 +33,15 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
 
     function detectEnhancementVersion() {
         if (Modernizr.mq('only screen and (min-width: 320px) and (max-width: 480px)')) {
-            setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
+            setEnhancementVersionTo(SMALL_COOKIE_VALUE);
         } else {
-            setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
+            setEnhancementVersionTo(LARGE_COOKIE_VALUE);
         }
     }
 
     function setInitialEnhancementVersion() {
         if (!cookies.exists(ENHANCEMENT_VERSION_KEY)) {
-            detectEnhancementVersion(
-                setEnhancementVersionTo,
-                MOBILE_ENHANCEMENT_VERSION,
-                DESKTOP_ENHANCEMENT_VERSION
-            );
+            detectEnhancementVersion();
         }
     }
 
@@ -54,26 +50,26 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
             alternateEnhancement,
             alternateEnhancementText;
 
-        if (currentEnhancement === MOBILE_ENHANCEMENT_VERSION) {
+        if (currentEnhancement === SMALL_COOKIE_VALUE) {
             alternateEnhancement = LARGE_SCREEN_CHOICE;
             alternateEnhancementText = 'large screen';
-        } else if (currentEnhancement === DESKTOP_ENHANCEMENT_VERSION) {
+        } else if (currentEnhancement === LARGE_COOKIE_VALUE) {
             alternateEnhancement = SMALL_SCREEN_CHOICE;
             alternateEnhancementText = 'small screen';
         }
 
-        templates.render(templateName, {
+        templates.render('chooseEnhancement', {
             alternateEnhancement: alternateEnhancement,
             alternateEnhancementText: alternateEnhancementText
         }, function (renderedTemplate) {
             $('footer').append(renderedTemplate);
 
             $('#' + LARGE_SCREEN_CHOICE + 'Version').click(function () {
-                setEnhancementVersionTo(DESKTOP_ENHANCEMENT_VERSION);
+                setEnhancementVersionTo(LARGE_COOKIE_VALUE);
             });
 
             $('#' + SMALL_SCREEN_CHOICE + 'Version').click(function () {
-                setEnhancementVersionTo(MOBILE_ENHANCEMENT_VERSION);
+                setEnhancementVersionTo(SMALL_COOKIE_VALUE);
             });
 
             $('#detectVersion').click(resetVersion);
@@ -88,7 +84,9 @@ travi.templates.preLoad('chooseEnhancement', '/resources/shared/templates/enhanc
             DESKTOP_ENHANCEMENT_VERSION: DESKTOP_ENHANCEMENT_VERSION,
             MOBILE_CHOICE: SMALL_SCREEN_CHOICE,
             DESKTOP_CHOICE: LARGE_SCREEN_CHOICE,
-            BASIC_CHOICE: BASIC_CHOICE
+            BASIC_CHOICE: BASIC_CHOICE,
+            LARGE_COOKIE_VALUE: LARGE_COOKIE_VALUE,
+            SMALL_COOKIE_VALUE: SMALL_COOKIE_VALUE
         };
     }
 

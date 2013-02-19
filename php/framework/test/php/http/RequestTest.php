@@ -129,6 +129,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('small', Request::SMALL_ENHANCEMENT);
     }
 
+    public function testCookieValuesSetProperly()
+    {
+        $this->assertEquals('s', Request::SMALL_COOKIE_VALUE);
+        $this->assertEquals('l', Request::LARGE_COOKIE_VALUE);
+    }
+
     public function testKeyDefinedProperlyForDesktopEnhancementVersion()
     {
         $this->assertSame('large', Request::LARGE_ENHANCEMENT);
@@ -140,9 +146,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Request::BASE_ENHANCEMENT, $this->request->getEnhancementVersion());
     }
 
-    public function testVersionFromCookieReturnedAsEnhancementVersion()
+    public function testLargeVersionFromCookieReturnedAsCorrectEnhancementVersion()
     {
-        $this->request->setEnhancementVersion(Request::LARGE_ENHANCEMENT);
+        $this->request->setEnhancementVersion('l');
         $this->assertEquals(Request::LARGE_ENHANCEMENT, $this->request->getEnhancementVersion());
+    }
+
+    public function testSmallVersionFromCookieReturnedAsCorrectEnhancementVersion()
+    {
+        $this->request->setEnhancementVersion('s');
+        $this->assertEquals(Request::SMALL_ENHANCEMENT, $this->request->getEnhancementVersion());
     }
 }
