@@ -14,12 +14,13 @@ class ErrorController extends AbstractController
      * @param  $error \Exception
      * @return void
      */
-    public function error404(&$request, &$response, $error)
+    public function error404(&$request, &$response, $filters, $error)
     {
         //TODO: also include link to contact page...
         header('HTTP/1.1 404 Not Found');
         $response->setTitle('Page Could Not Be Found');
         $response->setPageTemplate('../error/404.tpl');
+
         if (isset($error)) {
             //TODO: only show this in dev mode, but log it in other environments
             $response->addToResponse('errorMessage', $error->getMessage());
