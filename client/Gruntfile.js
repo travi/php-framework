@@ -10,16 +10,6 @@ module.exports = function (grunt) {
             all: ['grunt.js', 'js/**/*.js']
         },
 
-        jshint: {
-            options: {
-                browser: true
-            },
-            globals: {
-                $: true,
-                Modernizr: true
-            }
-        },
-
         jslint: {
             files: ['grunt.js', 'js/**/*.js'],
             directives: {
