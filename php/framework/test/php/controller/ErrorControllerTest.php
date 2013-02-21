@@ -46,7 +46,12 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
                 $this->equalTo($errorMessage)
             );
 
-        $this->controller->error404($this->request, $this->response, new NotFoundException($errorMessage));
+        $this->controller->error404(
+            $this->request,
+            $this->response,
+            null,
+            new NotFoundException($errorMessage)
+        );
     }
 
     public function testError500()
