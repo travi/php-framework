@@ -14,10 +14,10 @@ class EntityList extends ContentObject
 
     const EDIT_KEY = "Edit";
 
-    public function __construct()
+    public function __construct($path)
     {
         $this->addJavaScript('entityList');
-        $this->addAction(self::EDIT_KEY, '');
+        $this->addAction(self::EDIT_KEY, $path);
     }
 
     public function setEdit($path)
