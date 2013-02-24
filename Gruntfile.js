@@ -3,6 +3,7 @@ module.exports = function (grunt) {
     'use strict';
 
     grunt.loadNpmTasks('grunt-jslint');
+    grunt.loadNpmTasks('grunt-bower');
 
     // Project configuration.
     grunt.initConfig({
