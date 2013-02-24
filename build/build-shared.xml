@@ -99,8 +99,11 @@
 
     <target name="jsLint">
         <mkdir dir="${build.logs}"/>
-        <antcall target="jsLint-src"/>
-        <antcall target="jsLint-tests"/>
+        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
+            <arg line="jslint"/>
+        </exec>
+        <!--<antcall target="jsLint-src"/>-->
+        <!--<antcall target="jsLint-tests"/>-->
     </target>
 
     <target name="jsLint-tests">

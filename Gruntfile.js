@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-bower');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Project configuration.
     grunt.initConfig({
