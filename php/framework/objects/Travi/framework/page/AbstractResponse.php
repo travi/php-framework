@@ -335,7 +335,7 @@ abstract class AbstractResponse
 
     /**
      * @param $renderer HtmlRenderer
-     * @PdInject new:\Travi\framework\view\render\HtmlRenderer
+     * @PdInject htmlRenderer
      */
     public function setHtmlRenderer($renderer)
     {

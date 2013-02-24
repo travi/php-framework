@@ -63,6 +63,10 @@ $container->dependencies()->set(
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
 );
 $container->dependencies()->set('Smarty', smartyInit($config['smarty'], $config['debug']));
+$container->dependencies()->set(
+    'htmlRenderer',
+    Pd_Make::name('Travi\\framework\\view\\Render\\HtmlRenderer')
+);
 
 $container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\http\\Response'));
 
