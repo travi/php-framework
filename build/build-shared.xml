@@ -247,6 +247,11 @@
               failonerror='true'>
             <arg line="${shared.dir}/lib/composer.phar install --dev"/>
         </exec>
+        <exec dir="${site.dir}"
+              executable="npm"
+              failonerror='true'>
+            <arg line="install"/>
+        </exec>
     </target>
 
     <macrodef name="update-site-database">
