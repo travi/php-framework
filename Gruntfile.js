@@ -24,6 +24,10 @@ module.exports = function (grunt) {
             options: {
                 errorsOnly: true
             }
+        },
+
+        bower: {
+            dev: {}
         }
     });
 
