@@ -13,7 +13,8 @@ module.exports = function (grunt) {
         jslint: {
             files: [
                 'grunt.js',
-                'client/js/**/*.js'
+                'client/js/**/*.js',
+                'test/js/**/*.jstd'
             ],
             directives: {
                 browser: true,
