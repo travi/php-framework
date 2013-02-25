@@ -8,9 +8,7 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        lint: {
-            all: ['grunt.js', 'js/**/*.js']
-        },
+        clean: ['client/css'],
 
         jslint: {
             files: ['grunt.js', 'js/**/*.js'],
