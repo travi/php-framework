@@ -11,7 +11,10 @@ module.exports = function (grunt) {
         clean: ['client/css'],
 
         jslint: {
-            files: ['grunt.js', 'js/**/*.js'],
+            files: [
+                'grunt.js',
+                'client/js/**/*.js'
+            ],
             directives: {
                 browser: true,
                 predef: [
