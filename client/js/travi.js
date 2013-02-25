@@ -16,7 +16,9 @@
                 levels = ns.split("."),
                 levelCount = levels.length,
                 i;
-
+                              if ('test' === ns) {
+                                  console.log('namespace');
+                              }
             for (i = 0; i < levelCount; i += 1) {
                 if (object[levels[i]] === undefined) {
                     if (i === levelCount - 1) {
