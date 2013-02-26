@@ -102,8 +102,6 @@
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
             <arg line="jslint"/>
         </exec>
-        <!--<antcall target="jsLint-src"/>-->
-        <!--<antcall target="jsLint-tests"/>-->
     </target>
 
     <target name="jsLint-tests">
@@ -223,6 +221,9 @@
     </target>
 
     <target name="build" depends="clean,createBuildDirs">
+        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
+            <arg line="compile"/>
+        </exec>
         <copy todir="${building.dir}" preservelastmodified="true">
             <fileset refid="to.deploy"/>
         </copy>
