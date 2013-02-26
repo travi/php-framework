@@ -50,5 +50,6 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', 'jslint');
+    grunt.registerTask('compile', ['sass']);
 
 };
