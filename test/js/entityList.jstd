@@ -1,148 +1,151 @@
-TestCase('EntityListTests', {
-    common: travi.test.common,
+travi.test.testCase('EntityListTests', (function () {
+    'use strict';
 
-    entityList: travi.framework.entityList,
-    pagination: travi.pagination,
-    templates: travi.templates,
-    events: travi.events,
+    return {
+        common: travi.test.common,
 
-    entities: [
-        {
-            type: 'someType',
-            id: 43254,
-            title: 'some title',
-            details: [
-                'some detail'
-            ]
-        },
-        {
-            type: 'someOtherType',
-            id: 43254,
-            title: 'some other title',
-            details: [
-                'some other detail'
-            ]
-        }
-    ],
+        entityList: travi.framework.entityList,
+        pagination: travi.pagination,
+        templates: travi.templates,
+        events: travi.events,
 
-    setUp: function () {
-        var testCase = this;
-
-        $('body').append($.render.entityList({}));
-
-        sinon.stub(this.events, 'subscribe', function (eventName, callback) {
-            if (testCase.pagination.events.NEXT_PAGE_REQUESTED === eventName) {
-                testCase.nextPageCallback = callback;
-            } else if (testCase.pagination.events.PREV_PAGE_REQUESTED === eventName) {
-                testCase.prevPageCallback = callback;
+        entities: [
+            {
+                type: 'someType',
+                id: 43254,
+                title: 'some title',
+                details: [
+                    'some detail'
+                ]
+            },
+            {
+                type: 'someOtherType',
+                id: 43254,
+                title: 'some other title',
+                details: [
+                    'some other detail'
+                ]
             }
-        });
+        ],
 
-        this.entityList.init();
+        setUp: function () {
+            var testCase = this;
 
-        this.$form = $('form');
-        this.$confirmation = $('#confirmation');
+            $('body').append($.render.entityList({}));
 
-        sinon.stub(this.templates, 'get', function () {
-            var deferred = new $.Deferred();
-            deferred.resolve();
-            return deferred;
-        });
-    },
+            sinon.stub(this.events, 'subscribe', function (eventName, callback) {
+                if (testCase.pagination.events.NEXT_PAGE_REQUESTED === eventName) {
+                    testCase.nextPageCallback = callback;
+                } else if (testCase.pagination.events.PREV_PAGE_REQUESTED === eventName) {
+                    testCase.prevPageCallback = callback;
+                }
+            });
 
-    tearDown: function () {
-        travi.test.common.restore([
-            jQuery.ajax,
-            this.events.publish,
-            this.events.subscribe,
-            this.templates.get
-        ]);
+            this.entityList.init();
 
-        this.$confirmation.dialog('destroy').remove();
-    },
+            this.$form = $('form');
+            this.$confirmation = $('#confirmation');
 
-    'test events defined properly': function () {
-        assertEquals('page-loaded', this.entityList.constants.get('PAGE_EVENT'));
-    },
+            sinon.stub(this.templates, 'get', function () {
+                var deferred = new $.Deferred();
+                deferred.resolve();
+                return deferred;
+            });
+        },
 
-    'test confirmation ready for use': function () {
-        assertEquals(this.$confirmation.length, 1);
-        assert(this.$confirmation.is(':not(:visible)'));
+        tearDown: function () {
+            travi.test.common.restore([
+                jQuery.ajax,
+                this.events.publish,
+                this.events.subscribe,
+                this.templates.get
+            ]);
 
-        assertTrue(this.$confirmation.dialog('option', 'modal'));
-        assertFalse(this.$confirmation.dialog('option', 'resizable'));
-        assertFalse(this.$confirmation.dialog('option', 'autoOpen'));
-    },
+            this.$confirmation.dialog('destroy').remove();
+        },
 
-    'test submitting "remove" form shows confirmation': function () {
-        this.$form.submit();
+        'test events defined properly': function () {
+            assertEquals('page-loaded', this.entityList.constants.get('PAGE_EVENT'));
+        },
 
-        this.assertModalDialogIsShown();
-    },
+        'test confirmation ready for use': function () {
+            assertEquals(this.$confirmation.length, 1);
+            assert(this.$confirmation.is(':not(:visible)'));
 
-    'test form gets converted to link': function () {
-        assertEquals(1, this.$form.length);
-        assert(this.$form.is(':not(:visible)'));
-        assert($("li.remove-item a.item-action").is(':visible'));
-    },
+            assertTrue(this.$confirmation.dialog('option', 'modal'));
+            assertFalse(this.$confirmation.dialog('option', 'resizable'));
+            assertFalse(this.$confirmation.dialog('option', 'autoOpen'));
+        },
 
-    'test clicking link triggers submit event on corresponding form': function () {
-        $('a.item-action').click();
+        'test submitting "remove" form shows confirmation': function () {
+            this.$form.submit();
 
-        this.assertModalDialogIsShown();
-    },
+            this.assertModalDialogIsShown();
+        },
 
-    'test confirming remove makes ajax POST and removes entity on success': function () {
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, {});
-        });
-        assertEquals(1, $('.entityList>li').length);
-        $('a.item-action').click();
-        $('.ui-dialog-buttonpane button').eq(0).click();
+        'test form gets converted to link': function () {
+            assertEquals(1, this.$form.length);
+            assert(this.$form.is(':not(:visible)'));
+            assert($("li.remove-item a.item-action").is(':visible'));
+        },
 
-        assert(jQuery.ajax.calledOnce);
-        this.common.assertAjaxCallMadeWith({
-            url: '/admin/updates/45',
-            type: 'post',
-            dataType: 'json'
-        }, jQuery.ajax.getCall(0).args[0]);
+        'test clicking link triggers submit event on corresponding form': function () {
+            $('a.item-action').click();
 
-        assertEquals(0, $('.entityList>li').length);
-    },
+            this.assertModalDialogIsShown();
+        },
 
-    'test request for next page loads more announcements': function () {
-        var url = 'nextUrl';
-        this.stubRequestForAnnouncements();
-        sinon.stub(this.events, 'publish');
+        'test confirming remove makes ajax POST and removes entity on success': function () {
+            sinon.stub(jQuery, 'ajax', function (options) {
+                options.success.call(null, {});
+            });
+            assertEquals(1, $('.entityList>li').length);
+            $('a.item-action').click();
+            $('.ui-dialog-buttonpane button').eq(0).click();
 
-        this.nextPageCallback({url: url});
+            assert(jQuery.ajax.calledOnce);
+            this.common.assertAjaxCallMadeWith({
+                url: '/admin/updates/45',
+                type: 'post',
+                dataType: 'json'
+            }, jQuery.ajax.getCall(0).args[0]);
 
-        assert(jQuery.ajax.calledOnce);
-        this.common.assertAjaxCallMadeWith({
-            url: url,
-            type: 'get',
-            dataType: 'json'
-        }, jQuery.ajax.getCall(0).args[0]);
+            assertEquals(0, $('.entityList>li').length);
+        },
 
-        this.assertLoadedDataAddedToList();
-    },
+        'test request for next page loads more announcements': function () {
+            var url = 'nextUrl';
+            this.stubRequestForAnnouncements();
+            sinon.stub(this.events, 'publish');
 
-    'test request for prev page loads more announcements': function () {
-        var url = 'prevUrl';
-        this.stubRequestForAnnouncements();
-        sinon.stub(this.events, 'publish');
+            this.nextPageCallback({url: url});
 
-        this.prevPageCallback({url: url});
+            assert(jQuery.ajax.calledOnce);
+            this.common.assertAjaxCallMadeWith({
+                url: url,
+                type: 'get',
+                dataType: 'json'
+            }, jQuery.ajax.getCall(0).args[0]);
 
-        assert(jQuery.ajax.calledOnce);
-        this.common.assertAjaxCallMadeWith({
-            url: url,
-            type: 'get',
-            dataType: 'json'
-        }, jQuery.ajax.getCall(0).args[0]);
+            this.assertLoadedDataAddedToList();
+        },
 
-        this.assertLoadedDataAddedToList();
-    },
+        'test request for prev page loads more announcements': function () {
+            var url = 'prevUrl';
+            this.stubRequestForAnnouncements();
+            sinon.stub(this.events, 'publish');
+
+            this.prevPageCallback({url: url});
+
+            assert(jQuery.ajax.calledOnce);
+            this.common.assertAjaxCallMadeWith({
+                url: url,
+                type: 'get',
+                dataType: 'json'
+            }, jQuery.ajax.getCall(0).args[0]);
+
+            this.assertLoadedDataAddedToList();
+        },
 
 //    'test offset defaults to zero': function () {
 //        var  url = 'prevUrl',
@@ -180,55 +183,56 @@ TestCase('EntityListTests', {
 //        assertEquals(0, call.args[1].offset);
 //    },
 
-    assertModalDialogIsShown: function () {
-        assert(this.$confirmation.is(':visible'));
-        assertEquals(1, $('div.ui-widget-overlay').length, 1);
-    },
+        assertModalDialogIsShown: function () {
+            assert(this.$confirmation.is(':visible'));
+            assertEquals(1, $('div.ui-widget-overlay').length, 1);
+        },
 
-    assertLoadedDataAddedToList: function () {
-        assertEquals(this.entities.length, $('.entityList > li').length);
-        assertEquals(this.entities.length, $('.entityList > li.entityBlock').length);
-        assertEquals(1, $('.entityList > li.someType').length);
-        assertEquals(this.entities.length, $('.entityList li.remove-item').length);
-        assertEquals(this.entities.length, $("li.remove-item form").length);
-        assertEquals(0, $("li.remove-item form:visible").length);
+        assertLoadedDataAddedToList: function () {
+            assertEquals(this.entities.length, $('.entityList > li').length);
+            assertEquals(this.entities.length, $('.entityList > li.entityBlock').length);
+            assertEquals(1, $('.entityList > li.someType').length);
+            assertEquals(this.entities.length, $('.entityList li.remove-item').length);
+            assertEquals(this.entities.length, $("li.remove-item form").length);
+            assertEquals(0, $("li.remove-item form:visible").length);
 
-        this.assertEventPublished();
-    },
+            this.assertEventPublished();
+        },
 
-    assertEventPublished: function () {
-        var call,
-            eventData;
+        assertEventPublished: function () {
+            var call,
+                eventData;
 
-        assert(this.events.publish.calledOnce);
-        call = this.events.publish.getCall(0);
-        assertEquals(this.entityList.constants.get('PAGE_EVENT'), call.args[0]);
+            assert(this.events.publish.calledOnce);
+            call = this.events.publish.getCall(0);
+            assertEquals(this.entityList.constants.get('PAGE_EVENT'), call.args[0]);
 
-        eventData = call.args[1];
-        assertEquals(15, eventData.nextOffset);
-        assertEquals(5, eventData.prevOffset);
-        assertEquals(10, eventData.offset);
-        assertEquals(34, eventData.total);
-    },
+            eventData = call.args[1];
+            assertEquals(15, eventData.nextOffset);
+            assertEquals(5, eventData.prevOffset);
+            assertEquals(10, eventData.offset);
+            assertEquals(34, eventData.total);
+        },
 
-    stubRequestForAnnouncements: function () {
-        var testCase = this;
+        stubRequestForAnnouncements: function () {
+            var testCase = this;
 
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success.call(null, {
-                list: {
-                    actions: [
-                        {
-                            text: 'Remove',
-                            link: 'someLink'
-                        }
-                    ],
-                    entities: testCase.entities,
-                    offset: 10,
-                    limit: 5,
-                    totalEntities: "34"
-                }
+            sinon.stub(jQuery, 'ajax', function (options) {
+                options.success.call(null, {
+                    list: {
+                        actions: [
+                            {
+                                text: 'Remove',
+                                link: 'someLink'
+                            }
+                        ],
+                        entities: testCase.entities,
+                        offset: 10,
+                        limit: 5,
+                        totalEntities: "34"
+                    }
+                });
             });
-        });
-    }
-});
+        }
+    };
+}()));

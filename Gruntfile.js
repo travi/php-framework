@@ -22,7 +22,20 @@ module.exports = function (grunt) {
                     '$',
                     'jQuery',
                     'Modernizr',
-                    'travi'
+                    'amplify',
+                    'travi',
+
+                    'sinon',
+                    'assertEquals',
+                    'assertSame',
+                    'assertNotSame',
+                    'assertString',
+                    'assertObject',
+                    'assertFunction',
+                    'assert',
+                    'assertFalse',
+                    'assertTrue',
+                    'expectAsserts'
                 ]
             },
             options: {

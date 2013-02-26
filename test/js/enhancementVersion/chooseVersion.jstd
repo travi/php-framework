@@ -1,130 +1,134 @@
-TestCase('Choose Enhancement Version', {
-    location: travi.location,
-    templates: travi.templates,
-    cookies: travi.cookies,
-    enhancements: travi.enhancements,
+travi.test.testCase('Choose Enhancement Version', (function () {
+    'use strict';
 
-    choiceListId: 'versions',
+    return {
+        location: travi.location,
+        templates: travi.templates,
+        cookies: travi.cookies,
+        enhancements: travi.enhancements,
 
-    setUp: function () {
-        $('body').append('<footer></footer>');
-        sinon.stub(this.location, 'refresh');
-        sinon.stub(this.templates, 'get').returns({
-            then: function (callback) {
-                callback();
-            }
-        });
-        sinon.stub(Modernizr, 'mq');
-        sinon.stub(this.cookies, 'create');
-        sinon.stub(this.cookies, 'value');
-    },
+        choiceListId: 'versions',
 
-    tearDown: function () {
-        travi.test.common.restore([
-            this.templates.get,
-            this.location.refresh,
-            this.cookies.create,
-            this.cookies.value,
-            Modernizr.mq
-        ]);
-    },
+        setUp: function () {
+            $('body').append('<footer></footer>');
+            sinon.stub(this.location, 'refresh');
+            sinon.stub(this.templates, 'get').returns({
+                then: function (callback) {
+                    callback();
+                }
+            });
+            sinon.stub(Modernizr, 'mq');
+            sinon.stub(this.cookies, 'create');
+            sinon.stub(this.cookies, 'value');
+        },
 
-    'test cookie values defined as server expects': function () {
-        assertEquals('s', this.enhancements.constants().SMALL_COOKIE_VALUE);
-        assertEquals('l', this.enhancements.constants().LARGE_COOKIE_VALUE);
-    },
+        tearDown: function () {
+            travi.test.common.restore([
+                this.templates.get,
+                this.location.refresh,
+                this.cookies.create,
+                this.cookies.value,
+                Modernizr.mq
+            ]);
+        },
 
-    'test mobile choice defined as external code expects': function () {
-        assertEquals('small', this.enhancements.constants().SMALL_SCREEN_CHOICE);
-    },
+        'test cookie values defined as server expects': function () {
+            assertEquals('s', this.enhancements.constants().SMALL_COOKIE_VALUE);
+            assertEquals('l', this.enhancements.constants().LARGE_COOKIE_VALUE);
+        },
 
-    'test desktop choice defined as external code expects': function () {
-        assertEquals('large', this.enhancements.constants().LARGE_SCREEN_CHOICE);
-    },
+        'test mobile choice defined as external code expects': function () {
+            assertEquals('small', this.enhancements.constants().SMALL_SCREEN_CHOICE);
+        },
 
-    'test basic choice defined as external code expects': function () {
-        assertEquals('basic', this.enhancements.constants().BASIC_CHOICE);
-    },
+        'test desktop choice defined as external code expects': function () {
+            assertEquals('large', this.enhancements.constants().LARGE_SCREEN_CHOICE);
+        },
 
-    'test version toggle links added to page': function () {
-        this.enhancements.init();
+        'test basic choice defined as external code expects': function () {
+            assertEquals('basic', this.enhancements.constants().BASIC_CHOICE);
+        },
 
-        var choiceGroupId = 'enhancementVersion',
-            choicesExplainationId = 'explainChooseVersion',
-            $enhancementChoices = $('#' + this.choiceListId + ' li');
+        'test version toggle links added to page': function () {
+            this.enhancements.init();
 
-        assertEquals('switch to version', $('#' + choicesExplainationId).text());
-        assertEquals(1, $('footer ul').length);
+            var choiceGroupId = 'enhancementVersion',
+                choicesExplainationId = 'explainChooseVersion',
+                $enhancementChoices = $('#' + this.choiceListId + ' li');
 
-        assertEquals(this.choiceListId, $('footer ul').attr('id'));
-        assertEquals(2, $enhancementChoices.length);
-        assertEquals(this.enhancements.constants().BASIC_CHOICE, $enhancementChoices.eq(0).text());
+            assertEquals('switch to version', $('#' + choicesExplainationId).text());
+            assertEquals(1, $('footer ul').length);
 
-        assertEquals(this.enhancements.constants().BASIC_CHOICE + 'Version', $enhancementChoices.eq(0).attr('id'));
-        assertEquals(choiceGroupId, $('#' + this.choiceListId).parent().attr('id'));
-        assertEquals(choiceGroupId, $('#' + choicesExplainationId).parent().attr('id'));
-    },
+            assertEquals(this.choiceListId, $('footer ul').attr('id'));
+            assertEquals(2, $enhancementChoices.length);
+            assertEquals(this.enhancements.constants().BASIC_CHOICE, $enhancementChoices.eq(0).text());
 
-    'test Mobile link shown when desktop version active': function () {
-        this.cookies.value.returns(this.enhancements.constants().LARGE_COOKIE_VALUE);
+            assertEquals(this.enhancements.constants().BASIC_CHOICE + 'Version', $enhancementChoices.eq(0).attr('id'));
+            assertEquals(choiceGroupId, $('#' + this.choiceListId).parent().attr('id'));
+            assertEquals(choiceGroupId, $('#' + choicesExplainationId).parent().attr('id'));
+        },
 
-        this.enhancements.init();
+        'test Mobile link shown when desktop version active': function () {
+            this.cookies.value.returns(this.enhancements.constants().LARGE_COOKIE_VALUE);
 
-        var $enhancementChoices = $('#' + this.choiceListId + ' li');
+            this.enhancements.init();
 
-        assertEquals('small screen', $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.enhancements.constants().SMALL_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
-    },
+            var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
-    'test desktop link shown when mobile version active': function () {
-        this.cookies.value.returns(this.enhancements.constants().SMALL_COOKIE_VALUE);
+            assertEquals('small screen', $enhancementChoices.eq(1).text().trim());
+            assertEquals(this.enhancements.constants().SMALL_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        },
 
-        this.enhancements.init();
+        'test desktop link shown when mobile version active': function () {
+            this.cookies.value.returns(this.enhancements.constants().SMALL_COOKIE_VALUE);
 
-        var $enhancementChoices = $('#' + this.choiceListId + ' li');
+            this.enhancements.init();
 
-        assertEquals('large screen', $enhancementChoices.eq(1).text().trim());
-        assertEquals(this.enhancements.constants().LARGE_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
-    },
+            var $enhancementChoices = $('#' + this.choiceListId + ' li');
 
-    'test Switch to Desktop version': function () {
-        var constants = this.enhancements.constants();
-        this.cookies.value.returns(constants.SMALL_COOKIE_VALUE);
+            assertEquals('large screen', $enhancementChoices.eq(1).text().trim());
+            assertEquals(this.enhancements.constants().LARGE_SCREEN_CHOICE + 'Version', $enhancementChoices.eq(1).attr('id'));
+        },
 
-        this.enhancements.init();
-        this.cookies.create.reset();
-        this.location.refresh.reset();
+        'test Switch to Desktop version': function () {
+            var constants = this.enhancements.constants();
+            this.cookies.value.returns(constants.SMALL_COOKIE_VALUE);
 
-        $('#' + constants.LARGE_SCREEN_CHOICE + 'Version').click();
+            this.enhancements.init();
+            this.cookies.create.reset();
+            this.location.refresh.reset();
 
-        sinon.assert.calledOnce(this.cookies.create);
-        sinon.assert.calledWith(
-            this.cookies.create,
-            constants.ENHANCEMENT_VERSION_KEY,
-            constants.LARGE_COOKIE_VALUE,
-            constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
-        );
-        sinon.assert.calledOnce(this.location.refresh);
+            $('#' + constants.LARGE_SCREEN_CHOICE + 'Version').click();
 
-    },
+            sinon.assert.calledOnce(this.cookies.create);
+            sinon.assert.calledWith(
+                this.cookies.create,
+                constants.ENHANCEMENT_VERSION_KEY,
+                constants.LARGE_COOKIE_VALUE,
+                constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            );
+            sinon.assert.calledOnce(this.location.refresh);
 
-    'test Switch to Mobile version': function () {
-        var constants = this.enhancements.constants();
-        this.cookies.value.returns(constants.LARGE_COOKIE_VALUE);
+        },
 
-        this.enhancements.init();
-        this.cookies.create.reset();
-        this.location.refresh.reset();
+        'test Switch to Mobile version': function () {
+            var constants = this.enhancements.constants();
+            this.cookies.value.returns(constants.LARGE_COOKIE_VALUE);
 
-        $('#' + constants.SMALL_SCREEN_CHOICE + 'Version').click();
+            this.enhancements.init();
+            this.cookies.create.reset();
+            this.location.refresh.reset();
 
-        sinon.assert.calledOnce(this.cookies.create);
-        sinon.assert.calledWith(
-            this.cookies.create,
-            constants.ENHANCEMENT_VERSION_KEY,
-            constants.SMALL_COOKIE_VALUE,
-            constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
-        );
-        sinon.assert.calledOnce(this.location.refresh);
-    }
-});
+            $('#' + constants.SMALL_SCREEN_CHOICE + 'Version').click();
+
+            sinon.assert.calledOnce(this.cookies.create);
+            sinon.assert.calledWith(
+                this.cookies.create,
+                constants.ENHANCEMENT_VERSION_KEY,
+                constants.SMALL_COOKIE_VALUE,
+                constants.DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
+            );
+            sinon.assert.calledOnce(this.location.refresh);
+        }
+    };
+}()));

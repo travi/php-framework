@@ -20,7 +20,7 @@
             travi.constants.set(this.key, this.value);
 
             travi.constants.set(this.key, 'some other value');
-            if (typeof travi.constants.constants !== 'undefined') {
+            if (travi.constants.constants !== undefined) {
                 travi.constants.constants[this.key] = 'yet another value';
             }
 

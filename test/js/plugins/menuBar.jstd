@@ -1,41 +1,45 @@
-TestCase('MenuBarTests', {
-    setUp: function () {
-        $('body').append('<ul id="menuBar">' +
-            '<li>' +
-            '   <ul></ul>' +
-            '</li>' +
-            '<li>' +
-            '   <ul></ul>' +
-            '</li>' +
-            '</ul>');
+travi.test.testCase('MenuBarTests', (function () {
+    'use strict';
 
-        $('#menuBar').menuBar();
-    },
+    return {
+        setUp: function () {
+            $('body').append('<ul id="menuBar">' +
+                '<li>' +
+                '   <ul></ul>' +
+                '</li>' +
+                '<li>' +
+                '   <ul></ul>' +
+                '</li>' +
+                '</ul>');
 
-    'test each menu gets hidden': function () {
-        assertFalse($('#menuBar ul').eq(0).is(':visible'));
-        assertFalse($('#menuBar ul').eq(1).is(':visible'));
-    },
+            $('#menuBar').menuBar();
+        },
 
-    'test menu plugin applied to each menu': function () {
-        assertTrue($('#menuBar ul').eq(0).hasClass('ui-menu'));
-        assertTrue($('#menuBar ul').eq(1).hasClass('ui-menu'));
-    },
+        'test each menu gets hidden': function () {
+            assertFalse($('#menuBar ul').eq(0).is(':visible'));
+            assertFalse($('#menuBar ul').eq(1).is(':visible'));
+        },
 
-    'test menu is shown on hover and hidden afterward': function () {
-        $('#menuBar li').eq(0).mouseenter();
+        'test menu plugin applied to each menu': function () {
+            assertTrue($('#menuBar ul').eq(0).hasClass('ui-menu'));
+            assertTrue($('#menuBar ul').eq(1).hasClass('ui-menu'));
+        },
 
-        assertTrue($('#menuBar ul').eq(0).is(':visible'));
+        'test menu is shown on hover and hidden afterward': function () {
+            $('#menuBar li').eq(0).mouseenter();
 
-        $('#menuBar li').eq(0).mouseleave();
+            assertTrue($('#menuBar ul').eq(0).is(':visible'));
 
-        assertFalse($('#menuBar ul').eq(0).is(':visible'));
-    },
+            $('#menuBar li').eq(0).mouseleave();
 
-    'test indicator icon added': function () {
-        var $indicators = $('#menuBar > li > span');
-        assertEquals(2, $indicators.length);
-        assertTrue($indicators.hasClass('ui-icon'));
-        assertTrue($indicators.hasClass('ui-icon-triangle-1-s'));
-    }
-});
+            assertFalse($('#menuBar ul').eq(0).is(':visible'));
+        },
+
+        'test indicator icon added': function () {
+            var $indicators = $('#menuBar > li > span');
+            assertEquals(2, $indicators.length);
+            assertTrue($indicators.hasClass('ui-icon'));
+            assertTrue($indicators.hasClass('ui-icon-triangle-1-s'));
+        }
+    };
+}()));

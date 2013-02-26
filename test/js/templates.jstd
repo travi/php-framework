@@ -1,178 +1,183 @@
-TestCase("TemplateTests", {
-    templates: travi.templates,
+travi.test.testCase("TemplateTests", (function () {
+    'use strict';
 
-    templateName: 'someName',
-    pathToTemplate: '/path/to/template',
-    templateAsString: 'template',
+    return {
+        templates: travi.templates,
 
-    setUp: function () {
-        var testCase = this;
+        templateName: 'someName',
+        pathToTemplate: '/path/to/template',
+        templateAsString: 'template',
 
-        sinon.stub(jQuery, 'ajax', function (options) {
-            options.success(testCase.templateAsString);
-        });
+        setUp: function () {
+            var testCase = this;
 
-        travi.templates.init();
-    },
+            sinon.stub(jQuery, 'ajax', function (options) {
+                options.success(testCase.templateAsString);
+            });
 
-    tearDown: function () {
-        travi.test.common.restore([
-            jQuery.ajax,
-            jQuery.Deferred,
-            jQuery.templates,
-            jQuery.render[this.templateName],
-            this.templates.get,
-            this.templates.preLoad
-        ]);
-    },
+            travi.templates.init();
+        },
 
-    "test preloading template requests it from the server, caches it, and returns the promise": function () {
-        var promise,
-            promiseToReturn = {},
-            constructedDeferred = {
-                promise: function () {
-                    return promiseToReturn;
+        tearDown: function () {
+            travi.test.common.restore([
+                jQuery.ajax,
+                jQuery.Deferred,
+                jQuery.templates,
+                jQuery.render[this.templateName],
+                this.templates.get,
+                this.templates.preLoad
+            ]);
+        },
+
+        "test preloading template requests it from the server, caches it, and returns the promise": function () {
+            var promise,
+                promiseToReturn = {},
+                constructedDeferred = {
+                    promise: function () {
+                        return promiseToReturn;
+                    },
+                    resolve: function () {
+                    }
+                };
+
+            sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
+            sinon.spy(constructedDeferred, 'resolve');
+
+            sinon.spy(jQuery, 'templates');
+
+            promise = this.templates.preLoad(this.templateName, this.pathToTemplate);
+
+            assert(jQuery.ajax.calledOnce);
+            travi.test.common.assertAjaxCallMadeWith({
+                type: 'get',
+                dataType: 'text',
+                url: this.pathToTemplate
+            }, jQuery.ajax.getCall(0).args[0]);
+
+            this.assertPromiseResolvedAfterCachingTemplate(constructedDeferred);
+            this.assertTemplateWasCached(this.templateName, this.templateAsString);
+            this.assertPromiseWasReturned(promiseToReturn, promise);
+        },
+
+        'test preLoad can accept a list': function () {
+            var anotherTemplateName = 'anotherTemplate',
+                pathToAnotherTemplate = '/path/to/another/template',
+                templates = {};
+            templates[this.templateName] = this.pathToTemplate;
+            templates[anotherTemplateName] = pathToAnotherTemplate;
+            this.templates.preLoad(templates);
+
+            sinon.assert.callCount($.ajax, Object.keys(templates).length);
+            assertEquals(this.pathToTemplate, $.ajax.getCall(0).args[0].url);
+            assertEquals(pathToAnotherTemplate, $.ajax.getCall(1).args[0].url);
+        },
+
+        "test that getting a template by name requests it from the server and returns the promise": function () {
+            var promise = travi.templates.get(this.templateName);
+
+            assertEquals(
+                '/templates/' + this.templateName + '.tmpl',
+                jQuery.ajax.getCall(0).args[0].url
+            );
+
+            assertObject(promise);
+            assertFunction(promise.promise);
+        },
+
+        "test template is rendered and returned as string": function () {
+            var renderedTemplate,
+                dataForTemplate = {
+                    data: 'something'
+                };
+
+            sinon.stub(jQuery.render, this.templateName).returns('renderedTemplate');
+
+            renderedTemplate = travi.templates.render(this.templateName, dataForTemplate);
+
+            this.assertTemplateRenderedWithData(dataForTemplate);
+
+            assertString(renderedTemplate);
+        },
+
+        'test callback called after template loaded from server': function () {
+            var constructedDeferred = new $.Deferred(),
+                dataForTemplate = {
+                    data: 'something'
                 },
-                resolve: function () {}
-            };
+                callback = sinon.spy(),
+                renderedTemplate = 'renderedTemplate';
 
-        sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
-        sinon.spy(constructedDeferred, 'resolve');
+            this.templates.preLoad(this.templateName);
 
-        sinon.spy(jQuery, 'templates');
+            constructedDeferred.resolve();
+            sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
+            sinon.stub(jQuery.render, this.templateName).returns(renderedTemplate);
 
-        promise = this.templates.preLoad(this.templateName, this.pathToTemplate);
+            this.templates.render(this.templateName, dataForTemplate, callback);
 
-        assert(jQuery.ajax.calledOnce);
-        travi.test.common.assertAjaxCallMadeWith({
-            type: 'get',
-            dataType: 'text',
-            url: this.pathToTemplate
-        }, jQuery.ajax.getCall(0).args[0]);
+            sinon.assert.calledOnce($.render[this.templateName]);
+            sinon.assert.calledWith($.render[this.templateName], dataForTemplate);
 
-        this.assertPromiseResolvedAfterCachingTemplate(constructedDeferred);
-        this.assertTemplateWasCached(this.templateName, this.templateAsString);
-        this.assertPromiseWasReturned(promiseToReturn, promise);
-    },
+            sinon.assert.calledOnce(callback);
+            sinon.assert.calledWith(callback, renderedTemplate);
+        },
 
-    'test preLoad can accept a list': function () {
-        var anotherTemplateName = 'anotherTemplate',
-            pathToAnotherTemplate = '/path/to/another/template',
-            templates = {};
-        templates[this.templateName] = this.pathToTemplate;
-        templates[anotherTemplateName] = pathToAnotherTemplate;
-        this.templates.preLoad(templates);
+        'test callback not called when template not loaded': function () {
+            var constructedDeferred = new $.Deferred(),
+                dataForTemplate = {
+                    data: 'something'
+                },
+                callback = sinon.spy(),
+                renderedTemplate = 'renderedTemplate';
 
-        sinon.assert.callCount($.ajax, Object.keys(templates).length);
-        assertEquals(this.pathToTemplate, $.ajax.getCall(0).args[0].url);
-        assertEquals(pathToAnotherTemplate, $.ajax.getCall(1).args[0].url);
-    },
+            travi.test.common.restore($.ajax);
+            sinon.stub($, 'ajax');
 
-    "test that getting a template by name requests it from the server and returns the promise": function () {
-        var promise = travi.templates.get(this.templateName);
+            sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
+            sinon.stub(jQuery.render, this.templateName);
 
-        assertEquals(
-            '/templates/' + this.templateName + '.tmpl',
-            jQuery.ajax.getCall(0).args[0].url
-        );
+            travi.templates.render(this.templateName, dataForTemplate, callback);
 
-        assertObject(promise);
-        assertFunction(promise.promise);
-    },
+            sinon.assert.notCalled($.render[this.templateName]);
+            sinon.assert.notCalled(callback);
+        },
 
-    "test template is rendered and returned as string": function () {
-        var renderedTemplate,
-            dataForTemplate = {
-                data: 'something'
-            };
+        "test that template is not requested from server if already cached": function () {
+            travi.templates.get(this.templateName);
+            travi.templates.get(this.templateName);
 
-        sinon.stub(jQuery.render, this.templateName).returns('renderedTemplate');
+            sinon.assert.calledOnce(jQuery.ajax);
+        },
 
-        renderedTemplate = travi.templates.render(this.templateName, dataForTemplate);
+        "test that caching does not prevent other templates from loading from server": function () {
+            travi.templates.get(this.templateName);
+            travi.templates.get('someOtherTemplateName');
 
-        this.assertTemplateRenderedWithData(dataForTemplate);
+            sinon.assert.calledTwice(jQuery.ajax);
+        },
 
-        assertString(renderedTemplate);
-    },
+        'test template can be rendered without data': function () {
+            this.templates.render(this.templateName);
+        },
 
-    'test callback called after template loaded from server': function () {
-        var constructedDeferred = new $.Deferred(),
-            dataForTemplate = {
-                data: 'something'
-            },
-            callback = sinon.spy(),
-            renderedTemplate = 'renderedTemplate';
+        assertTemplateRenderedWithData: function (data) {
+            assert(jQuery.render[this.templateName].calledOnce);
+            assertSame(data, jQuery.render[this.templateName].getCall(0).args[0]);
+        },
 
-        this.templates.preLoad(this.templateName);
+        assertPromiseResolvedAfterCachingTemplate: function (deferred) {
+            assert(deferred.resolve.calledOnce);
+        },
 
-        constructedDeferred.resolve();
-        sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
-        sinon.stub(jQuery.render, this.templateName).returns(renderedTemplate);
+        assertTemplateWasCached: function (templateName, templateAsString) {
+            assert(jQuery.templates.calledOnce);
+            assertEquals(templateName, jQuery.templates.getCall(0).args[0]);
+            assertEquals(templateAsString, jQuery.templates.getCall(0).args[1]);
+        },
 
-        this.templates.render(this.templateName, dataForTemplate, callback);
-
-        sinon.assert.calledOnce($.render[this.templateName]);
-        sinon.assert.calledWith($.render[this.templateName], dataForTemplate);
-
-        sinon.assert.calledOnce(callback);
-        sinon.assert.calledWith(callback, renderedTemplate);
-    },
-
-    'test callback not called when template not loaded': function () {
-        var constructedDeferred = new $.Deferred(),
-            dataForTemplate = {
-                data: 'something'
-            },
-            callback = sinon.spy(),
-            renderedTemplate = 'renderedTemplate';
-
-        travi.test.common.restore($.ajax);
-        sinon.stub($, 'ajax');
-
-        sinon.stub(jQuery, 'Deferred').returns(constructedDeferred);
-        sinon.stub(jQuery.render, this.templateName);
-
-        travi.templates.render(this.templateName, dataForTemplate, callback);
-
-        sinon.assert.notCalled($.render[this.templateName]);
-        sinon.assert.notCalled(callback);
-    },
-
-    "test that template is not requested from server if already cached": function () {
-        travi.templates.get(this.templateName);
-        travi.templates.get(this.templateName);
-
-        sinon.assert.calledOnce(jQuery.ajax);
-    },
-
-    "test that caching does not prevent other templates from loading from server": function () {
-        travi.templates.get(this.templateName);
-        travi.templates.get('someOtherTemplateName');
-
-        sinon.assert.calledTwice(jQuery.ajax);
-    },
-
-    'test template can be rendered without data': function () {
-        this.templates.render(this.templateName);
-    },
-
-    assertTemplateRenderedWithData: function (data) {
-        assert(jQuery.render[this.templateName].calledOnce);
-        assertSame(data, jQuery.render[this.templateName].getCall(0).args[0]);
-    },
-
-    assertPromiseResolvedAfterCachingTemplate: function (deferred) {
-        assert(deferred.resolve.calledOnce);
-    },
-
-    assertTemplateWasCached: function (templateName, templateAsString) {
-        assert(jQuery.templates.calledOnce);
-        assertEquals(templateName, jQuery.templates.getCall(0).args[0]);
-        assertEquals(templateAsString, jQuery.templates.getCall(0).args[1]);
-    },
-
-    assertPromiseWasReturned: function (returnedPromise, promise) {
-        assertObject(promise);
-        assertSame(returnedPromise, promise);
-    }
-});
+        assertPromiseWasReturned: function (returnedPromise, promise) {
+            assertObject(promise);
+            assertSame(returnedPromise, promise);
+        }
+    };
+}()));

@@ -1,63 +1,67 @@
-TestCase('CookieTests', {
-    cookies: travi.cookies,
+travi.test.testCase('CookieTests', (function () {
+    'use strict';
 
-    DAYS_BEFORE_EXP: 1,
+    return {
+        cookies: travi.cookies,
 
-    setUp: function () {
-        this.cookies.clearAll();
-    },
+        DAYS_BEFORE_EXP: 1,
 
-    tearDown: function () {
-        this.cookies.clearAll();
-    },
+        setUp: function () {
+            this.cookies.clearAll();
+        },
 
-    'test cookie is created properly': function () {
-        var cookieName = 'testCookie',
-            cookieValue = "someValue";
+        tearDown: function () {
+            this.cookies.clearAll();
+        },
 
-        this.cookies.create(cookieName, cookieValue, this.DAYS_BEFORE_EXP);
+        'test cookie is created properly': function () {
+            var cookieName = 'testCookie',
+                cookieValue = "someValue";
 
-        assertTrue(this.cookies.exists(cookieName));
-        assertEquals(cookieValue, this.cookies.value(cookieName));
-    },
+            this.cookies.create(cookieName, cookieValue, this.DAYS_BEFORE_EXP);
 
-    'test cookie gets removed': function () {
-        var cookieToDelete = "toDelete";
-        this.cookies.create(cookieToDelete, "will be deleted in this test", this.DAYS_BEFORE_EXP);
+            assertTrue(this.cookies.exists(cookieName));
+            assertEquals(cookieValue, this.cookies.value(cookieName));
+        },
 
-        this.cookies.remove(cookieToDelete);
+        'test cookie gets removed': function () {
+            var cookieToDelete = "toDelete";
+            this.cookies.create(cookieToDelete, "will be deleted in this test", this.DAYS_BEFORE_EXP);
 
-        assertFalse(this.cookies.exists(cookieToDelete));
-    },
+            this.cookies.remove(cookieToDelete);
 
-    'test value returned properly when first in list': function () {
-        var desiredCookie = "desiredCookie",
-            valueOfDesired = "value of desired cookie";
+            assertFalse(this.cookies.exists(cookieToDelete));
+        },
 
-        this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
-        this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
+        'test value returned properly when first in list': function () {
+            var desiredCookie = "desiredCookie",
+                valueOfDesired = "value of desired cookie";
 
-        assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
-    },
+            this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
+            this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
 
-    'test value returned properly when last in list': function () {
-        var desiredCookie = "desiredCookie",
-            valueOfDesired = "value of desired cookie";
+            assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
+        },
 
-        this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
-        this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
+        'test value returned properly when last in list': function () {
+            var desiredCookie = "desiredCookie",
+                valueOfDesired = "value of desired cookie";
 
-        assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
-    },
+            this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
+            this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
 
-    'test value returned properly when in the middle of the list': function () {
-        var desiredCookie = "desiredCookie",
-            valueOfDesired = "value of desired cookie";
+            assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
+        },
 
-        this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
-        this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
-        this.cookies.create("extraCookie2", "value of extra cookie", this.DAYS_BEFORE_EXP);
+        'test value returned properly when in the middle of the list': function () {
+            var desiredCookie = "desiredCookie",
+                valueOfDesired = "value of desired cookie";
 
-        assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
-    }
-});
+            this.cookies.create("extraCookie", "value of extra cookie", this.DAYS_BEFORE_EXP);
+            this.cookies.create(desiredCookie, valueOfDesired, this.DAYS_BEFORE_EXP);
+            this.cookies.create("extraCookie2", "value of extra cookie", this.DAYS_BEFORE_EXP);
+
+            assertEquals(valueOfDesired, this.cookies.value(desiredCookie));
+        }
+    };
+}()));

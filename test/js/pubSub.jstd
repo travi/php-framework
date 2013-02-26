@@ -1,43 +1,48 @@
-travi.test.testCase('PubSubTests', {
-    common: travi.test.common,
-    events: travi.events,
+travi.test.testCase('PubSubTests', (function () {
+    'use strict';
 
-    eventName: 'some-event',
-    callback: function () {},
-    data: {},
+    return {
+        common: travi.test.common,
+        events: travi.events,
 
-    tearDown: function () {
-        this.common.restore([
-            amplify.publish,
-            amplify.subscribe,
-            amplify.unsubscribe
-        ]);
-    },
+        eventName: 'some-event',
+        callback: function () {
+        },
+        data: {},
 
-    'test publish mapped to amplify': function () {
-        sinon.spy(amplify, 'publish');
+        tearDown: function () {
+            this.common.restore([
+                amplify.publish,
+                amplify.subscribe,
+                amplify.unsubscribe
+            ]);
+        },
 
-        this.events.publish(this.eventName, this.data);
+        'test publish mapped to amplify': function () {
+            sinon.spy(amplify, 'publish');
 
-        sinon.assert.calledOnce(amplify.publish);
-        sinon.assert.calledWith(amplify.publish, this.eventName, this.data);
-    },
+            this.events.publish(this.eventName, this.data);
 
-    'test subscribe mapped to amplify': function () {
-        sinon.spy(amplify, 'subscribe');
+            sinon.assert.calledOnce(amplify.publish);
+            sinon.assert.calledWith(amplify.publish, this.eventName, this.data);
+        },
 
-        this.events.subscribe(this.eventName, this.callback);
+        'test subscribe mapped to amplify': function () {
+            sinon.spy(amplify, 'subscribe');
 
-        sinon.assert.calledOnce(amplify.subscribe);
-        sinon.assert.calledWith(amplify.subscribe, this.eventName, this.callback);
-    },
+            this.events.subscribe(this.eventName, this.callback);
 
-    'test unsubscribe mapped to amplify': function () {
-        sinon.spy(amplify, 'unsubscribe');
+            sinon.assert.calledOnce(amplify.subscribe);
+            sinon.assert.calledWith(amplify.subscribe, this.eventName, this.callback);
+        },
 
-        this.events.unsubscribe(this.eventName, this.callback);
+        'test unsubscribe mapped to amplify': function () {
+            sinon.spy(amplify, 'unsubscribe');
 
-        sinon.assert.calledOnce(amplify.unsubscribe);
-        sinon.assert.calledWith(amplify.unsubscribe, this.eventName, this.callback);
-    }
-});
+            this.events.unsubscribe(this.eventName, this.callback);
+
+            sinon.assert.calledOnce(amplify.unsubscribe);
+            sinon.assert.calledWith(amplify.unsubscribe, this.eventName, this.callback);
+        }
+    };
+}()));
