@@ -43,6 +43,20 @@ module.exports = function (grunt) {
             }
         },
 
+        sass: {
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'client/scss',
+                        src: ['**/*.scss'],
+                        dest: 'client/css/',
+                        ext: '.css'
+                    }
+                ]
+            }
+        },
+
         bower: {
             dev: {}
         }
