@@ -73,6 +73,13 @@
         <antcall target="phpUnit"/>
     </target>
 
+    <target name="buster">
+        <mkdir dir="${build.logs}"/>
+        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
+            <arg line="buster"/>
+        </exec>
+    </target>
+
     <target name="messDetect" description="Mess Detection">
         <antcall target="phpcpd"/>
     </target>
