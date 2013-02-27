@@ -39,7 +39,8 @@ module.exports = function (grunt) {
                 ]
             },
             options: {
-                errorsOnly: true
+                errorsOnly: true,
+                checkstyle: 'config/build/logs/jslint.xml'
             }
         },
 
