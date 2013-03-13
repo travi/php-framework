@@ -145,14 +145,14 @@ abstract class Choices extends DependantObject implements Field
         return $this->template;
     }
 
-    public function setValidationError($message)
-    {
-        $this->error = $message;
-    }
-
     public function getValidationError()
     {
         return $this->error;
+    }
+
+    public function setValidationError($message)
+    {
+        $this->error = $message;
     }
 
     public function isValid()
