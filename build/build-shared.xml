@@ -58,7 +58,7 @@
         <include/>
     </fileset>
 
-    <target name="gates">
+    <target name="gates" depends="update-dependencies">
         <antcall target="checkstyle"/>
         <antcall target="test"/>
         <antcall target="messDetect"/>
