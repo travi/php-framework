@@ -2,23 +2,16 @@
 
 namespace Travi\framework\components\Forms\choices;
 
-use Travi\framework\DependantObject,
-    Travi\framework\components\Forms\Field;
+use Travi\framework\components\Forms\Field;
 
-abstract class Choices extends DependantObject implements Field
+abstract class Choices extends Field
 {
-    protected $label;					//label associated with this field
-    protected $name;					//name attribute for this field
-    protected $validations = array();	//list of validations
     protected $type;					//type attribute for this field
-    protected $value;					//value attribute for this field
     protected $class;					//class attribute for this field
     protected $template;                //template file to be used when rendering
 
     protected $settings = array();
     protected $options = array();       //implemented as an n x 4 two-dimensional array
-
-    private $error;
 
     public function __construct($settings=array())
     {
@@ -95,21 +88,6 @@ abstract class Choices extends DependantObject implements Field
     {
         return $this->value;
     }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setLabel($label)
-    {
-        $this->label = $label;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
     public function getOptions()
     {
         foreach ($this->options as &$option) {
@@ -128,14 +106,6 @@ abstract class Choices extends DependantObject implements Field
     {
         return $this->class;
     }
-    public function getValidations()
-    {
-        return $this->validations;
-    }
-    public function addValidation($validation)
-    {
-        array_push($this->validations, $validation);
-    }
     public function setTemplate($template)
     {
         $this->template = $template;
@@ -143,26 +113,6 @@ abstract class Choices extends DependantObject implements Field
     public function getTemplate()
     {
         return $this->template;
-    }
-
-    public function getValidationError()
-    {
-        return $this->error;
-    }
-
-    public function setValidationError($message)
-    {
-        $this->error = $message;
-    }
-
-    public function isValid()
-    {
-        if (in_array('required', $this->getValidations()) && empty($this->value)) {
-            $this->setValidationError($this->label . ' is required');
-            return false;
-        }
-
-        return true;
     }
 }
 

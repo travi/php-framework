@@ -2,18 +2,12 @@
 
 namespace Travi\framework\components\Forms\inputs;
 
-use Travi\framework\content\ContentObject,
-    Travi\framework\components\Forms\Field;
+use Travi\framework\components\Forms\Field;
 
-abstract class Input extends ContentObject implements Field
+abstract class Input extends Field
 {
-    private $label;					//label associated with this field
-    private $name;					//name attribute for this field
-    protected $validations = array();	//list of validations
     private $type;					//type attribute for this field
-    private $value;					//value attribute for this field
     protected $class;					//class attribute for this field
-    private $error;
 
     public function __construct($options)
     {
@@ -31,10 +25,6 @@ abstract class Input extends ContentObject implements Field
         }
         $this->setTemplate('components/form/inputWithLabel.tpl');
     }
-    public function addValidation($validation)
-    {
-        array_push($this->validations, $validation);
-    }
     public function setName($name)
     {
         $name = str_replace(' ', '_', strtolower($name));
@@ -45,14 +35,6 @@ abstract class Input extends ContentObject implements Field
         }
 
         $this->name = $name;
-    }
-    public function getName()
-    {
-        return $this->name;
-    }
-    public function getLabel()
-    {
-        return $this->label;
     }
     public function setType($type)
     {
@@ -77,33 +59,5 @@ abstract class Input extends ContentObject implements Field
     public function getClass()
     {
         return $this->class;
-    }
-    public  function setLabel($label)
-    {
-        $this->label = $label;
-    }
-    public function getValidations()
-    {
-        return $this->validations;
-    }
-
-    public function setValidationError($message)
-    {
-        $this->error = $message;
-    }
-
-    public function getValidationError()
-    {
-        return $this->error;
-    }
-
-    public function isValid()
-    {
-        if (in_array('required', $this->getValidations()) && empty($this->value)) {
-            $this->setValidationError($this->label . ' is required');
-            return false;
-        }
-
-        return true;
     }
 }
