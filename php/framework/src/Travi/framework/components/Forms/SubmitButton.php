@@ -9,7 +9,6 @@ class SubmitButton extends Input
     public function __construct($options = array())
     {
         parent::__construct($options);
-        $this->label = "";
         $this->setType("submit");
         $this->setName("Submit");
         if (!empty($options['class'])) {
