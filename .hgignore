@@ -5,6 +5,7 @@ build/site/*
 build/dist/*
 vendor/*
 node_modules/*
+client/css/*
 
 syntax: regexp
 \.DS_Store
