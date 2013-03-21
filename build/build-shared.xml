@@ -179,7 +179,7 @@
 
     <target name="sshFromLinux">
         <property name="keyfile" value="${linux.keyfile}"/>
-        <property file="/home/travi/properties.properties"/>
+        <property file="/home/teamcity/properties.properties"/>
     </target>
 
     <target name="toQA">
