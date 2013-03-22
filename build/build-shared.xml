@@ -71,6 +71,7 @@
 
     <target name="test">
         <antcall target="phpUnit"/>
+        <antcall target="behat"/>
     </target>
 
     <target name="buster">
