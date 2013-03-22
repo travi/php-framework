@@ -49,7 +49,7 @@ entityList:
     - framework
     - pagination
   cssDependencies:
-    - /resources/shared/css/travi.entities.css
+    - /resources/shared/css/travi-entities.css
   clientTemplates:
     update-item: /resources/templates/admin/update-item.tmpl
 

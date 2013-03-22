@@ -206,7 +206,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testPageStyleFollowsBaseFormSheet()
     {
-        $pathToFormSheet = '/resources/shared/css/travi.form.css';
+        $pathToFormSheet = '/resources/shared/css/travi-form.css';
 
         $this->fileSystem->expects($this->at(0))
             ->method('styleSheetExists')
@@ -260,7 +260,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testSiteThemeFollowsBaseFormSheet()
     {
-        $pathToFormSheet = '/resources/shared/css/travi.form.css';
+        $pathToFormSheet = '/resources/shared/css/travi-form.css';
 
         $this->fileSystem->expects($this->at(0))
             ->method('styleSheetExists')

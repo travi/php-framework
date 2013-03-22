@@ -95,7 +95,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $dependencies = $this->form->getDependencies();
         $this->assertContains('formAlign', $dependencies['scripts']);
-        $this->assertContains('/resources/shared/css/travi.form.css', $dependencies['styles']);
+        $this->assertContains('/resources/shared/css/travi-form.css', $dependencies['styles']);
         $this->assertContains("$('form[name=\"name\"]').alignFields();", $dependencies['jsInits']);
     }
 
