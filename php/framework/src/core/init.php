@@ -4,7 +4,8 @@ use Travi\framework\http\Response,
     Travi\framework\http\Request,
     Travi\framework\utilities\FileSystem,
     Travi\framework\dependencyManagement\DependencyManager,
-    Travi\framework\utilities\Environment;
+    Travi\framework\utilities\Environment,
+    Travi\framework\view\render\HtmlRenderer;
 
 require_once __DIR__ . '/../../../thirdparty/spyc/spyc.php';
 
