@@ -62,11 +62,24 @@ module.exports = function (grunt) {
 
         bower: {
             dev: {}
+        },
+
+        copy: {
+            cssImages: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'client/scss/icons',
+                        src: ['*'],
+                        dest: 'client/css/icons/'
+                    }
+                ]
+            }
         }
     });
 
     // Default task.
     grunt.registerTask('default', 'jslint');
-    grunt.registerTask('compile', ['sass']);
+    grunt.registerTask('compile', ['sass', 'copy:cssImages']);
 
 };
