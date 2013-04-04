@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-    <property file="${shared.dir}/build/shared.properties" />
+    <property file="${shared.dir}/build/shared.properties"/>
     <exec executable="hostname" outputproperty="computer.hostname"/>
 
     <condition property="not.on.teamcity">
@@ -49,7 +49,7 @@
         </fileset>
     </path>
     <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy">
-         <classpath refid="groovy.classpath"/>
+        <classpath refid="groovy.classpath"/>
     </taskdef>
 
     <!--This is defined to be an empty fileset to keep jsLint from breaking
@@ -65,7 +65,7 @@
     </target>
 
     <target name="checkstyle">
-        <antcall target="jsLint" />
+        <antcall target="jsLint"/>
         <antcall target="phpcs"/>
     </target>
 
@@ -92,7 +92,16 @@
                         --coverage-clover   ${build.logs}/clover.xml
                         --coverage-html     ${build.dir}/coverage
                         --bootstrap ${shared.dir}/vendor/autoload.php
-                        php" />
+                        php"/>
+        </exec>
+    </target>
+
+    <target name="behat-with-db">
+        <mkdir dir="${build.logs}/behat"/>
+        <exec dir="${site.dir}/test/php/acceptance"
+              executable="php"
+              failonerror='true'>
+            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip --ansi --out ${build.logs}/behat,"/>
         </exec>
     </target>
 
@@ -101,7 +110,7 @@
         <exec dir="${site.dir}/test/php/acceptance"
               executable="php"
               failonerror='true'>
-            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip --ansi --out ${build.logs}/behat,"/>
+            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip,~@db --ansi --out ${build.logs}/behat,"/>
         </exec>
     </target>
 
@@ -115,8 +124,8 @@
     <target name="jsLint-tests">
         <jslint options="${jslint.testOptions}" haltonfailure="false" failureProperty="jsLintResult">
             <predef>${jslint.predef},${jslint.predef.site}</predef>
-            <formatter type="plain" />
-            <formatter type="checkstyle" destfile="${build.logs}/jslint-tests.xml" />
+            <formatter type="plain"/>
+            <formatter type="checkstyle" destfile="${build.logs}/jslint-tests.xml"/>
             <fileset refid="js.tests"/>
             <fileset refid="js.exclude.overrides"/>
         </jslint>
@@ -126,8 +135,8 @@
     <target name="jsLint-src">
         <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
             <predef>${jslint.predef},${jslint.predef.site}</predef>
-            <formatter type="plain" />
-            <formatter type="checkstyle" destfile="${build.logs}/jslint-src.xml" />
+            <formatter type="plain"/>
+            <formatter type="checkstyle" destfile="${build.logs}/jslint-src.xml"/>
             <fileset refid="js.files"/>
             <fileset refid="js.exclude.overrides"/>
         </jslint>
@@ -205,22 +214,22 @@
 
     <target name="deploy" depends="dist">
         <scp
-            file="${dist.dir}/site.zip"
-            todir="${server.username}@${server.host}:${server.path}"
-            trust="true"
-            sftp="true"
-            preserveLastmodified="true"
-            keyfile="${keyfile}"
-            passphrase="${passphrase}"
-        />
+                file="${dist.dir}/site.zip"
+                todir="${server.username}@${server.host}:${server.path}"
+                trust="true"
+                sftp="true"
+                preserveLastmodified="true"
+                keyfile="${keyfile}"
+                passphrase="${passphrase}"
+                />
         <sshexec
-            host="${server.host}"
-            username="${server.username}"
-            keyfile="${keyfile}"
-            passphrase="${passphrase}"
-            trust="true"
-            commandResource="${pathToDeployScript}deploy.txt"
-        />
+                host="${server.host}"
+                username="${server.username}"
+                keyfile="${keyfile}"
+                passphrase="${passphrase}"
+                trust="true"
+                commandResource="${pathToDeployScript}deploy.txt"
+                />
     </target>
 
     <target name="dist" depends="build">
@@ -247,10 +256,10 @@
 
     <target name="dist.zip">
         <zip
-            destfile="${dist.dir}/site.zip"
-            basedir="${building.dir}"
-            update="true"
-        />
+                destfile="${dist.dir}/site.zip"
+                basedir="${building.dir}"
+                update="true"
+                />
     </target>
 
     <target name="update-dependencies">
@@ -270,15 +279,15 @@
         <attribute name="changeLogFile"/>
         <sequential>
             <updateDatabase
-                changeLogFile="@{changeLogFile}"
-                driver="com.mysql.jdbc.Driver"
-                url="jdbc:mysql://${database.url}:3306/@{database}"
-                username="${database.username}"
-                password="${database.password}"
-                promptOnNonLocalDatabase="${prompt.user.if.not.local.database}"
-                dropFirst="false"
-                classpathref="liquibasetasks.classpath"
-        />
+                    changeLogFile="@{changeLogFile}"
+                    driver="com.mysql.jdbc.Driver"
+                    url="jdbc:mysql://${database.url}:3306/@{database}"
+                    username="${database.username}"
+                    password="${database.password}"
+                    promptOnNonLocalDatabase="${prompt.user.if.not.local.database}"
+                    dropFirst="false"
+                    classpathref="liquibasetasks.classpath"
+                    />
         </sequential>
     </macrodef>
 
