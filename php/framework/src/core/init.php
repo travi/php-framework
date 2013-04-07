@@ -51,14 +51,7 @@ $container = Pd_Container::get();
 $container->dependencies()->set('config', $config);
 $container->dependencies()->set('uiDeps', $uiDeps);
 
-$container->dependencies()->set(
-    'db',
-    new PDO(
-        'mysql:host=' . DB_HOSTNAME . ';dbname=' . DEF_DB_NAME,
-        DB_SELECT_USERNAME,
-        DB_SELECT_PASSWORD
-    )
-);
+$container->dependencies()->set('db', dbInit());
 
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
@@ -82,6 +75,20 @@ $container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\htt
 
 
 
+/**
+ * @return PDO
+ */
+function dbInit()
+{
+    $pdo = new PDO(
+        'mysql:host=' . DB_HOSTNAME . ';dbname=' . DEF_DB_NAME,
+        DB_ADMIN_USERNAME,
+        DB_ADMIN_PASSWORD
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    return $pdo;
+}
 
 /**
  * @param $sitePath
