@@ -96,21 +96,12 @@
         </exec>
     </target>
 
-    <target name="behat-with-db">
-        <mkdir dir="${build.logs}/behat"/>
-        <exec dir="${site.dir}/test/php/acceptance"
-              executable="php"
-              failonerror='true'>
-            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip --ansi --out ${build.logs}/behat,"/>
-        </exec>
-    </target>
-
     <target name="behat">
         <mkdir dir="${build.logs}/behat"/>
         <exec dir="${site.dir}/test/php/acceptance"
               executable="php"
               failonerror='true'>
-            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@db --ansi --out ${build.logs}/behat,"/>
+            <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip --ansi --out ${build.logs}/behat,"/>
         </exec>
     </target>
 
