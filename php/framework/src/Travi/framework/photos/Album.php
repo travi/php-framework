@@ -11,6 +11,7 @@ class Album
     private $photos = array();
     /** @var Thumbnail */
     private $thumbnail;
+    private $totalPhotos;
 
     public function getTitle()
     {
