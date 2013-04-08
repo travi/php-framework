@@ -6,6 +6,8 @@ use Travi\framework\photos\Thumbnail;
 
 class Album
 {
+    private $id;
+    private $category;
     private $title;
     private $url;
     private $photos = array();
