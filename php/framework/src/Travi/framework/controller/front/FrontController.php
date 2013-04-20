@@ -2,7 +2,8 @@
 
 namespace Travi\framework\controller\front;
 
-use Travi\framework\http\Response,
+use Travi\framework\exception\UnauthorizedException,
+    Travi\framework\http\Response,
     Travi\framework\http\Request,
     Travi\framework\exception\NotFoundException,
     Travi\framework\controller\AbstractController,
@@ -24,17 +25,15 @@ class FrontController
 
     public function processRequest()
     {
-        if ($this->Request->isAdmin()) {
-            try {
-                $this->ensureUserIsAuthenticated();
-            } catch (\Exception $e) {
-                $this->respondWithError(500, $e);
-            }
-        }
-
         try{
+
+            if ($this->Request->isAdmin()) {
+                $this->ensureUserIsAuthenticated();
+            }
             $this->dispatchToController();
             $this->sendResponse();
+        } catch (UnauthorizedException $e) {
+            $this->promptForCredentials();
         } catch (NotFoundException $e) {
             $this->respondWithError(404, $e);
         } catch (\Exception $e) {
@@ -147,7 +146,7 @@ class FrontController
 
         $authenticated = false;
 
-        if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW'])) {
+        if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW']) && isset($_SERVER['HTTP_AUTHORIZATION'])) {
             list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])
                 = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
         }
@@ -157,11 +156,16 @@ class FrontController
         }
 
         if (!$authenticated) {
-            header('WWW-Authenticate: Basic realm="Travi Admin"');
-
-            //Show Unauthorized page if user chooses cancel
-            $this->respondWithError(401);
+            throw new UnauthorizedException();
         }
+    }
+
+    private function promptForCredentials()
+    {
+        header('WWW-Authenticate: Basic realm="Travi Admin"');
+
+        //Show Unauthorized page if user chooses cancel
+        $this->respondWithError(401);
     }
 
     /**
