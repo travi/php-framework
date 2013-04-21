@@ -109,63 +109,6 @@ class FrontController
         $this->sendResponse();
     }
 
-    private function authenticate($user, $pass)
-    {
-        $pwFile = SITE_ROOT . 'config/auth/.pwd';
-
-        if (file_exists($pwFile) && is_readable($pwFile)) {
-            if ($pwFileHandle = fopen($pwFile, 'r')) {
-                while ($line = fgets($pwFileHandle)) {
-                    //remove line endings
-                    $line = preg_replace('`[\r\n]$`', '', $line);
-                    list($validUser, $validPass) = explode(':', $line);
-                    if ($validUser === $user) {
-                        //the salt is the first to characters for DES encryption
-                        $salt = substr($validPass, 0, 2);
-                        $encryptedPassword = crypt($pass, $salt);
-
-                        if ($validPass === $encryptedPassword) {
-                            fclose($pwFileHandle);
-                            return true;
-                        } else {
-                            fclose($pwFileHandle);
-                            return false;
-                        }
-                    }
-                }
-                fclose($pwFileHandle);
-            } else {
-                throw new \Exception("couldn't open password file");
-            }
-        } else {
-            throw new \Exception("password file doesn't exist or is not readable");
-        }
-    }
-
-    public function ensureUserIsAuthenticated()
-    {
-        //TODO: move this process out to its own class and get this stuff tested
-        // probably also need some file loader to make it testable
-
-        $authenticated = false;
-
-        if (!isset($_SERVER['PHP_AUTH_USER'])
-            && !isset($_SERVER['PHP_AUTH_PW'])
-            && isset($_SERVER['HTTP_AUTHORIZATION'])
-        ) {
-            list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])
-                = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
-        }
-
-        if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-            $authenticated = $this->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-        }
-
-        if (!$authenticated) {
-            throw new UnauthorizedException();
-        }
-    }
-
     private function promptForCredentials()
     {
         header('WWW-Authenticate: Basic realm="Travi Admin"');

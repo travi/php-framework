@@ -19,17 +19,3 @@
 {/foreach}
             </ul>
 {/if}
-{*{assign var="adminNav" value=$page->getAdminNav()}*}
-{*{if !empty($adminNav)}*}
-{*            <ul class="sideNav" id="adminNav">*}
-{*{foreach key=navItem item=navLink from=$adminNav}*}
-{*                <li><a href="{$navLink}">{$navItem}</a></li>*}
-{*{/foreach}*}
-{*            </ul>*}
-{*{/if}*}
-{*{assign var="subNav" value=$page->getSubNav()}*}
-{*{if !empty($subNav)}*}
-{*            <ul class="sideNav" id="subNav">*}
-{*                {include file='subNav.tpl' nav=$subNav sectionTitle=$page->getSiteSection()}*}
-{*            </ul>*}
-{*{/if}*}
