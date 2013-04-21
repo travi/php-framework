@@ -22,8 +22,12 @@ class Form extends FormElementGroup
 
     public function __construct($options)
     {
-        $this->debug = $options['debug'];
-        $this->name = $options['name'];
+        if (isset($options['debug'])) {
+            $this->debug = $options['debug'];
+        }
+        if (isset($options['name'])) {
+            $this->name = $options['name'];
+        }
         if (!empty($options['method'])) {
             $this->setMethod($options['method']);
         } else {

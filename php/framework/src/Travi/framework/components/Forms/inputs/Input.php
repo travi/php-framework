@@ -11,13 +11,17 @@ abstract class Input extends Field
 
     public function __construct($options)
     {
-        $this->label = $options['label'];
+        if (isset($options['label'])) {
+            $this->label = $options['label'];
+        }
         if (!empty($options['name'])) {
             $this->setName($options['name']);
         } else {
             $this->setName($options['label']);
         }
-        $this->value = $options['value'];
+        if (isset($options['value'])) {
+            $this->value = $options['value'];
+        }
         if (!empty($options['validations'])) {
             foreach ($options['validations'] as $validation) {
                 $this->addValidation($validation);

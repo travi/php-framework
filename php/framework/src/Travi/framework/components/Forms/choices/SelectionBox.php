@@ -27,7 +27,7 @@ class SelectionBox extends Choices
 
     protected function optionAdder($options=array())
     {
-        if ($this->settings['optGroups']) {
+        if (isset($this->settings['optGroups'])) {
             foreach ($options as $optGroup => $values) {
                 $this->optGroups[$optGroup] = array();
                 foreach ($values as $value) {

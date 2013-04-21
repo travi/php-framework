@@ -11,12 +11,16 @@ class FieldSet extends FormElementGroup
 
     public function __construct($options = array())
     {
-        $this->legend = $options['legend'];
-        foreach ($options['fields'] as $field) {
-            if (is_a($field, Form::FORMS_NAMESPACE . 'Field')) {
-                $this->addFormElement($field);
-            } else {
-                $this->addFormElement(new $field['type']($field));
+        if (isset($options['legend'])) {
+            $this->legend = $options['legend'];
+        }
+        if (isset($options['fields'])) {
+            foreach ($options['fields'] as $field) {
+                if (is_a($field, Form::FORMS_NAMESPACE . 'Field')) {
+                    $this->addFormElement($field);
+                } else {
+                    $this->addFormElement(new $field['type']($field));
+                }
             }
         }
     }

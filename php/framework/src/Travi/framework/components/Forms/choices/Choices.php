@@ -21,7 +21,9 @@ abstract class Choices extends Field
         } else {
             $this->name = strtolower($settings['label']);
         }
-        $this->value = $settings['value'];
+        if (isset($settings['value'])) {
+            $this->value = $settings['value'];
+        }
         $this->settings = $settings;
         $this->optionAdder($settings['options']);
         if (!empty($settings['validations'])) {
@@ -60,7 +62,7 @@ abstract class Choices extends Field
             return true;
         } elseif (empty($option['value']) && ($this->value === $option['option'])) {
             return true;
-        } elseif (is_array($option) && $option['selected']) {
+        } elseif (is_array($option) && isset($option['selected']) && $option['selected']) {
             return true;
         } else {
             return false;
