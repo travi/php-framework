@@ -2,6 +2,7 @@
 
 namespace Travi\framework\controller\front;
 
+use Travi\framework\auth\Authentication;
 use Travi\framework\exception\UnauthorizedException,
     Travi\framework\http\Response,
     Travi\framework\http\Request,
@@ -12,10 +13,12 @@ use Travi\framework\exception\UnauthorizedException,
 
 class FrontController
 {
-    /** @var $Request Request */
-    private $Request;
-    /** @var $Response Response */
-    private $Response;
+    /** @var Authentication */
+    public $authentication;
+    /** @var Request */
+    private $request;
+    /** @var Response */
+    private $response;
     /** @var ErrorController */
     private $errorController;
     /** @var FileSystem */
@@ -27,8 +30,8 @@ class FrontController
     {
         try{
 
-            if ($this->Request->isAdmin()) {
-                $this->ensureUserIsAuthenticated();
+            if ($this->request->isAdmin()) {
+                $this->authentication->ensureAuthenticated();
             }
             $this->dispatchToController();
             $this->sendResponse();
@@ -44,21 +47,21 @@ class FrontController
 
     private function dispatchToController()
     {
-        $extraPathParts = ($this->Request->isAdmin()) ? 'admin/' : '';
+        $extraPathParts = ($this->request->isAdmin()) ? 'admin/' : '';
 
-        $controllerName = $this->Request->getController();
+        $controllerName = $this->request->getController();
         $controllerPath = $this->config['docRoot'] . '../app/controller/'
                           . $extraPathParts
                           . $controllerName . '.controller.php';
 
         if ($this->controllerExists($controllerPath)) {
             /** @var $controller AbstractController */
-            $controller = $this->getController($controllerName, $controllerPath, $this->Request->isAdmin());
+            $controller = $this->getController($controllerName, $controllerPath, $this->request->isAdmin());
 
-            $modelMap = $controller->doAction($this->Request, $this->Response);
+            $modelMap = $controller->doAction($this->request, $this->response);
 
             if (!empty($modelMap)) {
-                $this->Response->setContent($modelMap);
+                $this->response->setContent($modelMap);
             }
         } else {
             throw new NotFoundException($controllerName . ' Controller Not Found!');
@@ -88,7 +91,7 @@ class FrontController
 
     private function sendResponse()
     {
-        $this->Response->format();
+        $this->response->format();
     }
 
     /**
@@ -98,8 +101,8 @@ class FrontController
     private function respondWithError($errorCode, $exception = null)
     {
         $this->errorController->doAction(
-            $this->Request,
-            $this->Response,
+            $this->request,
+            $this->response,
             'error' . $errorCode,
             $exception
         );
@@ -186,7 +189,7 @@ class FrontController
      */
     public function setRequest($request)
     {
-        $this->Request = $request;
+        $this->request = $request;
     }
 
     /**
@@ -195,7 +198,7 @@ class FrontController
      */
     public function setResponse($response)
     {
-        $this->Response = $response;
+        $this->response = $response;
     }
 
     /**
@@ -214,5 +217,14 @@ class FrontController
     public function setFileSystem($env)
     {
         $this->fileSystem = $env;
+    }
+
+    /**
+     * @param $authentication Authentication
+     * @PdInject new:Travi\framework\auth\Authentication
+     */
+    public function setAuthentication($authentication)
+    {
+        $this->authentication = $authentication;
     }
 }

@@ -3,8 +3,8 @@
 use Travi\framework\auth\Authentication,
     Travi\framework\utilities\FileSystem;
 
-class AuthenticationTest extends PHPUnit_Framework_TestCase {
-
+class AuthenticationTest extends PHPUnit_Framework_TestCase
+{
     /** @var Authentication */
     private $authentication;
     /** @var FileSystem */

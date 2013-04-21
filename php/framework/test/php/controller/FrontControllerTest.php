@@ -1,8 +1,10 @@
 <?php
 
+use Travi\framework\auth\Authentication;
 use Travi\framework\controller\front\FrontController,
     Travi\framework\controller\ErrorController,
     Travi\framework\utilities\FileSystem;
+use Travi\framework\exception\UnauthorizedException;
 
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -70,8 +72,16 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->frontController->processRequest();
     }
 
+
+
     public function testGetAdminController()
     {
+        /** @var $authentication Authentication */
+        $authentication = $this->getMock('Travi\\framework\\auth\\Authentication');
+        $this->frontController->setAuthentication($authentication);
+        $authentication->expects($this->once())
+            ->method('ensureAuthenticated');
+
         $this->fileSystem->expects($this->once())
             ->method('fileExists')
             ->with(
@@ -190,6 +200,31 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->frontController->setRequest($mockRequest);
         $this->frontController->setResponse($mockResponse);
         $this->frontController->setErrorController($errorController);
+
+        $this->frontController->processRequest();
+    }
+
+    public function testUserPromptedForCredentialsWhenAdminIfNotAlreadyAuthenticated()
+    {
+        /** @var $authentication Authentication */
+        $authentication = $this->getMock('Travi\\framework\\auth\\Authentication');
+        $this->frontController->setAuthentication($authentication);
+        $authentication->expects($this->once())
+            ->method('ensureAuthenticated')
+            ->will($this->throwException(new UnauthorizedException()));
+
+        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest->expects($this->any())
+            ->method('isAdmin')
+            ->will($this->returnValue(true));
+
+        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
+        $this->frontController->setErrorController($errorController);
+        $errorController->expects($this->once())
+            ->method('doAction');
+
+        $this->frontController->setRequest($mockRequest);
+        $this->frontController->setResponse($this->getMock('Travi\\framework\\http\\Response'));
 
         $this->frontController->processRequest();
     }
