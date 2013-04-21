@@ -95,6 +95,23 @@ class FileSystem
         return $fileContents;
     }
 
+    public function getLinesFromFile($fileName, $pathToFile)
+    {
+        $pwFile = $this->sitePath . $pathToFile . $fileName;
+
+        if (file_exists($pwFile) && is_readable($pwFile)) {
+            if ($pwFileHandle = fopen($pwFile, 'r')) {
+                $lines = file($pwFile);
+                fclose($pwFileHandle);
+                return $lines;
+            } else {
+                throw new \Exception("couldn't open password file");
+            }
+        } else {
+            throw new \Exception("password file doesn't exist or is not readable");
+        }
+    }
+
     public function writeToFile($fileName, $pathToFile, $contents)
     {
         $fileHandle = fopen($pathToFile . $fileName, self::WRITING_ONLY) or die('cant open file');
