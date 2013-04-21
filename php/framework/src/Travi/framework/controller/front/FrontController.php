@@ -212,7 +212,7 @@ class FrontController
 
     /**
      * @param $env FileSystem
-     * @PdInject new:Travi\framework\utilities\FileSystem
+     * @PdInject fileSystem
      */
     public function setFileSystem($env)
     {

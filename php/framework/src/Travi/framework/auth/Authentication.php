@@ -102,7 +102,7 @@ class Authentication
 
     /**
      * @param $fileSystem FileSystem
-     * @PdInject new:Travi\framework\utilities\FileSystem
+     * @PdInject fileSystem
      */
     public function setFileSystem($fileSystem)
     {

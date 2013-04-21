@@ -108,7 +108,7 @@ class FileSystem
                 throw new \Exception("couldn't open password file");
             }
         } else {
-            throw new \Exception("password file doesn't exist or is not readable");
+            throw new \Exception("password file doesn't exist at " . $pwFile . " or is not readable");
         }
     }
 
