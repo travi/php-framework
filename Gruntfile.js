@@ -18,8 +18,8 @@ module.exports = function (grunt) {
                 'grunt.js',
                 'client/js/**/*.js',
                 'test/js/**/*.js',
-                '!test/js/tools/sinon.js',
-                '!test/js/tools/referee-jstestdriver.js',
+                '!test/js/tools/*.js',
+                '!test/js/stubs/*.js',
                 '!test/js/resources/bootstrap.js'
             ],
             directives: {

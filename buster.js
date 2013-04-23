@@ -33,6 +33,7 @@ config["framework tests"] = {
 
     testHelpers: [
         'include/test/js/tools/common.js',
+        'include/test/js/tools/referee-jstestdriver.js',
         'include/test/js/resources/bootstrap.js'
     ],
 

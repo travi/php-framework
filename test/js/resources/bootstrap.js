@@ -23,7 +23,7 @@ travi.templates.preLoad('update-item', contextPath + '/test/js/templates/stub-up
 travi.templates.preLoad('entityList', contextPath + '/test/js/templates/entity-list.tmpl');
 travi.templates.preLoad('pagination', contextPath + '/test/js/templates/pagination.tmpl');
 
-$.ajax = function () {
-    fail('ajax not stubbed properly');
-};
+//$.ajax = function () {
+//    fail('ajax not stubbed properly');
+//};
 
