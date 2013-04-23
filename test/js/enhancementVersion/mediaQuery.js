@@ -38,17 +38,17 @@ travi.test.testCase('Screen Width Detection', (function () {
 
             this.enhancements.init();
 
-            sinon.assert.calledOnce(Modernizr.mq);
-            sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
+            assert.calledOnce(Modernizr.mq);
+            assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
 
-            sinon.assert.calledOnce(this.cookies.create);
-            sinon.assert.calledWith(
+            assert.calledOnce(this.cookies.create);
+            assert.calledWith(
                 this.cookies.create,
                 this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
                 this.enhancements.constants().SMALL_COOKIE_VALUE,
                 this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
             );
-            sinon.assert.calledOnce(travi.location.refresh);
+            assert.calledOnce(travi.location.refresh);
         },
 
         'test Enhancement version set to desktop at higher screen width': function () {
@@ -57,17 +57,17 @@ travi.test.testCase('Screen Width Detection', (function () {
 
             this.enhancements.init();
 
-            sinon.assert.calledOnce(Modernizr.mq);
-            sinon.assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
+            assert.calledOnce(Modernizr.mq);
+            assert.calledWith(Modernizr.mq, 'only screen and (min-width: 320px) and (max-width: 480px)');
 
-            sinon.assert.calledOnce(this.cookies.create);
-            sinon.assert.calledWith(
+            assert.calledOnce(this.cookies.create);
+            assert.calledWith(
                 this.cookies.create,
                 this.enhancements.constants().ENHANCEMENT_VERSION_KEY,
                 this.enhancements.constants().LARGE_COOKIE_VALUE,
                 this.enhancements.constants().DAYS_BEFORE_ENHANCEMENT_COOKIE_EXPIRATION
             );
-            sinon.assert.calledOnce(travi.location.refresh);
+            assert.calledOnce(travi.location.refresh);
         }
     };
 }()));

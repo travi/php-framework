@@ -1,3 +1,7 @@
-var Modernizr = {
-    mq: function (s) {}
-};
+(function (global) {
+    'use strict';
+
+    global.Modernizr = {
+        mq: function (s) {}
+    };
+}(this));

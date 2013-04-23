@@ -103,7 +103,7 @@ travi.test.testCase('EntityListTests', (function () {
             $('a.item-action').click();
             $('.ui-dialog-buttonpane button').eq(0).click();
 
-            assert(jQuery.ajax.calledOnce);
+            assert.calledOnce(jQuery.ajax);
             this.common.assertAjaxCallMadeWith({
                 url: '/admin/updates/45',
                 type: 'post',

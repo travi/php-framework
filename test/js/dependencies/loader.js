@@ -33,8 +33,8 @@ travi.test.testCase('DependencyLoaderTests', (function () {
         'test module requested from server if not already loaded': function () {
             this.loader.load(this.script);
 
-            sinon.assert.calledOnce($.getScript);
-            sinon.assert.calledWith($.getScript, this.pathToScript);
+            assert.calledOnce($.getScript);
+            assert.calledWith($.getScript, this.pathToScript);
         },
 
         'test module not requested from server if already loaded': function () {
@@ -43,7 +43,7 @@ travi.test.testCase('DependencyLoaderTests', (function () {
 
             this.loader.load(this.script);
 
-            sinon.assert.notCalled($.getScript);
+            refute.called($.getScript);
         },
 
         'test module not requested from server if namespace already exists': function () {
@@ -51,7 +51,7 @@ travi.test.testCase('DependencyLoaderTests', (function () {
 
             travi[this.simpleNamespace] = {};
 
-            sinon.assert.notCalled($.getScript);
+            refute.called($.getScript);
             assertTrue(promise.isResolved());
         },
 

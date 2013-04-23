@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-bower');
+    grunt.loadNpmTasks('grunt-buster');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -16,7 +17,10 @@ module.exports = function (grunt) {
             files: [
                 'grunt.js',
                 'client/js/**/*.js',
-                'test/js/**/*.jstd'
+                'test/js/**/*.js',
+                '!test/js/tools/sinon.js',
+                '!test/js/tools/referee-jstestdriver.js',
+                '!test/js/resources/bootstrap.js'
             ],
             directives: {
                 browser: true,
@@ -35,6 +39,7 @@ module.exports = function (grunt) {
                     'assertObject',
                     'assertFunction',
                     'assert',
+                    'refute',
                     'assertFalse',
                     'assertTrue',
                     'expectAsserts'

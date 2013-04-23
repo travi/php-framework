@@ -20,11 +20,10 @@
         },
 
         "test only create missing parts": function () {
-            var existing = {},
-                result;
+            var existing = {};
             travi.nstest = {nested: {existing: existing}};
 
-            result = travi.namespace("nstest.nested.ui");
+            travi.namespace("nstest.nested.ui");
 
             assertSame(existing, travi.nstest.nested.existing);
             assertObject(travi.nstest.nested.ui);
@@ -40,11 +39,10 @@
 
         "test provided only placed at full depth namespace": function () {
             var provided = {subObject: {}},
-                existing = {},
-                result;
+                existing = {};
             travi.nstest = {nested: {existing: existing}};
 
-            result = travi.namespace("nstest.nested.ui.provided", provided);
+            travi.namespace("nstest.nested.ui.provided", provided);
 
             assertSame(provided, travi.nstest.nested.ui.provided);
             assertNotSame(provided, travi.nstest.nested.ui);
