@@ -5,39 +5,37 @@ config["framework tests"] = {
         require("buster-jstestdriver")
     ],
 
-    rootPath: '../',
-
     environment: 'browser',
 
     libs: [
-        'include/test/js/stubs/*.js',
+        'test/js/stubs/*.js',
 
-        'include/client/thirdparty/jquery/jquery.js',
-        'include/client/thirdparty/jquery/plugins/validation/jquery.validate.js',
-        'include/client/thirdparty/jquery/**/*.js'
+        'client/thirdparty/jquery/jquery.js',
+        'client/thirdparty/jquery/plugins/validation/jquery.validate.js',
+        'client/thirdparty/jquery/**/*.js'
     ],
 
     sources: [
-        'include/client/js/travi.js',
-        'include/client/js/travi/templates.js',
-        'include/client/js/travi/location.js',
-        'include/client/js/travi/events.js',
-        'include/client/js/travi/pagination.js',
-        'include/client/js/**/*.js'
+        'client/js/travi.js',
+        'client/js/travi/templates.js',
+        'client/js/travi/location.js',
+        'client/js/travi/events.js',
+        'client/js/travi/pagination.js',
+        'client/js/**/*.js'
     ],
 
     resources: [
-        'include/client/templates/**/*.tmpl',
-        'include/test/js/templates/**/*.tmpl'
+        'client/templates/**/*.tmpl',
+        'test/js/templates/**/*.tmpl'
     ],
 
     testHelpers: [
-        'include/test/js/tools/common.js',
-        'include/test/js/tools/referee-jstestdriver.js',
-        'include/test/js/resources/bootstrap.js'
+        'test/js/tools/common.js',
+        'test/js/tools/referee-jstestdriver.js',
+        'test/js/resources/bootstrap.js'
     ],
 
     tests: [
-        'include/test/js/**/*.js'
+        'test/js/**/*.js'
     ]
 };
