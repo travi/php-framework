@@ -21,7 +21,8 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
     /** @var Request */
     private $request;
     /** @var Response */
-    private  $page;
+    private $page;
+    private $fileSystem;
 
     public function setUp()
     {
@@ -35,10 +36,12 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->getMock();
         $this->request = $this->getMock('Travi\\framework\\http\\Request');
         $this->page = $this->getMock('Travi\\framework\\http\\Response');
+        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
 
         $this->htmlRenderer->setDependencyManager($this->dependencyManager);
         $this->htmlRenderer->setSmarty($this->smarty);
         $this->htmlRenderer->setRequest($this->request);
+        $this->htmlRenderer->setFileSystem($this->fileSystem);
     }
 
     public function testAttributesAddedToSmartyBeforeRendering()
@@ -91,8 +94,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue(self::SOME_ACTION));
 
-        $fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
-        $fileSystem->expects($this->once())
+        $this->fileSystem->expects($this->once())
             ->method('pageTemplateExists')
             ->with($pathToTemplate)
             ->will($this->returnValue(true));
@@ -103,8 +105,6 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->page->expects($this->once())
             ->method('setPageTemplate')
             ->with($pathToTemplate);
-
-        $this->htmlRenderer->setFileSystem($fileSystem);
 
         $this->htmlRenderer->format(array(), $this->page);
     }
@@ -123,8 +123,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue(self::SOME_ACTION));
 
-        $fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
-        $fileSystem->expects($this->once())
+        $this->fileSystem->expects($this->once())
             ->method('pageTemplateExists')
             ->with($pathToTemplate)
             ->will($this->returnValue(false));
@@ -135,7 +134,34 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->page->expects($this->never())
             ->method('setPageTemplate');
 
-        $this->htmlRenderer->setFileSystem($fileSystem);
+        $this->htmlRenderer->format(array(), $this->page);
+    }
+
+    public function testAdminTemplateCanBeSetByConvention()
+    {
+        $pathToTemplate = 'admin/' . self::SOME_CONTROLLER . '/' . self::SOME_ACTION . '.tpl';
+
+        $this->request->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue(self::SOME_CONTROLLER));
+        $this->request->expects($this->once())
+            ->method('getAction')
+            ->will($this->returnValue(self::SOME_ACTION));
+        $this->request->expects($this->once())
+            ->method('isAdmin')
+            ->will($this->returnValue(true));
+
+        $this->fileSystem->expects($this->once())
+            ->method('pageTemplateExists')
+            ->with($pathToTemplate)
+            ->will($this->returnValue(true));
+
+        $this->page->expects($this->once())
+            ->method('getPageTemplate')
+            ->will($this->returnValue(''));
+        $this->page->expects($this->once())
+            ->method('setPageTemplate')
+            ->with($pathToTemplate);
 
         $this->htmlRenderer->format(array(), $this->page);
     }

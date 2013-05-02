@@ -55,6 +55,10 @@ class HtmlRenderer extends Renderer
             $action = $this->request->getAction();
             $pathToTemplate = $controller . '/' . $action . '.tpl';
 
+            if ($this->request->isAdmin()) {
+                $pathToTemplate = 'admin/' . $pathToTemplate;
+            }
+
             if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
                 $page->setPageTemplate($pathToTemplate);
             } else {
