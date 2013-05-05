@@ -67,4 +67,27 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @param $entityList
+     * @param $urlPrefix
+     */
+    protected function assertEntityListActions($entityList, $urlPrefix)
+    {
+        $actions = $entityList->getActions();
+        $this->assertEquals(
+            array(
+                'text' => 'Edit',
+                'link' => $urlPrefix
+            ),
+            $actions[0]
+        );
+        $this->assertEquals(
+            array(
+                'text' => 'Remove',
+                'link' => $urlPrefix
+            ),
+            $actions[1]
+        );
+    }
+
 }
