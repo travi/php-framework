@@ -1,5 +1,7 @@
 <?php
 
+use Travi\framework\components\Forms\Form;
+
 abstract class CrudMapper
 {
     /**
