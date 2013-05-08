@@ -54,13 +54,7 @@ class HtmlRenderer extends Renderer
             if (isset($data['form'])) {
                 $pathToTemplate = '../wrap/formWrapper.tpl';
             } else {
-                $controller = $this->request->getController();
-                $action = $this->request->getAction();
-                $pathToTemplate = $controller . '/' . $action . '.tpl';
-
-                if ($this->request->isAdmin()) {
-                    $pathToTemplate = 'admin/' . $pathToTemplate;
-                }
+                $pathToTemplate = $this->buildTemplatePath();
             }
 
             if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
@@ -119,5 +113,21 @@ class HtmlRenderer extends Renderer
     public function setFileSystem($fileSystem)
     {
         $this->fileSystem = $fileSystem;
+    }
+
+    /**
+     * @return string
+     */
+    private function buildTemplatePath()
+    {
+        $controller = $this->request->getController();
+        $action = $this->request->getAction();
+        $pathToTemplate = $controller . '/' . $action . '.tpl';
+
+        if ($this->request->isAdmin()) {
+            $pathToTemplate = 'admin/' . $pathToTemplate;
+            return $pathToTemplate;
+        }
+        return $pathToTemplate;
     }
 }
