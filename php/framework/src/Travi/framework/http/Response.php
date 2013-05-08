@@ -98,7 +98,7 @@ class Response extends AbstractResponse
             $this->setPageTemplate('../status/status.tpl');
             $this->addToResponse('statusCode', $status);
         } else {
-            throw new InvalidHttpStatusException();
+            throw new InvalidHttpStatusException($status . ' is an invalid status code');
         }
     }
 
