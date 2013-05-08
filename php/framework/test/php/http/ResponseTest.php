@@ -125,13 +125,15 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testMethodNotAllowedDefinedProperly()
+    public function testStatusesDefinedCorrectly()
     {
-        $this->assertEquals('405 Method Not Allowed', Response::NOT_ALLOWED);
-    }
+        $this->assertEquals('201 Accepted', Response::ACCEPTED);
 
-    public function testMethodNotImplementedDefinedProperly()
-    {
+        $this->assertEquals('400 Bad Request', Response::BAD_REQUEST);
+        $this->assertEquals('401 Unauthorized', Response::UNAUTHORIZED);
+        $this->assertEquals('405 Method Not Allowed', Response::NOT_ALLOWED);
+
+        $this->assertEquals('500 Internal Server Error', Response::SERVER_ERROR);
         $this->assertEquals('501 Not Implemented', Response::NOT_IMPLEMENTED);
     }
 
@@ -154,7 +156,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             ->with('../status/status.tpl');
         $response->expects($this->once())
             ->method('addToResponse')
-            ->with('status', Response::NOT_ALLOWED);
+            ->with('statusCode', Response::NOT_ALLOWED);
 
         $response->setStatus(Response::NOT_ALLOWED);
     }
@@ -163,8 +165,12 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $response = new ResponseShunt(array());
 
+        $response->setStatus(Response::ACCEPTED);
+        $response->setStatus(Response::BAD_REQUEST);
+        $response->setStatus(Response::UNAUTHORIZED);
         $response->setStatus(Response::NOT_ALLOWED);
         $response->setStatus(Response::NOT_IMPLEMENTED);
+        $response->setStatus(Response::SERVER_ERROR);
     }
 
     /**

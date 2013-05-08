@@ -111,8 +111,6 @@ class FrontController
 
     private function promptForCredentials()
     {
-        header('WWW-Authenticate: Basic realm="Travi Admin"');
-
         //Show Unauthorized page if user chooses cancel
         $this->respondWithError(401);
     }

@@ -8,8 +8,14 @@ use Travi\framework\page\AbstractResponse,
 
 class Response extends AbstractResponse
 {
+    const ACCEPTED = '201 Accepted';
+
+    const BAD_REQUEST = '400 Bad Request';
+    const UNAUTHORIZED = '401 Unauthorized';
     const NOT_ALLOWED = '405 Method Not Allowed';
+
     const NOT_IMPLEMENTED = '501 Not Implemented';
+    const SERVER_ERROR = '500 Internal Server Error';
 
     const SITE_FEED_KEY = 'Site Feed';
 
@@ -17,8 +23,12 @@ class Response extends AbstractResponse
     private $request;
 
     private $definedStatuses = array(
+        self::ACCEPTED,
+        self::BAD_REQUEST,
+        self::UNAUTHORIZED,
         self::NOT_ALLOWED,
-        self::NOT_IMPLEMENTED
+        self::NOT_IMPLEMENTED,
+        self::SERVER_ERROR
     );
 
     /** @var string */
@@ -86,7 +96,7 @@ class Response extends AbstractResponse
         if (in_array($status, $this->definedStatuses)) {
             $this->setHeader('HTTP/1.1 ' . $status);
             $this->setPageTemplate('../status/status.tpl');
-            $this->addToResponse('status', $status);
+            $this->addToResponse('statusCode', $status);
         } else {
             throw new InvalidHttpStatusException();
         }

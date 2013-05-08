@@ -45,6 +45,9 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
                 $this->equalTo('errorMessage'),
                 $this->equalTo($errorMessage)
             );
+        $this->response->expects($this->once())
+            ->method('setStatus')
+            ->with(404);
 
         $this->controller->error404(
             $this->request,
@@ -64,23 +67,26 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
         $this->response->expects($this->once())
             ->method('setPageTemplate')
             ->with($this->equalTo('../error/500.tpl'));
-        $this->response->expects($this->at(2))
+        $this->response->expects($this->at(3))
             ->method('addToResponse')
             ->with(
                 $this->equalTo('type'),
                 $this->equalTo('Travi\\framework\\exception\\NotFoundException')
             );
-        $this->response->expects($this->at(3))
+        $this->response->expects($this->at(4))
             ->method('addToResponse')
             ->with(
                 $this->equalTo('errorMessage'),
                 $this->equalTo($errorMessage)
             );
-        $this->response->expects($this->at(4))
+        $this->response->expects($this->at(5))
             ->method('addToResponse')
             ->with(
                 $this->equalTo('trace')
             );
+        $this->response->expects($this->once())
+            ->method('setStatus')
+            ->with(500);
 
         $this->controller->error500(
             $this->request,
@@ -98,6 +104,9 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
         $this->response->expects($this->once())
             ->method('setPageTemplate')
             ->with($this->equalTo('../error/401.tpl'));
+        $this->response->expects($this->once())
+            ->method('setStatus')
+            ->with(401);
 
         $this->controller->error401($this->request, $this->response, new NotFoundException($errorMessage));
     }
