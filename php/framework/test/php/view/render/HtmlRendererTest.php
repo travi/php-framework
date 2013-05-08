@@ -1,5 +1,6 @@
 <?php
 
+use Travi\framework\components\Forms\Form;
 use Travi\framework\dependencyManagement\DependencyManager,
     Travi\framework\http\Request,
     Travi\framework\http\Response,
@@ -164,5 +165,25 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->with($pathToTemplate);
 
         $this->htmlRenderer->format(array(), $this->page);
+    }
+
+    public function testThatTemplateSetToFormWrapperIfFormInModel()
+    {
+        $pathToTemplate = '../wrap/formWrapper.tpl';
+
+        $this->fileSystem->expects($this->once())
+            ->method('pageTemplateExists')
+            ->with($pathToTemplate)
+            ->will($this->returnValue(true));
+
+        $this->page->expects($this->once())
+            ->method('getPageTemplate')
+            ->will($this->returnValue(''));
+        $this->page->expects($this->once())
+            ->method('setPageTemplate')
+            ->with($pathToTemplate);
+
+
+        $this->htmlRenderer->format(array('form' => new Form()), $this->page);
     }
 }

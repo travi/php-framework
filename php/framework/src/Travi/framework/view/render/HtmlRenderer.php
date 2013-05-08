@@ -32,7 +32,7 @@ class HtmlRenderer extends Renderer
         $this->dependencyManager->loadPageDependencies();
         $this->dependencyManager->addCacheBusters();
 
-        $this->setPageTemplateByConvention($page);
+        $this->setPageTemplateByConvention($page, $data);
 
         $this->smarty->clearAllAssign();
         $this->smarty->assign('dependencies', $this->dependencyManager->getDependenciesInProperForm());
@@ -46,17 +46,21 @@ class HtmlRenderer extends Renderer
      * @param $page AbstractResponse
      * @throws MissingPageTemplateException
      */
-    public function setPageTemplateByConvention(&$page)
+    public function setPageTemplateByConvention(&$page, $data)
     {
         $pageTemplate = $page->getPageTemplate();
 
         if (empty($pageTemplate)) {
-            $controller = $this->request->getController();
-            $action = $this->request->getAction();
-            $pathToTemplate = $controller . '/' . $action . '.tpl';
+            if (isset($data['form'])) {
+                $pathToTemplate = '../wrap/formWrapper.tpl';
+            } else {
+                $controller = $this->request->getController();
+                $action = $this->request->getAction();
+                $pathToTemplate = $controller . '/' . $action . '.tpl';
 
-            if ($this->request->isAdmin()) {
-                $pathToTemplate = 'admin/' . $pathToTemplate;
+                if ($this->request->isAdmin()) {
+                    $pathToTemplate = 'admin/' . $pathToTemplate;
+                }
             }
 
             if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
