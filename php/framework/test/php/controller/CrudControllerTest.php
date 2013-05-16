@@ -1,5 +1,4 @@
 <?php
-
 use Travi\framework\http\Response,
     Travi\framework\http\Request,
     Travi\framework\controller\CrudController;
@@ -7,6 +6,8 @@ use Travi\framework\http\Response,
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
     const ANY_ID = 42;
+    /** @var CrudController */
+    public $abstractMock;
     /** @var CrudController */
     private $partiallyMockedController;
     /** @var Response */
@@ -16,8 +17,22 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->partiallyMockedController = $this->getMock(
+        $this->abstractMock = $this->getMockForAbstractClass(
             'Travi\\framework\\controller\\CrudController',
+            array(),
+            '',
+            false,
+            false,
+            true,
+            array()
+        );
+        $this->partiallyMockedController = $this->getMockForAbstractClass(
+            'Travi\\framework\\controller\\CrudController',
+            array(),
+            '',
+            false,
+            false,
+            true,
             array(
                 'getList',
                 'getById',
@@ -132,21 +147,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
 
-        $crudController = new CrudController();
-
-        $crudController->getList($responseMock);
-    }
-
-    public function testGetByIdDefaultNotImplemented()
-    {
-        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
-        $responseMock->expects($this->once())
-            ->method('setStatus')
-            ->with(Response::NOT_IMPLEMENTED);
-
-        $crudController = new CrudController();
-
-        $crudController->getById(self::ANY_ID, $responseMock);
+        $this->abstractMock->getList($responseMock);
     }
 
     public function testAddToListDefaultNotImplemented()
@@ -156,9 +157,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
 
-        $crudController = new CrudController();
-
-        $crudController->addToList($responseMock);
+        $this->abstractMock->addToList($responseMock);
     }
 
     public function testUpdateByIdDefaultNotImplemented()
@@ -168,9 +167,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
 
-        $crudController = new CrudController();
-
-        $crudController->updateById(self::ANY_ID, $responseMock);
+        $this->abstractMock->updateById(self::ANY_ID, $responseMock);
     }
 
     public function testDeleteByIdDefaultNotImplemented()
@@ -180,8 +177,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
 
-        $crudController = new CrudController();
-
-        $crudController->deleteById(self::ANY_ID, $responseMock);
+        $this->abstractMock->deleteById(self::ANY_ID, $responseMock);
     }
 }

@@ -6,7 +6,7 @@ use Travi\framework\controller\AbstractController,
     Travi\framework\http\Request,
     Travi\framework\http\Response;
 
-class CrudController extends AbstractController
+abstract class CrudController extends AbstractController
 {
     /** @var  \CrudMapper */
     protected $mapper;
@@ -50,10 +50,10 @@ class CrudController extends AbstractController
      */
     public function add($request, $response)
     {
-        $response->setTitle(static::ADD_HEADING);
+        $response->setTitle($this->getAddHeading());
         $response->setContent(
             array(
-                'heading' => static::ADD_HEADING,
+                'heading' => $this->getAddHeading(),
                 'form' => $this->mapper->mapToForm(null, 'Add')
             )
         );
@@ -66,10 +66,10 @@ class CrudController extends AbstractController
      */
     public function getById($id, &$response)
     {
-        $response->setTitle(static::EDIT_HEADING);
+        $response->setTitle($this->getEditHeading());
         $response->setContent(
             array(
-                'heading' => static::EDIT_HEADING,
+                'heading' => $this->getEditHeading(),
                 'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
             )
         );
@@ -116,4 +116,7 @@ class CrudController extends AbstractController
     {
         $this->mapper = $mapper;
     }
+
+    abstract protected function getEditHeading();
+    abstract protected function getAddHeading();
 }
