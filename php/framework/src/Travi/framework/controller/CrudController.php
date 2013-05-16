@@ -60,18 +60,24 @@ class CrudController extends AbstractController
 
 
     /**
-     * @param $response Response
-     */
-    public function getList(&$response)
-    {
-        $response->setStatus(Response::NOT_IMPLEMENTED);
-    }
-
-    /**
      * @param $id
      * @param $response Response
      */
     public function getById($id, &$response)
+    {
+        $response->setTitle(static::EDIT_HEADING);
+        $response->setContent(
+            array(
+                'heading' => static::EDIT_HEADING,
+                'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
+            )
+        );
+    }
+
+    /**
+     * @param $response Response
+     */
+    public function getList(&$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
