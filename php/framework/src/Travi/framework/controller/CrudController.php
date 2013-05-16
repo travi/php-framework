@@ -8,6 +8,9 @@ use Travi\framework\controller\AbstractController,
 
 class CrudController extends AbstractController
 {
+    /** @var  \CrudMapper */
+    protected $mapper;
+
     /**
      * @param $request Request
      * @param $response Response
@@ -39,6 +42,22 @@ class CrudController extends AbstractController
             }
         }
     }
+
+    /**
+     * @param $request Request
+     * @param $response Response
+     */
+    public function add($request, $response)
+    {
+        $response->setTitle(static::ADD_HEADING);
+        $response->setContent(
+            array(
+                'heading' => static::ADD_HEADING,
+                'form' => $this->mapper->mapToForm(null, 'Add')
+            )
+        );
+    }
+
 
     /**
      * @param $response Response
@@ -81,5 +100,13 @@ class CrudController extends AbstractController
     public function deleteById($id, &$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
+    }
+
+    /**
+     * @param $mapper \CrudMapper
+     */
+    public function setMapper($mapper)
+    {
+        $this->mapper = $mapper;
     }
 }
