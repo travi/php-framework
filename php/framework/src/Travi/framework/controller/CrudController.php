@@ -23,10 +23,11 @@ class CrudController extends AbstractController
         switch ($requestMethod) {
         case Request::GET:
             if (empty($id)) {
-                return $this->getList($response);
+                $this->getList($response);
             } else {
-                return $this->getById($id, $response);
+                $this->getById($id, $response);
             }
+            break;
         case Request::POST:
             if (empty($id)) {
                 return $this->addToList($response);
