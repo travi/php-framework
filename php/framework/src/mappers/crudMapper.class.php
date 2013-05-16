@@ -9,7 +9,7 @@ abstract class CrudMapper
      * @param $action
      * @return Form
      */
-    abstract public function mapToForm($entity, $action);
+    abstract public function mapToForm($entity = null);
 
     /**
      * @abstract
