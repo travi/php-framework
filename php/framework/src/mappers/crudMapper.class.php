@@ -16,7 +16,7 @@ abstract class CrudMapper
      * @param $entity
      * @return EntityList
      */
-    abstract public function mapToEntityList($entity);
+    abstract public function mapListToEntityList($entity);
 
     /**
      * @abstract

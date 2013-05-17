@@ -46,6 +46,20 @@ abstract class CrudController extends AbstractController
     }
 
     /**
+     * @param $response Response
+     */
+    public function getList(&$response)
+    {
+        $response->setTitle($this->getEntityType() . ' Administration');
+
+        $response->setContent(
+            array(
+                'list' => $this->mapper->mapListToEntityList($this->model->getList())
+            )
+        );
+    }
+
+    /**
      * @param $id
      * @param $response Response
      */
@@ -130,15 +144,6 @@ abstract class CrudController extends AbstractController
                 $this->getUrlPrefix()
             );
         }
-    }
-
-
-    /**
-     * @param $response Response
-     */
-    public function getList(&$response)
-    {
-        $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
     /**
