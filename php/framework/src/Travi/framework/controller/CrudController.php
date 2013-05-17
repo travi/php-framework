@@ -96,7 +96,11 @@ abstract class CrudController extends AbstractController
         } else {
             $response->addToResponse('createdId', $this->model->add($this->mapper->mapFromForm($form)));
             $response->setStatus(201);
-            $response->redirect('good', $this->getEntityType() . ' Added Successfully', $this->getUrlPrefix());
+            $response->redirect(
+                'good',
+                $this->getEntityType() . ' Added Successfully',
+                $this->getUrlPrefix()
+            );
         }
     }
 
