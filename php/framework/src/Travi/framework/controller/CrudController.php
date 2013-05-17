@@ -119,4 +119,5 @@ abstract class CrudController extends AbstractController
 
     abstract protected function getEditHeading();
     abstract protected function getAddHeading();
+    abstract protected function getUrlPrefix();
 }
