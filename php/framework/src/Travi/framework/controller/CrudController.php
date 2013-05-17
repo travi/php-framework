@@ -6,10 +6,11 @@ use Travi\framework\components\Forms\Form;
 use Travi\framework\controller\AbstractController,
     Travi\framework\http\Request,
     Travi\framework\http\Response;
+use Travi\framework\mappers\CrudMapper;
 
 abstract class CrudController extends AbstractController
 {
-    /** @var  \CrudMapper */
+    /** @var  CrudMapper */
     protected $mapper;
 
     /**
@@ -156,7 +157,7 @@ abstract class CrudController extends AbstractController
     }
 
     /**
-     * @param $mapper \CrudMapper
+     * @param $mapper CrudMapper
      */
     public function setMapper($mapper)
     {

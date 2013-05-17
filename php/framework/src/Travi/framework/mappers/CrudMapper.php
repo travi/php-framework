@@ -1,4 +1,5 @@
 <?php
+namespace Travi\framework\mappers;
 
 use Travi\framework\components\Forms\Form;
 use Travi\framework\content\collection\EntityList;
