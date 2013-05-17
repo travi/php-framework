@@ -1,6 +1,7 @@
 <?php
 
 use Travi\framework\components\Forms\Form;
+use Travi\framework\content\collection\EntityList;
 
 abstract class CrudMapper
 {
@@ -12,6 +13,12 @@ abstract class CrudMapper
     abstract public function mapToForm($entity = null);
 
     /**
+     * @param $entity
+     * @return EntityList
+     */
+    abstract public function mapToEntityList($entity);
+
+    /**
      * @abstract
      * @param $form Form
      */
@@ -19,15 +26,16 @@ abstract class CrudMapper
 
     /**
      * @abstract
+     * @param $form Form
+     */
+    abstract protected function addFieldsTo($form);
+
+    /**
+     * @abstract
      * @return Form
      */
     abstract public function mapRequestToForm();
 
-    /**
-     * @abstract
-     * @param $form Form
-     */
-    abstract protected function addFieldsTo($form);
 
     /**
      * @param $form Form
