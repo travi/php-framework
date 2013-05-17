@@ -150,16 +150,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->abstractMock->getList($responseMock);
     }
 
-    public function testUpdateByIdDefaultNotImplemented()
-    {
-        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
-        $responseMock->expects($this->once())
-            ->method('setStatus')
-            ->with(Response::NOT_IMPLEMENTED);
-
-        $this->abstractMock->updateById(self::ANY_ID, $responseMock);
-    }
-
     public function testDeleteByIdDefaultNotImplemented()
     {
         $responseMock = $this->getMock('Travi\\framework\\http\\Response');

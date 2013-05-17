@@ -2,6 +2,7 @@
 
 namespace Travi\framework\controller;
 
+use Travi\framework\components\Forms\Form;
 use Travi\framework\controller\AbstractController,
     Travi\framework\http\Request,
     Travi\framework\http\Response;
@@ -105,19 +106,37 @@ abstract class CrudController extends AbstractController
     }
 
     /**
-     * @param $response Response
-     */
-    public function getList(&$response)
-    {
-        $response->setStatus(Response::NOT_IMPLEMENTED);
-    }
-
-
-    /**
      * @param $id
      * @param $response Response
      */
     public function updateById($id, &$response)
+    {
+        $form = $this->mapper->mapRequestToForm();
+
+        if ($form->hasErrors()) {
+            $response->setTitle($this->getEditHeading());
+            $response->setContent(
+                array(
+                    'heading' => $this->getEditHeading(),
+                    'form' => $form
+                )
+            );
+            $response->setStatus(400);
+        } else {
+            $this->model->updateById($id, $this->mapper->mapFromForm($form));
+            $response->redirect(
+                'good',
+                $this->getEntityType() . ' Updated Successfully',
+                $this->getUrlPrefix()
+            );
+        }
+    }
+
+
+    /**
+     * @param $response Response
+     */
+    public function getList(&$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
