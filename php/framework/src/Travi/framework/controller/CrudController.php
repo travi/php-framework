@@ -45,22 +45,6 @@ abstract class CrudController extends AbstractController
     }
 
     /**
-     * @param $request Request
-     * @param $response Response
-     */
-    public function add($request, $response)
-    {
-        $response->setTitle($this->getAddHeading());
-        $response->setContent(
-            array(
-                'heading' => $this->getAddHeading(),
-                'form' => $this->mapper->mapToForm(null, 'Add')
-            )
-        );
-    }
-
-
-    /**
      * @param $id
      * @param $response Response
      */
@@ -75,6 +59,47 @@ abstract class CrudController extends AbstractController
         );
     }
 
+
+    /**
+     * @param $request Request
+     * @param $response Response
+     */
+    public function add($request, $response)
+    {
+        $response->setTitle($this->getAddHeading());
+        $response->setContent(
+            array(
+                'heading' => $this->getAddHeading(),
+                'form' => $this->mapper->mapToForm(null, 'Add')
+            )
+        );
+    }
+
+    /**
+     * @param $response Response
+     */
+    public function addToList(&$response)
+    {
+        /** @var $form Form */
+        $form = $this->mapper->mapRequestToForm();
+
+        if ($form->hasErrors()) {
+            $response->setTitle($this->getAddHeading());
+            $response->addToResponse('form', $form);
+            $response->setContent(
+                array(
+                    'heading' => $this->getAddHeading(),
+                    'form' => $form
+                )
+            );
+            $response->setStatus(400);
+        } else {
+            $response->addToResponse('createdId', $this->model->add($this->mapper->mapFromForm($form)));
+            $response->setStatus(201);
+            $response->redirect('good', $this->getEntityType() . ' Added Successfully', $this->getUrlPrefix());
+        }
+    }
+
     /**
      * @param $response Response
      */
@@ -83,19 +108,12 @@ abstract class CrudController extends AbstractController
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
+
     /**
      * @param $id
      * @param $response Response
      */
     public function updateById($id, &$response)
-    {
-        $response->setStatus(Response::NOT_IMPLEMENTED);
-    }
-
-    /**
-     * @param $response Response
-     */
-    public function addToList(&$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
@@ -120,4 +138,5 @@ abstract class CrudController extends AbstractController
     abstract protected function getEditHeading();
     abstract protected function getAddHeading();
     abstract protected function getUrlPrefix();
+    abstract protected function getEntityType();
 }
