@@ -69,7 +69,6 @@ abstract class CrudController extends AbstractController
         $response->setTitle($this->getEditHeading());
         $response->setContent(
             array(
-                'heading' => $this->getEditHeading(),
                 'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
             )
         );
@@ -85,7 +84,6 @@ abstract class CrudController extends AbstractController
         $response->setTitle($this->getAddHeading());
         $response->setContent(
             array(
-                'heading' => $this->getAddHeading(),
                 'form' => $this->mapper->mapToForm(null, 'Add')
             )
         );
@@ -104,7 +102,6 @@ abstract class CrudController extends AbstractController
             $response->addToResponse('form', $form);
             $response->setContent(
                 array(
-                    'heading' => $this->getAddHeading(),
                     'form' => $form
                 )
             );
@@ -132,7 +129,6 @@ abstract class CrudController extends AbstractController
             $response->setTitle($this->getEditHeading());
             $response->setContent(
                 array(
-                    'heading' => $this->getEditHeading(),
                     'form' => $form
                 )
             );
