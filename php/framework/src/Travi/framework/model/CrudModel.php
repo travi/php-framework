@@ -13,6 +13,12 @@ abstract class CrudModel
     /** @var PDO */
     protected $db;
 
+    abstract function add($entity);
+    abstract function getById($id);
+    abstract function updateById($id, $entity);
+    abstract function getList();
+    abstract function deleteById($id);
+
     /**
      * @param $db PDO
      */
