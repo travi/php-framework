@@ -38,6 +38,6 @@ class Test extends AbstractController
      */
     public function throwsError(&$request, &$response)
     {
-        throw new \Exception;
+        throw new \Exception();
     }
 }

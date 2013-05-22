@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../mockProject/app/controller/test.controller.php';
+
 use Travi\framework\auth\Authentication;
 use Travi\framework\controller\front\FrontController,
     Travi\framework\controller\ErrorController,
@@ -8,6 +10,7 @@ use Travi\framework\exception\UnauthorizedException;
 
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
+    private $request;
     private $pathToDocRoot = '/path/to/doc/root/';
     private $controllerName = 'test';
     /** @var FrontController */
@@ -25,7 +28,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->frontController->setErrorController(new ErrorController());
 
         $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
+        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+
         $this->frontController->setFileSystem($this->fileSystem);
+        $this->frontController->setRequest($this->request);
+
     }
 
     public function testProcessRequest()
@@ -142,8 +149,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     public function test404()
     {
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
-        $mockRequest->expects($this->once())
+        $this->request->expects($this->once())
             ->method('getController')
             ->will($this->returnValue('nonExistantPage'));
 
@@ -155,12 +161,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(
-                $mockRequest,
-                $mockResponse,
+                $this->identicalTo($this->request),
+                $this->identicalTo($mockResponse),
                 'error404'
             );
 
-        $this->frontController->setRequest($mockRequest);
         $this->frontController->setResponse($mockResponse);
         $this->frontController->setErrorController($errorController);
 
@@ -174,13 +179,12 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
             ->will($this->returnValue(true));
 
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
-        $mockRequest->expects($this->any())
+        $this->request->expects($this->any())
             ->method('getController')
             ->will($this->returnValue($this->controllerName));
 
         //in created controller
-        $mockRequest->expects($this->once())
+        $this->request->expects($this->once())
             ->method('getAction')
             ->will($this->returnValue('throwsError'));
 
@@ -192,12 +196,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(
-                $mockRequest,
-                $mockResponse,
+                $this->identicalTo($this->request),
+                $this->identicalTo($mockResponse),
                 'error500'
             );
 
-        $this->frontController->setRequest($mockRequest);
         $this->frontController->setResponse($mockResponse);
         $this->frontController->setErrorController($errorController);
 
