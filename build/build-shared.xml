@@ -159,7 +159,7 @@
               failonerror="true">
             <arg line="-s"/>
             <arg line="--standard=${shared.dir}/build/codingStandard.xml"/>
-            <arg line="--ignore=*/coverage/*,vendor/*,node_modules/*,components/*"/>
+            <arg line="--ignore=*/coverage/*,vendor/*,node_modules/*,components/*,doc_root/resources/*"/>
             <arg line="--report-checkstyle=${build.logs}/checkstyle-legacy.xml ."/>
             <arg line="--report-full"/>
         </exec>
