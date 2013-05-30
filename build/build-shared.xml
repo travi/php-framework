@@ -313,5 +313,8 @@
         <delete dir="${build.dir}/coverage"/>
         <delete dir="${build.dir}/site"/>
         <delete dir="${build.dir}/dist"/>
+        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
+            <arg line="clean"/>
+        </exec>
     </target>
 </project>
