@@ -228,7 +228,7 @@
         <antcall target="dist.zip"/>
     </target>
 
-    <target name="build" depends="clean,createBuildDirs">
+    <target name="build" depends="clean,createBuildDirs,update-dependencies">
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
             <arg line="compile"/>
         </exec>
