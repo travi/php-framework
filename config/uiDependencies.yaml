@@ -167,7 +167,7 @@ dateFormat:
   local: /resources/shared/thirdparty/date/date.format.js
 
 moment:
-  local: /resources/thirdparty/moment.js
+  local: /resources/thirdparty/moment/js/moment.js
 
 amplify:
   local: /resources/shared/thirdparty/amplify/amplify.core.js
