@@ -163,9 +163,6 @@ instant:
 pngFix:
   local: /resources/shared/thirdparty/pngFix/DD_belatedPNG.js
 
-dateFormat:
-  local: /resources/shared/thirdparty/date/date.format.js
-
 moment:
   local: /resources/thirdparty/moment/js/moment.js
 
