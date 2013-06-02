@@ -104,13 +104,13 @@ gallery:
 
 #=======jQuery======
 jquery:
-  local: /resources/shared/thirdparty/jquery/jquery.js
+  local: /resources/thirdparty/jquery/jquery.js
   cdn: "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
   plugins:
 
     #------jQuery UI-----
     jqueryUi:
-      local: /resources/shared/thirdparty/jquery/ui/jquery-ui.js
+      local: /resources/thirdparty/jquery-ui/jquery-ui.js
       cssDependencies:
         - jqueryUiTheme
 
