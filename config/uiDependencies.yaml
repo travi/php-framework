@@ -160,9 +160,6 @@ reflection:
 instant:
   local: /resources/shared/thirdparty/instant/instant.js
 
-pngFix:
-  local: /resources/shared/thirdparty/pngFix/DD_belatedPNG.js
-
 moment:
   local: /resources/thirdparty/moment/js/moment.js
 
