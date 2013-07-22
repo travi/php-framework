@@ -131,6 +131,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('400 Bad Request', Response::BAD_REQUEST);
         $this->assertEquals('401 Unauthorized', Response::UNAUTHORIZED);
+        $this->assertEquals('404 Not Found', Response::NOT_FOUND);
         $this->assertEquals('405 Method Not Allowed', Response::NOT_ALLOWED);
 
         $this->assertEquals('500 Internal Server Error', Response::SERVER_ERROR);
@@ -170,6 +171,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $response->setStatus(Response::UNAUTHORIZED);
         $response->setStatus(Response::NOT_ALLOWED);
         $response->setStatus(Response::NOT_IMPLEMENTED);
+        $response->setStatus(Response::NOT_FOUND);
         $response->setStatus(Response::SERVER_ERROR);
     }
 

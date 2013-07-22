@@ -18,6 +18,7 @@ class Response extends AbstractResponse
     const SERVER_ERROR = '500 Internal Server Error';
 
     const SITE_FEED_KEY = 'Site Feed';
+    const NOT_FOUND = '404 Not Found';
 
     /** @var Request */
     private $request;
@@ -27,6 +28,7 @@ class Response extends AbstractResponse
         self::BAD_REQUEST,
         self::UNAUTHORIZED,
         self::NOT_ALLOWED,
+        self::NOT_FOUND,
         self::NOT_IMPLEMENTED,
         self::SERVER_ERROR
     );
