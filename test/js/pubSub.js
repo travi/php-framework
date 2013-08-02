@@ -6,8 +6,7 @@ travi.test.testCase('PubSubTests', (function () {
         events: travi.events,
 
         eventName: 'some-event',
-        callback: function () {
-        },
+        callback: sinon.spy(),
         data: {},
 
         tearDown: function () {

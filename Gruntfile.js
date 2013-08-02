@@ -14,41 +14,62 @@ module.exports = function (grunt) {
         clean: ['client/css'],
 
         jslint: {
-            files: [
-                'grunt.js',
-                'client/js/**/*.js',
-                'test/js/**/*.js',
-                '!test/js/tools/*.js',
-                '!test/js/stubs/*.js',
-                '!test/js/resources/bootstrap.js'
-            ],
-            directives: {
-                browser: true,
-                unparam: true,
-                predef: [
-                    '$',
-                    'jQuery',
-                    'Modernizr',
-                    'amplify',
-                    'travi',
-
-                    'sinon',
-                    'assertEquals',
-                    'assertSame',
-                    'assertNotSame',
-                    'assertString',
-                    'assertObject',
-                    'assertFunction',
-                    'assert',
-                    'refute',
-                    'assertFalse',
-                    'assertTrue',
-                    'expectAsserts'
-                ]
+            dist: {
+                src: [
+                    'client/js/**/*.js',
+                    '!client/js/travi/framework/utilities.js'
+                ],
+                directives: {
+                    browser: true,
+                    predef: [
+                        '$',
+                        'jQuery',
+                        'Modernizr',
+                        'amplify',
+                        'travi'
+                    ]
+                },
+                options: {
+                    errorsOnly: true,
+                    checkstyle: 'build/logs/jslint-dist.xml'
+                }
             },
-            options: {
-                errorsOnly: true,
-                checkstyle: 'build/logs/jslint.xml'
+            test: {
+                src: [
+                    'grunt.js',
+                    'test/js/**/*.js',
+                    '!test/js/tools/*.js',
+                    '!test/js/stubs/*.js',
+                    '!test/js/resources/bootstrap.js'
+                ],
+                directives: {
+                    browser: true,
+                    unparam: true,
+                    predef: [
+                        '$',
+                        'jQuery',
+                        'Modernizr',
+                        'amplify',
+                        'travi',
+
+                        'sinon',
+                        'assertEquals',
+                        'assertSame',
+                        'assertNotSame',
+                        'assertString',
+                        'assertObject',
+                        'assertFunction',
+                        'assert',
+                        'refute',
+                        'assertFalse',
+                        'assertTrue',
+                        'expectAsserts'
+                    ]
+                },
+                options: {
+                    errorsOnly: true,
+                    checkstyle: 'build/logs/jslint-test.xml'
+                }
             }
         },
 

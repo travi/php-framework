@@ -1,3 +1,4 @@
+/*jslint unparam: true*/
 (function (travi, framework) {
     "use strict";
 
