@@ -161,7 +161,7 @@ instant:
   local: /resources/shared/thirdparty/instant/instant.js
 
 moment:
-  local: /resources/thirdparty/moment/js/moment.js
+  local: /resources/thirdparty/moment/moment.js
 
 amplify:
   local: /resources/shared/thirdparty/amplify/amplify.core.js
