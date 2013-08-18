@@ -1,48 +1,48 @@
 #=======Framework Components=======
 travi:
-  local: /resources/shared/js/travi.js
+  local: /resources/thirdparty/travi-core/js/travi.js
   jsDependencies:
     - jquery
 
 framework:
-  local: /resources/shared/js/travi/framework.js
+  local: /resources/thirdparty/travi-core/js/travi/framework.js
   jsDependencies:
     - dependencyLoader
     - events
     - enhancements
 
 dependencyLoader:
-  local: /resources/shared/js/travi/dependencies/loader.js
+  local: /resources/thirdparty/travi-core/js/travi/dependencies/loader.js
   jsDependencies:
     - travi
 
 events:
-  local: /resources/shared/js/travi/events.js
+  local: /resources/thirdparty/travi-core/js/travi/events.js
   jsDependencies:
     - travi
     - amplify
 
 enhancements:
-  local: /resources/shared/js/travi/enhancements.js
+  local: /resources/thirdparty/travi-core/js/travi/enhancements.js
   jsDependencies:
     - template
     - cookieUtil
     - locationUtil
   clientTemplates:
-    chooseEnhancement: /resources/shared/templates/enhancementVersion.tmpl
+    chooseEnhancement: /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl
 
 template:
-  local: /resources/shared/js/travi/templates.js
+  local: /resources/thirdparty/travi-core/js/travi/templates.js
   jsDependencies:
     - jsRender
 
 pagination:
-  local: /resources/shared/js/travi/pagination.js
+  local: /resources/thirdparty/travi-core/js/travi/pagination.js
   jsDependencies:
     - events
 
 entityList:
-  local: /resources/shared/js/travi/framework/entityList.js
+  local: /resources/thirdparty/travi-core/js/travi/framework/entityList.js
   jsDependencies:
     - jqueryUi
     - ajaxForm
@@ -54,10 +54,10 @@ entityList:
     update-item: /resources/templates/admin/update-item.tmpl
 
 cookieUtil:
-  local: /resources/shared/js/travi/cookies.js
+  local: /resources/thirdparty/travi-core/js/travi/cookies.js
 
 locationUtil:
-  local: /resources/shared/js/travi/location.js
+  local: /resources/thirdparty/travi-core/js/travi/location.js
 
 carousel:
   cssDependencies:
