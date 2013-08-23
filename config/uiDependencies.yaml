@@ -120,7 +120,7 @@ jquery:
       local: /resources/shared/thirdparty/jquery/plugins/ajaxForm/jquery.form.js
 
     equalizeBottoms:
-      local: /resources/shared/thirdparty/jquery/plugins/equalizeBottoms/jquery.equalizebottoms.js
+      local: /resources/thirdparty/jquery-equalizebottoms/jquery.ba-equalizebottoms.js
 
     formAlign:
       local: "/resources/shared/thirdparty/jquery/plugins/formAlign/jquery.formAlign.js"
