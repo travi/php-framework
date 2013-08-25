@@ -117,13 +117,13 @@ jquery:
     #------jQuery Plug-ins------
 
     ajaxForm:
-      local: /resources/shared/thirdparty/jquery/plugins/ajaxForm/jquery.form.js
+      local: /resources/thirdparty/jquery-form/jquery.form.js
 
     equalizeBottoms:
       local: /resources/thirdparty/jquery-equalizebottoms/jquery.ba-equalizebottoms.js
 
     formAlign:
-      local: "/resources/shared/thirdparty/jquery/plugins/formAlign/jquery.formAlign.js"
+      local: "/resources/shared/js/plugins/jquery.formAlign.js"
 
     lightbox:
       local: "/resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js"
