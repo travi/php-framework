@@ -7,20 +7,19 @@ use Travi\framework\http\Response,
     Travi\framework\utilities\Environment,
     Travi\framework\view\render\HtmlRenderer;
 
-require_once __DIR__ . '/../../../thirdparty/spyc/spyc.php';
-
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
     dirname(__FILE__).'/../../../thirdparty/PHP-Dependency/library/'
 );
 require __DIR__ . '/../../../../vendor/autoload.php';
 
+
 //Get Config
 //Temp definition
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 define('SITE_ROOT', DOC_ROOT.'../');
 
-$config = Spyc::YAMLLoad(SITE_ROOT.'config/siteConfig.yml');
+$config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
 
 //global vars for legacy stuff
 //TODO: clean this up once refactored
