@@ -2,6 +2,8 @@
 
 use Travi\framework\controller\front\FrontController;
 
+require __DIR__ . '/../../../../vendor/autoload.php';
+
 require_once dirname(__FILE__).'/init.php';
 
 // Report all errors except E_NOTICE (should try to use this for development)

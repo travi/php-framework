@@ -9,10 +9,8 @@ use Travi\framework\http\Response,
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
-    dirname(__FILE__).'/../../../thirdparty/PHP-Dependency/library/'
+    __DIR__ . '/../../../thirdparty/PHP-Dependency/library/'
 );
-require __DIR__ . '/../../../../vendor/autoload.php';
-
 
 //Get Config
 //Temp definition
