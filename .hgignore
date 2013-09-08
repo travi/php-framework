@@ -6,6 +6,7 @@ build/dist/*
 vendor/*
 node_modules/*
 client/css/*
+.idea/*
 
 syntax: regexp
 \.DS_Store
