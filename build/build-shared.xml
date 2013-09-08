@@ -255,7 +255,7 @@
 
     <target name="update-dependencies">
         <exec dir="${site.dir}" executable="php" failonerror='true'>
-            <arg line="${shared.dir}/lib/composer.phar install --dev"/>
+            <arg line="${shared.dir}/lib/composer.phar install --dev -o"/>
         </exec>
         <exec dir="${site.dir}" executable="npm" failonerror='true'>
             <arg line="install"/>
