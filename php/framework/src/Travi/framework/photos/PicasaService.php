@@ -6,7 +6,7 @@ use Travi\framework\http\RestClient;
 
 class PicasaService
 {
-    const PICASA_URI = 'https://picasaweb.google.com/data/feed/api/user/';
+    const PICASA_URI = 'http://picasaweb.google.com/data/feed/api/user/';
     /* 1-indexed */
     const OFFSET_QUERY_PARAM = 'start-index';
     const COUNT_QUERY_PARAM = 'max-results';

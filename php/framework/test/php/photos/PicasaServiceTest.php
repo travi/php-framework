@@ -36,7 +36,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testApiUriDefinedProperly()
     {
-        $this->assertSame(PicasaService::PICASA_URI, "https://picasaweb.google.com/data/feed/api/user/");
+        $this->assertSame(PicasaService::PICASA_URI, "http://picasaweb.google.com/data/feed/api/user/");
     }
     public function testThumbSizeParamDefinedProperly()
     {
