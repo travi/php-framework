@@ -91,7 +91,7 @@
             <arg line=" --log-junit         ${build.logs}/phpunit.xml
                         --coverage-clover   ${build.logs}/clover.xml
                         --coverage-html     ${build.dir}/coverage
-                        --bootstrap ${shared.dir}/vendor/autoload.php
+                        --bootstrap ${basedir}/../../vendor/autoload.php
                         php"/>
         </exec>
     </target>
