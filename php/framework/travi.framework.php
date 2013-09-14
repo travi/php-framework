@@ -17,6 +17,5 @@ define('SITE_ROOT', join($levels, "/")."/");
 array_pop($levels);
 define('WEB_ROOT', join($levels, "/")."/");
 define('FRAMEWORK_PATH', dirname(__FILE__).'/');
-define('INCLUDE_PATH', WEB_ROOT . 'include/');
 
 require_once SITE_ROOT.'config/framework/framework.conf';
