@@ -137,7 +137,7 @@ jquery:
       local: "/resources/thirdparty/jsrender/jsrender.js"
 
     validation:
-      local: "/resources/shared/thirdparty/jquery/plugins/validation/jquery.validate.min.js"
+      local: "/resources/thirdparty/jquery.validation/jquery.validate.js"
       cssDependencies:
         - "jqueryUiTheme"
 
