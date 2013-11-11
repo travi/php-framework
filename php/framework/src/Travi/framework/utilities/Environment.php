@@ -5,7 +5,7 @@ namespace Travi\framework\utilities;
 class Environment
 {
     private $productionUrl;
-    const LOCAL_KEY = '.local';
+    const LOCAL_KEY = '.dev';
 
     public function isProduction()
     {
