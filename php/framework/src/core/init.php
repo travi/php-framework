@@ -125,7 +125,7 @@ function smartyInit($smartyConfig, $debug)
     $smarty = Pd_Make::name('Smarty');
 
     $smarty->template_dir = array(
-        $smartyConfig['siteTemplateDir'],
+        SITE_ROOT . $smartyConfig['siteTemplateDir'],
         $smartyConfig['sharedTemplateDir']
     );
     $smarty->compile_dir = $smartyConfig['smartyCompileDir'];
