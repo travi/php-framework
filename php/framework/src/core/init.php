@@ -18,6 +18,7 @@ define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
 define('SITE_ROOT', DOC_ROOT.'../');
 
 $config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
+$config['sitePath'] = SITE_ROOT;
 
 //global vars for legacy stuff
 //TODO: clean this up once refactored
