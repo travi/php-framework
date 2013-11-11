@@ -53,12 +53,7 @@ if (defined(DB_HOSTNAME)) {
     $container->dependencies()->set('db', dbInit());
 }
 
-
-if (isset($_SERVER['REQUEST_URI'])) {
-    $container->dependencies()->set('uri', $_SERVER['REQUEST_URI']);
-} else {
-    $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
-}
+$container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
 $container->dependencies()->set('request', Pd_Make::name('Travi\\framework\\http\\Request'));
