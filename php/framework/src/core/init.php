@@ -126,7 +126,7 @@ function smartyInit($smartyConfig, $debug)
 
     $smarty->template_dir = array(
         SITE_ROOT . $smartyConfig['siteTemplateDir'],
-        $smartyConfig['sharedTemplateDir']
+        FRAMEWORK_PATH . '../../php/templates'
     );
     $smarty->compile_dir = $smartyConfig['smartyCompileDir'];
     $smarty->cache_dir = $smartyConfig['smartyCacheDir'];
