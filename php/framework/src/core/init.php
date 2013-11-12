@@ -49,7 +49,7 @@ $container = Pd_Container::get();
 $container->dependencies()->set('config', $config);
 $container->dependencies()->set('uiDeps', $uiDeps);
 
-if (defined(DB_HOSTNAME)) {
+if (defined('DB_HOSTNAME')) {
     $container->dependencies()->set('db', dbInit());
 }
 
