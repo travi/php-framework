@@ -9,17 +9,6 @@
         </not>
     </condition>
 
-    <path id="js.lint.classpath">
-        <fileset dir="${ant.lib}">
-            <include name="${jslint4java.jar}"/>
-        </fileset>
-    </path>
-    <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
-        <classpath>
-            <path refid="js.lint.classpath"/>
-        </classpath>
-    </taskdef>
-
     <path id="yuicompressor.classpath">
         <fileset dir="${ant.lib}">
             <include name="${yuicompressor.jar}"/>
@@ -51,12 +40,6 @@
     <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy">
         <classpath refid="groovy.classpath"/>
     </taskdef>
-
-    <!--This is defined to be an empty fileset to keep jsLint from breaking
-        when a project does not define any overrides-->
-    <fileset id="js.exclude.overrides" dir=".">
-        <include/>
-    </fileset>
 
     <target name="gates" depends="update-dependencies">
         <antcall target="checkstyle"/>
@@ -110,28 +93,6 @@
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
             <arg line="jslint"/>
         </exec>
-    </target>
-
-    <target name="jsLint-tests">
-        <jslint options="${jslint.testOptions}" haltonfailure="false" failureProperty="jsLintResult">
-            <predef>${jslint.predef},${jslint.predef.site}</predef>
-            <formatter type="plain"/>
-            <formatter type="checkstyle" destfile="${build.logs}/jslint-tests.xml"/>
-            <fileset refid="js.tests"/>
-            <fileset refid="js.exclude.overrides"/>
-        </jslint>
-        <fail if="jsLintResult" message="There were JSLint failures"/>
-    </target>
-
-    <target name="jsLint-src">
-        <jslint options="${jslint.goodparts}" haltonfailure="false" failureProperty="jsLintResult">
-            <predef>${jslint.predef},${jslint.predef.site}</predef>
-            <formatter type="plain"/>
-            <formatter type="checkstyle" destfile="${build.logs}/jslint-src.xml"/>
-            <fileset refid="js.files"/>
-            <fileset refid="js.exclude.overrides"/>
-        </jslint>
-        <fail if="jsLintResult" message="There were JSLint failures"/>
     </target>
 
     <target name="phpcs" description="PHP Code Sniffer">
