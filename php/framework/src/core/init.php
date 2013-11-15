@@ -67,7 +67,7 @@ $container->dependencies()->set('request', Pd_Make::name('Travi\\framework\\http
 
 $container->dependencies()->set('session', Pd_Make::name('Travi\\framework\\http\\Session'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
-$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], '/home/travi/include'));
+$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], FRAMEWORK_PATH . '../../'));
 $container->dependencies()->set(
     'dependencyManager',
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
