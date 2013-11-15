@@ -14,8 +14,15 @@ set_include_path(
 
 //Get Config
 //Temp definition
-define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
-define('SITE_ROOT', DOC_ROOT.'../');
+if (!defined('DOC_ROOT')) {
+    define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].'/');
+}
+if (!defined('SITE_ROOT')) {
+    define('SITE_ROOT', DOC_ROOT . '../');
+}
+if (!defined('FRAMEWORK_PATH')) {
+    define('FRAMEWORK_PATH', SITE_ROOT . 'vendor/Travi/framework/php/framework/');
+}
 
 $config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
 $config['sitePath'] = SITE_ROOT;
