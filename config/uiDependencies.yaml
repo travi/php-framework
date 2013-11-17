@@ -68,6 +68,8 @@ carousel:
 previewPane:
   large:
     local: /resources/js/photos/previewPane.js
+    jsDependencies:
+      - lightbox
     clientTemplates:
       previewPane: /resources/templates/previewPane.tmpl
 
@@ -99,7 +101,6 @@ gallery:
       - carousel
       - videoPlayer
       - previewPane
-      - lightbox
       - reflection
 
 #=======jQuery======
