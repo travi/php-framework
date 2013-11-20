@@ -6,8 +6,8 @@ use Travi\framework\components\Forms\Field;
 
 abstract class Input extends Field
 {
-    private $type;					//type attribute for this field
-    protected $class;					//class attribute for this field
+    private $type;
+    protected $class;
 
     public function __construct($options)
     {
