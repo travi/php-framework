@@ -5,6 +5,8 @@ use Travi\framework\utilities\Environment;
 class EnvironmentTest extends PHPUnit_Framework_TestCase
 {
     const PROD_URL = 'prodUrl';
+    /** @var  Environment */
+    private $environment;
 
     public function setUp()
     {
@@ -14,7 +16,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
 
     public function testReportedAsLocalWhenContainsLocalTopLevelDomain()
     {
-        $_SERVER['HTTP_HOST'] = 'currentUrl.local';
+        $_SERVER['HTTP_HOST'] = 'currentUrl.dev';
 
         $this->assertTrue($this->environment->isLocal());
         $this->assertFalse($this->environment->isProduction());
