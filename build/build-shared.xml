@@ -224,6 +224,9 @@
         <exec dir="${site.dir}" executable="npm" failonerror='true'>
             <arg line="install"/>
         </exec>
+        <exec dir="${site.dir}/vendor/Travi/framework/" executable="npm" failonerror='true'>
+            <arg line="install"/>
+        </exec>
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
             <arg line="clean bower"/>
         </exec>
