@@ -190,6 +190,9 @@
     </target>
 
     <target name="build" depends="clean,createBuildDirs,update-dependencies">
+        <exec dir="${site.dir}/vendor/Travi/framework/" executable="npm" failonerror='true'>
+            <arg line="install"/>
+        </exec>
         <exec dir="${site.dir}/vendor/Travi/framework/" executable="grunt" failonerror='true'>
             <arg line="compile"/>
         </exec>
@@ -222,9 +225,6 @@
             <arg line="${shared.dir}/lib/composer.phar install --dev -o"/>
         </exec>
         <exec dir="${site.dir}" executable="npm" failonerror='true'>
-            <arg line="install"/>
-        </exec>
-        <exec dir="${site.dir}/vendor/Travi/framework/" executable="npm" failonerror='true'>
             <arg line="install"/>
         </exec>
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
