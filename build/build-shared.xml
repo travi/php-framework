@@ -166,7 +166,7 @@
 
     <target name="deploy" depends="dist">
         <scp
-                file="${dist.dir}/site.tar.bz2"
+                file="${deploy.archive}"
                 todir="${server.username}@${server.host}:${server.path}"
                 trust="true"
                 sftp="true"
@@ -214,7 +214,7 @@
 
     <target name="dist.tar">
         <tar
-                destfile="${dist.dir}/site.tar.bz2"
+                destfile="${deploy.archive}"
                 basedir="${building.dir}"
                 compression="bzip2"
                 excludes="vendor/Travi/framework/npm_modules/**"
