@@ -217,6 +217,7 @@
                 destfile="${dist.dir}/site.tar.gz"
                 basedir="${building.dir}"
                 compression="bzip2"
+                excludes="vendor/Travi/framework/npm_modules/**"
                 />
     </target>
 
