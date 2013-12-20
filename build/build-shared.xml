@@ -166,7 +166,7 @@
 
     <target name="deploy" depends="dist">
         <scp
-                file="${dist.dir}/site.zip"
+                file="${dist.dir}/site.tar.bz2"
                 todir="${server.username}@${server.host}:${server.path}"
                 trust="true"
                 sftp="true"
@@ -186,7 +186,7 @@
 
     <target name="dist" depends="build">
         <antcall target="minify"/>
-        <antcall target="dist.zip"/>
+        <antcall target="dist.tar"/>
     </target>
 
     <target name="build" depends="clean,createBuildDirs,update-dependencies">
@@ -212,7 +212,7 @@
         <mkdir dir="${dist.dir}"/>
     </target>
 
-    <target name="dist.zip">
+    <target name="dist.tar">
         <tar
                 destfile="${dist.dir}/site.tar.gz"
                 basedir="${building.dir}"
