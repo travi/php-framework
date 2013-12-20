@@ -213,10 +213,10 @@
     </target>
 
     <target name="dist.zip">
-        <zip
-                destfile="${dist.dir}/site.zip"
+        <tar
+                destfile="${dist.dir}/site.tar.gz"
                 basedir="${building.dir}"
-                update="true"
+                compression="bzip2"
                 />
     </target>
 
