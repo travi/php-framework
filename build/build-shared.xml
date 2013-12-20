@@ -214,7 +214,7 @@
 
     <target name="dist.tar">
         <tar
-                destfile="${dist.dir}/site.tar.gz"
+                destfile="${dist.dir}/site.tar.bz2"
                 basedir="${building.dir}"
                 compression="bzip2"
                 excludes="vendor/Travi/framework/npm_modules/**"
