@@ -182,4 +182,9 @@ class RestClient
     {
         return $this->url;
     }
+
+    public function getStatusCode()
+    {
+        return $this->responseInfo['http_code'];
+    }
 }
