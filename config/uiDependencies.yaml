@@ -123,9 +123,6 @@ jquery:
     equalizeBottoms:
       local: /resources/thirdparty/jquery-equalizebottoms/jquery.ba-equalizebottoms.js
 
-    formAlign:
-      local: "/resources/shared/js/plugins/jquery.formAlign.js"
-
     lightbox:
       local: "/resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js"
       cssDependencies:
