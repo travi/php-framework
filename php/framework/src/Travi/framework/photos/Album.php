@@ -62,7 +62,7 @@ class Album
 
     public function setId($id)
     {
-        $this->id = (int)$id;
+        $this->id = (string)$id;
     }
 
     public function getPhotos()
