@@ -8,6 +8,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-karma');
 
     // Project configuration.
     grunt.initConfig({
@@ -87,10 +88,6 @@ module.exports = function (grunt) {
             }
         },
 
-        bower: {
-            dev: {}
-        },
-
         copy: {
             cssImages: {
                 files: [
@@ -101,6 +98,22 @@ module.exports = function (grunt) {
                         dest: 'client/css/icons/'
                     }
                 ]
+            }
+        },
+
+        karma: {
+            menuBar: {
+                configFile: 'karma.conf.js',
+                singleRun: true,
+
+                reporters: [
+                    'progress',
+                    'junit'
+                ],
+
+                junitReporter: {
+                    outputFile: 'logs/karma.xml'
+                }
             }
         }
     });

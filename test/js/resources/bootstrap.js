@@ -3,7 +3,6 @@ console.log = function () {
     jstestdriver.console.log.apply(jstestdriver.console, arguments);
 };
 
-travi.test = travi.test || {};
-travi.test.testCase = TestCase;
+testCase = TestCase;
 
 $.fx.off = true;

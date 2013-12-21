@@ -1,4 +1,4 @@
-travi.test.testCase('MenuBarTests', (function () {
+testCase('MenuBarTests', (function () {
     'use strict';
 
     return {
