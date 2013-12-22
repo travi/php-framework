@@ -10,7 +10,7 @@ class FileSystem
 {
     const PATH_TO_STYLE_SHEETS = '/resources/css/';
     const PATH_TO_SHARED_STYLE_SHEETS = '/resources/thirdparty/travi-styles/css/';
-    const PATH_TO_SHARED = '/resources/thirdparty/travi-styles/';
+    const PATH_TO_SHARED = '/resources/thirdparty/';
     const PATH_TO_SHARED_THIRDPARTY = '/resources/shared/thirdparty/';
     const PAGE_STYLE_SHEET_DIR = 'pages/';
     const CSS_EXT = '.css';

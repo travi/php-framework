@@ -140,10 +140,12 @@ jquery:
         - "jqueryUiTheme"
 
     wymEditor:
-      local: "/resources/shared/thirdparty/jquery/plugins/wymeditor/jquery.wymeditor.js"
+      local: "/resources/thirdparty/wymeditor/jquery.wymeditor.js"
+      cssDependencies:
+        - "/resources/thirdparty/wymeditor/skins/silver/skin.css"
       plugins:
         wymEditor-fullScreen:
-          local: "/resources/shared/thirdparty/jquery/plugins/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js"
+          local: "/resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js"
 
 #=====Third Party JavaScript=====
 reflection:
