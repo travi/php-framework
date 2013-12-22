@@ -45,23 +45,17 @@
         <antcall target="checkstyle"/>
         <antcall target="test"/>
         <antcall target="messDetect"/>
+        <exec dir="${site.dir}" executable="grunt" failonerror='true'/>
     </target>
 
     <target name="checkstyle">
-        <antcall target="jsLint"/>
+        <!--<antcall target="jsLint"/>-->
         <antcall target="phpcs"/>
     </target>
 
     <target name="test">
         <antcall target="phpUnit"/>
         <antcall target="behat"/>
-    </target>
-
-    <target name="buster">
-        <mkdir dir="${build.logs}"/>
-        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
-            <arg line="buster"/>
-        </exec>
     </target>
 
     <target name="messDetect" description="Mess Detection">
@@ -229,9 +223,9 @@
         <exec dir="${site.dir}" executable="npm" failonerror='true'>
             <arg line="install"/>
         </exec>
-        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
-            <arg line="clean bower"/>
-        </exec>
+        <!--<exec dir="${site.dir}" executable="grunt" failonerror='true'>-->
+            <!--<arg line="clean bower"/>-->
+        <!--</exec>-->
     </target>
 
     <macrodef name="update-site-database">
