@@ -62,12 +62,11 @@ class FileSystemShunt extends FileSystem
         switch ($file) {
         case FileSystemTest::PATH_TO_SITE . "/doc_root/resources/css/" . FileSystemTest::ANY_STYLE_SHEET:
             return true;
-        case FileSystemTest::PATH_TO_SHARED_DEPS . "/client/css/" . FileSystemTest::ANY_STYLE_SHEET:
+        case FileSystemTest::PATH_TO_SITE . "/doc_root/resources/thirdparty/travi-styles/css/" . FileSystemTest::ANY_STYLE_SHEET:
             return true;
         case FileSystemTest::PATH_TO_SITE . '/app/view/pages/' . FileSystemTest::PATH_TO_PAGE_TEMPLATE:
             return true;
         default:
-            echo $file;
             return false;
         }
     }

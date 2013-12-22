@@ -52,7 +52,7 @@ class Form extends FormElementGroup
             }
         }
 
-        $this->addStyleSheet('/resources/shared/css/travi-form.css');
+        $this->addStyleSheet('/resources/thirdparty/travi-styles/css/travi-form.css');
         $this->addJsInit("$('form[name=\"".$this->name."\"]').alignFields();");
     }
 

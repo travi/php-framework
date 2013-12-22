@@ -21,7 +21,7 @@ class DateInputTest extends PHPUnit_Framework_TestCase
             array(
                  "$('input.datepicker').datepicker({
                 dateFormat: 'yy-mm-dd',
-                buttonImage: '/resources/shared/img/calendar.gif',
+                buttonImage: '/resources/thirdparty/travi-styles/img/calendar.gif',
                 buttonImageOnly: true, showOn: 'both'
             });"
             ),

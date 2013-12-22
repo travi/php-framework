@@ -33,7 +33,7 @@ class DependencyManager
     private $pageDependenciesLists = array();
 
     const RESOURCES = '/resources';
-    const SHARED_RESOURCES = '/resources/shared';
+    const SHARED_RESOURCES = '/resources/thirdparty/travi-styles';
     const MIN_DIR = '/min';
     const THIRDPARTY = 'thirdparty';
 
