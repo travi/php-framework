@@ -4,7 +4,7 @@ namespace Travi\framework\components\Forms;
 
 use Travi\framework\content\ContentObject;
 
-abstract class Field extends ContentObject
+abstract class Field extends ContentObject implements FormElement
 {
     protected $validations = array();
     protected $name;
