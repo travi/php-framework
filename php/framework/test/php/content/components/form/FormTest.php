@@ -176,12 +176,19 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testHasErrorsReturnsTrueWhenInvalid()
     {
-        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
-        $field->expects($this->once())
+        $field1 = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field1->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(false));
 
-        $this->form->addFormElement($field);
+        $this->form->addFormElement($field1);
+
+        $field2 = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field2->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(false));
+
+        $this->form->addFormElement($field2);
 
         $this->assertTrue($this->form->hasErrors());
     }

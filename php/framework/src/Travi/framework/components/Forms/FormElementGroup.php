@@ -12,6 +12,7 @@ abstract class FormElementGroup extends ContentObject implements FormElement
 {
     /** @var FormElement[] */
     private $formElements = array();
+    private $errorCount = 0;
 
     public function addFormElement($formElement)
     {
@@ -58,11 +59,11 @@ abstract class FormElementGroup extends ContentObject implements FormElement
         /** @var $formElement FormElement */
         foreach ($this->formElements as $formElement) {
             if (!$formElement->isValid()) {
-                return false;
+                $this->errorCount++;
             }
         }
 
-        return true;
+        return $this->errorCount === 0;
     }
     
     public function getDependencies()

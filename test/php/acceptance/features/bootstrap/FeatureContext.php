@@ -31,7 +31,7 @@ class FeatureContext extends BehatContext
      */
     public function __construct(array $parameters)
     {
-        // Initialize your context here
+        $this->useContext('authentication', new FormContext());
     }
 
     /**
