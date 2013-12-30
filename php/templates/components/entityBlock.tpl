@@ -1,6 +1,9 @@
 <li class="entityBlock {$entity->getType()}">
     <dl>
         <dt>{$entity->getTitle()}</dt>
+    {if $entity->getSummary()}
+        <dd>{$entity->getSummary()}</dd>
+    {/if}
     {foreach item=detail from=$entity->getDetails()}
         <dd>{$detail}</dd>
     {/foreach}

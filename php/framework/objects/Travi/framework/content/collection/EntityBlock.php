@@ -8,6 +8,7 @@ class EntityBlock
     private $id;
     private $type;
     private $preConf;
+    private $summary;
     private $details = array();
     private $activeActions = array();
     private $extraActionRows = array();
@@ -48,10 +49,20 @@ class EntityBlock
     {
         return $this->type;
     }
+
+    /**
+     * @deprecated
+     * @param $detail
+     */
     public function addDetail($detail)
     {
         array_push($this->details, $detail);
     }
+
+    /**
+     * @deprecated
+     * @return array
+     */
     public function getDetails()
     {
         return $this->details;
@@ -68,6 +79,23 @@ class EntityBlock
     {
         return $this->extraActionRows;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param mixed $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
+
     private function disableAction($text,$active)
     {
         $this->activeActions["$text"] = "$active";
