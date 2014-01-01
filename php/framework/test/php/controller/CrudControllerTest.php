@@ -48,7 +48,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testGetListRoutesToProperMethod()
     {
-        $this->mockRequest->expects($this->once())
+        $this->mockRequest->expects($this->any())
             ->method('getRequestMethod')
             ->will($this->returnValue(Request::GET));
 
@@ -63,7 +63,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testGetByIdRoutesToProperMethod()
     {
-        $this->mockRequest->expects($this->once())
+        $this->mockRequest->expects($this->any())
             ->method('getRequestMethod')
             ->will($this->returnValue(Request::GET));
 
@@ -77,7 +77,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
 
-    public function testAddTolistRoutesToProperMethod()
+    public function testAddToListRoutesToProperMethod()
     {
         $this->mockRequest->expects($this->once())
             ->method('getRequestMethod')

@@ -8,7 +8,7 @@ use Travi\framework\controller\AbstractController,
     Travi\framework\http\Response;
 use Travi\framework\mappers\CrudMapper;
 
-abstract class CrudController extends AbstractController
+abstract class CrudController extends RestController
 {
     /** @var  CrudMapper */
     protected $mapper;
@@ -19,29 +19,28 @@ abstract class CrudController extends AbstractController
      */
     public function index(&$request, &$response)
     {
-        $requestMethod = $request->getRequestMethod();
-        $id = $request->getId();
 
-        switch ($requestMethod) {
-        case Request::GET:
-            if (empty($id)) {
-                $this->getList($response);
-            } else {
-                $this->getById($id, $response);
-            }
-            break;
-        case Request::POST:
-            if (empty($id)) {
-                return $this->addToList($response);
-            } else {
-                return $this->updateById($id, $response);
-            }
-        case Request::DELETE:
-            if (empty($id)) {
-                $response->setStatus(Response::NOT_ALLOWED);
-                break;
-            } else {
-                return $this->deleteById($id, $response);
+        $requestMethod = $request->getRequestMethod();
+
+        if (Request::GET === $requestMethod) {
+            parent::index($request, $response);
+        } else {
+            $id = $request->getId();
+
+            switch ($requestMethod) {
+            case Request::POST:
+                if (empty($id)) {
+                    return $this->addToList($response);
+                } else {
+                    return $this->updateById($id, $response);
+                }
+            case Request::DELETE:
+                if (empty($id)) {
+                    $response->setStatus(Response::NOT_ALLOWED);
+                    break;
+                } else {
+                    return $this->deleteById($id, $response);
+                }
             }
         }
     }
