@@ -107,7 +107,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('setPageTemplate')
             ->with($pathToTemplate);
 
-        $this->htmlRenderer->format(array(), $this->page);
+        $this->htmlRenderer->format(new Form(), $this->page);
     }
 
     /**

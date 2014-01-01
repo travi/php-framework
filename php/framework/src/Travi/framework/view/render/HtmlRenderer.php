@@ -44,6 +44,7 @@ class HtmlRenderer extends Renderer
 
     /**
      * @param $page AbstractResponse
+     * @param $data
      * @throws MissingPageTemplateException
      */
     public function setPageTemplateByConvention(&$page, $data)
@@ -51,7 +52,7 @@ class HtmlRenderer extends Renderer
         $pageTemplate = $page->getPageTemplate();
 
         if (empty($pageTemplate)) {
-            if (isset($data['form'])) {
+            if (is_array($data) && isset($data['form'])) {
                 $pathToTemplate = '../wrap/formWrapper.tpl';
             } else {
                 $pathToTemplate = $this->buildTemplatePath();
