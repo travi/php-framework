@@ -211,15 +211,9 @@
     </target>
 
     <target name="update-dependencies">
-        <exec dir="${site.dir}" executable="php" failonerror='true'>
-            <arg line="${shared.dir}/lib/composer.phar install --dev -o"/>
-        </exec>
         <exec dir="${site.dir}" executable="npm" failonerror='true'>
             <arg line="install"/>
         </exec>
-        <!--<exec dir="${site.dir}" executable="grunt" failonerror='true'>-->
-            <!--<arg line="clean bower"/>-->
-        <!--</exec>-->
     </target>
 
     <macrodef name="update-site-database">
