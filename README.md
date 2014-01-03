@@ -8,7 +8,7 @@ This is a php web framework that I've built over the years as I've worked to und
 Add the framework to the require block of your project
 
 <pre>"require": {
-     "travi/framework": "default"
+     "travi/framework": "*"
 }</pre>
 
 ## Install
