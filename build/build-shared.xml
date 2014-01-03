@@ -45,11 +45,9 @@
         <antcall target="checkstyle"/>
         <antcall target="test"/>
         <antcall target="messDetect"/>
-        <exec dir="${site.dir}" executable="grunt" failonerror='true'/>
     </target>
 
     <target name="checkstyle">
-        <!--<antcall target="jsLint"/>-->
         <antcall target="phpcs"/>
     </target>
 
@@ -79,13 +77,6 @@
               executable="php"
               failonerror='true'>
             <arg line="${site.dir}/vendor/bin/behat -f junit,pretty --tags ~@wip --ansi --out ${build.logs}/behat,"/>
-        </exec>
-    </target>
-
-    <target name="jsLint">
-        <mkdir dir="${build.logs}"/>
-        <exec dir="${site.dir}" executable="grunt" failonerror='true'>
-            <arg line="jslint"/>
         </exec>
     </target>
 
