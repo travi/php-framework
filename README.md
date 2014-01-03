@@ -20,7 +20,7 @@ a few extra steps to get the process to work:
 <pre>"repositories": [
    {
        "type": "vcs",
-       "url": "https://bitbucket.org/travi/framework"
+       "url": "http://github.com/travi/php-framework.git"
    }
 ]</pre>
 
@@ -31,7 +31,7 @@ a few extra steps to get the process to work:
 }</pre>
 
 ## Install
-`php composer.phar install` will make the framework available for your project
+`php ../path/to/composer.phar install` will make the framework available for your project
 
 # Example
-An example implementation has been built and is hosted [here] (https://github.com/travi/example-framework).
+An example implementation has been built. The repo can be found [here] (https://github.com/travi/example-framework).
