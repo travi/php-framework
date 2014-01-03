@@ -1,13 +1,13 @@
 <?php
 
-namespace Travi\framework\view\render;
+namespace travi\framework\view\render;
 
-use Travi\framework\view\render\Renderer,
-    Travi\framework\dependencyManagement\DependencyManager,
-    Travi\framework\http\Request,
-    Travi\framework\utilities\FileSystem,
-    Travi\framework\page\AbstractResponse,
-    Travi\framework\exception\MissingPageTemplateException;
+use travi\framework\view\render\Renderer,
+    travi\framework\dependencyManagement\DependencyManager,
+    travi\framework\http\Request,
+    travi\framework\utilities\FileSystem,
+    travi\framework\page\AbstractResponse,
+    travi\framework\exception\MissingPageTemplateException;
 
 class HtmlRenderer extends Renderer
 {

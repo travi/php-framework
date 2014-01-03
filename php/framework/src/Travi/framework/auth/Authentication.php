@@ -1,9 +1,9 @@
 <?php
 
-namespace Travi\framework\auth;
+namespace travi\framework\auth;
 
-use Travi\framework\exception\UnauthorizedException;
-use Travi\framework\utilities\FileSystem;
+use travi\framework\exception\UnauthorizedException;
+use travi\framework\utilities\FileSystem;
 
 class Authentication
 {

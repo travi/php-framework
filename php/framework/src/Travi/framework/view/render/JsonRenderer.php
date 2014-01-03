@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\view\render;
+namespace travi\framework\view\render;
 
-use Travi\framework\view\render\Renderer;
+use travi\framework\view\render\Renderer;
 
 class JsonRenderer extends Renderer
 {

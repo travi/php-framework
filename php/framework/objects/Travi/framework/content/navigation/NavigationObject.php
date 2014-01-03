@@ -1,9 +1,9 @@
 <?php
 
-namespace Travi\framework\content\navigation;
+namespace travi\framework\content\navigation;
 
-use Travi\framework\content\ContentObject,
-    Travi\framework\DependantObject;
+use travi\framework\content\ContentObject,
+    travi\framework\DependantObject;
 
 class NavigationObject extends ContentObject
 {

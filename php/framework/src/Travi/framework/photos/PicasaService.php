@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
 
-use Travi\framework\http\RestClient;
+use travi\framework\http\RestClient;
 
 class PicasaService
 {
@@ -211,7 +211,7 @@ class PicasaService
     }
 
     /**
-     * @PdInject new:Travi\framework\http\RestClient
+     * @PdInject new:travi\framework\http\RestClient
      * @param $restClient
      * @return void
      */

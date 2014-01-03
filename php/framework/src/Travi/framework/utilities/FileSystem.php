@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\utilities;
+namespace travi\framework\utilities;
 
-use Travi\framework\http\Request;
+use travi\framework\http\Request;
 
 //TODO: should cache any information requested from the filesystem (possibly additional info)
 //        to make subsequent calls faster

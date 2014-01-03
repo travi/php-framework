@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\components\Forms\inputs;
+namespace travi\framework\components\Forms\inputs;
 
-use Travi\framework\components\Forms\Field;
+use travi\framework\components\Forms\Field;
 
 abstract class Input extends Field
 {

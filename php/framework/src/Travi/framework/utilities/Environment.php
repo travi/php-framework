@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\utilities;
+namespace travi\framework\utilities;
 
 class Environment
 {

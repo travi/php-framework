@@ -1,9 +1,9 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
 
-use Travi\framework\photos\License,
-    Travi\framework\photos\Thumbnail;
+use travi\framework\photos\License,
+    travi\framework\photos\Thumbnail;
 
 class Media
 {

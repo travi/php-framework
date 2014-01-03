@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
 
-use Travi\framework\photos\Thumbnail;
+use travi\framework\photos\Thumbnail;
 
 class Album
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Travi\framework\controller;
+namespace travi\framework\controller;
 
 
-use Travi\framework\http\Request;
-use Travi\framework\http\Response;
+use travi\framework\http\Request;
+use travi\framework\http\Response;
 
 abstract class RestController extends AbstractController
 {

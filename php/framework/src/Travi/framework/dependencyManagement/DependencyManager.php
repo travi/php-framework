@@ -1,14 +1,14 @@
 <?php
 
-namespace Travi\framework\dependencyManagement;
+namespace travi\framework\dependencyManagement;
 
-use Travi\framework\utilities\FileSystem,
-    Travi\framework\dependencyManagement\ClientDependencies,
-    Travi\framework\http\Request,
-    Travi\framework\utilities\Environment,
-    Travi\framework\http\Session,
-    Travi\framework\components\Forms\Field,
-    Travi\framework\content\ContentObject;
+use travi\framework\utilities\FileSystem,
+    travi\framework\dependencyManagement\ClientDependencies,
+    travi\framework\http\Request,
+    travi\framework\utilities\Environment,
+    travi\framework\http\Session,
+    travi\framework\components\Forms\Field,
+    travi\framework\content\ContentObject;
 
 class DependencyManager
 {
@@ -410,8 +410,8 @@ class DependencyManager
     }
 
     /**
-     * @PdInject new:Travi\framework\dependencyManagement\ClientDependencies
-     * @param Travi\framework\dependencyManagement\ClientDependencies $clientDependencyDefinitions
+     * @PdInject new:travi\framework\dependencyManagement\ClientDependencies
+     * @param travi\framework\dependencyManagement\ClientDependencies $clientDependencyDefinitions
      */
     public function setClientDependencyDefinitions($clientDependencyDefinitions)
     {
@@ -430,7 +430,7 @@ class DependencyManager
 
     /**
      * @PdInject environment
-     * @param $env \Travi\framework\utilities\Environment
+     * @param $env \travi\framework\utilities\Environment
      * @return void
      */
     public function setEnvironmentUtility($env)
@@ -449,7 +449,7 @@ class DependencyManager
     }
 
     /**
-     * @param $session \Travi\framework\http\Session
+     * @param $session \travi\framework\http\Session
      * @PdInject session
      */
     public function setSession($session)

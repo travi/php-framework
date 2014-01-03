@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\content\navigation;
+namespace travi\framework\content\navigation;
 
-use Travi\framework\content\navigation\NavigationObject;
+use travi\framework\content\navigation\NavigationObject;
 
 class MenuBar extends NavigationObject
 {

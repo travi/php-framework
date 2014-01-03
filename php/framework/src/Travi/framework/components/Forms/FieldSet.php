@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
-use Travi\framework\components\Forms\FormElementGroup;
+use travi\framework\components\Forms\FormElementGroup;
 
 class FieldSet extends FormElementGroup
 {

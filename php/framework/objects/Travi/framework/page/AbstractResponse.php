@@ -1,11 +1,11 @@
 <?php
 
-namespace Travi\framework\page;
+namespace travi\framework\page;
 
-use Travi\framework\content\navigation\NavigationObject,
-    Travi\framework\view\render\JsonRenderer,
-    Travi\framework\view\render\HtmlRenderer,
-    Travi\framework\utilities\Environment;
+use travi\framework\content\navigation\NavigationObject,
+    travi\framework\view\render\JsonRenderer,
+    travi\framework\view\render\HtmlRenderer,
+    travi\framework\utilities\Environment;
 
 abstract class AbstractResponse
 {
@@ -325,7 +325,7 @@ abstract class AbstractResponse
 
     /**
      * @param $renderer JsonRenderer
-     * @PdInject new:\Travi\framework\view\render\JsonRenderer
+     * @PdInject new:\travi\framework\view\render\JsonRenderer
      */
     public function setJsonRenderer($renderer)
     {

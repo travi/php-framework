@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
-use Travi\framework\content\ContentObject;
+use travi\framework\content\ContentObject;
 
 abstract class Field extends ContentObject implements FormElement
 {

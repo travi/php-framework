@@ -1,12 +1,12 @@
 <?php
 
-namespace Travi\framework\controller;
+namespace travi\framework\controller;
 
-use Travi\framework\components\Forms\Form;
-use Travi\framework\controller\AbstractController,
-    Travi\framework\http\Request,
-    Travi\framework\http\Response;
-use Travi\framework\mappers\CrudMapper;
+use travi\framework\components\Forms\Form;
+use travi\framework\controller\AbstractController,
+    travi\framework\http\Request,
+    travi\framework\http\Response;
+use travi\framework\mappers\CrudMapper;
 
 abstract class CrudController extends RestController
 {

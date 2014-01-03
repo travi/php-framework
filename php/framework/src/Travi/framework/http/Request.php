@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\http;
+namespace travi\framework\http;
 
-use Travi\framework\page\AbstractResponse;
+use travi\framework\page\AbstractResponse;
  
 class Request
 {

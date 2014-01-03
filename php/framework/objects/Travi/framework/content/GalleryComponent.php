@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\content;
+namespace travi\framework\content;
 
-use Travi\framework\content\ContentObject;
+use travi\framework\content\ContentObject;
 
 class GalleryComponent extends ContentObject
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\exception;
+namespace travi\framework\exception;
 
 class NavigationTypeNotAnOptionException extends \Exception
 {

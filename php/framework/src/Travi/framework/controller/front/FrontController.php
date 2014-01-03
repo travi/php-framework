@@ -1,15 +1,15 @@
 <?php
 
-namespace Travi\framework\controller\front;
+namespace travi\framework\controller\front;
 
-use Travi\framework\auth\Authentication;
-use Travi\framework\exception\UnauthorizedException,
-    Travi\framework\http\Response,
-    Travi\framework\http\Request,
-    Travi\framework\exception\NotFoundException,
-    Travi\framework\controller\AbstractController,
-    Travi\framework\controller\ErrorController,
-    Travi\framework\utilities\FileSystem;
+use travi\framework\auth\Authentication;
+use travi\framework\exception\UnauthorizedException,
+    travi\framework\http\Response,
+    travi\framework\http\Request,
+    travi\framework\exception\NotFoundException,
+    travi\framework\controller\AbstractController,
+    travi\framework\controller\ErrorController,
+    travi\framework\utilities\FileSystem;
 
 class FrontController
 {
@@ -144,7 +144,7 @@ class FrontController
 
     /**
      * @param $controller
-     * @PdInject new:Travi\framework\controller\ErrorController
+     * @PdInject new:travi\framework\controller\ErrorController
      */
     public function setErrorController($controller)
     {
@@ -162,7 +162,7 @@ class FrontController
 
     /**
      * @param $authentication Authentication
-     * @PdInject new:Travi\framework\auth\Authentication
+     * @PdInject new:travi\framework\auth\Authentication
      */
     public function setAuthentication($authentication)
     {

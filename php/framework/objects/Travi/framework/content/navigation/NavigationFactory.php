@@ -1,12 +1,12 @@
 <?php
 
-namespace Travi\framework\content\navigation;
+namespace travi\framework\content\navigation;
 
-use Travi\framework\exception\NavigationTypeNotAnOptionException;
+use travi\framework\exception\NavigationTypeNotAnOptionException;
 
 class NavigationFactory
 {
-    const NAVIGATION_NAMESPACE = "\\Travi\\framework\\content\\navigation\\";
+    const NAVIGATION_NAMESPACE = "\\travi\\framework\\content\\navigation\\";
 
     const MENU_BAR = 'menuBar';
     const TABS = 'tabs';

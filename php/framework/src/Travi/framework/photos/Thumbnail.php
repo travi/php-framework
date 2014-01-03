@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
 
-use Travi\framework\photos\Image;
+use travi\framework\photos\Image;
 
 class Thumbnail extends Image
 {

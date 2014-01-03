@@ -1,14 +1,14 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
-use Travi\framework\components\Forms\FormElementGroup,
-    Travi\framework\components\Forms\inputs\Input,
-    Travi\framework\components\Forms\FieldSet;
+use travi\framework\components\Forms\FormElementGroup,
+    travi\framework\components\Forms\inputs\Input,
+    travi\framework\components\Forms\FieldSet;
 
 class Form extends FormElementGroup
 {
-    const FORMS_NAMESPACE = "Travi\\framework\\components\\Forms\\";
+    const FORMS_NAMESPACE = "travi\\framework\\components\\Forms\\";
     /** @var string */
     private $name;
     /** @var string */

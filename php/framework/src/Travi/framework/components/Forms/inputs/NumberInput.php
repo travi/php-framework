@@ -1,7 +1,7 @@
 <?php
-namespace Travi\framework\components\Forms\inputs;
+namespace travi\framework\components\Forms\inputs;
 
-use Travi\framework\components\Forms\inputs\Input;
+use travi\framework\components\Forms\inputs\Input;
 
 class NumberInput extends Input
 {

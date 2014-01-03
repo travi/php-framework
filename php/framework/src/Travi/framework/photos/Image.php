@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
  
 abstract class Image
 {

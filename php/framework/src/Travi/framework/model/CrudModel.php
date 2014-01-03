@@ -1,10 +1,10 @@
 <?php
 
-namespace Travi\framework\model;
+namespace travi\framework\model;
 
 use BlogMapper;
 use PDO;
-use Travi\framework\mappers\CrudMapper;
+use travi\framework\mappers\CrudMapper;
 
 abstract class CrudModel
 {

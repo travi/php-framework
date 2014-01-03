@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\components\Forms\choices;
+namespace travi\framework\components\Forms\choices;
 
-use Travi\framework\components\Forms\choices\Choices;
+use travi\framework\components\Forms\choices\Choices;
 
 class RadioButtons extends Choices
 {

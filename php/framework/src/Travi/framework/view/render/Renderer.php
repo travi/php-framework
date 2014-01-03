@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\view\render;
+namespace travi\framework\view\render;
 
 abstract class Renderer
 {

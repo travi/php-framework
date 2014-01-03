@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "00b1438010723e9ca6088d7278bfa410",
+    "hash": "6b4348365fd2d045ec7e4a7c29baceb8",
     "packages": [
         {
             "name": "fp/lightopenid",

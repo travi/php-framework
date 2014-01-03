@@ -1,12 +1,12 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
-use Travi\framework\DependantObject,
-    Travi\framework\content\ContentObject,
-    Travi\framework\components\Forms\FormElement,
-    Travi\framework\components\Forms\inputs\Input,
-    Travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\DependantObject,
+    travi\framework\content\ContentObject,
+    travi\framework\components\Forms\FormElement,
+    travi\framework\components\Forms\inputs\Input,
+    travi\framework\components\Forms\inputs\TextInput;
 
 abstract class FormElementGroup extends ContentObject implements FormElement
 {

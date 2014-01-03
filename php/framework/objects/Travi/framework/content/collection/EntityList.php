@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\content\collection;
+namespace travi\framework\content\collection;
 
-use \Travi\framework\content\ContentObject;
+use \travi\framework\content\ContentObject;
 
 class EntityList extends ContentObject
 {

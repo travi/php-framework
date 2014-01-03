@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
-use Travi\framework\components\Forms\inputs\Input;
+use travi\framework\components\Forms\inputs\Input;
 
 class SubmitButton extends Input
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\http;
+namespace travi\framework\http;
  
 class RestClient
 {

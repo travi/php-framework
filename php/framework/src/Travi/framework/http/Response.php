@@ -1,10 +1,10 @@
 <?php
 
-namespace Travi\framework\http;
+namespace travi\framework\http;
 
-use Travi\framework\page\AbstractResponse,
-    Travi\framework\content\navigation\NavigationObject,
-    Travi\framework\exception\InvalidHttpStatusException;
+use travi\framework\page\AbstractResponse,
+    travi\framework\content\navigation\NavigationObject,
+    travi\framework\exception\InvalidHttpStatusException;
 
 class Response extends AbstractResponse
 {

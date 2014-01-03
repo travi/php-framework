@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework;
+namespace travi\framework;
 
 abstract class DependantObject
 {

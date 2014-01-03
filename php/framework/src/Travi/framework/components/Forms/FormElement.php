@@ -1,6 +1,6 @@
 <?php
 
-namespace Travi\framework\components\Forms;
+namespace travi\framework\components\Forms;
 
 interface FormElement
 {

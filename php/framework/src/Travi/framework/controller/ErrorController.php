@@ -1,10 +1,10 @@
 <?php
 
-namespace Travi\framework\controller;
+namespace travi\framework\controller;
 
-use Travi\framework\controller\AbstractController,
-    Travi\framework\http\Request,
-    Travi\framework\http\Response;
+use travi\framework\controller\AbstractController,
+    travi\framework\http\Request,
+    travi\framework\http\Response;
 
 class ErrorController extends AbstractController
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Travi\framework\photos;
+namespace travi\framework\photos;
 
-use Travi\framework\photos\Media;
+use travi\framework\photos\Media;
 
 class Photo extends Media
 {

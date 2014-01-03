@@ -1,9 +1,9 @@
 <?php
 
-namespace Travi\framework\dependencyManagement;
+namespace travi\framework\dependencyManagement;
 
-use Travi\framework\http\Request,
-    Travi\framework\exception\MissingLocalPathToResourceException;
+use travi\framework\http\Request,
+    travi\framework\exception\MissingLocalPathToResourceException;
 
 class ClientDependencies
 {

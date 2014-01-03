@@ -1,8 +1,8 @@
 <?php
-namespace Travi\framework\mappers;
+namespace travi\framework\mappers;
 
-use Travi\framework\components\Forms\Form;
-use Travi\framework\content\collection\EntityList;
+use travi\framework\components\Forms\Form;
+use travi\framework\content\collection\EntityList;
 
 abstract class CrudMapper
 {

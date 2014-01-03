@@ -1,10 +1,10 @@
 <?php
 
-namespace Travi\framework\controller;
+namespace travi\framework\controller;
 
-use Travi\framework\http\Response,
-    Travi\framework\http\Request,
-    Travi\framework\exception\NotFoundException;
+use travi\framework\http\Response,
+    travi\framework\http\Request,
+    travi\framework\exception\NotFoundException;
 
 abstract class AbstractController
 {
