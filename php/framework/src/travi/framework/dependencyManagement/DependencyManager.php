@@ -225,7 +225,7 @@ class DependencyManager
      */
     public function resolveComponentDependencies($component)
     {
-        if (is_object($component) && is_a($component, 'Travi\\framework\\DependantObject')) {
+        if (is_object($component) && is_a($component, 'travi\\framework\\DependantObject')) {
             $this->addDependencies($component->getDependencies(), $component);
         } else if (is_array($component)) { //TODO: need to make this DRY
             foreach ($component as $innerComponent) {

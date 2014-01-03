@@ -196,7 +196,7 @@
                 destfile="${deploy.archive}"
                 basedir="${building.dir}"
                 compression="bzip2"
-                excludes="vendor/Travi/framework/npm_modules/**"
+                excludes="vendor/travi/framework/npm_modules/**"
                 longfile="gnu"
                 />
     </target>

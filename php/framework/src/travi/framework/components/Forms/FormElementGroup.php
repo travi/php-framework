@@ -44,7 +44,7 @@ abstract class FormElementGroup extends ContentObject implements FormElement
         $validations = array();
 
         foreach ($this->formElements as $formElement) {
-            if (is_a($formElement, 'Travi\\framework\\components\\Forms\\FormElementGroup')) {
+            if (is_a($formElement, 'travi\\framework\\components\\Forms\\FormElementGroup')) {
                 $validations = array_merge($validations, $formElement->getValidations());
             } else {
                 $validations[$formElement->getName()] = $formElement->getValidations();            
@@ -89,11 +89,11 @@ abstract class FormElementGroup extends ContentObject implements FormElement
 
         /** @var $element Field */
         foreach ($formElements as $element) {
-            if (is_a($element, 'Travi\\framework\\components\\Forms\\Field')
+            if (is_a($element, 'travi\\framework\\components\\Forms\\Field')
                 && $element->getName() === $fieldName
             ) {
                 return $element;
-            } elseif (is_a($element, 'Travi\\framework\\components\\Forms\\FormElementGroup')) {
+            } elseif (is_a($element, 'travi\\framework\\components\\Forms\\FormElementGroup')) {
                 $field = $element->getFieldByName($fieldName);
 
                 if (!empty($field)) {
