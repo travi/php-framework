@@ -5,11 +5,11 @@
 {/if} method="{$form->getMethod()}" action="{$form->getAction()}"{if !empty($encType)}
  enctype="{$encType}"{/if}>
 {foreach from=$form->getFormElements() item=formElement}
-    {if is_a($formElement, 'Travi\framework\components\Forms\Fieldset')}
+    {if is_a($formElement, 'travi\framework\components\Forms\Fieldset')}
         {include file="components/form/fieldset.tpl" fieldset=$formElement}
-    {elseif is_a($formElement,'Travi\framework\components\Forms\inputs\Input')}
+    {elseif is_a($formElement,'travi\framework\components\Forms\inputs\Input')}
         {include file=$formElement->getTemplate() field=$formElement}
-    {elseif is_a($formElement,'Travi\framework\components\Forms\choices\Choices')}
+    {elseif is_a($formElement,'travi\framework\components\Forms\choices\Choices')}
         {include file=$formElement->getTemplate() field=$formElement}
     {/if}
 {/foreach}

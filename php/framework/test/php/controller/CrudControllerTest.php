@@ -1,7 +1,7 @@
 <?php
-use Travi\framework\http\Response,
-    Travi\framework\http\Request,
-    Travi\framework\controller\CrudController;
+use travi\framework\http\Response,
+    travi\framework\http\Request,
+    travi\framework\controller\CrudController;
 
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->abstractMock = $this->getMockForAbstractClass(
-            'Travi\\framework\\controller\\CrudController',
+            'travi\\framework\\controller\\CrudController',
             array(),
             '',
             false,
@@ -27,7 +27,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             array()
         );
         $this->partiallyMockedController = $this->getMockForAbstractClass(
-            'Travi\\framework\\controller\\CrudController',
+            'travi\\framework\\controller\\CrudController',
             array(),
             '',
             false,
@@ -43,7 +43,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         );
 
         $this->response = new Response(array());
-        $this->mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $this->mockRequest = $this->getMock('travi\\framework\\http\\Request');
     }
 
     public function testGetListRoutesToProperMethod()
@@ -116,7 +116,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->mockRequest->expects($this->once())
             ->method('getId');
 
-        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
+        $responseMock = $this->getMock('travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_ALLOWED);
@@ -142,7 +142,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteByIdDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('Travi\\framework\\http\\Response');
+        $responseMock = $this->getMock('travi\\framework\\http\\Response');
         $responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);

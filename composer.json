@@ -22,7 +22,7 @@
     "autoload": {
         "psr-0": {
             "Pd": "php/thirdparty/PHP-Dependency/library/",
-            "Travi\\framework": [
+            "travi\\framework": [
                 "php/framework/objects",
                 "php/framework/src"
             ]

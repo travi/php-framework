@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\RichTextArea;
+use travi\framework\components\Forms\inputs\RichTextArea;
 
 class RichTextAreaTest extends PHPUnit_Framework_TestCase
 {

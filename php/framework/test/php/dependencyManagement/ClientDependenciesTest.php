@@ -1,7 +1,7 @@
 <?php
 
-use Travi\framework\dependencyManagement\ClientDependencies,
-    Travi\framework\http\Request;
+use travi\framework\dependencyManagement\ClientDependencies,
+    travi\framework\http\Request;
 
 class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 {
@@ -46,7 +46,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException           Travi\framework\exception\MissingLocalPathToResourceException
+     * @expectedException           travi\framework\exception\MissingLocalPathToResourceException
      * @expectedExceptionMessage    Local URI required for invalidComponent
      */
     public function testComponentWithoutLocalPathThrowsException()
@@ -62,7 +62,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testDesktopSpecificDependencyMapping()
     {
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
@@ -89,7 +89,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testBaseDependencyMappingWhenEnhancementDefined()
     {
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->once())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
@@ -131,7 +131,7 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
 
     public function testPluginsIncludeParentAsDependency()
     {
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('getEnhancementVersion')
             ->will($this->returnValue(Request::LARGE_ENHANCEMENT));

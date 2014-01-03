@@ -1,9 +1,9 @@
 <?php
 
-use Travi\framework\controller\AbstractController,
-    Travi\framework\http\Request,
-    Travi\framework\http\Response,
-    Travi\framework\exception\NotFoundException;
+use travi\framework\controller\AbstractController,
+    travi\framework\http\Request,
+    travi\framework\http\Response,
+    travi\framework\exception\NotFoundException;
 
 class AbstractControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,10 +18,10 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->controller = $this->getMockForAbstractClass(
-            'Travi\\framework\\controller\\AbstractController'
+            'travi\\framework\\controller\\AbstractController'
         );
 
-        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
+        $requestStub = $this->getMock('travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getController')
             ->will($this->returnValue('test'));
@@ -33,11 +33,11 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->filters));
         $this->requestStub = $requestStub;
 
-        $this->responseStub = $this->getMock('Travi\\framework\\http\\Response');
+        $this->responseStub = $this->getMock('travi\\framework\\http\\Response');
     }
 
     /**
-     * @expectedException Travi\framework\exception\NotFoundException
+     * @expectedException travi\framework\exception\NotFoundException
      */
     public function testDoActionGivesNotFoundException()
     {

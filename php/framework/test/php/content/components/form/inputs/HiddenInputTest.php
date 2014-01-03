@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\HiddenInput;
+use travi\framework\components\Forms\inputs\HiddenInput;
 
 class HiddenInputTest extends PHPUnit_Framework_TestCase
 {

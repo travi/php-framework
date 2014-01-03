@@ -1,8 +1,8 @@
 <?php
 require_once 'test.controller.php';
 
-use Travi\framework\http\Request,
-    Travi\framework\http\Response;
+use travi\framework\http\Request,
+    travi\framework\http\Response;
 
 class TestTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ class TestTest extends PHPUnit_Framework_TestCase
     {
         $this->controller = new test;
 
-        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
+        $requestStub = $this->getMock('travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
@@ -27,7 +27,7 @@ class TestTest extends PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        $responseStub = $this->getMock('Travi\\framework\\http\\Response');
+        $responseStub = $this->getMock('travi\\framework\\http\\Response');
         $responseStub->expects($this->once())
             ->method('setTitle')
             ->with('Test');

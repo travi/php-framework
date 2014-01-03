@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\NoteArea;
+use travi\framework\components\Forms\NoteArea;
 
 class NoteAreaTest extends PHPUnit_Framework_TestCase
 {

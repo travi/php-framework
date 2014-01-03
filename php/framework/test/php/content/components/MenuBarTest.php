@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\content\navigation\MenuBar;
+use travi\framework\content\navigation\MenuBar;
 
 class MenuBarTest extends PHPUnit_Framework_TestCase
 {

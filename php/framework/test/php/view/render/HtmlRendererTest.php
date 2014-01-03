@@ -1,10 +1,10 @@
 <?php
 
-use Travi\framework\components\Forms\Form;
-use Travi\framework\dependencyManagement\DependencyManager,
-    Travi\framework\http\Request,
-    Travi\framework\http\Response,
-    Travi\framework\view\render\HtmlRenderer;
+use travi\framework\components\Forms\Form;
+use travi\framework\dependencyManagement\DependencyManager,
+    travi\framework\http\Request,
+    travi\framework\http\Response,
+    travi\framework\view\render\HtmlRenderer;
 
 class HtmlRendererTest extends PHPUnit_Framework_TestCase
 {
@@ -30,14 +30,14 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->htmlRenderer = new HtmlRenderer();
 
         $this->dependencyManager = $this->getMock(
-            'Travi\\framework\\dependencyManagement\\DependencyManager'
+            'travi\\framework\\dependencyManagement\\DependencyManager'
         );
         $this->smarty = $this->getMockBuilder('Smarty')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMock('Travi\\framework\\http\\Request');
-        $this->page = $this->getMock('Travi\\framework\\http\\Response');
-        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
+        $this->request = $this->getMock('travi\\framework\\http\\Request');
+        $this->page = $this->getMock('travi\\framework\\http\\Response');
+        $this->fileSystem = $this->getMock('travi\\framework\\utilities\\FileSystem');
 
         $this->htmlRenderer->setDependencyManager($this->dependencyManager);
         $this->htmlRenderer->setSmarty($this->smarty);
@@ -111,7 +111,7 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Travi\framework\exception\MissingPageTemplateException
+     * @expectedException travi\framework\exception\MissingPageTemplateException
      */
     public function testExceptionThrownIfCannotSetPageTemplate()
     {

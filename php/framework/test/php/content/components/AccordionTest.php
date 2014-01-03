@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\content\navigation\Accordion;
+use travi\framework\content\navigation\Accordion;
 
 class AccordionTest extends PHPUnit_Framework_TestCase
 {

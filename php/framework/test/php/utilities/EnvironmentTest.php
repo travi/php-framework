@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\utilities\Environment;
+use travi\framework\utilities\Environment;
 
 class EnvironmentTest extends PHPUnit_Framework_TestCase
 {

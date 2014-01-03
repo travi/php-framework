@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\components\Forms\inputs\TextInput;
 
 class TextInputTest extends PHPUnit_Framework_TestCase
 {

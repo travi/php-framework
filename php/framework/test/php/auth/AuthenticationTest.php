@@ -1,7 +1,7 @@
 <?php
 
-use Travi\framework\auth\Authentication,
-    Travi\framework\utilities\FileSystem;
+use travi\framework\auth\Authentication,
+    travi\framework\utilities\FileSystem;
 
 class AuthenticationTest extends PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->authentication = new Authentication();
-        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
+        $this->fileSystem = $this->getMock('travi\\framework\\utilities\\FileSystem');
         $this->authentication->setFileSystem($this->fileSystem);
 
         array_push($this->lines, 'some-other-user-name:' . $this->encryptPassword('some-password'));
@@ -39,7 +39,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Travi\framework\exception\UnauthorizedException
+     * @expectedException travi\framework\exception\UnauthorizedException
      */
     public function testThrowsExceptionWhenUserHasNotProvidedCredentials()
     {
@@ -56,7 +56,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Travi\framework\exception\UnauthorizedException
+     * @expectedException travi\framework\exception\UnauthorizedException
      */
     public function testExceptionThrownWhenUsernamePasswordNotCorrect()
     {

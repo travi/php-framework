@@ -1,10 +1,10 @@
 <?php
 
-use Travi\framework\page\AbstractResponse,
-    Travi\framework\http\Response,
-    Travi\framework\http\Request,
-    Travi\framework\utilities\Environment,
-    Travi\framework\view\render\HtmlRenderer;
+use travi\framework\page\AbstractResponse,
+    travi\framework\http\Response,
+    travi\framework\http\Request,
+    travi\framework\utilities\Environment,
+    travi\framework\view\render\HtmlRenderer;
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -37,14 +37,14 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $prodUrl = 'something.com';
 
-        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->request = $this->getMock('travi\\framework\\http\\Request');
 
         $this->response = new Response();
         $this->response->setRequest($this->request);
         $this->response->init(array());
         $this->response->setSiteName($this->someSiteName);
 
-        $this->environment = $this->getMock('Travi\\framework\\utilities\\Environment');
+        $this->environment = $this->getMock('travi\\framework\\utilities\\Environment');
         $this->response->setEnvironment($this->environment);
     }
 
@@ -176,7 +176,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Travi\framework\exception\InvalidHttpStatusException
+     * @expectedException travi\framework\exception\InvalidHttpStatusException
      */
     public function testSettingUnDefinedStatusThrowsException()
     {
@@ -312,7 +312,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->response->setLayoutTemplate($template);
         $this->response->setContent($content);
 
-        $renderer = $this->getMock('\\Travi\\framework\\view\\render\\HtmlRenderer');
+        $renderer = $this->getMock('\\travi\\framework\\view\\render\\HtmlRenderer');
         $renderer->expects($this->once())
             ->method('setLayoutTemplate')
             ->with($template);

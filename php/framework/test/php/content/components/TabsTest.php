@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\content\navigation\Tabs;
+use travi\framework\content\navigation\Tabs;
 
 class TabsTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\http\Session;
+use travi\framework\http\Session;
 
 class SessionTest extends PHPUnit_Framework_TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-use Travi\framework\view\render\JsonRenderer,
-    Travi\framework\photos\Album,
-    Travi\framework\photos\Photo;
+use travi\framework\view\render\JsonRenderer,
+    travi\framework\photos\Album,
+    travi\framework\photos\Photo;
 
 class JsonRendererTest extends PHPUnit_Framework_TestCase
 {

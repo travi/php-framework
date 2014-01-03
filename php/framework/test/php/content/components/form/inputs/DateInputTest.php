@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\DateInput;
+use travi\framework\components\Forms\inputs\DateInput;
 
 class DateInputTest extends PHPUnit_Framework_TestCase
 {

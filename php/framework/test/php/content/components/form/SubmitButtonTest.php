@@ -1,7 +1,7 @@
 <?php
 
-use Travi\framework\components\Forms\SubmitButton,
-    Travi\framework\components\Forms\inputs\Input;
+use travi\framework\components\Forms\SubmitButton,
+    travi\framework\components\Forms\inputs\Input;
 
 class SubmitButtonTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\Form;
+use travi\framework\components\Forms\Form;
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 {

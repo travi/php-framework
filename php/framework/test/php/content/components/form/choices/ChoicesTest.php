@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\choices\Choices;
+use travi\framework\components\Forms\choices\Choices;
 
 class ChoicesTest extends PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         $settings = array('label' => 'label');
 
         $this->choices = $this->getMockForAbstractClass(
-            'Travi\\framework\\components\\Forms\\choices\\Choices',
+            'travi\\framework\\components\\Forms\\choices\\Choices',
             array($settings)
         );
     }
@@ -42,7 +42,7 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     public function testGetNameConstructorSettings()
     {
         $this->choices = $this->getMockForAbstractClass(
-            'Travi\\framework\\components\\Forms\\choices\\Choices',
+            'travi\\framework\\components\\Forms\\choices\\Choices',
             array(array('name' => 'name'))
         );
 

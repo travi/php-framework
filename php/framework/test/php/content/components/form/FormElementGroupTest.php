@@ -1,22 +1,22 @@
 <?php
 
-use Travi\framework\components\Forms\FormElementGroup,
-    Travi\framework\components\Forms\FieldSet,
-    Travi\framework\components\Forms\inputs\Input,
-    Travi\framework\components\Forms\inputs\TextInput,
-    Travi\framework\components\Forms\inputs\FileInput,
-    Travi\framework\components\Forms\inputs\DateInput;
+use travi\framework\components\Forms\FormElementGroup,
+    travi\framework\components\Forms\FieldSet,
+    travi\framework\components\Forms\inputs\Input,
+    travi\framework\components\Forms\inputs\TextInput,
+    travi\framework\components\Forms\inputs\FileInput,
+    travi\framework\components\Forms\inputs\DateInput;
 
 class FormElementGroupTest extends PHPUnit_Framework_TestCase
 {
-    private $fileInputType = 'Travi\\framework\\components\\Forms\\inputs\\FileInput';
+    private $fileInputType = 'travi\\framework\\components\\Forms\\inputs\\FileInput';
     /** @var FormElementGroup */
     private $group;
 
     protected function setUp()
     {
         $this->group = $this->getMockForAbstractClass(
-            'Travi\\framework\\components\\Forms\\FormElementGroup'
+            'travi\\framework\\components\\Forms\\FormElementGroup'
         );
     }
 
@@ -176,12 +176,12 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
     private function getAnyField()
     {
-        return $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        return $this->getMock('travi\\framework\\components\\Forms\\inputs\\TextInput');
     }
 
     private function getAnyGroup()
     {
-        return $this->getMock('Travi\\framework\\components\\Forms\\FieldSet');
+        return $this->getMock('travi\\framework\\components\\Forms\\FieldSet');
     }
 
     private function getAnyFieldWithValidations($validations = array())

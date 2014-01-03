@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\choices\CheckBoxes;
+use travi\framework\components\Forms\choices\CheckBoxes;
 
 class CheckBoxesTest extends PHPUnit_Framework_TestCase
 {

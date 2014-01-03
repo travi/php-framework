@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\choices\RadioButtons;
+use travi\framework\components\Forms\choices\RadioButtons;
 
 class RadioButtonsTest extends PHPUnit_Framework_TestCase
 {

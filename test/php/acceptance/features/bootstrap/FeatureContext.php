@@ -16,7 +16,7 @@ use Behat\Gherkin\Node\PyStringNode,
 
     require_once __DIR__ . '/../../../../../vendor/autoload.php';
 
-use Travi\framework\utilities\FileSystem;
+use travi\framework\utilities\FileSystem;
 
 /**
  * Features context.

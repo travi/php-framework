@@ -1,8 +1,8 @@
 <?php
 
-use Travi\framework\http\Request;
-use Travi\framework\photos\Album;
-use Travi\framework\photos\Photo;
+use travi\framework\http\Request;
+use travi\framework\photos\Album;
+use travi\framework\photos\Photo;
 
 class AlbumRssMapper
 {

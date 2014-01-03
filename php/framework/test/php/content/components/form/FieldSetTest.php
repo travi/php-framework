@@ -1,12 +1,10 @@
 <?php
 
-use Travi\framework\components\Forms\FieldSet;
+use travi\framework\components\Forms\FieldSet;
 
 class FieldSetTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var FieldSet
-     */
+    /** @var FieldSet */
     protected $fieldSet;
 
     protected function setUp()

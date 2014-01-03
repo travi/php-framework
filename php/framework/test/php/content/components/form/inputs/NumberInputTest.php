@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\NumberInput;
+use travi\framework\components\Forms\inputs\NumberInput;
 
 class NumberInputTest extends PHPUnit_Framework_TestCase
 {

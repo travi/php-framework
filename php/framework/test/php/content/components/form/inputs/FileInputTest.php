@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\FileInput;
+use travi\framework\components\Forms\inputs\FileInput;
 
 class FileInputTest extends PHPUnit_Framework_TestCase
 {

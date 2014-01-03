@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\TextArea;
+use travi\framework\components\Forms\inputs\TextArea;
 
 class TextAreaTest extends PHPUnit_Framework_TestCase
 {

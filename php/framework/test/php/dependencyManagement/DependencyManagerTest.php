@@ -1,9 +1,9 @@
 <?php
 
-use Travi\framework\dependencyManagement\DependencyManager,
-    Travi\framework\dependencyManagement\ClientDependencies,
-    Travi\framework\components\Forms\Form,
-    Travi\framework\http\Request;
+use travi\framework\dependencyManagement\DependencyManager,
+    travi\framework\dependencyManagement\ClientDependencies,
+    travi\framework\components\Forms\Form,
+    travi\framework\http\Request;
 
 class DependencyManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -46,13 +46,13 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
-        $this->environmentUtility = $this->getMock('Travi\\framework\\utilities\\Environment');
-        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->fileSystem = $this->getMock('travi\\framework\\utilities\\FileSystem');
+        $this->environmentUtility = $this->getMock('travi\\framework\\utilities\\Environment');
+        $this->request = $this->getMock('travi\\framework\\http\\Request');
         $this->clientDependencyDefinitions = $this->getMock(
-            'Travi\\framework\\dependencyManagement\\ClientDependencies'
+            'travi\\framework\\dependencyManagement\\ClientDependencies'
         );
-        $this->session = $this->getMock('Travi\\framework\\http\\Session');
+        $this->session = $this->getMock('travi\\framework\\http\\Session');
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());
@@ -566,7 +566,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testAdminDependenciesHandledJustLikeOtherPages()
     {
-        $request = $this->getMock('Travi\\framework\\http\\Request');
+        $request = $this->getMock('travi\\framework\\http\\Request');
         $request->expects($this->once())
             ->method('isAdmin')
             ->will($this->returnValue(true));
@@ -600,7 +600,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
     {
         $widget = 'someWidgetWithDeps';
 
-        $request = $this->getMock('Travi\\framework\\http\\Request');
+        $request = $this->getMock('travi\\framework\\http\\Request');
         $request->expects($this->once())
             ->method('isAdmin')
             ->will($this->returnValue(false));

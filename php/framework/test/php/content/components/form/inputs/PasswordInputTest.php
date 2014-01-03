@@ -1,5 +1,5 @@
 <?php
-use Travi\framework\components\Forms\inputs\PasswordInput;
+use travi\framework\components\Forms\inputs\PasswordInput;
 
 class PasswordInputTest extends PHPUnit_Framework_TestCase
 {

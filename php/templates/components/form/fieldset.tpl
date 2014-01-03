@@ -3,11 +3,11 @@
     <ul class="fieldList">
         {foreach from=$fieldset->getFormElements() item=field}
         <li>
-            {if is_a($field,'Travi\framework\components\Forms\inputs\Input')}
+            {if is_a($field,'travi\framework\components\Forms\inputs\Input')}
                 {include file=$field->getTemplate() field=$field}
-            {elseif is_a($field,'Travi\framework\components\Forms\choices\Choices')}
+            {elseif is_a($field,'travi\framework\components\Forms\choices\Choices')}
                 {include file=$field->getTemplate() field=$field}
-            {elseif is_a($field,'Travi\framework\components\Forms\NoteArea')}
+            {elseif is_a($field,'travi\framework\components\Forms\NoteArea')}
                 {include file=$field->getTemplate() field=$field}
             {else}
                 other

@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\page\AbstractResponse;
+use travi\framework\page\AbstractResponse;
 
 class AbstractResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->response = $this->getMockForAbstractClass('Travi\\framework\\page\\AbstractResponse');
+        $this->response = $this->getMockForAbstractClass('travi\\framework\\page\\AbstractResponse');
     }
 
     public function testSiteName()

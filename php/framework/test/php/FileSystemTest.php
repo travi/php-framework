@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\utilities\FileSystem;
+use travi\framework\utilities\FileSystem;
 
 class FileSystemTest extends PHPUnit_Framework_TestCase
 {

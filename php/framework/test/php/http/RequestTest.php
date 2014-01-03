@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\http\Request;
+use travi\framework\http\Request;
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {

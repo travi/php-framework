@@ -1,11 +1,11 @@
 <?php
 
-use Travi\framework\http\Response,
-    Travi\framework\http\Request,
-    Travi\framework\utilities\FileSystem,
-    Travi\framework\dependencyManagement\DependencyManager,
-    Travi\framework\utilities\Environment,
-    Travi\framework\view\render\HtmlRenderer;
+use travi\framework\http\Response,
+    travi\framework\http\Request,
+    travi\framework\utilities\FileSystem,
+    travi\framework\dependencyManagement\DependencyManager,
+    travi\framework\utilities\Environment,
+    travi\framework\view\render\HtmlRenderer;
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR .
@@ -21,7 +21,7 @@ if (!defined('SITE_ROOT')) {
     define('SITE_ROOT', DOC_ROOT . '../');
 }
 if (!defined('FRAMEWORK_PATH')) {
-    define('FRAMEWORK_PATH', SITE_ROOT . 'vendor/Travi/framework/php/framework/');
+    define('FRAMEWORK_PATH', SITE_ROOT . 'vendor/travi/framework/php/framework/');
 }
 
 $config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
@@ -63,9 +63,9 @@ if (defined('DB_HOSTNAME')) {
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
 $container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
 $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
-$container->dependencies()->set('request', Pd_Make::name('Travi\\framework\\http\\Request'));
+$container->dependencies()->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
 
-$container->dependencies()->set('session', Pd_Make::name('Travi\\framework\\http\\Session'));
+$container->dependencies()->set('session', Pd_Make::name('travi\\framework\\http\\Session'));
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], FRAMEWORK_PATH . '../../'));
 $container->dependencies()->set(
@@ -75,10 +75,10 @@ $container->dependencies()->set(
 $container->dependencies()->set('Smarty', smartyInit($config['smarty'], $config['debug']));
 $container->dependencies()->set(
     'htmlRenderer',
-    Pd_Make::name('Travi\\framework\\view\\render\\HtmlRenderer')
+    Pd_Make::name('travi\\framework\\view\\render\\HtmlRenderer')
 );
 
-$container->dependencies()->set('response', Pd_Make::name('Travi\\framework\\http\\Response'));
+$container->dependencies()->set('response', Pd_Make::name('travi\\framework\\http\\Response'));
 
 
 
@@ -105,7 +105,7 @@ function dbInit()
 function fileSystemInit($sitePath, $sharedPath)
 {
     /** @var $fileSystem FileSystem */
-    $fileSystem = Pd_Make::name('Travi\\framework\\utilities\\FileSystem');
+    $fileSystem = Pd_Make::name('travi\\framework\\utilities\\FileSystem');
     $fileSystem->setSitePath($sitePath);
     $fileSystem->setSharedPath($sharedPath);
     return $fileSystem;
@@ -118,7 +118,7 @@ function fileSystemInit($sitePath, $sharedPath)
 function environmentInit($prodUrl)
 {
     /** @var $environment Environment */
-    $environment = Pd_Make::name('Travi\\framework\\utilities\\Environment');
+    $environment = Pd_Make::name('travi\\framework\\utilities\\Environment');
     $environment->setProductionUrl($prodUrl);
     return $environment;
 }
@@ -157,7 +157,7 @@ function smartyInit($smartyConfig, $debug)
 function dmInit($pageDepLists, $theme)
 {
     /** @var $dependencyManager DependencyManager */
-    $dependencyManager = Pd_Make::name('Travi\\framework\\dependencyManagement\\DependencyManager');
+    $dependencyManager = Pd_Make::name('travi\\framework\\dependencyManagement\\DependencyManager');
     $dependencyManager->setPageDependenciesLists($pageDepLists);
     $dependencyManager->setSiteTheme('/resources/css/' . $theme);
     return $dependencyManager;

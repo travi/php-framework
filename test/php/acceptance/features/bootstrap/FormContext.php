@@ -2,8 +2,8 @@
 
 use Behat\Behat\Context\BehatContext,
     Behat\Behat\Exception\PendingException;
-use Travi\framework\components\Forms\Form;
-use Travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\components\Forms\Form;
+use travi\framework\components\Forms\inputs\TextInput;
 
 class FormContext extends BehatContext
 {

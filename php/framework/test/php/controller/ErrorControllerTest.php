@@ -1,9 +1,9 @@
 <?php
 
-use Travi\framework\exception\NotFoundException,
-    Travi\framework\http\Request,
-    Travi\framework\http\Response,
-    Travi\framework\controller\ErrorController;
+use travi\framework\exception\NotFoundException,
+    travi\framework\http\Request,
+    travi\framework\http\Response,
+    travi\framework\controller\ErrorController;
 
 class ErrorControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -18,12 +18,12 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
     {
         $this->controller = new ErrorController;
 
-        $requestStub = $this->getMock('Travi\\framework\\http\\Request');
+        $requestStub = $this->getMock('travi\\framework\\http\\Request');
         $requestStub->expects($this->any())
             ->method('getAction')
             ->will($this->returnValue('index'));
 
-        $responseStub = $this->getMock('Travi\\framework\\http\\Response');
+        $responseStub = $this->getMock('travi\\framework\\http\\Response');
 
         $this->request = $requestStub;
         $this->response = $responseStub;
@@ -71,7 +71,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             ->method('addToResponse')
             ->with(
                 $this->equalTo('type'),
-                $this->equalTo('Travi\\framework\\exception\\NotFoundException')
+                $this->equalTo('travi\\framework\\exception\\NotFoundException')
             );
         $this->response->expects($this->at(4))
             ->method('addToResponse')

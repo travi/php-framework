@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\choices\SelectionBox;
+use travi\framework\components\Forms\choices\SelectionBox;
 
 class SelectionBoxTest extends PHPUnit_Framework_TestCase
 {

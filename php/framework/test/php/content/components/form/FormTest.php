@@ -1,10 +1,10 @@
 <?php
 
-use Travi\framework\components\Forms\Form,
-    Travi\framework\components\Forms\FieldSet,
-    Travi\framework\components\Forms\inputs\Input,
-    Travi\framework\components\Forms\inputs\DateInput,
-    Travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\components\Forms\Form,
+    travi\framework\components\Forms\FieldSet,
+    travi\framework\components\Forms\inputs\Input,
+    travi\framework\components\Forms\inputs\DateInput,
+    travi\framework\components\Forms\inputs\TextInput;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -164,7 +164,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testHasErrorsReturnsFalseWhenValid()
     {
-        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field = $this->getMock('travi\\framework\\components\\Forms\\inputs\\TextInput');
         $field->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(true));
@@ -176,14 +176,14 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     public function testHasErrorsReturnsTrueWhenInvalid()
     {
-        $field1 = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field1 = $this->getMock('travi\\framework\\components\\Forms\\inputs\\TextInput');
         $field1->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(false));
 
         $this->form->addFormElement($field1);
 
-        $field2 = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field2 = $this->getMock('travi\\framework\\components\\Forms\\inputs\\TextInput');
         $field2->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(false));
@@ -200,7 +200,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     private function getAnyField()
     {
-        $field = $this->getMock('Travi\\framework\\components\\Forms\\inputs\\TextInput');
+        $field = $this->getMock('travi\\framework\\components\\Forms\\inputs\\TextInput');
 
         $field->expects($this->any())
             ->method('getName')

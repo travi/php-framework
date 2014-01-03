@@ -2,11 +2,11 @@
 
 require_once __DIR__ . '/../mockProject/app/controller/test.controller.php';
 
-use Travi\framework\auth\Authentication;
-use Travi\framework\controller\front\FrontController,
-    Travi\framework\controller\ErrorController,
-    Travi\framework\utilities\FileSystem;
-use Travi\framework\exception\UnauthorizedException;
+use travi\framework\auth\Authentication;
+use travi\framework\controller\front\FrontController,
+    travi\framework\controller\ErrorController,
+    travi\framework\utilities\FileSystem;
+use travi\framework\exception\UnauthorizedException;
 
 class FrontControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -27,8 +27,8 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->frontController->setConfig($config);
         $this->frontController->setErrorController(new ErrorController());
 
-        $this->fileSystem = $this->getMock('Travi\\framework\\utilities\\FileSystem');
-        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->fileSystem = $this->getMock('travi\\framework\\utilities\\FileSystem');
+        $this->request = $this->getMock('travi\\framework\\http\\Request');
 
         $this->frontController->setFileSystem($this->fileSystem);
         $this->frontController->setRequest($this->request);
@@ -42,7 +42,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
             ->will($this->returnValue(true));
 
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
@@ -55,7 +55,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('index'));
 
-        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
+        $mockResponse = $this->getMock('travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
         $mockResponse->expects($this->once())
@@ -84,7 +84,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     public function testGetAdminController()
     {
         /** @var $authentication Authentication */
-        $authentication = $this->getMock('Travi\\framework\\auth\\Authentication');
+        $authentication = $this->getMock('travi\\framework\\auth\\Authentication');
         $this->frontController->setAuthentication($authentication);
         $authentication->expects($this->once())
             ->method('ensureAuthenticated');
@@ -99,7 +99,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue(true));
 
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(true));
@@ -112,7 +112,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction');
 
         $this->frontController->setRequest($mockRequest);
-        $this->frontController->setResponse($this->getMock('Travi\\framework\\http\\Response'));
+        $this->frontController->setResponse($this->getMock('travi\\framework\\http\\Response'));
 
         $this->frontController->processRequest();
     }
@@ -124,7 +124,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->pathToDocRoot . '../app/controller/' . $this->controllerName . '.controller.php')
             ->will($this->returnValue(true));
 
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(false));
@@ -137,7 +137,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('noContentToReturn'));
 
-        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
+        $mockResponse = $this->getMock('travi\\framework\\http\\Response');
         $mockResponse->expects($this->never())
             ->method('setContent');
 
@@ -153,11 +153,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getController')
             ->will($this->returnValue('nonExistantPage'));
 
-        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
+        $mockResponse = $this->getMock('travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
 
-        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
+        $errorController = $this->getMock('travi\\framework\\controller\\ErrorController');
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(
@@ -188,11 +188,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->method('getAction')
             ->will($this->returnValue('throwsError'));
 
-        $mockResponse = $this->getMock('Travi\\framework\\http\\Response');
+        $mockResponse = $this->getMock('travi\\framework\\http\\Response');
         $mockResponse->expects($this->once())
             ->method('format');
 
-        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
+        $errorController = $this->getMock('travi\\framework\\controller\\ErrorController');
         $errorController->expects($this->once())
             ->method('doAction')
             ->with(
@@ -210,24 +210,24 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     public function testUserPromptedForCredentialsWhenAdminIfNotAlreadyAuthenticated()
     {
         /** @var $authentication Authentication */
-        $authentication = $this->getMock('Travi\\framework\\auth\\Authentication');
+        $authentication = $this->getMock('travi\\framework\\auth\\Authentication');
         $this->frontController->setAuthentication($authentication);
         $authentication->expects($this->once())
             ->method('ensureAuthenticated')
             ->will($this->throwException(new UnauthorizedException()));
 
-        $mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $mockRequest = $this->getMock('travi\\framework\\http\\Request');
         $mockRequest->expects($this->any())
             ->method('isAdmin')
             ->will($this->returnValue(true));
 
-        $errorController = $this->getMock('Travi\\framework\\controller\\ErrorController');
+        $errorController = $this->getMock('travi\\framework\\controller\\ErrorController');
         $this->frontController->setErrorController($errorController);
         $errorController->expects($this->once())
             ->method('doAction');
 
         $this->frontController->setRequest($mockRequest);
-        $this->frontController->setResponse($this->getMock('Travi\\framework\\http\\Response'));
+        $this->frontController->setResponse($this->getMock('travi\\framework\\http\\Response'));
 
         $this->frontController->processRequest();
     }

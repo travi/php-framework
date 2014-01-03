@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\DependantObject;
+use travi\framework\DependantObject;
 
 class DependantObjectTest extends PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class DependantObjectTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('Travi\\framework\\DependantObject');
+        $this->object = $this->getMockForAbstractClass('travi\\framework\\DependantObject');
     }
 
     public function testStyleSheet()

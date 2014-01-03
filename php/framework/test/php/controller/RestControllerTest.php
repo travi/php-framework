@@ -1,7 +1,7 @@
 <?php
 
-use Travi\framework\http\Request;
-use Travi\framework\http\Response;
+use travi\framework\http\Request;
+use travi\framework\http\Response;
 
 class RestControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class RestControllerTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->abstractMock = $this->getMockForAbstractClass(
-            'Travi\\framework\\controller\\RestController',
+            'travi\\framework\\controller\\RestController',
             array(),
             '',
             false,
@@ -25,7 +25,7 @@ class RestControllerTest extends PHPUnit_Framework_TestCase
             array()
         );
         $this->partiallyMockedController = $this->getMockForAbstractClass(
-            'Travi\\framework\\controller\\RestController',
+            'travi\\framework\\controller\\RestController',
             array(),
             '',
             false,
@@ -36,7 +36,7 @@ class RestControllerTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->response = new Response(array());
-        $this->mockRequest = $this->getMock('Travi\\framework\\http\\Request');
+        $this->mockRequest = $this->getMock('travi\\framework\\http\\Request');
     }
 
     public function testThatGetByIdIsCalledWhenRequestIsGetAndProvidesId()

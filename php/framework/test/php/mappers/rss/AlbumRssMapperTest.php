@@ -1,9 +1,9 @@
 <?php
 
-use Travi\framework\photos\Thumbnail,
-    Travi\framework\photos\Photo,
-    Travi\framework\http\Request,
-    Travi\framework\photos\Album;
+use travi\framework\photos\Thumbnail,
+    travi\framework\photos\Photo,
+    travi\framework\http\Request,
+    travi\framework\photos\Album;
 
 require_once dirname(__FILE__).'/../../../../../../php/thirdparty/FeedCreator/include/feedcreator.class.php';
 require_once dirname(__FILE__).'/../../../../src/mappers/rss/album.mapper.php';
@@ -25,7 +25,7 @@ class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mapper = new AlbumRssMapper();
-        $this->request = $this->getMock('Travi\\framework\\http\\Request');
+        $this->request = $this->getMock('travi\\framework\\http\\Request');
 
         $this->mapper->setRequest($this->request);
     }

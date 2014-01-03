@@ -1,6 +1,6 @@
 <?php
 
-use Travi\framework\components\Forms\inputs\Input;
+use travi\framework\components\Forms\inputs\Input;
 
 class InputTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class InputTest extends PHPUnit_Framework_TestCase
         $options['validations'] = array('validation1', 'validation2');
 
         $this->input = $this->getMockForAbstractClass(
-            'Travi\\framework\\components\\Forms\\inputs\\Input',
+            'travi\\framework\\components\\Forms\\inputs\\Input',
             array($options)
         );
     }
@@ -41,7 +41,7 @@ class InputTest extends PHPUnit_Framework_TestCase
 
         /** @var $input Input */
         $input = $this->getMockForAbstractClass(
-            'Travi\\framework\\components\\Forms\\inputs\\Input',
+            'travi\\framework\\components\\Forms\\inputs\\Input',
             array($options)
         );
 
