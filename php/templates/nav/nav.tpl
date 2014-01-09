@@ -1,3 +1,4 @@
+            <nav>
                 <ul>
     {foreach from=$nav item=item}
                     <li><a href="{$item['link']}">{$item['text']}</a>{if !empty($item['subLinks'])}
@@ -9,3 +10,4 @@
                     {/if}</li>
     {/foreach}
                 </ul>
+            </nav>
