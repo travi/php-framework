@@ -20,4 +20,13 @@
         <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
 {/foreach}
         <script type="text/javascript" src="/resources/shared/{if $page->isProduction()}min/{/if}thirdparty/modernizr/modernizr.min.js"> </script>
+        <script type="text/javascript" src="/resources/thirdparty/travi-styles/icons/grunticon.loader.txt"> </script>
+        <script>
+            grunticon([
+                "/resources/thirdparty/travi-styles/icons/icons.data.svg.css",
+                "/resources/thirdparty/travi-styles/icons/icons.data.png.css",
+                "/resources/thirdparty/travi-styles/icons/icons.fallback.css"
+            ]);
+        </script>
+        <noscript><link href="/resources/thirdparty/travi-styles/icons/icons.fallback.css" rel="stylesheet"></noscript>
     </head>
