@@ -20,7 +20,7 @@
                                 <input type="submit" value="Remove"/>
                             </form>
                             {else}
-                            <a class="item-action" href="{$details['link']}{$entity->getId()}">
+                            <a class="item-action icon-{$details['text']|lower}" href="{$details['link']}{$entity->getId()}">
                                 {$details['text']}
                             </a>
                         {/if}
