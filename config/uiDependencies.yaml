@@ -137,7 +137,7 @@ jquery:
     validation:
       local: "/resources/thirdparty/jquery.validation/jquery.validate.js"
       cssDependencies:
-        - "jqueryUiTheme"
+        - jqueryUiTheme
 
     wymEditor:
       local: "/resources/thirdparty/wymeditor/jquery.wymeditor.js"
