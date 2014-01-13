@@ -51,7 +51,7 @@ entityList:
   cssDependencies:
     - /resources/thirdparty/travi-styles/css/travi-entities.css
   clientTemplates:
-    update-item: /resources/templates/admin/update-item.tmpl
+    update-item: /resources/thirdparty/travi-core/templates/entity-item.tmpl
 
 cookieUtil:
   local: /resources/thirdparty/travi-core/js/travi/cookies.js
