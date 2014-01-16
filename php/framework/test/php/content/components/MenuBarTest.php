@@ -16,7 +16,7 @@ class MenuBarTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             array(
-                'scripts'   => array('jqueryUi', '/resources/thirdparty/travi-menubar/js/plugins/jquery.menubar.js'),
+                'scripts'   => array('jqueryUi', '/resources/thirdparty/travi-menubar/js/jquery.menubar.js'),
                 'jsInits'   => array("$('ul.menuBar').menuBar();"),
                 'styles'    => array('/resources/thirdparty/travi-menubar/css/ui/menuBar.css')
             ),
