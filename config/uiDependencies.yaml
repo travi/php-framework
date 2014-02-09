@@ -37,12 +37,12 @@ template:
     - jsRender
 
 pagination:
-  local: /resources/thirdparty/travi-core/js/travi/pagination.js
+  local: /resources/thirdparty/travi-ui/js/pagination.js
   jsDependencies:
     - events
 
 entityList:
-  local: /resources/thirdparty/travi-core/js/travi/framework/entityList.js
+  local: /resources/thirdparty/travi-ui/js/entityList.js
   jsDependencies:
     - jqueryUi
     - ajaxForm
