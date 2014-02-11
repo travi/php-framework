@@ -66,7 +66,7 @@
             <arg line=" --log-junit         ${build.logs}/phpunit.xml
                         --coverage-clover   ${build.logs}/clover.xml
                         --coverage-html     ${build.dir}/coverage
-                        --bootstrap ${site.dir}/vendor/autoload.php
+                        --configuration ${site.dir}/config/phpunit.xml
                         php"/>
         </exec>
     </target>
