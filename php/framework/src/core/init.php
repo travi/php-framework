@@ -45,12 +45,18 @@ $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
 $config['adminNav'] = $config['nav']['admin'];
 unset($config['nav']['admin']);
 
-$config['debug'] = true;         //TODO: make this automated based on environment
 $config['docRoot'] = DOC_ROOT;
 
 
 //Initialize Dependency Injection Container
 $container = Pd_Container::get();
+
+$container->dependencies()->set('environment', environmentInit($config['productionUrl']));
+/** @var Environment $environment */
+$environment = $container->dependencies()->get('environment');
+
+$config['debug'] = $environment->isLocal();
+
 
 //Add Dependencies
 $container->dependencies()->set('config', $config);
@@ -66,7 +72,6 @@ $container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEM
 $container->dependencies()->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
 
 $container->dependencies()->set('session', Pd_Make::name('travi\\framework\\http\\Session'));
-$container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 $container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], FRAMEWORK_PATH . '../../'));
 $container->dependencies()->set(
     'dependencyManager',
