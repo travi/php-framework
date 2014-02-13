@@ -8,8 +8,14 @@ framework:
   local: /resources/thirdparty/travi-core/js/travi/framework.js
   jsDependencies:
     - dependencyLoader
+    - dependencyChecker
     - events
     - enhancements
+
+dependencyChecker:
+  local: /resources/thirdparty/travi-core/js/travi/dependencies/checker.js
+  jsDependencies:
+    - travi
 
 dependencyLoader:
   local: /resources/thirdparty/travi-core/js/travi/dependencies/loader.js
