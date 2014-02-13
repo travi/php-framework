@@ -46,6 +46,7 @@ pagination:
   local: /resources/thirdparty/travi-ui/js/pagination.js
   jsDependencies:
     - events
+    - dependencyChecker
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
