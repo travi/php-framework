@@ -41,7 +41,7 @@
         <classpath refid="groovy.classpath"/>
     </taskdef>
 
-    <target name="gates" depends="update-dependencies">
+    <target name="gates">
         <antcall target="checkstyle"/>
         <antcall target="test"/>
         <antcall target="messDetect"/>
@@ -174,7 +174,7 @@
         <antcall target="dist.tar"/>
     </target>
 
-    <target name="build" depends="clean,createBuildDirs,update-dependencies">
+    <target name="build" depends="clean,createBuildDirs">
         <exec dir="${site.dir}" executable="grunt" failonerror='true'>
             <arg line="compile"/>
         </exec>
@@ -199,12 +199,6 @@
                 excludes="vendor/travi/framework/npm_modules/**"
                 longfile="gnu"
                 />
-    </target>
-
-    <target name="update-dependencies">
-        <exec dir="${site.dir}" executable="npm" failonerror='true'>
-            <arg line="install"/>
-        </exec>
     </target>
 
     <macrodef name="update-site-database">
