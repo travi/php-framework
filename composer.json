@@ -15,8 +15,8 @@
         "lespoilus/spyc": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "behat/behat": "2.4.5"
+        "phpunit/phpunit": "4.0.*",
+        "behat/behat": "2.5.*"
     },
     "minimum-stability": "dev",
     "autoload": {
