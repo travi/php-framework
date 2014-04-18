@@ -315,6 +315,7 @@ abstract class AbstractResponse
 
         $this->addToResponse('message', $msg);
         $this->addToResponse('status', $status);
+        $this->addToResponse('location', $location);
 
         array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
     }
