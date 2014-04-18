@@ -46,8 +46,8 @@ class EntityList extends ContentObject
         if (!empty($confirmation)) {
             $this->addJsInit(
                 '
-                travi.framework.entityList.setConfirmationMessage("'.$confirmation.'");
-                travi.framework.entityList.setButtonText("'.$text.'");'
+                travi.ui.entityList.setConfirmationMessage("'.$confirmation.'");
+                travi.ui.entityList.setButtonText("'.$text.'");'
             );
         }
     }
