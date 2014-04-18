@@ -302,7 +302,7 @@ abstract class AbstractResponse
         return $config['googleAnalytics']['key'];
     }
 
-    public function redirect($status, $msg, $location)
+    public function showResults($status, $msg, $location)
     {
         $this->setTitle("Results");
         $this->setPageTemplate('../status/result.tpl');
@@ -316,8 +316,6 @@ abstract class AbstractResponse
         $this->addToResponse('message', $msg);
         $this->addToResponse('status', $status);
         $this->addToResponse('location', $location);
-
-        array_push($this->metatags, '<meta http-equiv="refresh" content="5; url='.$location.'" />');
     }
 
     ////////////////////////////////////////////////////////

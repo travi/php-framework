@@ -108,7 +108,7 @@ abstract class CrudController extends RestController
         } else {
             $response->addToResponse('createdId', $this->model->add($this->mapper->mapFromForm($form)));
             $response->setStatus(201);
-            $response->redirect(
+            $response->showResults(
                 'good',
                 $this->getEntityType() . ' Added Successfully',
                 $this->getUrlPrefix()
@@ -134,7 +134,7 @@ abstract class CrudController extends RestController
             $response->setStatus(400);
         } else {
             $this->model->updateById($id, $this->mapper->mapFromForm($form));
-            $response->redirect(
+            $response->showResults(
                 'good',
                 $this->getEntityType() . ' Updated Successfully',
                 $this->getUrlPrefix()

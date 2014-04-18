@@ -2,8 +2,7 @@
     <div class="entry-message">
         <div class="{$content['status']}">{$content['message']}</div>
         <p>
-            You will be redirected in 5 seconds, or you can <a href="{$content['location']}">click here</a> if you
-            don't want to wait.
+            <a href="{$content['location']}">Back to list</a>
         </p>
     </div>
 </div>
