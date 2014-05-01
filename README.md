@@ -1,5 +1,6 @@
 Travi Framework
 ===============
+[![Build Status](https://travis-ci.org/travi/php-framework.svg?branch=master)](https://travis-ci.org/travi/php-framework)
 [![Dependency Status](https://gemnasium.com/travi/php-framework.svg)](https://gemnasium.com/travi/php-framework)
 
 This is a php web framework that I've built over the years as I've worked to understand web development better.
