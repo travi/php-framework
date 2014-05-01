@@ -1,0 +1,2 @@
+src_dir: php/framework/src
+coverage_clover: logs/phpunit.xml

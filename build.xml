@@ -24,7 +24,6 @@
 
     <target name="test">
         <mkdir dir="${build.logs}"/>
-        <mkdir dir="build/logs"/>
         <phpunit configuration="config/phpunit.xml"
                  haltonerror="true"
                  printsummary="true"
@@ -35,7 +34,6 @@
                 </fileset>
             </batchtest>
             <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
-            <formatter type="xml" todir="build/logs" outfile="clover.xml"/>
         </phpunit>
     </target>
 </project>
