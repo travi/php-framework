@@ -2,6 +2,8 @@
 
 <project default="gates" name="travi-framework">
     <property name="basedir" value="${project.basedir}"/>
+    <property name="shared.dir" value="${basedir}"/>
+    <property file="build/shared.properties"/>
     <property file="build/build.properties"/>
 
     <target name="gates">
@@ -14,7 +16,7 @@
         <phpcodesniffer standard="build/codingStandard.xml"
                         haltonerror="true">
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
-            <fileset dir="php">
+            <fileset dir="${src.dir}">
                 <include name="**/*.php"/>
             </fileset>
         </phpcodesniffer>

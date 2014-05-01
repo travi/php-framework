@@ -14,13 +14,13 @@ abstract class Renderer
         $result = array();
 
         foreach ($data as $key => $item) {
-            $result[$key] = $this->object_to_array($item);
+            $result[$key] = $this->objectToArray($item);
         }
 
         return $result;
     }
 
-    protected function object_to_array($item)
+    protected function objectToArray($item)
     {
         if (is_object($item)) {
             $itemResult = array();
@@ -31,7 +31,7 @@ abstract class Renderer
                     $value = $method->invoke($item);
 
                     if (is_object($value) || is_array($value)) {
-                        $value = $this->object_to_array($value);
+                        $value = $this->objectToArray($value);
                     }
                     $itemResult[$this->getKeyFromMethodName($method)] = $value;
                 }
