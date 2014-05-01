@@ -1,6 +1,7 @@
 Travi Framework
 ===============
 [![Build Status](https://travis-ci.org/travi/php-framework.svg?branch=master)](https://travis-ci.org/travi/php-framework)
+[![Coverage Status](https://coveralls.io/repos/travi/php-framework/badge.png?branch=master)](https://coveralls.io/r/travi/php-framework?branch=master)
 [![Dependency Status](https://gemnasium.com/travi/php-framework.svg)](https://gemnasium.com/travi/php-framework)
 
 [![Latest Stable Version](https://poser.pugx.org/travi/framework/v/stable.png)](https://packagist.org/packages/travi/framework)
