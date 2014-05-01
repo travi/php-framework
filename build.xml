@@ -27,13 +27,15 @@
         <phpunit configuration="config/phpunit.xml"
                  haltonerror="true"
                  printsummary="true"
-                 haltonfailure="true">
+                 haltonfailure="true"
+                 codecoverage="true">
             <batchtest>
                 <fileset dir="php/framework/test">
                     <include name="**/*Test.php"/>
                 </fileset>
             </batchtest>
             <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
+            <formatter type="clover" todir="${build.logs}" outfile="clover.xml"/>
         </phpunit>
     </target>
 </project>
