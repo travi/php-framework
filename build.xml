@@ -33,7 +33,7 @@
                     <include name="**/*Test.php"/>
                 </fileset>
             </batchtest>
-            <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
+            <formatter type="xml" todir="${build.logs}" outfile="clover.xml"/>
         </phpunit>
     </target>
 </project>

@@ -6,3 +6,5 @@ php:
 install: composer install
 
 script: vendor/bin/phing checkstyle test
+
+after_script: php vendor/bin/coveralls -v

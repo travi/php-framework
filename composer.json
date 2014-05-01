@@ -19,7 +19,8 @@
         "phpunit/phpunit": "3.7.*",
         "behat/behat": "2.5.*",
         "phing/phing": "2.7.0",
-        "squizlabs/php_codesniffer": "1.5.2"
+        "squizlabs/php_codesniffer": "1.5.2",
+        "satooshi/php-coveralls": "dev-master"
     },
     "minimum-stability": "dev",
     "autoload": {
