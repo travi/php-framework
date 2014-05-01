@@ -24,6 +24,11 @@
 
     <target name="test">
         <mkdir dir="${build.logs}"/>
+        <coverage-setup database="logs/coverage-database">
+            <fileset dir="php/framework/src">
+                <include name="*.php"/>
+            </fileset>
+        </coverage-setup>
         <phpunit configuration="config/phpunit.xml"
                  haltonerror="true"
                  printsummary="true"
