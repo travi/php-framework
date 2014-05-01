@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="checkstyle" name="travi">
+    <target name="checkstyle">
+        <phpcodesniffer standard="build/codingStandard.xml">
+            <fileset dir="php">
+                <include name="**/*.php"/>
+            </fileset>
+        </phpcodesniffer>
+    </target>
+</project>
