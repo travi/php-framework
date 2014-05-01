@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project default="checkstyle" name="travi-framework">
+<project default="gates" name="travi-framework">
     <property name="basedir" value="${project.basedir}"/>
     <property file="build/build.properties"/>
 
+    <target name="gates">
+        <phingcall target="checkstyle"/>
+        <phingcall target="test"/>
+    </target>
+    
     <target name="checkstyle">
         <phpcodesniffer standard="build/codingStandard.xml">
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
