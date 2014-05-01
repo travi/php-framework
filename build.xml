@@ -11,7 +11,8 @@
 
     <target name="checkstyle">
         <mkdir dir="${build.logs}"/>
-        <phpcodesniffer standard="build/codingStandard.xml">
+        <phpcodesniffer standard="build/codingStandard.xml"
+                        haltonerror="true">
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
             <fileset dir="php">
                 <include name="**/*.php"/>
