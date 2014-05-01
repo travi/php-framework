@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project default="checkstyle" name="travi">
+<project default="checkstyle" name="travi-framework">
+    <property name="basedir" value="${project.basedir}"/>
+    <property file="build/build.properties"/>
+
     <target name="checkstyle">
         <phpcodesniffer standard="build/codingStandard.xml">
             <fileset dir="php">
                 <include name="**/*.php"/>
             </fileset>
         </phpcodesniffer>
+    </target>
+
+    <target name="test">
+        <mkdir dir="${build.logs}"/>
+        <phpunit configuration="config/phpunit.xml"
+                 haltonerror="true"
+                 printsummary="true"
+                 haltonfailure="true">
+            <batchtest>
+                <fileset dir="php/framework/test">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+            <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
+        </phpunit>
     </target>
 </project>
