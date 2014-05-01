@@ -8,7 +8,7 @@
         <phingcall target="checkstyle"/>
         <phingcall target="test"/>
     </target>
-    
+
     <target name="checkstyle">
         <phpcodesniffer standard="build/codingStandard.xml">
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
