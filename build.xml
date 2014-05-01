@@ -6,6 +6,7 @@
 
     <target name="checkstyle">
         <phpcodesniffer standard="build/codingStandard.xml">
+            <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
             <fileset dir="php">
                 <include name="**/*.php"/>
             </fileset>
