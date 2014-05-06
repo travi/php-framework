@@ -48,6 +48,11 @@ pagination:
     - events
     - dependencyChecker
 
+dialog:
+  local: /resources/thirdparty/travi-ui/js/dialog/conventions.js
+  jsDependencies:
+      - /resources/thirdparty/travi-ui/js/dialog/simple.js
+
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
   jsDependencies:
@@ -55,6 +60,7 @@ entityList:
     - ajaxForm
     - framework
     - pagination
+    - dialog
   cssDependencies:
     - /resources/thirdparty/travi-styles/css/travi-entities.css
   clientTemplates:
