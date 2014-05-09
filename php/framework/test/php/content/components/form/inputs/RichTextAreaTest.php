@@ -29,22 +29,13 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
 
     public function testGetJavaScripts()
     {
-        $this->assertSame(array('wymEditor','wymEditor-fullScreen'), $this->object->getJavaScripts());
-    }
-
-    public function testGetJsInits()
-    {
         $this->assertSame(
             array(
-                 "$('textarea.richEditor').wymeditor({
-                    skin: 'silver',
-                    updateSelector: 'form',
-                    postInit: function (wym) {
-                        wym.fullscreen();
-                    }
-                });"
+                'wymEditor',
+                'wymEditor-fullScreen',
+                '/resources/thirdparty/travi-ui/form/richText.js'
             ),
-            $this->object->getJsInits()
+            $this->object->getJavaScripts()
         );
     }
 }
