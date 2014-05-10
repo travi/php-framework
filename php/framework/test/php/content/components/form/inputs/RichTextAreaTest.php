@@ -33,6 +33,7 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
             array(
                 'wymEditor',
                 'wymEditor-fullScreen',
+                'travi',
                 '/resources/thirdparty/travi-ui/js/form/richText.js'
             ),
             $this->object->getJavaScripts()

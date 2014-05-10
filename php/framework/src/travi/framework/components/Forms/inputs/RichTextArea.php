@@ -12,6 +12,7 @@ class RichTextArea extends TextArea
         $this->setClass("textInput richEditor");
         $this->addJavaScript('wymEditor');
         $this->addJavaScript('wymEditor-fullScreen');
+        $this->addJavaScript('travi');
         $this->addJavaScript('/resources/thirdparty/travi-ui/js/form/richText.js');
         $this->setTemplate('components/form/richTextArea.tpl');
     }
