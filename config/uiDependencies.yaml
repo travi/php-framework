@@ -3,7 +3,6 @@ travi:
   local: /resources/thirdparty/travi-core/js/travi.js
   jsDependencies:
     - jquery
-    - dependencyChecker
 
 framework:
   local: /resources/thirdparty/travi-core/js/travi/framework.js
