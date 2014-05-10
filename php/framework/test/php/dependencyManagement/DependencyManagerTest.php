@@ -154,6 +154,35 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testThatSiteDependenciesAreLoadedBeforePageDependencies()
+    {
+        $siteDeps = array(
+            'js' => array('script1.js', 'script2.js'),
+            'css' => array('sheet1.css', 'sheet2.css')
+        );
+        $dynamicDeps = array(
+            'js' => array('dynamic.js'),
+            'css' => array('dynamic.css')
+        );
+        $this->dependencyManager->setPageDependenciesLists(
+            array(
+                'site' => $siteDeps
+            )
+        );
+        $this->dependencyManager->addDependencies($dynamicDeps);
+
+        $this->dependencyManager->loadPageDependencies();
+
+        $this->assertEquals(
+            array_merge($siteDeps['js'], $dynamicDeps['js']),
+            $this->dependencyManager->getScripts()
+        );
+        $this->assertEquals(
+            array_merge($siteDeps['css'], $dynamicDeps['css']),
+            $this->dependencyManager->getStyleSheets()
+        );
+    }
+
     public function testPageStyleNotSetIfEmpty()
     {
         $this->fileSystem->expects($this->once())

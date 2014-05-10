@@ -147,8 +147,6 @@ class DependencyManager
             $controllerList = $this->pageDependenciesLists;
         }
 
-        $this->addDependencies($this->pageDependenciesLists['site']);
-
         $controllerName = strtolower($this->request->getController());
         if (isset($controllerList[$controllerName])) {
             $thisController = $controllerList[$controllerName];
@@ -390,6 +388,7 @@ class DependencyManager
     public function setPageDependenciesLists($lists)
     {
         $this->pageDependenciesLists = $lists;
+        $this->addDependencies($this->pageDependenciesLists['site']);
     }
 
     public function setSiteTheme($sheet)
