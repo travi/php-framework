@@ -51,7 +51,8 @@ pagination:
 dialog:
   local: /resources/thirdparty/travi-ui/js/dialog/conventions.js
   jsDependencies:
-      - /resources/thirdparty/travi-ui/js/dialog/simple.js
+    - /resources/thirdparty/travi-ui/js/dialog/events.js
+    - /resources/thirdparty/travi-ui/js/dialog/simple.js
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
