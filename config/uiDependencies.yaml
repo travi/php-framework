@@ -66,10 +66,11 @@ entityList:
   clientTemplates:
     update-item: /resources/thirdparty/travi-core/templates/entity-item.tmpl
   large:
-    local: /resources/thirdparty/travi-ui/js/dialog/richText.js
+    local: /resources/thirdparty/travi-ui/js/entityList.js
     jsDependencies:
       - dialog
       - richTextArea
+      - /resources/thirdparty/travi-ui/js/dialog/richText.js
 
 cookieUtil:
   local: /resources/thirdparty/travi-core/js/travi/cookies.js
