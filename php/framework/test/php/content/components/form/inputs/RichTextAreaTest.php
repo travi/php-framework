@@ -31,10 +31,7 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             array(
-                'wymEditor',
-                'wymEditor-fullScreen',
-                'travi',
-                '/resources/thirdparty/travi-ui/js/form/richText.js'
+                'richTextArea'
             ),
             $this->object->getJavaScripts()
         );

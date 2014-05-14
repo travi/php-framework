@@ -61,11 +61,14 @@ entityList:
     - ajaxForm
     - framework
     - pagination
-    - dialog
   cssDependencies:
     - /resources/thirdparty/travi-styles/css/travi-entities.css
   clientTemplates:
     update-item: /resources/thirdparty/travi-core/templates/entity-item.tmpl
+  large:
+    jsDependencies:
+      - dialog
+      - richTextArea
 
 cookieUtil:
   local: /resources/thirdparty/travi-core/js/travi/cookies.js
@@ -116,6 +119,15 @@ gallery:
       - videoPlayer
       - previewPane
       - reflection
+
+#-------Form--------
+richTextArea:
+  local: /resources/thirdparty/travi-ui/js/form/richText.js
+  jsDependencies:
+    - wymEditor
+    - wymEditor-fullScreen
+    - travi
+
 
 #=======jQuery======
 jquery:
