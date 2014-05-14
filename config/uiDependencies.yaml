@@ -66,6 +66,7 @@ entityList:
   clientTemplates:
     update-item: /resources/thirdparty/travi-core/templates/entity-item.tmpl
   large:
+    local: /resources/thirdparty/travi-ui/js/dialog/richText.js
     jsDependencies:
       - dialog
       - richTextArea
