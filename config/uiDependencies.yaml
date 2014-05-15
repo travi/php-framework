@@ -71,6 +71,8 @@ entityList:
       - dialog
       - richTextArea
       - /resources/thirdparty/travi-ui/js/dialog/richText.js
+    cssDependencies:
+      - /resources/thirdparty/travi-styles/css/travi-form.css
 
 cookieUtil:
   local: /resources/thirdparty/travi-core/js/travi/cookies.js
