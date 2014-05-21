@@ -53,6 +53,7 @@ dialog:
   jsDependencies:
     - /resources/thirdparty/travi-ui/js/dialog/events.js
     - /resources/thirdparty/travi-ui/js/dialog/simple.js
+    - /resources/thirdparty/travi-ui/js/dialog/form.js
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
