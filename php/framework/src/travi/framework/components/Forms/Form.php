@@ -9,7 +9,7 @@ use travi\framework\components\Forms\FormElementGroup,
 class Form extends FormElementGroup
 {
     const FORMS_NAMESPACE = "travi\\framework\\components\\Forms\\";
-    private $errors = array();
+    public $errors = array();
     /** @var string */
     private $name;
     /** @var string */
@@ -130,10 +130,5 @@ class Form extends FormElementGroup
     public function hasErrors()
     {
         return !$this->isValid();
-    }
-
-    public function getErrors()
-    {
-        return $this->errors;
     }
 }
