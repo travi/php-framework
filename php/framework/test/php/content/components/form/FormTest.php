@@ -155,11 +155,14 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($textError, $this->form->getFieldByName($textName)->getValidationError());
         $this->assertEquals($dateError, $this->form->getFieldByName($dateName)->getValidationError());
+        $this->assertEquals($errors, $this->form->getErrors());
     }
 
     public function testMappingEmptyErrorsListCausesNoIssues()
     {
         $this->form->mapErrorMessagesToFields();
+        $this->assertEquals(array(), $this->form->getErrors());
+
     }
 
     public function testHasErrorsReturnsFalseWhenValid()

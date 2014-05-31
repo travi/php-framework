@@ -9,6 +9,7 @@ use travi\framework\components\Forms\FormElementGroup,
 class Form extends FormElementGroup
 {
     const FORMS_NAMESPACE = "travi\\framework\\components\\Forms\\";
+    private $errors = array();
     /** @var string */
     private $name;
     /** @var string */
@@ -114,6 +115,10 @@ class Form extends FormElementGroup
 
     public function mapErrorMessagesToFields($errors)
     {
+        if ($errors) {
+            $this->errors = $errors;
+        }
+
         foreach ($errors as $fieldName => $error) {
             if ('name' === $fieldName) {
                 $fieldName = $fieldName . '_value';
@@ -125,5 +130,10 @@ class Form extends FormElementGroup
     public function hasErrors()
     {
         return !$this->isValid();
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }
