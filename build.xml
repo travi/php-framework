@@ -26,9 +26,12 @@
         <mkdir dir="${build.logs}"/>
         <coverage-setup database="logs/coverage-database">
             <fileset dir="php/framework">
-                <include name="src/**/*.php"/>
-                <include name="objects/**/*.php"/>
-                <exclude name="src/travi/framework/http/RestClient.php"/>
+                <patternset>
+                    <include name="src/**/*.php"/>
+                    <include name="objects/**/*.php"/>
+                    <exclude name="src/travi/framework/http/RestClient.php"/>
+                    <exclude name="objects/utility/upload.class.php"/>
+                </patternset>
             </fileset>
         </coverage-setup>
         <phpunit configuration="config/phpunit.xml"
