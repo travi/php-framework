@@ -20,4 +20,3 @@ class FieldSetTest extends PHPUnit_Framework_TestCase
         $this->assertSame('legend', $this->fieldSet->getLegend());
     }
 }
-?>

@@ -102,4 +102,24 @@ abstract class FormElementGroup extends ContentObject implements FormElement
             }
         }
     }
+
+    public function getErrors()
+    {
+        $errors = array();
+
+        foreach ($this->getFormElements() as $element) {
+            if (is_a($element, 'travi\\framework\\components\\Forms\\Field')) {
+                /** @var $element Field */
+                $validationError = $element->getValidationError();
+                if ($validationError) {
+                    $errors[$element->getName()] = $validationError;
+                }
+            } elseif (is_a($element, 'travi\\framework\\components\\Forms\\FormElementGroup')) {
+                /** @var $element FormElementGroup */
+                $errors = array_merge($errors, $element->getErrors());
+            }
+        }
+
+        return $errors;
+    }
 }

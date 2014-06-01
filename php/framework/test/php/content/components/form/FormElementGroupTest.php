@@ -1,5 +1,6 @@
 <?php
 
+use travi\framework\components\Forms\Field;
 use travi\framework\components\Forms\FormElementGroup,
     travi\framework\components\Forms\FieldSet,
     travi\framework\components\Forms\inputs\Input,
@@ -10,6 +11,8 @@ use travi\framework\components\Forms\FormElementGroup,
 class FormElementGroupTest extends PHPUnit_Framework_TestCase
 {
     private $fileInputType = 'travi\\framework\\components\\Forms\\inputs\\FileInput';
+    const VALIDATION_ERROR_MESSAGE = 'validation error';
+    const ANY_INPUT_NAME = 'inputName';
     /** @var FormElementGroup */
     private $group;
 
@@ -87,25 +90,70 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
         $vals = $this->group->getValidations();
         $this->assertNotNull($vals);
-        $this->assertSame($validations, $vals['inputName']);
+        $this->assertSame($validations, $vals[self::ANY_INPUT_NAME]);
     }
 
     public function testValidationsReturnedFromContainedGroup()
     {
         $validations = $this->getAnyValidations();
-        $inputName = 'inputName';
-
         /** @var $anyGroup FieldSet */
         $anyGroup = $this->getAnyGroup();
         $anyGroup->expects($this->once())
             ->method('getValidations')
-            ->will($this->returnValue(array($inputName => $validations)));
+            ->will($this->returnValue(array(self::ANY_INPUT_NAME => $validations)));
 
         $this->group->addFormElement($anyGroup);
 
         $vals = $this->group->getValidations();
         $this->assertNotNull($vals);
-        $this->assertSame($validations, $vals[$inputName]);
+        $this->assertSame($validations, $vals[self::ANY_INPUT_NAME]);
+    }
+
+    public function testThatEmptyListOfValidationErrorsRepresentedAsEmptyArray() {
+        $this->assertEquals(array(), $this->group->getErrors());
+    }
+
+    public function testThatValidationErrorsReturnedFromContainedFieldAreAddedToList()
+    {
+        $this->group->addFormElement($this->getAnyFieldWithValidations());
+
+        $errors = $this->group->getErrors();
+
+        $this->assertEquals(
+            array(
+                self::ANY_INPUT_NAME => self::VALIDATION_ERROR_MESSAGE
+            ),
+            $errors
+        );
+    }
+
+    public function testThatEntryNotAddedForFieldWithoutValidationError()
+    {
+        $this->group->addFormElement(
+            new TextInput(
+                array(
+                    'name' => 'some-field'
+                )
+            )
+        );
+
+        $errors = $this->group->getErrors();
+
+        $this->assertEquals(array(), $errors);
+    }
+
+    public function testThatValidationErrorsReturnedFromContainedGroupAreAddedToList()
+    {
+        $errorsFromFieldSet = array(self::ANY_INPUT_NAME => self::VALIDATION_ERROR_MESSAGE);
+        $formElementGroup = $this->getMock('travi\framework\components\Forms\FieldSet');
+        $formElementGroup->expects($this->once())
+            ->method('getErrors')
+            ->will($this->returnValue($errorsFromFieldSet));
+        $this->group->addFormElement($formElementGroup);
+
+        $errors = $this->group->getErrors();
+
+        $this->assertEquals($errorsFromFieldSet, $errors);
     }
 
     public function testDependenciesReturnedFromContainedField()
@@ -186,17 +234,21 @@ class FormElementGroupTest extends PHPUnit_Framework_TestCase
 
     private function getAnyFieldWithValidations($validations = array())
     {
+        /** @var $field Field */
         $field = $this->getAnyField();
         if (empty($validations)) {
             $validations = $this->getAnyValidations();
         }
 
         $field->expects($this->any())
+            ->method('getValidationError')
+            ->will($this->returnValue(self::VALIDATION_ERROR_MESSAGE));
+        $field->expects($this->any())
             ->method('getValidations')
             ->will($this->returnValue($validations));
         $field->expects($this->any())
             ->method('getName')
-            ->will($this->returnValue('inputName'));
+            ->will($this->returnValue(self::ANY_INPUT_NAME));
 
         return $field;
     }
