@@ -7,6 +7,7 @@ use travi\framework\controller\AbstractController,
     travi\framework\http\Request,
     travi\framework\http\Response;
 use travi\framework\mappers\CrudMapper;
+use travi\framework\model\CrudModel;
 
 abstract class CrudController extends RestController
 {
@@ -30,16 +31,18 @@ abstract class CrudController extends RestController
             switch ($requestMethod) {
             case Request::POST:
                 if (empty($id)) {
-                    return $this->addToList($response);
+                    $this->addToList($response);
+                    break;
                 } else {
-                    return $this->updateById($id, $response);
+                    $this->updateById($id, $response);
+                    break;
                 }
             case Request::DELETE:
                 if (empty($id)) {
                     $response->setStatus(Response::NOT_ALLOWED);
                     break;
                 } else {
-                    return $this->deleteById($id, $response);
+                    $this->deleteById($id, $response);
                 }
             }
         }
@@ -60,21 +63,6 @@ abstract class CrudController extends RestController
     }
 
     /**
-     * @param $id
-     * @param $response Response
-     */
-    public function getById($id, &$response)
-    {
-        $response->setTitle($this->getEditHeading());
-        $response->setContent(
-            array(
-                'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
-            )
-        );
-    }
-
-
-    /**
      * @param $request Request
      * @param $response Response
      */
@@ -84,6 +72,34 @@ abstract class CrudController extends RestController
         $response->setContent(
             array(
                 'form' => $this->mapper->mapToForm(null, 'Add')
+            )
+        );
+    }
+
+    /**
+     * @param $request Request
+     * @param $response Response
+     */
+    public function edit($request, $response)
+    {
+        $response->setTitle($this->getAddHeading());
+        $response->setContent(
+            array(
+                'form' => $this->mapper->mapToForm($this->model->getById($request->getId()))
+            )
+        );
+    }
+
+    /**
+     * @param $id
+     * @param $response Response
+     */
+    public function getById($id, &$response)
+    {
+        $response->setTitle($this->getEditHeading());
+        $response->setContent(
+            array(
+                'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
             )
         );
     }
@@ -158,6 +174,15 @@ abstract class CrudController extends RestController
     {
         $this->mapper = $mapper;
     }
+
+    /**
+     * @param $model CrudModel
+     */
+    public function setModel($model)
+    {
+        parent::setModel($model);
+    }
+
 
     abstract protected function getEditHeading();
     abstract protected function getAddHeading();
