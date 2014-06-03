@@ -28,7 +28,17 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('about', $this->request->getController());
     }
 
-    public function testThatGetControllerUnderstandsThatNonPluralPathPartIsNotController()
+    public function testThatRestfulPartsMappedProperlyWhenIdIsLastPart() {
+        $controller = 'entities';
+        $id = 1234;
+        $this->request->setURI($controller . '/' . $id);
+
+        $this->assertEquals($controller, $this->request->getController());
+        $this->assertEquals('index', $this->request->getAction());
+        $this->assertEquals($id, $this->request->getId());
+    }
+
+    public function testThatRestfulPartsMappedProperlyWhenActionIsLastPart()
     {
         $controller = 'entities';
         $action = 'edit';

@@ -178,7 +178,7 @@ class Request
         if (empty($last)) {
             $last = array_pop($this->uriParts);
         }
-        if (!$this->pathPartIsPlural($last)) {
+        if (!$this->pathPartIsPlural($last) && !is_numeric($last)) {
             $this->action = $last;
             $last = array_pop($this->uriParts);
         }
