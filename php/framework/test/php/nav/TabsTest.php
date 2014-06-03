@@ -1,12 +1,10 @@
 <?php
 
-use travi\framework\content\navigation\Tabs;
+use travi\framework\navigation\Tabs;
 
 class TabsTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Tabs
-     */
+    /** @var Tabs */
     protected $object;
 
     protected function setUp()
@@ -31,4 +29,3 @@ class TabsTest extends PHPUnit_Framework_TestCase
         $this->assertSame('components/tabs.tpl', $this->object->getTemplate());
     }
 }
-?>

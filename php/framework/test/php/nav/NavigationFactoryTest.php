@@ -1,7 +1,6 @@
 <?php
 
-use travi\framework\content\navigation\NavigationFactory,
-    travi\framework\exception\NavigationTypeNotAnOptionException;
+use travi\framework\navigation\NavigationFactory;
 
 class NavigationFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -23,7 +22,7 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
     public function testBuildAccordion()
     {
         $this->assertInstanceOf(
-            'travi\\framework\\content\\navigation\\Accordion',
+            'travi\\framework\\navigation\\Accordion',
             $this->factory->build(NavigationFactory::ACCORDION)
         );
     }
@@ -31,7 +30,7 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
     public function testBuildTabs()
     {
         $this->assertInstanceOf(
-            'travi\\framework\\content\\navigation\\Tabs',
+            'travi\\framework\\navigation\\Tabs',
             $this->factory->build(NavigationFactory::TABS)
         );
     }
@@ -39,7 +38,7 @@ class NavigationFactoryTest extends PHPUnit_Framework_TestCase
     public function testBuildMenuBar()
     {
         $this->assertInstanceOf(
-            'travi\\framework\\content\\navigation\\MenuBar',
+            'travi\\framework\\navigation\\MenuBar',
             $this->factory->build(NavigationFactory::MENU_BAR)
         );
     }

@@ -1,8 +1,6 @@
 <?php
 
-namespace travi\framework\content\navigation;
-
-use travi\framework\content\navigation\NavigationObject;
+namespace travi\framework\navigation;
 
 class Tabs extends NavigationObject
 {

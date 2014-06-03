@@ -3,8 +3,7 @@
 use travi\framework\page\AbstractResponse,
     travi\framework\http\Response,
     travi\framework\http\Request,
-    travi\framework\utilities\Environment,
-    travi\framework\view\render\HtmlRenderer;
+    travi\framework\utilities\Environment;
 
 class ResponseTest extends PHPUnit_Framework_TestCase
 {
@@ -35,8 +34,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $prodUrl = 'something.com';
-
         $this->request = $this->getMock('travi\\framework\\http\\Request');
 
         $this->response = new Response();

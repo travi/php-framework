@@ -1,12 +1,12 @@
 <?php
 
-use travi\framework\content\navigation\MenuBar;
+use travi\framework\navigation\MenuBar;
 
 class MenuBarTest extends PHPUnit_Framework_TestCase
 {
     /** @var MenuBar */
     protected $menu;
-    
+
     protected function setUp()
     {
         $this->menu = new MenuBar();

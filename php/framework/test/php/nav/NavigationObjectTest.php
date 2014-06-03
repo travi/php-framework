@@ -1,6 +1,6 @@
 <?php
 
-use travi\framework\content\navigation\NavigationObject;
+use travi\framework\navigation\NavigationObject;
 
 class NavigationObjectTest extends PHPUnit_Framework_TestCase
 {

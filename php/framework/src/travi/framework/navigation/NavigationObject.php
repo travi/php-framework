@@ -1,6 +1,6 @@
 <?php
 
-namespace travi\framework\content\navigation;
+namespace travi\framework\navigation;
 
 use travi\framework\content\ContentObject,
     travi\framework\DependantObject;

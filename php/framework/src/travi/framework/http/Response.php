@@ -3,7 +3,7 @@
 namespace travi\framework\http;
 
 use travi\framework\page\AbstractResponse,
-    travi\framework\content\navigation\NavigationObject,
+    travi\framework\navigation\NavigationObject,
     travi\framework\exception\InvalidHttpStatusException;
 
 class Response extends AbstractResponse
