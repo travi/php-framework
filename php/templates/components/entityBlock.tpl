@@ -19,8 +19,8 @@
                                 <input type="hidden" name="_method" value="delete"/>
                                 <input type="submit" value="Remove"/>
                             </form>
-                            {else}
-                            <a class="item-action icon-{$details['text']|lower} dialog-target" href="{$details['link']}{$entity->getId()}">
+                        {else}
+                            <a class="item-action icon-{$details['text']|lower} dialog-target" href="{$details['link']}{$entity->getId()}{if $details['text'] eq 'Edit'}/edit{/if}">
                                 {$details['text']}
                             </a>
                         {/if}

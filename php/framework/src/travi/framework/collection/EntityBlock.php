@@ -10,7 +10,6 @@ class EntityBlock
     private $preConf;
     private $summary;
     private $details = array();
-    private $activeActions = array();
     private $extraActionRows = array();
 
     public function EntityBlock()
@@ -70,10 +69,6 @@ class EntityBlock
     public function addActionRow($actions=array())
     {
         array_push($this->extraActionRows, $actions);
-        //        foreach($actions as $action)
-        //        {
-        //            $this->disableAction($action,true);
-        //        }
     }
     public function getExtraActionRows()
     {
@@ -94,10 +89,5 @@ class EntityBlock
     public function setSummary($summary)
     {
         $this->summary = $summary;
-    }
-
-    private function disableAction($text,$active)
-    {
-        $this->activeActions["$text"] = "$active";
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace travi\framework\content\collection;
+namespace travi\framework\collection;
 
 use \travi\framework\content\ContentObject;
 
