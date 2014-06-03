@@ -9,6 +9,12 @@ use travi\framework\model\CrudModel;
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
     const ANY_ID = 42;
+    private $mapper;
+    private $model;
+    private $modelDataById = array();
+    private $form;
+    /** @var  ConcreteCrudController */
+    private $crudController;
     /** @var CrudController */
     public $abstractMock;
     /** @var CrudController */
@@ -20,6 +26,19 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->form = new Form();
+
+        $this->crudController = new ConcreteCrudController();
+
+        /** @var CrudMapper $mapper */
+        $this->mapper = $this->getMockForAbstractClass('travi\\framework\\mappers\\CrudMapper');
+
+        /** @var $model CrudModel */
+        $this->model = $this->getMockForAbstractClass('travi\\framework\\model\\CrudModel');
+
+        $this->crudController->setMapper($this->mapper);
+        $this->crudController->setModel($this->model);
+
         $this->abstractMock = $this->getMockForAbstractClass(
             'travi\\framework\\controller\\CrudController',
             array(),
@@ -80,31 +99,43 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
 
-    public function testThatEditEndpointReturnsEditForm()
+    public function testThatGetByIdReturnsEntityBlock()
     {
-        $crudController = new ConcreteCrudController();
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue(Request::GET));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(self::ANY_ID));
 
-        $valueFromModel = array();
-        $form = new Form();
-        $heading = 'some heading';
-
-        /** @var $model CrudModel */
-        $model = $this->getMockForAbstractClass('travi\\framework\\model\\CrudModel');
-        $model->expects($this->once())
+        $this->model->expects($this->once())
             ->method('getById')
             ->with(self::ANY_ID)
-            ->will($this->returnValue($valueFromModel));
+            ->will($this->returnValue($this->modelDataById));
 
-        /** @var CrudMapper $mapper */
-        $mapper = $this->getMockForAbstractClass('travi\\framework\\mappers\\CrudMapper');
-        $mapper->expects($this->once())
+        $this->mapper->expects($this->once())
+            ->method('mapToEntityBlock')
+            ->with($this->modelDataById)
+            ->will($this->returnValue($this->form));
+
+        $this->crudController->index($this->mockRequest, new Response());
+    }
+
+    public function testThatEditEndpointReturnsEditForm()
+    {
+        $heading = 'some heading';
+
+        $this->model->expects($this->once())
+            ->method('getById')
+            ->with(self::ANY_ID)
+            ->will($this->returnValue($this->modelDataById));
+
+        $this->mapper->expects($this->once())
             ->method('mapToForm')
-            ->with($valueFromModel)
-            ->will($this->returnValue($form));
+            ->with($this->modelDataById, 'Update')
+            ->will($this->returnValue($this->form));
 
-        $crudController->setModel($model);
-        $crudController->setMapper($mapper);
-        $crudController->setAddHeading($heading);
+        $this->crudController->setEditHeading($heading);
 
         $this->mockRequest->expects($this->once())
             ->method('getId')
@@ -119,12 +150,11 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setContent')
             ->with(
                 array(
-                    'form' => $form
+                    'form' => $this->form
                 )
             );
 
-
-        $crudController->edit($this->mockRequest, $responseMock);
+        $this->crudController->edit($this->mockRequest, $responseMock);
     }
 
     public function testAddToListRoutesToProperMethod()
@@ -203,22 +233,27 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
 class ConcreteCrudController extends CrudController
 {
-
-    private $heading;
+    private $editHeading;
+    private $addHeading;
 
     public function setAddHeading($string)
     {
-        $this->heading = $string;
+        $this->addHeading = $string;
+    }
+
+    public function setEditHeading($heading)
+    {
+        $this->editHeading = $heading;
     }
 
     protected function getEditHeading()
     {
-        // TODO: Implement getEditHeading() method.
+        return $this->editHeading;
     }
 
     protected function getAddHeading()
     {
-        return $this->heading;
+        return $this->addHeading;
     }
 
     protected function getUrlPrefix()

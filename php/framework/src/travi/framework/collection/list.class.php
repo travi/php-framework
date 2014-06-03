@@ -1,5 +1,7 @@
 <?php
 
+use travi\framework\content\ContentObject;
+
 class BaseList extends ContentObject
 {
     var $items = array();

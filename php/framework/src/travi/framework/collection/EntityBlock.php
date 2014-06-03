@@ -1,6 +1,6 @@
 <?php
 
-namespace travi\framework\content\collection;
+namespace travi\framework\collection;
 
 class EntityBlock
 {

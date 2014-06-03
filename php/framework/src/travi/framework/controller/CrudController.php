@@ -82,10 +82,10 @@ abstract class CrudController extends RestController
      */
     public function edit($request, $response)
     {
-        $response->setTitle($this->getAddHeading());
+        $response->setTitle($this->getEditHeading());
         $response->setContent(
             array(
-                'form' => $this->mapper->mapToForm($this->model->getById($request->getId()))
+                'form' => $this->mapper->mapToForm($this->model->getById($request->getId()), 'Update')
             )
         );
     }
@@ -96,10 +96,9 @@ abstract class CrudController extends RestController
      */
     public function getById($id, &$response)
     {
-        $response->setTitle($this->getEditHeading());
         $response->setContent(
             array(
-                'form' => $this->mapper->mapToForm($this->model->getById($id), 'Update')
+                'form' => $this->mapper->mapToEntityBlock($this->model->getById($id))
             )
         );
     }
