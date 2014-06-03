@@ -28,6 +28,14 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertSame('about', $this->request->getController());
     }
 
+    public function testThatGetControllerUnderstandsThatNonPluralPathPartIsNotController()
+    {
+        $controller = 'entities';
+        $this->request->setURI($controller . '/1234/edit');
+
+        $this->assertEquals($controller, $this->request->getController());
+    }
+
     public function testRoot()
     {
         $this->request->setURI('/');

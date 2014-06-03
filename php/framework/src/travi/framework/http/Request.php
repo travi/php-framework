@@ -3,7 +3,7 @@
 namespace travi\framework\http;
 
 use travi\framework\page\AbstractResponse;
- 
+
 class Request
 {
     const GET = 'GET';
@@ -26,8 +26,6 @@ class Request
     /** @var array */
     private $uriParts;
     /** @var boolean */
-    private $isRestful = false;
-    /** @var boolean */
     private $admin;
     /** @var string */
     private $controller;
@@ -37,105 +35,6 @@ class Request
     private $id;
     /** @var string */
     private $enhancementVersion;
-
-    /**
-     * @PdInject uri
-     * @param $uri
-     */
-    public function setURI($uri)
-    {
-        $this->uri = $uri;
-        $this->parseUriParts();
-        $this->resolveDataParts();
-    }
-
-    private function parseUriParts()
-    {
-        //TODO: investigate parse_url...
-        $this->uriParts = explode('/', $this->uri);
-    }
-
-    private function resolveDataParts()
-    {
-        foreach ($this->uriParts as $part) {
-            if (is_numeric($part)) {
-                $this->isRestful = true;
-            }
-        }
-
-        if ($this->isRestful) {
-            $this->resolvePartsFromRestfulUri();
-        } else {
-            $this->resolvePartsFromNonRestfulUri();
-        }
-    }
-
-    private function resolvePartsFromNonRestfulUri()
-    {
-        if ($this->uriParts[1] === 'index.php') {
-            array_shift($this->uriParts);
-        }
-
-        if ($this->uriParts[1] === 'admin') {
-            $this->admin = true;
-            array_shift($this->uriParts);
-        } else {
-            $this->admin = false;
-        }
-
-        if (empty($this->uriParts[1])) {
-            $this->controller = 'home';
-        } else {
-            $this->controller = $this->uriParts[1];
-        }
-
-        if (empty($this->uriParts[2]) || strpos($this->uriParts[2], '?') === 0) {
-            $this->action = 'index';
-        } elseif (is_numeric($this->uriParts[2])) {
-            $this->action = 'index';
-            $this->id = $this->uriParts[2];
-        } else {
-            $this->action = $this->uriParts[2];
-        }
-
-        if (!empty($this->uriParts[3])) {
-            $this->setId($this->uriParts[3]);
-        }
-    }
-
-    private function resolvePartsFromRestfulUri()
-    {
-        if ($this->uriParts[1] === 'index.php') {
-            array_shift($this->uriParts);
-        }
-
-        if ($this->uriParts[1] === 'admin') {
-            $this->admin = true;
-            array_shift($this->uriParts);
-        } else {
-            $this->admin = false;
-        }
-
-        $last = array_pop($this->uriParts);
-        if (empty($last)) {
-            $last = array_pop($this->uriParts);
-        }
-        if (is_numeric($last)) {
-            $this->setId($last);
-            $last = array_pop($this->uriParts);
-        }
-        $this->controller = $last;
-        $this->action = 'index';
-
-        $this->getPathFilters();
-    }
-
-    private function getPathFilters()
-    {
-        $filterId = array_pop($this->uriParts);
-        $filter = array_pop($this->uriParts);
-        $this->filters[$filter] = $filterId;
-    }
 
     /**
      * @param $id
@@ -154,33 +53,6 @@ class Request
     public function getAction()
     {
         return $this->action;
-    }
-
-    /**
-     * @param  $method
-     * @return void
-     * @PdInject request_method
-     */
-    public function setRequestMethod($method)
-    {
-        if ($method === self::POST && !empty($_POST['_method'])) {
-            $method = strtoupper($_POST['_method']);
-        }
-        $this->requestMethod = $method;
-    }
-
-    /**
-     * @PdInject enhancementVersion
-     * @param $version
-     * @return void
-     */
-    public function setEnhancementVersion($version)
-    {
-        if (empty($version)) {
-            $this->enhancementVersion = self::BASE_ENHANCEMENT;
-        } else {
-            $this->setVersionBasedOnCookieValue($version);
-        }
     }
 
     public function setVersionBasedOnCookieValue($version)
@@ -239,5 +111,172 @@ class Request
     public function setAction($action)
     {
         $this->action = $action;
+    }
+
+    private function parseUriParts()
+    {
+        //TODO: investigate parse_url...
+        $this->uriParts = explode('/', $this->uri);
+    }
+
+    private function resolveDataParts()
+    {
+        if ($this->isRestful($this->uriParts)) {
+            $this->resolvePartsFromRestfulUri();
+        } else {
+            $this->resolvePartsFromNonRestfulUri();
+        }
+    }
+
+    private function resolvePartsFromNonRestfulUri()
+    {
+        if ($this->uriParts[1] === 'index.php') {
+            array_shift($this->uriParts);
+        }
+
+        if ($this->uriParts[1] === 'admin') {
+            $this->admin = true;
+            array_shift($this->uriParts);
+        } else {
+            $this->admin = false;
+        }
+
+        if (empty($this->uriParts[1])) {
+            $this->controller = 'home';
+        } else {
+            $this->controller = $this->uriParts[1];
+        }
+
+        if (empty($this->uriParts[2]) || strpos($this->uriParts[2], '?') === 0) {
+            $this->action = 'index';
+        } elseif (is_numeric($this->uriParts[2])) {
+            $this->action = 'index';
+            $this->id = $this->uriParts[2];
+        } else {
+            $this->action = $this->uriParts[2];
+        }
+
+        if (!empty($this->uriParts[3])) {
+            $this->setId($this->uriParts[3]);
+        }
+    }
+
+    private function resolvePartsFromRestfulUri()
+    {
+        if ($this->uriParts[1] === 'index.php') {
+            array_shift($this->uriParts);
+        }
+
+        if ($this->isAdminUrl()) {
+            $this->admin = true;
+            array_shift($this->uriParts);
+        } else {
+            $this->admin = false;
+        }
+
+        $last = array_pop($this->uriParts);
+        if (empty($last)) {
+            $last = array_pop($this->uriParts);
+        }
+        if (!$this->pathPartIsPlural($last)) {
+            $last = array_pop($this->uriParts);
+        }
+        if (is_numeric($last)) {
+            $this->setId($last);
+            $last = array_pop($this->uriParts);
+        }
+        $this->controller = $last;
+        $this->action = 'index';
+
+        $this->getPathFilters();
+    }
+
+    private function getPathFilters()
+    {
+        $filterId = array_pop($this->uriParts);
+        $filter = array_pop($this->uriParts);
+        $this->filters[$filter] = $filterId;
+    }
+
+    /**
+     * @param $uriParts
+     * @return bool
+     */
+    private function isRestful($uriParts)
+    {
+        $isRestful = false;
+
+        foreach ($uriParts as $part) {
+            if (is_numeric($part)) {
+                $isRestful = true;
+            }
+        }
+
+        return $isRestful;
+    }
+
+    /**
+     * @PdInject uri
+     * @param $uri
+     */
+    public function setURI($uri)
+    {
+        $this->uri = $uri;
+        $this->parseUriParts();
+        $this->resolveDataParts();
+    }
+
+    /**
+     * @param  $method
+     * @return void
+     * @PdInject request_method
+     */
+    public function setRequestMethod($method)
+    {
+        if ($method === self::POST && !empty($_POST['_method'])) {
+            $method = strtoupper($_POST['_method']);
+        }
+        $this->requestMethod = $method;
+    }
+
+    /**
+     * @PdInject enhancementVersion
+     * @param $version
+     * @return void
+     */
+    public function setEnhancementVersion($version)
+    {
+        if (empty($version)) {
+            $this->enhancementVersion = self::BASE_ENHANCEMENT;
+        } else {
+            $this->setVersionBasedOnCookieValue($version);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    private function isAdminUrl()
+    {
+        return $this->uriParts[1] === 'admin';
+    }
+
+    /**
+     * @param $last
+     * @param $test
+     * @return bool
+     */
+    private function endsWith($last, $test)
+    {
+        return substr_compare($last, $test, -strlen($test), strlen($test)) === 0;
+    }
+
+    /**
+     * @param $last
+     * @return bool
+     */
+    private function pathPartIsPlural($last)
+    {
+        return $this->endsWith($last, "s");
     }
 }
