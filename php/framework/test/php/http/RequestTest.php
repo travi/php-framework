@@ -10,7 +10,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $request = new Request;
-        $request->setURI('/about/webmaster');
         $request->setRequestMethod('GET');
 
         $this->request = $request;
@@ -18,12 +17,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->request->setController('null');
-        $this->request->setAction('null');
+        $this->request = null;
     }
 
     public function testGetController()
     {
+        $this->request->setURI('/about/webmaster');
+
         $this->assertSame(false, $this->request->isAdmin());
         $this->assertSame('about', $this->request->getController());
     }
@@ -31,9 +31,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testThatGetControllerUnderstandsThatNonPluralPathPartIsNotController()
     {
         $controller = 'entities';
-        $this->request->setURI($controller . '/1234/edit');
+        $action = 'edit';
+        $id = 1234;
+        $this->request->setURI($controller . '/' . $id . '/' . $action);
 
         $this->assertEquals($controller, $this->request->getController());
+        $this->assertEquals($action, $this->request->getAction());
+        $this->assertEquals($id, $this->request->getId());
     }
 
     public function testRoot()
@@ -68,6 +72,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testGetAction()
     {
+        $this->request->setURI('/about/webmaster');
+
         $this->assertSame(false, $this->request->isAdmin());
         $this->assertSame('webmaster', $this->request->getAction());
     }
@@ -92,6 +98,8 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testIsNotAdmin()
     {
+        $this->request->setURI('/about/webmaster');
+
         $this->assertSame(false, $this->request->isAdmin());
     }
 

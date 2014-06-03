@@ -179,6 +179,7 @@ class Request
             $last = array_pop($this->uriParts);
         }
         if (!$this->pathPartIsPlural($last)) {
+            $this->action = $last;
             $last = array_pop($this->uriParts);
         }
         if (is_numeric($last)) {
@@ -186,7 +187,9 @@ class Request
             $last = array_pop($this->uriParts);
         }
         $this->controller = $last;
-        $this->action = 'index';
+        if (!isset($this->action)) {
+            $this->action = 'index';
+        }
 
         $this->getPathFilters();
     }
