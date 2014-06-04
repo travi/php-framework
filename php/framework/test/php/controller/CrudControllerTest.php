@@ -123,6 +123,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->form));
 
         $this->responseMock->expects($this->once())
+            ->method('setPageTemplate')
+            ->with('../wrap/entityWrapper.tpl');
+        $this->responseMock->expects($this->once())
             ->method('setContent')
             ->with(
                 array(

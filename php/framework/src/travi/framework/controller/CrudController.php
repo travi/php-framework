@@ -96,6 +96,7 @@ abstract class CrudController extends RestController
      */
     public function getById($id, &$response)
     {
+        $response->setPageTemplate('../wrap/entityWrapper.tpl');
         $response->setContent(
             array(
                 'entity' => $this->mapper->mapToEntityBlock($this->model->getById($id))
