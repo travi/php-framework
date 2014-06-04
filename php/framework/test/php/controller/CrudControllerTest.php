@@ -13,6 +13,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     private $model;
     private $modelDataById = array();
     private $form;
+    /** @var Response */
+    private $responseMock;
     /** @var  ConcreteCrudController */
     private $crudController;
     /** @var CrudController */
@@ -66,6 +68,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
         $this->response = new Response(array());
         $this->mockRequest = $this->getMock('travi\\framework\\http\\Request');
+
+        $this->responseMock = $this->getMock('travi\\framework\\http\\Response');
     }
 
     public function testGetListRoutesToProperMethod()
@@ -118,7 +122,15 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->modelDataById)
             ->will($this->returnValue($this->form));
 
-        $this->crudController->index($this->mockRequest, new Response());
+        $this->responseMock->expects($this->once())
+            ->method('setContent')
+            ->with(
+                array(
+                    'entity' => $this->form
+                )
+            );
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
     }
 
     public function testThatEditEndpointReturnsEditForm()
@@ -141,12 +153,10 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue(self::ANY_ID));
 
-        /** @var Response $responseMock */
-        $responseMock = $this->getMock('travi\\framework\\http\\Response');
-        $responseMock->expects($this->once())
+        $this->responseMock->expects($this->once())
             ->method('setTitle')
             ->with($heading);
-        $responseMock->expects($this->once())
+        $this->responseMock->expects($this->once())
             ->method('setContent')
             ->with(
                 array(
@@ -154,7 +164,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->crudController->edit($this->mockRequest, $responseMock);
+        $this->crudController->edit($this->mockRequest, $this->responseMock);
     }
 
     public function testAddToListRoutesToProperMethod()

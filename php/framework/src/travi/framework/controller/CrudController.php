@@ -98,7 +98,7 @@ abstract class CrudController extends RestController
     {
         $response->setContent(
             array(
-                'form' => $this->mapper->mapToEntityBlock($this->model->getById($id))
+                'entity' => $this->mapper->mapToEntityBlock($this->model->getById($id))
             )
         );
     }
