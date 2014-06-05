@@ -8,7 +8,8 @@ use travi\framework\page\AbstractResponse,
 
 class Response extends AbstractResponse
 {
-    const ACCEPTED = '201 Accepted';
+    const CREATED = '201 Created';
+    const ACCEPTED = '202 Accepted';
 
     const BAD_REQUEST = '400 Bad Request';
     const UNAUTHORIZED = '401 Unauthorized';
@@ -24,6 +25,7 @@ class Response extends AbstractResponse
     private $request;
 
     private $definedStatuses = array(
+        self::CREATED,
         self::ACCEPTED,
         self::BAD_REQUEST,
         self::UNAUTHORIZED,
@@ -104,7 +106,7 @@ class Response extends AbstractResponse
         }
     }
 
-    protected function setHeader($header)
+    public function setHeader($header)
     {
         header($header);
     }

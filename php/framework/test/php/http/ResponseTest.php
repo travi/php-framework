@@ -124,7 +124,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testStatusesDefinedCorrectly()
     {
-        $this->assertEquals('201 Accepted', Response::ACCEPTED);
+        $this->assertEquals('201 Created', Response::CREATED);
+        $this->assertEquals('202 Accepted', Response::ACCEPTED);
 
         $this->assertEquals('400 Bad Request', Response::BAD_REQUEST);
         $this->assertEquals('401 Unauthorized', Response::UNAUTHORIZED);
@@ -163,6 +164,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $response = new ResponseShunt(array());
 
+        $response->setStatus(Response::CREATED);
         $response->setStatus(Response::ACCEPTED);
         $response->setStatus(Response::BAD_REQUEST);
         $response->setStatus(Response::UNAUTHORIZED);
