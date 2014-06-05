@@ -15,6 +15,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     private $form;
     const ANY_URL_PREFIX = 'some prefix';
     const ANY_TYPE = 'some type';
+    const ANY_HOST = 'some host';
     /** @var Response */
     private $responseMock;
     /** @var  ConcreteCrudController */
@@ -137,12 +138,20 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
         $this->crudController->setUrlPrefix(self::ANY_URL_PREFIX);
         $this->crudController->setEntityType(self::ANY_TYPE);
+
+        $this->mockRequest->expects($this->once())
+            ->method('getHost')
+            ->will($this->returnValue(self::ANY_HOST));
+
         $this->responseMock->expects($this->once())
             ->method('addToResponse')
             ->with('createdId', self::ANY_ID);
         $this->responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::CREATED);
+        $this->responseMock->expects($this->once())
+            ->method('setHeader')
+            ->with('Location: http://' . self::ANY_HOST . self::ANY_URL_PREFIX . self::ANY_ID);
         $this->responseMock->expects($this->once())
             ->method('showResults')
             ->with('good', self::ANY_TYPE . ' Added Successfully', self::ANY_URL_PREFIX);

@@ -122,9 +122,11 @@ abstract class CrudController extends RestController
             );
             $response->setStatus(Response::BAD_REQUEST);
         } else {
-            $response->addToResponse('createdId', $this->model->add($this->mapper->mapFromForm($form)));
+            $createdId = $this->model->add($this->mapper->mapFromForm($form));
+            
+            $response->addToResponse('createdId', $createdId);
             $response->setStatus(Response::CREATED);
-            $response->setHeader('Location: ' . $request->getHost());
+            $response->setHeader('Location: http://' . $request->getHost() . $this->getUrlPrefix() . $createdId);
             $response->showResults(
                 'good',
                 $this->getEntityType() . ' Added Successfully',
