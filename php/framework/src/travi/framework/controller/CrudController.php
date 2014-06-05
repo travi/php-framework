@@ -20,7 +20,6 @@ abstract class CrudController extends RestController
      */
     public function index(&$request, &$response)
     {
-
         $requestMethod = $request->getRequestMethod();
 
         if (Request::GET === $requestMethod) {
@@ -31,7 +30,7 @@ abstract class CrudController extends RestController
             switch ($requestMethod) {
             case Request::POST:
                 if (empty($id)) {
-                    $this->addToList($response);
+                    $this->addToList($request, $response);
                     break;
                 } else {
                     $this->updateById($id, $response);
@@ -105,9 +104,10 @@ abstract class CrudController extends RestController
     }
 
     /**
+     * @param $request Request
      * @param $response Response
      */
-    public function addToList(&$response)
+    public function addToList(&$request, &$response)
     {
         /** @var $form Form */
         $form = $this->mapper->mapRequestToForm();
@@ -120,10 +120,11 @@ abstract class CrudController extends RestController
                     'form' => $form
                 )
             );
-            $response->setStatus(400);
+            $response->setStatus(Response::BAD_REQUEST);
         } else {
             $response->addToResponse('createdId', $this->model->add($this->mapper->mapFromForm($form)));
-            $response->setStatus(201);
+            $response->setStatus(Response::CREATED);
+            $response->setHeader('Location: ' . $request->getHost());
             $response->showResults(
                 'good',
                 $this->getEntityType() . ' Added Successfully',

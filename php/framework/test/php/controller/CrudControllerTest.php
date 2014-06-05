@@ -13,6 +13,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     private $model;
     private $modelDataById = array();
     private $form;
+    const ANY_URL_PREFIX = 'some prefix';
+    const ANY_TYPE = 'some type';
     /** @var Response */
     private $responseMock;
     /** @var  ConcreteCrudController */
@@ -101,6 +103,51 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('getById');
 
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
+    }
+
+    public function testThatAddPersistsDataAndReturnsSuccessInformation()
+    {
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue(Request::POST));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(null));
+
+
+        /** @var Form $form */
+        $form = $this->getMock('travi\\framework\\components\\Forms\\Form');
+        $form->expects($this->once())
+            ->method('hasErrors')
+            ->will($this->returnValue(false));
+
+        $this->mapper->expects($this->once())
+            ->method('mapRequestToForm')
+            ->will($this->returnValue($form));
+        $object = array();
+        $this->mapper->expects($this->once())
+            ->method('mapFromForm')
+            ->with($form)
+            ->will($this->returnValue($object));
+
+        $this->model->expects($this->once())
+            ->method('add')
+            ->with($object)
+            ->will($this->returnValue(self::ANY_ID));
+
+        $this->crudController->setUrlPrefix(self::ANY_URL_PREFIX);
+        $this->crudController->setEntityType(self::ANY_TYPE);
+        $this->responseMock->expects($this->once())
+            ->method('addToResponse')
+            ->with('createdId', self::ANY_ID);
+        $this->responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::CREATED);
+        $this->responseMock->expects($this->once())
+            ->method('showResults')
+            ->with('good', self::ANY_TYPE . ' Added Successfully', self::ANY_URL_PREFIX);
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
     }
 
     public function testThatGetByIdReturnsEntityBlock()
@@ -248,6 +295,18 @@ class ConcreteCrudController extends CrudController
 {
     private $editHeading;
     private $addHeading;
+    private $prefix;
+    private $type;
+
+    public function setUrlPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+    }
+
+    public function setEntityType($type)
+    {
+        $this->type = $type;
+    }
 
     public function setAddHeading($string)
     {
@@ -271,11 +330,11 @@ class ConcreteCrudController extends CrudController
 
     protected function getUrlPrefix()
     {
-        // TODO: Implement getUrlPrefix() method.
+        return $this->prefix;
     }
 
     protected function getEntityType()
     {
-        // TODO: Implement getEntityType() method.
+        return $this->type;
     }
 }
