@@ -16,6 +16,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     const ANY_URL_PREFIX = 'some prefix';
     const ANY_TYPE = 'some type';
     const ANY_HOST = 'some host';
+    const ANY_HEADING = 'some heading';
     /** @var Response */
     private $responseMock;
     /** @var  ConcreteCrudController */
@@ -43,6 +44,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
         $this->crudController->setMapper($this->mapper);
         $this->crudController->setModel($this->model);
+        $this->crudController->setAddHeading(self::ANY_HEADING);
+        $this->crudController->setEditHeading(self::ANY_HEADING);
 
         $this->abstractMock = $this->getMockForAbstractClass(
             'travi\\framework\\controller\\CrudController',
@@ -159,6 +162,38 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->crudController->index($this->mockRequest, $this->responseMock);
     }
 
+    public function testThatAddReturnsFormAfterValidationErrorToTryAgain()
+    {
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue(Request::POST));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(null));
+
+        /** @var Form $form */
+        $form = $this->getMock('travi\\framework\\components\\Forms\\Form');
+        $form->expects($this->once())
+            ->method('hasErrors')
+            ->will($this->returnValue(true));
+
+        $this->mapper->expects($this->once())
+            ->method('mapRequestToForm')
+            ->will($this->returnValue($form));
+
+        $this->responseMock->expects($this->once())
+            ->method('setTitle')
+            ->with(self::ANY_HEADING);
+        $this->responseMock->expects($this->once())
+            ->method('addToResponse')
+            ->with('form', $form);
+        $this->responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::BAD_REQUEST);
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
+    }
+
     public function testThatGetByIdReturnsEntityBlock()
     {
         $this->mockRequest->expects($this->any())
@@ -194,8 +229,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testThatEditEndpointReturnsEditForm()
     {
-        $heading = 'some heading';
-
         $this->model->expects($this->once())
             ->method('getById')
             ->with(self::ANY_ID)
@@ -206,15 +239,13 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->modelDataById, 'Update')
             ->will($this->returnValue($this->form));
 
-        $this->crudController->setEditHeading($heading);
-
         $this->mockRequest->expects($this->once())
             ->method('getId')
             ->will($this->returnValue(self::ANY_ID));
 
         $this->responseMock->expects($this->once())
             ->method('setTitle')
-            ->with($heading);
+            ->with(self::ANY_HEADING);
         $this->responseMock->expects($this->once())
             ->method('setContent')
             ->with(

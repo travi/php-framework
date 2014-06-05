@@ -115,15 +115,10 @@ abstract class CrudController extends RestController
         if ($form->hasErrors()) {
             $response->setTitle($this->getAddHeading());
             $response->addToResponse('form', $form);
-            $response->setContent(
-                array(
-                    'form' => $form
-                )
-            );
             $response->setStatus(Response::BAD_REQUEST);
         } else {
             $createdId = $this->model->add($this->mapper->mapFromForm($form));
-            
+
             $response->addToResponse('createdId', $createdId);
             $response->setStatus(Response::CREATED);
             $response->setHeader('Location: http://' . $request->getHost() . $this->getUrlPrefix() . $createdId);
