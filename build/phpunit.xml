@@ -1,5 +1,0 @@
-<phpunit bootstrap="../vendor/autoload.php">
-    <php>
-        <ini name="error_reporting"  value="E_ALL &amp; ~E_NOTICE &amp; ~E_WARNING"/>
-    </php>
-</phpunit>
