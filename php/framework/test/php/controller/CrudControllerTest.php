@@ -12,6 +12,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
     private $mapper;
     private $model;
     private $modelDataById = array();
+    /** @var  Form */
     private $form;
     const ANY_URL_PREFIX = 'some prefix';
     const ANY_TYPE = 'some type';
@@ -32,7 +33,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->form = new Form();
+        $this->form = $this->getMock('travi\\framework\\components\\Forms\\Form');
 
         $this->crudController = new ConcreteCrudController();
 
@@ -46,6 +47,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->crudController->setModel($this->model);
         $this->crudController->setAddHeading(self::ANY_HEADING);
         $this->crudController->setEditHeading(self::ANY_HEADING);
+        $this->crudController->setUrlPrefix(self::ANY_URL_PREFIX);
+        $this->crudController->setEntityType(self::ANY_TYPE);
 
         $this->abstractMock = $this->getMockForAbstractClass(
             'travi\\framework\\controller\\CrudController',
@@ -118,29 +121,23 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue(null));
 
-
-        /** @var Form $form */
-        $form = $this->getMock('travi\\framework\\components\\Forms\\Form');
-        $form->expects($this->once())
+        $this->form->expects($this->once())
             ->method('hasErrors')
             ->will($this->returnValue(false));
 
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
-            ->will($this->returnValue($form));
+            ->will($this->returnValue($this->form));
         $object = array();
         $this->mapper->expects($this->once())
             ->method('mapFromForm')
-            ->with($form)
+            ->with($this->form)
             ->will($this->returnValue($object));
 
         $this->model->expects($this->once())
             ->method('add')
             ->with($object)
             ->will($this->returnValue(self::ANY_ID));
-
-        $this->crudController->setUrlPrefix(self::ANY_URL_PREFIX);
-        $this->crudController->setEntityType(self::ANY_TYPE);
 
         $this->mockRequest->expects($this->once())
             ->method('getHost')
@@ -171,22 +168,20 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue(null));
 
-        /** @var Form $form */
-        $form = $this->getMock('travi\\framework\\components\\Forms\\Form');
-        $form->expects($this->once())
+        $this->form->expects($this->once())
             ->method('hasErrors')
             ->will($this->returnValue(true));
 
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
-            ->will($this->returnValue($form));
+            ->will($this->returnValue($this->form));
 
         $this->responseMock->expects($this->once())
             ->method('setTitle')
             ->with(self::ANY_HEADING);
         $this->responseMock->expects($this->once())
             ->method('addToResponse')
-            ->with('form', $form);
+            ->with('form', $this->form);
         $this->responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::BAD_REQUEST);
@@ -257,6 +252,39 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->crudController->edit($this->mockRequest, $this->responseMock);
     }
 
+    public function testThatEditPersistsUpdateAndReturnsSuccessInformation()
+    {
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue(Request::POST));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(self::ANY_ID));
+
+        $this->mapper->expects($this->once())
+            ->method('mapRequestToForm')
+            ->will($this->returnValue($this->form));
+        $object = array();
+        $this->mapper->expects($this->once())
+            ->method('mapFromForm')
+            ->with($this->form)
+            ->will($this->returnValue($object));
+
+        $this->form->expects($this->once())
+            ->method('hasErrors')
+            ->will($this->returnValue(false));
+
+        $this->model->expects($this->once())
+            ->method('updateById')
+            ->with(self::ANY_ID, $object);
+
+        $this->responseMock->expects($this->once())
+            ->method('showResults')
+            ->with('good', self::ANY_TYPE . ' Updated Successfully', self::ANY_URL_PREFIX);
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
+    }
+
     public function testAddToListRoutesToProperMethod()
     {
         $this->mockRequest->expects($this->once())
@@ -267,7 +295,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('getId');
 
         $this->partiallyMockedController->expects($this->once())
-            ->method('addTolist');
+            ->method('addToList');
 
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
