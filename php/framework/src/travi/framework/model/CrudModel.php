@@ -28,7 +28,7 @@ abstract class CrudModel
     }
 
     /**
-     * @param $mapper BlogMapper
+     * @param $mapper CrudMapper
      */
     public function setMapper($mapper)
     {

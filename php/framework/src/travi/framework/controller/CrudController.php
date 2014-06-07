@@ -13,6 +13,8 @@ abstract class CrudController extends RestController
 {
     /** @var  CrudMapper */
     protected $mapper;
+    /** @var  CrudModel */
+    protected $model;
 
     /**
      * @param $request Request
