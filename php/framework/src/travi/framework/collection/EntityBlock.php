@@ -12,6 +12,8 @@ class EntityBlock
     private $details = array();
     private $extraActionRows = array();
 
+    public $selfLink;
+
     public function EntityBlock()
     {
 

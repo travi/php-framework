@@ -1,4 +1,4 @@
-<li class="entityBlock {$entity->getType()}">
+<li class="entityBlock {$entity->getType()}" id="{$entity->selfLink}">
     <dl>
         <dt>{$entity->getTitle()}</dt>
     {if $entity->getSummary()}
