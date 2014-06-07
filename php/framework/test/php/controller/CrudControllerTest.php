@@ -1,4 +1,5 @@
 <?php
+use travi\framework\collection\EntityList;
 use travi\framework\components\Forms\Form;
 use travi\framework\http\Response,
     travi\framework\http\Request,
@@ -81,22 +82,47 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->responseMock = $this->getMock('travi\\framework\\http\\Response');
     }
 
-    public function testGetListRoutesToProperMethod()
+    public function testThatGetListReturnsEntityList()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::GET));
+        $object = array();
+        $this->model->expects($this->once())
+            ->method('getList')
+            ->will($this->returnValue($object));
 
-        $this->mockRequest->expects($this->once())
-            ->method('getId');
+        $entityList = new EntityList();
+        $this->mapper->expects($this->once())
+            ->method('mapListToEntityList')
+            ->with($object)
+            ->will($this->returnValue($entityList));
 
-        $this->partiallyMockedController->expects($this->once())
-            ->method('getList');
+        $this->responseMock->expects($this->once())
+            ->method('setTitle')
+            ->with(self::ANY_TYPE . ' Administration');
+        $this->responseMock->expects($this->once())
+            ->method('setContent')
+            ->with(array('list' => $entityList));
 
-        $this->partiallyMockedController->index($this->mockRequest, $this->response);
+        $this->simulateRequest(Request::GET, null);
     }
 
-    public function testThatAddPersistsDataAndReturnsSuccessInformation()
+    public function testThatAddReturnsForm()
+    {
+        $this->mapper->expects($this->once())
+            ->method('mapToForm')
+            ->with(null, 'Add')
+            ->will($this->returnValue($this->form));
+
+        $this->responseMock->expects($this->once())
+            ->method('setTitle')
+            ->with(self::ANY_HEADING);
+        $this->responseMock->expects($this->once())
+            ->method('setContent')
+            ->with(array('form' => $this->form));
+
+        $this->crudController->add($this->mockRequest, $this->responseMock);
+    }
+
+    public function testThatAddToListPersistsDataAndReturnsSuccessInformation()
     {
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
@@ -132,7 +158,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->simulateRequest(Request::POST, null, false);
     }
 
-    public function testThatAddReturnsFormAfterValidationErrorToTryAgain()
+    public function testThatAddToListReturnsFormAfterValidationErrorToTryAgain()
     {
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')

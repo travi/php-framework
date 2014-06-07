@@ -160,7 +160,7 @@ abstract class CrudController extends RestController
      * @param $id
      * @param $response Response
      */
-    private function deleteById($id, &$response)
+    protected function deleteById($id, &$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
