@@ -148,6 +148,7 @@ abstract class CrudController extends RestController
             $response->setStatus(400);
         } else {
             $this->model->updateById($id, $this->mapper->mapFromForm($form));
+            $response->addToResponse('resource', $this->getUrlPrefix() . $id);
             $response->showResults(
                 'good',
                 $this->getEntityType() . ' Updated Successfully',

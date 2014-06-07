@@ -251,6 +251,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->responseMock->expects($this->once())
             ->method('showResults')
             ->with('good', self::ANY_TYPE . ' Updated Successfully', self::ANY_URL_PREFIX);
+        $this->responseMock->expects($this->once())
+            ->method('addToResponse')
+            ->with('resource', self::ANY_URL_PREFIX . self::ANY_ID);
 
         $this->simulateRequest(Request::POST, self::ANY_ID, false);
     }
