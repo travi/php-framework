@@ -96,35 +96,8 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
 
-    public function testGetByIdRoutesToProperMethod()
-    {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::GET));
-
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
-        $this->partiallyMockedController->expects($this->once())
-            ->method('getById');
-
-        $this->partiallyMockedController->index($this->mockRequest, $this->response);
-    }
-
     public function testThatAddPersistsDataAndReturnsSuccessInformation()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::POST));
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(null));
-
-        $this->form->expects($this->once())
-            ->method('hasErrors')
-            ->will($this->returnValue(false));
-
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
             ->will($this->returnValue($this->form));
@@ -156,22 +129,11 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('showResults')
             ->with('good', self::ANY_TYPE . ' Added Successfully', self::ANY_URL_PREFIX);
 
-        $this->crudController->index($this->mockRequest, $this->responseMock);
+        $this->simulateRequest(Request::POST, null, false);
     }
 
     public function testThatAddReturnsFormAfterValidationErrorToTryAgain()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::POST));
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(null));
-
-        $this->form->expects($this->once())
-            ->method('hasErrors')
-            ->will($this->returnValue(true));
-
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
             ->will($this->returnValue($this->form));
@@ -186,18 +148,11 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::BAD_REQUEST);
 
-        $this->crudController->index($this->mockRequest, $this->responseMock);
+        $this->simulateRequest(Request::POST, null, true);
     }
 
     public function testThatGetByIdReturnsEntityBlock()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::GET));
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
         $this->model->expects($this->once())
             ->method('getById')
             ->with(self::ANY_ID)
@@ -219,7 +174,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->crudController->index($this->mockRequest, $this->responseMock);
+        $this->simulateRequest(Request::GET, self::ANY_ID);
     }
 
     public function testThatEditEndpointReturnsEditForm()
@@ -254,13 +209,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testThatEditPersistsUpdateAndReturnsSuccessInformation()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::POST));
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
             ->will($this->returnValue($this->form));
@@ -270,10 +218,6 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->form)
             ->will($this->returnValue($object));
 
-        $this->form->expects($this->once())
-            ->method('hasErrors')
-            ->will($this->returnValue(false));
-
         $this->model->expects($this->once())
             ->method('updateById')
             ->with(self::ANY_ID, $object);
@@ -282,25 +226,14 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('showResults')
             ->with('good', self::ANY_TYPE . ' Updated Successfully', self::ANY_URL_PREFIX);
 
-        $this->crudController->index($this->mockRequest, $this->responseMock);
+        $this->simulateRequest(Request::POST, self::ANY_ID, false);
     }
 
     public function testThatEditReturnsFormAfterValidationErrorToTryAgain()
     {
-        $this->mockRequest->expects($this->any())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::POST));
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
         $this->mapper->expects($this->once())
             ->method('mapRequestToForm')
             ->will($this->returnValue($this->form));
-
-        $this->form->expects($this->once())
-            ->method('hasErrors')
-            ->will($this->returnValue(true));
 
         $this->responseMock->expects($this->once())
             ->method('setTitle')
@@ -309,7 +242,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setContent')
             ->with(array('form' => $this->form));
 
-        $this->crudController->index($this->mockRequest, $this->responseMock);
+        $this->simulateRequest(Request::POST, self::ANY_ID, true);
     }
 
     public function testAddToListRoutesToProperMethod()
@@ -327,62 +260,45 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->partiallyMockedController->index($this->mockRequest, $this->response);
     }
 
-    public function testUpdateByIdRoutesToProperMethod()
-    {
-        $this->mockRequest->expects($this->once())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::POST));
-
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
-        $this->partiallyMockedController->expects($this->once())
-            ->method('updateById');
-
-        $this->partiallyMockedController->index($this->mockRequest, $this->response);
-    }
-
     public function testDeleteListIsNotAllowed()
     {
-        $this->mockRequest->expects($this->once())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::DELETE));
-        $this->mockRequest->expects($this->once())
-            ->method('getId');
-
-        $responseMock = $this->getMock('travi\\framework\\http\\Response');
-        $responseMock->expects($this->once())
+        $this->responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_ALLOWED);
 
-        $this->partiallyMockedController->index($this->mockRequest, $responseMock);
-    }
-
-    public function testDeleteByIdRoutesToProperMethod()
-    {
-        $this->mockRequest->expects($this->once())
-            ->method('getRequestMethod')
-            ->will($this->returnValue(Request::DELETE));
-
-        $this->mockRequest->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(self::ANY_ID));
-
-        $this->partiallyMockedController->expects($this->once())
-            ->method('deleteById');
-
-        $this->partiallyMockedController->index($this->mockRequest, $this->response);
+        $this->simulateRequest(Request::DELETE, null);
     }
 
     public function testDeleteByIdDefaultNotImplemented()
     {
-        $responseMock = $this->getMock('travi\\framework\\http\\Response');
-        $responseMock->expects($this->once())
+        $this->responseMock->expects($this->once())
             ->method('setStatus')
             ->with(Response::NOT_IMPLEMENTED);
 
-        $this->abstractMock->deleteById(self::ANY_ID, $responseMock);
+        $this->simulateRequest(Request::DELETE, self::ANY_ID);
+    }
+
+    /**
+     * @param $method
+     * @param $id
+     * @param $hasErrors
+     */
+    private function simulateRequest($method, $id, $hasErrors = false)
+    {
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue($method));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue($id));
+
+        if ($method === Request::POST) {
+            $this->form->expects($this->once())
+                ->method('hasErrors')
+                ->will($this->returnValue($hasErrors));
+        }
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
     }
 }
 

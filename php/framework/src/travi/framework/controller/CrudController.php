@@ -107,7 +107,7 @@ abstract class CrudController extends RestController
      * @param $request Request
      * @param $response Response
      */
-    public function addToList(&$request, &$response)
+    protected function addToList(&$request, &$response)
     {
         /** @var $form Form */
         $form = $this->mapper->mapRequestToForm();
@@ -134,7 +134,7 @@ abstract class CrudController extends RestController
      * @param $id
      * @param $response Response
      */
-    public function updateById($id, &$response)
+    protected function updateById($id, &$response)
     {
         $form = $this->mapper->mapRequestToForm();
 
@@ -160,7 +160,7 @@ abstract class CrudController extends RestController
      * @param $id
      * @param $response Response
      */
-    public function deleteById($id, &$response)
+    private function deleteById($id, &$response)
     {
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
