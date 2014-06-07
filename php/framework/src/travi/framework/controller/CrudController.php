@@ -50,7 +50,7 @@ abstract class CrudController extends RestController
     /**
      * @param $response Response
      */
-    public function getList(&$response)
+    protected function getList(&$response)
     {
         $response->setTitle($this->getEntityType() . ' Administration');
 
@@ -93,7 +93,7 @@ abstract class CrudController extends RestController
      * @param $id
      * @param $response Response
      */
-    public function getById($id, &$response)
+    protected function getById($id, &$response)
     {
         $response->setPageTemplate('../wrap/entityWrapper.tpl');
         $response->setContent(

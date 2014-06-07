@@ -31,11 +31,11 @@ abstract class RestController extends AbstractController
      * @param $id
      * @param $response Response
      */
-    abstract public function getById($id, &$response);
+    abstract protected function getById($id, &$response);
 
 
     /**
      * @param $response Response
      */
-    abstract public function getList(&$response);
+    abstract protected function getList(&$response);
 }
