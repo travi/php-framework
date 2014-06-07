@@ -29,6 +29,7 @@
                 <patternset>
                     <include name="src/**/*.php"/>
                     <include name="objects/**/*.php"/>
+                    <exclude name="src/travi/framework/exception/*.php"/>
                     <exclude name="src/travi/framework/http/RestClient.php"/>
                     <exclude name="objects/utility/upload.class.php"/>
                 </patternset>
