@@ -285,6 +285,33 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->crudController->index($this->mockRequest, $this->responseMock);
     }
 
+    public function testThatEditReturnsFormAfterValidationErrorToTryAgain()
+    {
+        $this->mockRequest->expects($this->any())
+            ->method('getRequestMethod')
+            ->will($this->returnValue(Request::POST));
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(self::ANY_ID));
+
+        $this->mapper->expects($this->once())
+            ->method('mapRequestToForm')
+            ->will($this->returnValue($this->form));
+
+        $this->form->expects($this->once())
+            ->method('hasErrors')
+            ->will($this->returnValue(true));
+
+        $this->responseMock->expects($this->once())
+            ->method('setTitle')
+            ->with(self::ANY_HEADING);
+        $this->responseMock->expects($this->once())
+            ->method('setContent')
+            ->with(array('form' => $this->form));
+
+        $this->crudController->index($this->mockRequest, $this->responseMock);
+    }
+
     public function testAddToListRoutesToProperMethod()
     {
         $this->mockRequest->expects($this->once())
