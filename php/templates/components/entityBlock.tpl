@@ -1,4 +1,4 @@
-<li class="entityBlock {$entity->getType()}" id="{$entity->selfLink}">
+<li class="entityBlock {$entity->getType()}" travi-self="{$entity->selfLink}">
     <dl>
         <dt>{$entity->getTitle()}</dt>
     {if $entity->getSummary()}
