@@ -2,22 +2,43 @@
 
 namespace travi\framework\collection;
 
+use travi\framework\view\objects\LinkView;
+
 class EntityBlock
 {
+    public $id;
+    public $selfLink;
+
     private $title;
-    private $id;
     private $type;
     private $preConf;
     private $summary;
     private $details = array();
     private $extraActionRows = array();
 
-    public $selfLink;
+    private $actions = array(
+        'primary' => array()
+    );
 
-    public function EntityBlock()
+    public function __construct($id, $urlPrefix)
     {
+        $this->id = $id;
+        $this->urlPrefix = $urlPrefix;
+        $this->selfLink = $urlPrefix . $id;
 
+        $this->addPrimaryAction('Edit');
     }
+
+    public function addRemoveAction()
+    {
+        $this->addPrimaryAction('Remove');
+    }
+
+    public function getPrimaryActions()
+    {
+        return $this->actions['primary'];
+    }
+
     public function setTitle($title)
     {
         $this->title = $title;
@@ -46,6 +67,7 @@ class EntityBlock
     {
         $this->type = $type;
     }
+
     public function getType()
     {
         return $this->type;
@@ -59,7 +81,6 @@ class EntityBlock
     {
         array_push($this->details, $detail);
     }
-
     /**
      * @deprecated
      * @return array
@@ -72,6 +93,7 @@ class EntityBlock
     {
         array_push($this->extraActionRows, $actions);
     }
+
     public function getExtraActionRows()
     {
         return $this->extraActionRows;
@@ -91,5 +113,19 @@ class EntityBlock
     public function setSummary($summary)
     {
         $this->summary = $summary;
+    }
+
+    /**
+     * @param $actionName
+     * @return LinkView
+     */
+    private function addPrimaryAction($actionName)
+    {
+        $lowerCaseName = strtolower($actionName);
+
+        return $this->actions['primary'][$lowerCaseName] = new LinkView(
+            $actionName,
+            $this->urlPrefix . $this->id . '/' . $lowerCaseName
+        );
     }
 }

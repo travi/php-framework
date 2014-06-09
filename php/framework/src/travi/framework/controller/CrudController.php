@@ -123,7 +123,9 @@ abstract class CrudController extends RestController
 
             $response->addToResponse('createdId', $createdId);
             $response->setStatus(Response::CREATED);
-            $response->setHeader('Location: http://' . $request->getHost() . $this->getUrlPrefix() . $createdId);
+            $response->setHeader(
+                'Location: http://' . $request->getHost() . $this->getUrlPrefix() . $createdId
+            );
             $response->showResults(
                 'good',
                 $this->getEntityType() . ' Added Successfully',
