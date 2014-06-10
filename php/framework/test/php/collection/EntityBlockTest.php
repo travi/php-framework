@@ -36,7 +36,7 @@ class EntityBlockTest extends PHPUnit_Framework_TestCase
 
         $primaryActions = $this->entityBlock->getPrimaryActions();
         $this->assertEquals(
-            new LinkView('Remove', self::ANY_PREFIX . self::ANY_ID . '/remove'),
+            new LinkView('Remove', self::ANY_PREFIX . self::ANY_ID),
             $primaryActions['remove']
         );
     }

@@ -31,7 +31,10 @@ class EntityBlock
 
     public function addRemoveAction()
     {
-        $this->addPrimaryAction('Remove');
+        $this->actions['primary']['remove'] = new LinkView(
+            'Remove',
+            $this->urlPrefix . $this->id
+        );
     }
 
     public function getPrimaryActions()
@@ -117,13 +120,12 @@ class EntityBlock
 
     /**
      * @param $actionName
-     * @return LinkView
      */
     private function addPrimaryAction($actionName)
     {
         $lowerCaseName = strtolower($actionName);
 
-        return $this->actions['primary'][$lowerCaseName] = new LinkView(
+        $this->actions['primary'][$lowerCaseName] = new LinkView(
             $actionName,
             $this->urlPrefix . $this->id . '/' . $lowerCaseName
         );
