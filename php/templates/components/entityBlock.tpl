@@ -10,6 +10,7 @@
         <dd>
             <ul class="actions">
                 {assign var=primaryActions value=$entity->getPrimaryActions()}
+                {if !empty($primaryActions['remove'])}
                 <li class="{$primaryActions['remove']->text|lower}-item">
                     <form action="{$primaryActions['remove']->url}" class="item-action" method="post">
                         <input type="hidden" name="id" value="{$entity->id}"/>
@@ -17,6 +18,7 @@
                         <input type="submit" value="{$primaryActions['remove']->text}"/>
                     </form>
                 </li>
+                {/if}
                 <li class="{$primaryActions['edit']->text|lower}-item">
                     <a class="item-action icon-{$primaryActions['edit']->text|lower} dialog-target" href="{$primaryActions['edit']->url}">
                         {$primaryActions['edit']->text}
