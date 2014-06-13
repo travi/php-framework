@@ -1,6 +1,7 @@
 <?php
 use travi\framework\collection\EntityList;
 use travi\framework\components\Forms\Form;
+use travi\framework\components\Forms\inputs\HiddenInput;
 use travi\framework\http\Response,
     travi\framework\http\Request,
     travi\framework\controller\CrudController;
@@ -270,6 +271,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->responseMock->expects($this->once())
             ->method('setContent')
             ->with(array('form' => $this->form));
+        $this->responseMock->expects($this->once())
+            ->method('setStatus')
+            ->with(Response::BAD_REQUEST);
 
         $this->simulateRequest(Request::POST, self::ANY_ID, true);
     }
@@ -307,6 +311,35 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->simulateRequest(Request::DELETE, self::ANY_ID);
     }
 
+    public function testThatRemoveShowsConfirmationPage()
+    {
+        $form = new Form(
+            array(
+                'action' => self::ANY_URL_PREFIX . self::ANY_ID
+            )
+        );
+        $form->addFormElement(
+            new HiddenInput(
+                array(
+                    'name' => '_method',
+                    'value' => 'delete'
+                )
+            )
+        );
+
+
+        $this->responseMock->expects($this->once())
+            ->method('setContent')
+            ->with(
+                array(
+                    'form' => $form,
+                    'type' => self::ANY_TYPE
+                )
+            );
+
+        $this->crudController->remove(self::ANY_ID, $this->responseMock);
+    }
+
     /**
      * @param $method
      * @param $id
@@ -336,6 +369,7 @@ class ConcreteCrudController extends CrudController
     private $editHeading;
     private $addHeading;
     private $prefix;
+
     private $type;
 
     public function setUrlPrefix($prefix)

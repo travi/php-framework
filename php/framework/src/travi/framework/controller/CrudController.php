@@ -3,6 +3,7 @@
 namespace travi\framework\controller;
 
 use travi\framework\components\Forms\Form;
+use travi\framework\components\Forms\inputs\HiddenInput;
 use travi\framework\controller\AbstractController,
     travi\framework\http\Request,
     travi\framework\http\Response;
@@ -149,7 +150,7 @@ abstract class CrudController extends RestController
                     'form' => $form
                 )
             );
-            $response->setStatus(400);
+            $response->setStatus(Response::BAD_REQUEST);
         } else {
             $this->model->updateById($id, $this->mapper->mapFromForm($form));
             $response->addToResponse('resource', $this->getUrlPrefix() . $id);
@@ -160,6 +161,35 @@ abstract class CrudController extends RestController
             );
         }
     }
+
+    /**
+     * @param $id
+     * @param $response Response
+     */
+    public function remove($id, &$response)
+    {
+        $form = new Form(
+            array(
+                'action' => $this->getUrlPrefix() . $id
+            )
+        );
+        $form->addFormElement(
+            new HiddenInput(
+                array(
+                    'name' => '_method',
+                    'value' => 'delete'
+                )
+            )
+        );
+
+        $response->setContent(
+            array(
+                'form' => $form,
+                'type' => $this->getEntityType()
+            )
+        );
+    }
+
 
     /**
      * @param $id
