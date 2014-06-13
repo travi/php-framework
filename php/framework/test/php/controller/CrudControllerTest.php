@@ -313,6 +313,10 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
 
     public function testThatRemoveShowsConfirmationPage()
     {
+        $this->mockRequest->expects($this->once())
+            ->method('getId')
+            ->will($this->returnValue(self::ANY_ID));
+
         $form = new Form(
             array(
                 'action' => self::ANY_URL_PREFIX . self::ANY_ID
@@ -337,7 +341,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->crudController->remove(self::ANY_ID, $this->responseMock);
+        $this->crudController->remove($this->mockRequest, $this->responseMock);
     }
 
     /**

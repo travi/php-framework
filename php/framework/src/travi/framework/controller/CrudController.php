@@ -163,14 +163,14 @@ abstract class CrudController extends RestController
     }
 
     /**
-     * @param $id
+     * @param Request $request
      * @param $response Response
      */
-    public function remove($id, &$response)
+    public function remove(&$request, &$response)
     {
         $form = new Form(
             array(
-                'action' => $this->getUrlPrefix() . $id
+                'action' => $this->getUrlPrefix() . $request->getId()
             )
         );
         $form->addFormElement(
