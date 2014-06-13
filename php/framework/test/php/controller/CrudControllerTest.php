@@ -2,6 +2,7 @@
 use travi\framework\collection\EntityList;
 use travi\framework\components\Forms\Form;
 use travi\framework\components\Forms\inputs\HiddenInput;
+use travi\framework\components\Forms\SubmitButton;
 use travi\framework\http\Response,
     travi\framework\http\Request,
     travi\framework\controller\CrudController;
@@ -330,6 +331,13 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
+        $form->addFormElement(
+            new SubmitButton(
+                array(
+                    'label' => 'Remove'
+                )
+            )
+        );
 
 
         $this->responseMock->expects($this->once())
@@ -340,6 +348,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                     'type' => self::ANY_TYPE
                 )
             );
+        $this->responseMock->expects($this->once())
+            ->method('setPageTemplate')
+            ->with('../components/form/removeConfirmation.tpl');
 
         $this->crudController->remove($this->mockRequest, $this->responseMock);
     }
