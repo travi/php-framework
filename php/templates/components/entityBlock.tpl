@@ -9,21 +9,13 @@
     {/foreach}
         <dd>
             <ul class="actions">
-                {assign var=primaryActions value=$entity->getPrimaryActions()}
-                <li class="{$primaryActions['edit']->text|lower}-item">
-                    <a class="item-action icon-{$primaryActions['edit']->text|lower} dialog-target" href="{$primaryActions['edit']->url}">
-                        {$primaryActions['edit']->text}
+                {foreach item=action from=$entity->getPrimaryActions()}
+                <li class="{$action->text|lower}-item">
+                    <a class="item-action icon-{$action->text|lower} dialog-target" href="{$action->url}">
+                        {$action->text}
                     </a>
                 </li>
-                {if !empty($primaryActions['remove'])}
-                    <li class="{$primaryActions['remove']->text|lower}-item">
-                        <form action="{$primaryActions['remove']->url}" class="item-action" method="post">
-                            <input type="hidden" name="id" value="{$entity->id}"/>
-                            <input type="hidden" name="_method" value="delete"/>
-                            <input type="submit" value="{$primaryActions['remove']->text}"/>
-                        </form>
-                    </li>
-                {/if}
+                {/foreach}
             </ul>
         {assign var="extraRows" value=$entity->getExtraActionRows()}
         {if !empty($extraRows)}

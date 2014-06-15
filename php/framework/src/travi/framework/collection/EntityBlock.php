@@ -31,10 +31,7 @@ class EntityBlock
 
     public function addRemoveAction()
     {
-        $this->actions['primary']['remove'] = new LinkView(
-            'Remove',
-            $this->urlPrefix . $this->id
-        );
+        $this->addPrimaryAction('Remove');
     }
 
     public function getPrimaryActions()
