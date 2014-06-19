@@ -184,6 +184,16 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $response->setStatus('some random status string');
     }
 
+    /**
+     * @expectedException travi\framework\exception\InvalidHttpStatusException
+     */
+    public function testSettingStatusToIncompleteThrowsException()
+    {
+        $response = new ResponseShunt(array());
+
+        $response->setStatus(500);
+    }
+
     public function testTagLine()
     {
         $this->response->setTagLine('tagLine');

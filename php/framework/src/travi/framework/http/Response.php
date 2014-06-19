@@ -97,7 +97,7 @@ class Response extends AbstractResponse
 
     public function setStatus($status)
     {
-        if (in_array($status, $this->definedStatuses)) {
+        if (in_array($status, $this->definedStatuses, true)) {
             $this->setHeader('HTTP/1.1 ' . $status);
             $this->setPageTemplate('../status/status.tpl');
             $this->addToResponse('statusCode', $status);
