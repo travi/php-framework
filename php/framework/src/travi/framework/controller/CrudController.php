@@ -174,6 +174,7 @@ abstract class CrudController extends RestController
                 'action' => $this->getUrlPrefix() . $request->getId()
             )
         );
+        $form->key = 'remove-resource';
         $form->addFormElement(
             new HiddenInput(
                 array(

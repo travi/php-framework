@@ -20,6 +20,8 @@ class Form extends FormElementGroup
     /** @var boolean */
     private $debug;
 
+    public $key;
+
     public function __construct($options)
     {
         if (isset($options['debug'])) {

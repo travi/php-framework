@@ -323,6 +323,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 'action' => self::ANY_URL_PREFIX . self::ANY_ID
             )
         );
+        $form->key = 'remove-resource';
         $form->addFormElement(
             new HiddenInput(
                 array(
