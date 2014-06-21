@@ -61,7 +61,7 @@ class PicasaService
 
         $album->setTitle((string) $responseXml->title);
         $ns_gphoto = $responseXml->children($namespaces['gphoto']);
-        $album->setId((string)$ns_gphoto->id);
+        $album->setId((string) $ns_gphoto->id);
         $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
 
         $album->setThumbnail($this->setAlbumThumbnailDetails($responseXml));
@@ -113,7 +113,7 @@ class PicasaService
 
             /** @var $album Album */
             $album = new Album();
-            $album->setId((string)$ns_gphoto->id);
+            $album->setId((string) $ns_gphoto->id);
             $album->setTitle((string) $entry->title);
             $album->setUrl((string) $link_attr['href']);
 
@@ -142,7 +142,7 @@ class PicasaService
 
             $license_attr = $ns_gphoto->license->attributes();
 
-            $originalUrl = (string)$entry->content['src'];
+            $originalUrl = (string) $entry->content['src'];
 
             if ($this->isVideo($entry, $namespaces)) {
                 $media = new Video();
@@ -242,7 +242,7 @@ class PicasaService
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
-            if (self::VIDEO_MEDIUM === (string)$attributes->medium) {
+            if (self::VIDEO_MEDIUM === (string) $attributes->medium) {
                 return true;
             }
         }
@@ -263,25 +263,25 @@ class PicasaService
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
-            if (self::VIDEO_MEDIUM === (string)$attributes->medium
-                && self::MPEG_VIDEO_TYPE === (string)$attributes->type
+            if (self::VIDEO_MEDIUM === (string) $attributes->medium
+                && self::MPEG_VIDEO_TYPE === (string) $attributes->type
             ) {
-                $width = (int)$attributes->width;
-                $height = (int)$attributes->height;
+                $width = (int) $attributes->width;
+                $height = (int) $attributes->height;
 
                 $video->setWidth($width);
                 $video->setHeight($height);
 
                 if (self::MOBILE_SIZE === $width || self::MOBILE_SIZE === $height) {
-                    $video->setMobile((string)$attributes->url);
+                    $video->setMobile((string) $attributes->url);
                 }
 
                 if (self::STANDARD_SIZE === $width || self::STANDARD_SIZE === $height) {
-                    $video->setStandard((string)$attributes->url);
+                    $video->setStandard((string) $attributes->url);
                 }
 
                 if (self::HIGH_DEF_SIZE === $width || self::HIGH_DEF_SIZE === $height) {
-                    $video->setHighDef((string)$attributes->url);
+                    $video->setHighDef((string) $attributes->url);
                 }
             }
         }

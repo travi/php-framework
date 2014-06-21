@@ -16,4 +16,11 @@
             <property name="absoluteLineLimit" value="120"/>
         </properties>
     </rule>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+    <rule ref="Generic.CodeAnalysis"/>
+    <rule ref="Generic.Commenting"/>
+    <rule ref="Generic.Formatting">
+        <exclude name="Generic.Formatting.NoSpaceAfterCast"/>
+    </rule>
+    <!--<rule ref="PSR1"/>-->
 </ruleset>
