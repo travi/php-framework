@@ -48,12 +48,7 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
 
     public function testGetJavaScripts()
     {
-        $this->assertSame(array('jqueryUi'), $this->submitButton->getJavaScripts());
-    }
-
-    public function testGetJsInits()
-    {
-        $this->assertSame(array('$("input[type=submit]").button()'), $this->submitButton->getJsInits());
+        $this->assertSame(array('buttons'), $this->submitButton->getJavaScripts());
     }
 
     public function testGetName()
@@ -61,4 +56,3 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
         $this->assertSame('submit', $this->submitButton->getName());
     }
 }
-?>

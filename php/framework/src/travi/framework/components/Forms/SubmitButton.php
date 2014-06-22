@@ -18,8 +18,7 @@ class SubmitButton extends Input
         }
         $this->setValue($options['label']);
         $this->setTemplate('components/form/input.tpl');
-        $this->addJavaScript('jqueryUi');
-        $this->addJsInit('$("input[type=submit]").button()');
+        $this->addJavaScript('buttons');
     }
 
     public function isOuterButton($bool)
@@ -35,6 +34,4 @@ class SubmitButton extends Input
 
         return $this->class;
     }
-
-
 }
