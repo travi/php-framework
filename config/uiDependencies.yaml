@@ -75,6 +75,7 @@ entityList:
       - buttons
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
       - /resources/thirdparty/travi-ui/js/dialog/richText.js
+      - /resources/thirdparty/travi-ui/js/dialog/buttons.js
     cssDependencies:
       - /resources/thirdparty/travi-styles/css/travi-form.css
 
