@@ -134,4 +134,9 @@ class Form extends FormElementGroup
     {
         array_push($this->actions, $action);
     }
+
+    public function getActions()
+    {
+        return $this->actions;
+    }
 }
