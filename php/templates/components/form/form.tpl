@@ -14,4 +14,12 @@
         {include file=$formElement->getTemplate() field=$formElement}
     {/if}
 {/foreach}
+{assign var="formActions" value=$form->getActions()}
+{if !empty($formActions)}
+    <ol class="actions">
+    {foreach from=$formActions item=formAction}
+        <li>{include file=$formAction->getTemplate() field=$formAction}</li>
+    {/foreach}
+    </ol>
+{/if}
 </form>

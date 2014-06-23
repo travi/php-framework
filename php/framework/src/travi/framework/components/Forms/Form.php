@@ -20,6 +20,7 @@ class Form extends FormElementGroup
     /** @var boolean */
     private $debug;
 
+    private $actions = array();
     public $key;
 
     public function __construct($options)
@@ -127,5 +128,10 @@ class Form extends FormElementGroup
     public function hasErrors()
     {
         return !$this->isValid();
+    }
+
+    public function addAction($action)
+    {
+        array_push($this->actions, $action);
     }
 }

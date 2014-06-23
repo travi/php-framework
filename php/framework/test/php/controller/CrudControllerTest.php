@@ -332,7 +332,7 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        $form->addFormElement(
+        $form->addAction(
             new SubmitButton(
                 array(
                     'label' => 'Remove'

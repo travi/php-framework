@@ -4,6 +4,7 @@ namespace travi\framework\controller;
 
 use travi\framework\components\Forms\Form;
 use travi\framework\components\Forms\inputs\HiddenInput;
+use travi\framework\components\Forms\inputs\TextInput;
 use travi\framework\components\Forms\SubmitButton;
 use travi\framework\controller\AbstractController,
     travi\framework\http\Request,
@@ -183,14 +184,13 @@ abstract class CrudController extends RestController
                 )
             )
         );
-        $form->addFormElement(
+        $form->addAction(
             new SubmitButton(
                 array(
                     'label' => 'Remove'
                 )
             )
         );
-
 
         $response->setPageTemplate('../components/form/removeConfirmation.tpl');
         $response->setContent(
