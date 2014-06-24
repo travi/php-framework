@@ -7,7 +7,7 @@ abstract class DependantObject
     private $styles = array();
     private $scripts = array();
     private $jsInits = array();
-    private $template;
+    protected $template;
 
     public function getStyles()
     {

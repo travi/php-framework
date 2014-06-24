@@ -18,7 +18,7 @@
 {if !empty($formActions)}
     <ol class="actions">
     {foreach from=$formActions item=formAction}
-        <li>{include file=$formAction->getTemplate() field=$formAction}</li>
+        <li>{include file=$formAction->getTemplate() field=$formAction link=$formAction}</li>
     {/foreach}
     </ol>
 {/if}

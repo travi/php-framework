@@ -2,8 +2,9 @@
 
 namespace travi\framework\view\objects;
 
-class LinkView
+class LinkView extends AbstractView
 {
+    protected $template = 'components/link.tpl';
 
     public $text;
     public $url;
