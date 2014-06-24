@@ -11,6 +11,7 @@ use travi\framework\controller\AbstractController,
     travi\framework\http\Response;
 use travi\framework\mappers\CrudMapper;
 use travi\framework\model\CrudModel;
+use travi\framework\view\objects\LinkView;
 
 abstract class CrudController extends RestController
 {
@@ -184,6 +185,7 @@ abstract class CrudController extends RestController
                 )
             )
         );
+        $form->addAction(new LinkView('Cancel', $this->getUrlPrefix()));
         $form->addAction(
             new SubmitButton(
                 array(

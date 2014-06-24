@@ -8,6 +8,7 @@ use travi\framework\http\Response,
     travi\framework\controller\CrudController;
 use travi\framework\mappers\CrudMapper;
 use travi\framework\model\CrudModel;
+use travi\framework\view\objects\LinkView;
 
 class CrudControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -331,6 +332,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                     'value' => 'delete'
                 )
             )
+        );
+        $form->addAction(
+            new LinkView('Cancel', self::ANY_URL_PREFIX)
         );
         $form->addAction(
             new SubmitButton(
