@@ -333,8 +333,10 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
+        $cancelLink = new LinkView('Cancel', self::ANY_URL_PREFIX);
+        $cancelLink->addTag('cancel');
         $form->addAction(
-            new LinkView('Cancel', self::ANY_URL_PREFIX)
+            $cancelLink
         );
         $form->addAction(
             new SubmitButton(

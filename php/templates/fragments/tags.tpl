@@ -1,0 +1,1 @@
+{if !empty($tags)} class="{foreach item=tag from=$tags name="tags"}$tag{if $smarty.foreach.tags.last neq true} {/if}{/foreach}"{/if}

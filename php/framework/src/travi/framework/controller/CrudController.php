@@ -185,7 +185,9 @@ abstract class CrudController extends RestController
                 )
             )
         );
-        $form->addAction(new LinkView('Cancel', $this->getUrlPrefix()));
+        $cancelLink = new LinkView('Cancel', $this->getUrlPrefix());
+        $cancelLink->addTag('cancel');
+        $form->addAction($cancelLink);
         $form->addAction(
             new SubmitButton(
                 array(
