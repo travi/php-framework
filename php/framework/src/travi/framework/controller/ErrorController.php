@@ -11,13 +11,14 @@ class ErrorController extends AbstractController
     /**
      * @param  $request Request
      * @param  $response Response
+     * @param $filters
      * @param  $error \Exception
      * @return void
      */
     public function error404(&$request, &$response, $filters, $error)
     {
         //TODO: also include link to contact page...
-        $response->setStatus(404);
+        $response->setStatus(Response::NOT_FOUND);
         $response->setTitle('Page Could Not Be Found');
         $response->setPageTemplate('../error/404.tpl');
 
@@ -34,7 +35,7 @@ class ErrorController extends AbstractController
      */
     public function error401(&$request, &$response)
     {
-        $response->setStatus(401);
+        $response->setStatus(Response::UNAUTHORIZED);
         header('WWW-Authenticate: Basic realm="Travi Admin"');
         $response->setTitle('You are not authorized to view this page');
         $response->setPageTemplate('../error/401.tpl');
@@ -50,7 +51,7 @@ class ErrorController extends AbstractController
     public function error500(&$request, &$response, $filters, $error)
     {
         //TODO: also include link to contact page...
-        $response->setStatus(500);
+        $response->setStatus(Response::SERVER_ERROR);
         $response->setTitle('Internal Server Error');
         $response->setPageTemplate('../error/500.tpl');
 

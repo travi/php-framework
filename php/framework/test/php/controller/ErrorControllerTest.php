@@ -47,7 +47,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             );
         $this->response->expects($this->once())
             ->method('setStatus')
-            ->with(404);
+            ->with(Response::NOT_FOUND);
 
         $this->controller->error404(
             $this->request,
@@ -86,7 +86,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             );
         $this->response->expects($this->once())
             ->method('setStatus')
-            ->with(500);
+            ->with(Response::SERVER_ERROR);
 
         $this->controller->error500(
             $this->request,
@@ -106,7 +106,7 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo('../error/401.tpl'));
         $this->response->expects($this->once())
             ->method('setStatus')
-            ->with(401);
+            ->with(Response::UNAUTHORIZED);
 
         $this->controller->error401($this->request, $this->response, new NotFoundException($errorMessage));
     }
