@@ -3,6 +3,7 @@
 namespace travi\framework\collection;
 
 use \travi\framework\content\ContentObject;
+use travi\framework\view\objects\LinkView;
 
 class EntityList extends ContentObject
 {
@@ -12,6 +13,9 @@ class EntityList extends ContentObject
     private $totalEntities;
 
     const EDIT_KEY = "Edit";
+
+    /** @var LinkView */
+    public $add;
 
     public function __construct($path)
     {
