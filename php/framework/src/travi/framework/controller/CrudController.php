@@ -59,6 +59,7 @@ abstract class CrudController extends RestController
     protected function getList(&$response)
     {
         $response->setTitle($this->getEntityType() . ' Administration');
+        $response->setPageTemplate('../components/entityList.tpl');
 
         $response->setContent(
             array(

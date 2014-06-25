@@ -104,6 +104,9 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
         $this->responseMock->expects($this->once())
             ->method('setContent')
             ->with(array('list' => $entityList));
+        $this->responseMock->expects($this->once())
+            ->method('setPageTemplate')
+            ->with('../components/entityList.tpl');
 
         $this->simulateRequest(Request::GET, null);
     }
