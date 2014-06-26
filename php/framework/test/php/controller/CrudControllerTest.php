@@ -216,10 +216,11 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->with(self::ANY_ID)
             ->will($this->returnValue($this->modelDataById));
 
+        $form = new Form();
         $this->mapper->expects($this->once())
             ->method('mapToForm')
             ->with($this->modelDataById, 'Update')
-            ->will($this->returnValue($this->form));
+            ->will($this->returnValue($form));
 
         $this->mockRequest->expects($this->once())
             ->method('getId')
@@ -232,11 +233,13 @@ class CrudControllerTest extends PHPUnit_Framework_TestCase
             ->method('setContent')
             ->with(
                 array(
-                    'form' => $this->form
+                    'form' => $form
                 )
             );
 
         $this->crudController->edit($this->mockRequest, $this->responseMock);
+
+        $this->assertEquals('edit-resource', $form->key);
     }
 
     public function testThatEditPersistsUpdateAndReturnsSuccessInformation()

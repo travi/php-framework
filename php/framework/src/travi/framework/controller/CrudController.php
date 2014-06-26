@@ -89,9 +89,12 @@ abstract class CrudController extends RestController
     public function edit($request, $response)
     {
         $response->setTitle($this->getEditHeading());
+
+        $form = $this->mapper->mapToForm($this->model->getById($request->getId()), 'Update');
+        $form->key = 'edit-resource';
         $response->setContent(
             array(
-                'form' => $this->mapper->mapToForm($this->model->getById($request->getId()), 'Update')
+                'form' => $form
             )
         );
     }
