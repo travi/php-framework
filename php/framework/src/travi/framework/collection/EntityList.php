@@ -12,7 +12,7 @@ class EntityList extends ContentObject
     private $offset;
     private $totalEntities;
 
-    const EDIT_KEY = "Edit";
+    public $pluralType;
 
     /** @var LinkView */
     public $add;
@@ -20,11 +20,6 @@ class EntityList extends ContentObject
     public function __construct($path)
     {
         $this->addJavaScript('entityList');
-    }
-
-    public function setEdit($path)
-    {
-        $this->entities[self::EDIT_KEY] = $path;
     }
 
     public function addEntity($entity)
