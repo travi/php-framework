@@ -9,6 +9,7 @@ use travi\framework\dependencyManagement\DependencyManager,
 class HtmlRendererTest extends PHPUnit_Framework_TestCase
 {
     const SOME_LAYOUT_TEMPLATE = 'some layout template';
+    const SOME_PAGE_TEMPLATE = 'some page template';
     const SOME_PATH = 'somePath';
     const SOME_CONTROLLER = 'someController';
     const SOME_ACTION = 'someAction';
@@ -43,6 +44,11 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->htmlRenderer->setSmarty($this->smarty);
         $this->htmlRenderer->setRequest($this->request);
         $this->htmlRenderer->setFileSystem($this->fileSystem);
+    }
+
+    public function tearDown()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = null;
     }
 
     public function testAttributesAddedToSmartyBeforeRendering()
@@ -81,6 +87,25 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
             ->method('getEnhancementVersion');
 
         $this->htmlRenderer->setLayoutTemplate(self::SOME_LAYOUT_TEMPLATE);
+        $this->htmlRenderer->format($data, $this->page);
+    }
+
+    public function testThatContentRenderingNotWrappedInLayoutWhenAjaxRequest()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+        $data = array();
+
+        $this->page->expects($this->any())
+            ->method('getPageTemplate')
+            ->will($this->returnValue(self::SOME_PAGE_TEMPLATE));
+
+        $this->smarty->expects($this->at(4))
+            ->method('assign')
+            ->with('content', $data);
+        $this->smarty->expects($this->once())
+            ->method('display')
+            ->with('pages/' . self::SOME_PAGE_TEMPLATE);
+
         $this->htmlRenderer->format($data, $this->page);
     }
 

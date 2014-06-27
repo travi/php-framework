@@ -40,7 +40,7 @@ class HtmlRenderer extends Renderer
         $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-            $this->smarty->assign('content', $page->getContent());
+            $this->smarty->assign('content', $data);
             $this->smarty->display('pages/' . $page->getPageTemplate());
         } else {
             $this->smarty->display($this->layoutTemplate);
