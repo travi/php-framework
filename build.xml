@@ -34,6 +34,7 @@
                     <exclude name="src/travi/framework/exception/*.php"/>
                     <exclude name="src/travi/framework/http/RestClient.php"/>
                     <exclude name="objects/utility/upload.class.php"/>
+                    <exclude name="src/core/init.php"/>
                 </patternset>
             </fileset>
         </coverage-setup>
