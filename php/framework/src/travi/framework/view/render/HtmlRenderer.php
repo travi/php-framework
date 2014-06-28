@@ -84,7 +84,8 @@ class HtmlRenderer extends Renderer
      */
     private function matchingTemplateExists($pathToTemplate)
     {
-        return $this->fileSystem->pageTemplateExists($pathToTemplate) || $this->fileSystem->frameworkTemplateExists($pathToTemplate);
+        return $this->fileSystem->pageTemplateExists($pathToTemplate)
+            || $this->fileSystem->frameworkTemplateExists($pathToTemplate);
     }
 
     /**
