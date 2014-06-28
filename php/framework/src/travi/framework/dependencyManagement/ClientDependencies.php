@@ -8,7 +8,7 @@ use travi\framework\http\Request,
 class ClientDependencies
 {
     const DEFAULT_JQUERY_UI_THEME
-        = 'http://code.jquery.com/ui/1.11.0/themes/overcast/jquery-ui.css';
+        = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css';
     const CSS_DEPENDENCIES_KEY = 'cssDependencies';
     const JS_DEPENDENCIES_KEY = 'jsDependencies';
     /** @var Request */
