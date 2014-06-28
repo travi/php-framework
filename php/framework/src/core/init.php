@@ -137,6 +137,7 @@ function smartyInit($smartyConfig, $debug)
 {
     $smarty = Pd_Make::name('Smarty');
 
+    //stops at first match, so site path is first to allow overriding of framework templates
     $smarty->template_dir = array(
         SITE_ROOT . $smartyConfig['siteTemplateDir'],
         FRAMEWORK_PATH . '../../php/templates'
