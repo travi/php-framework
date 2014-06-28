@@ -63,7 +63,7 @@ class HtmlRenderer extends Renderer
                 $pathToTemplate = $this->buildTemplatePath();
             }
 
-            if ($this->fileSystem->pageTemplateExists($pathToTemplate)) {
+            if ($this->matchingTemplateExists($pathToTemplate)) {
                 $page->setPageTemplate($pathToTemplate);
             } else {
                 throw new MissingPageTemplateException('No Page Template Available');
@@ -76,6 +76,31 @@ class HtmlRenderer extends Renderer
         $enhancementVersion = $this->request->getEnhancementVersion();
         return ($enhancementVersion === Request::SMALL_ENHANCEMENT
                 || $enhancementVersion === Request::BASE_ENHANCEMENT);
+    }
+
+    /**
+     * @param $pathToTemplate
+     * @return bool
+     */
+    private function matchingTemplateExists($pathToTemplate)
+    {
+        return $this->fileSystem->pageTemplateExists($pathToTemplate) || $this->fileSystem->frameworkTemplateExists($pathToTemplate);
+    }
+
+    /**
+     * @return string
+     */
+    private function buildTemplatePath()
+    {
+        $controller = $this->request->getController();
+        $action = $this->request->getAction();
+        $pathToTemplate = $controller . '/' . $action . '.tpl';
+
+        if ($this->request->isAdmin()) {
+            $pathToTemplate = 'admin/' . $pathToTemplate;
+            return $pathToTemplate;
+        }
+        return $pathToTemplate;
     }
 
     public function setLayoutTemplate($layoutTemplate)
@@ -119,21 +144,5 @@ class HtmlRenderer extends Renderer
     public function setFileSystem($fileSystem)
     {
         $this->fileSystem = $fileSystem;
-    }
-
-    /**
-     * @return string
-     */
-    private function buildTemplatePath()
-    {
-        $controller = $this->request->getController();
-        $action = $this->request->getAction();
-        $pathToTemplate = $controller . '/' . $action . '.tpl';
-
-        if ($this->request->isAdmin()) {
-            $pathToTemplate = 'admin/' . $pathToTemplate;
-            return $pathToTemplate;
-        }
-        return $pathToTemplate;
     }
 }

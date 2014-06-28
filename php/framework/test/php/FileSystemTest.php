@@ -8,6 +8,7 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     const PATH_TO_SITE = "/path/to/site";
     const PATH_TO_SHARED_DEPS = "/path/to/shared/deps";
     const PATH_TO_PAGE_TEMPLATE = 'path/to/page/template/';
+    const PATH_TO_FRAMEWORK_TEMPLATE = 'path/to/framework/template/';
 
     /** @var FileSystem */
     private $fileSystem;
@@ -47,6 +48,13 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testExistingFrameworkTemplateFound()
+    {
+        $this->assertTrue(
+            $this->fileSystem->frameworkTemplateExists(self::PATH_TO_FRAMEWORK_TEMPLATE)
+        );
+    }
+
     public function testExternalSheetsReturnFalse()
     {
         $this->assertFalse($this->fileSystem->styleSheetExists('http://somesheet'));
@@ -65,6 +73,8 @@ class FileSystemShunt extends FileSystem
         case FileSystemTest::PATH_TO_SITE . "/doc_root/resources/thirdparty/travi-styles/css/" . FileSystemTest::ANY_STYLE_SHEET:
             return true;
         case FileSystemTest::PATH_TO_SITE . '/app/view/pages/' . FileSystemTest::PATH_TO_PAGE_TEMPLATE:
+            return true;
+        case FileSystemTest::PATH_TO_SHARED_DEPS . '/php/templates/fragments/' . FileSystemTest::PATH_TO_FRAMEWORK_TEMPLATE:
             return true;
         default:
             return false;

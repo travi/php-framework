@@ -32,6 +32,11 @@ class FileSystem
         return $this->fileExists($this->sitePath . '/app/view/pages/' . $pathToTemplate);
     }
 
+    public function frameworkTemplateExists($pathToTemplate)
+    {
+        return $this->fileExists($this->sharedPath . '/php/templates/fragments/' . $pathToTemplate);
+    }
+
     public function styleSheetExists($sheet)
     {
         if (strstr($sheet, self::PATH_TO_STYLE_SHEETS)) {
@@ -121,15 +126,6 @@ class FileSystem
         fclose($fileHandle);
     }
 
-    /**
-     * @PdInject request
-     * @param $request
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
-    }
-
     public function setSitePath($sitePath)
     {
         $this->sitePath = $sitePath;
@@ -143,5 +139,14 @@ class FileSystem
     public function getSharedPath()
     {
         return $this->sharedPath;
+    }
+
+    /**
+     * @PdInject request
+     * @param $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 }

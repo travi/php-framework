@@ -210,4 +210,27 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
 
         $this->htmlRenderer->format(array('form' => new Form()), $this->page);
     }
+
+    public function testThatFormTemplateFallsBackToOneProvidedByFrameworkIfNotProvidedByConsumer()
+    {
+        $pathToTemplate = '../wrap/formWrapper.tpl';
+
+        $this->fileSystem->expects($this->once())
+            ->method('pageTemplateExists')
+            ->with($pathToTemplate)
+            ->will($this->returnValue(false));
+        $this->fileSystem->expects($this->once())
+            ->method('frameworkTemplateExists')
+            ->with($pathToTemplate)
+            ->will($this->returnValue(true));
+
+        $this->page->expects($this->once())
+            ->method('getPageTemplate')
+            ->will($this->returnValue(''));
+        $this->page->expects($this->once())
+            ->method('setPageTemplate')
+            ->with($pathToTemplate);
+
+        $this->htmlRenderer->format(array('form' => new Form()), $this->page);
+    }
 }
