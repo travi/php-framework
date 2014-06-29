@@ -26,7 +26,7 @@ class HtmlRenderer extends Renderer
      * @param $page AbstractResponse
      * @return void
      */
-    public function format($data, $page)
+    public function format($data, $page = null)
     {
         $this->dependencyManager->resolveContentDependencies($data);
         $this->dependencyManager->loadPageDependencies();

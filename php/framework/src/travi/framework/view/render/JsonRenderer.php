@@ -6,7 +6,7 @@ use travi\framework\view\render\Renderer;
 
 class JsonRenderer extends Renderer
 {
-    public function format($data)
+    public function format($data, $page = null)
     {
         header('Content-Type: application/json');
 

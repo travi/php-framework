@@ -4,7 +4,7 @@ namespace travi\framework\view\render;
 
 abstract class Renderer
 {
-    public function format($data)
+    public function format($data, $page = null)
     {
         return print_r($data);
     }

@@ -12,6 +12,19 @@ set_include_path(
     __DIR__ . '/../../../thirdparty/PHP-Dependency/library/'
 );
 
+
+
+
+
+//Initialize Dependency Injection Container
+$container = Pd_Container::get();
+
+
+
+
+
+
+
 //Get Config
 //Temp definition
 if (!defined('DOC_ROOT')) {
@@ -27,10 +40,23 @@ if (!defined('FRAMEWORK_PATH')) {
 $config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
 $config['sitePath'] = SITE_ROOT;
 
+$container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
+$container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
+$container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
+$container->dependencies()->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
+
+/** @var FileSystem $fileSystem */
+$fileSystem = fileSystemInit($config['sitePath'], FRAMEWORK_PATH . '../../');
+$container->dependencies()->set('fileSystem', $fileSystem);
+
 //global vars for legacy stuff
 //TODO: clean this up once refactored
 $uiDeps = Spyc::YAMLLoad(__DIR__ . '/../../../../config/uiDependencies.yaml');
-$siteUiDeps = Spyc::YAMLLoad(SITE_ROOT.'config/dependencies/components.yaml');
+$siteUiDeps = array();
+$siteComponentsFile = SITE_ROOT . 'config/dependencies/components.yaml';
+if ($fileSystem->fileExists($siteComponentsFile)) {
+    $siteUiDeps = Spyc::YAMLLoad($siteComponentsFile);
+}
 
 //to make legacy stuff work
 //TODO: remove this once refactored
@@ -42,14 +68,14 @@ $config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.y
 
 
 $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
-$config['adminNav'] = $config['nav']['admin'];
-unset($config['nav']['admin']);
+if (isset($config['nav']['admin'])) {
+    $config['adminNav'] = $config['nav']['admin'];
+    unset($config['nav']['admin']);
+}
 
 $config['docRoot'] = DOC_ROOT;
 
 
-//Initialize Dependency Injection Container
-$container = Pd_Container::get();
 
 $container->dependencies()->set('environment', environmentInit($config['productionUrl']));
 /** @var Environment $environment */
@@ -66,13 +92,7 @@ if (defined('DB_HOSTNAME')) {
     $container->dependencies()->set('db', dbInit());
 }
 
-$container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
-$container->dependencies()->set('request_method', $_SERVER['REQUEST_METHOD']);
-$container->dependencies()->set('enhancementVersion', $_COOKIE[Request::ENHANCEMENT_VERSION_KEY]);
-$container->dependencies()->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
-
 $container->dependencies()->set('session', Pd_Make::name('travi\\framework\\http\\Session'));
-$container->dependencies()->set('fileSystem', fileSystemInit($config['sitePath'], FRAMEWORK_PATH . '../../'));
 $container->dependencies()->set(
     'dependencyManager',
     dmInit($config['uiDeps']['pages'], $config['theme']['site'])
