@@ -25,9 +25,6 @@ class Form extends FormElementGroup
 
     public function __construct($options)
     {
-        if (isset($options['debug'])) {
-            $this->debug = $options['debug'];
-        }
         if (isset($options['name'])) {
             $this->name = $options['name'];
         }
@@ -40,19 +37,6 @@ class Form extends FormElementGroup
             $this->action = $options['action'];
         } else {
             $this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
-        }
-
-        if (!empty($options['fieldsets'])) {
-            foreach ($options['fieldsets'] as $formElement) {
-                if (!empty($formElement['fields'])) {
-                    $this->addFormElement(new Fieldset($formElement));
-                } else if (!empty($formElement['type'])) {
-                    $type = $formElement['type'];
-                    $this->addFormElement(
-                        new $type($formElement)
-                    );
-                }
-            }
         }
 
         $this->addStyleSheet('/resources/thirdparty/travi-styles/css/travi-form.css');
