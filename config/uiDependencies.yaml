@@ -70,8 +70,8 @@ entityList:
   large:
     local: /resources/thirdparty/travi-ui/js/entityList/pagination.js
     jsDependencies:
-      - dialog
       - richTextArea
+      - dialog
       - buttons
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
       - /resources/thirdparty/travi-ui/js/dialog/richText.js
