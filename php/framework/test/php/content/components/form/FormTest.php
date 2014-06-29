@@ -5,6 +5,7 @@ use travi\framework\components\Forms\Form,
     travi\framework\components\Forms\inputs\Input,
     travi\framework\components\Forms\inputs\DateInput,
     travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\components\Forms\SubmitButton;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -94,7 +95,19 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testDependencyInitialization()
     {
         $dependencies = $this->form->getDependencies();
-        $this->assertContains('/resources/thirdparty/travi-styles/css/travi-form.css', $dependencies['styles']);
+        $this->assertContains(
+            '/resources/thirdparty/travi-styles/css/travi-form.css',
+            $dependencies['styles']
+        );
+    }
+
+    public function testThatDependenciesForActionsIncludedInFormDependencies()
+    {
+        $this->form->addAction(new SubmitButton());
+
+        $dependencies = $this->form->getDependencies();
+
+        $this->assertContains('buttons', $dependencies['scripts']);
     }
 
     public function testValidationScriptAddedToDependencyList()
@@ -106,7 +119,6 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $dependencies = $this->form->getDependencies();
         $this->assertContains('validation', $dependencies['scripts']);
-
     }
 
     public function testValidationsArePassedInGetDependencies()

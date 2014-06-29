@@ -5,6 +5,7 @@ namespace travi\framework\components\Forms;
 use travi\framework\components\Forms\FormElementGroup,
     travi\framework\components\Forms\inputs\Input,
     travi\framework\components\Forms\FieldSet;
+use travi\framework\DependantObject;
 
 class Form extends FormElementGroup
 {
@@ -72,11 +73,20 @@ class Form extends FormElementGroup
 
     public function getDependencies()
     {
+        foreach ($this->actions as $action) {
+            /** @var DependantObject $action */
+            $this->addDependencies($action->getDependencies());
+        }
+
         $validations = $this->getValidations();
+
         $dependencies = parent::getDependencies();
+
         if (!empty($validations)) {
             $dependencies['validations'] = $validations;
         }
+
+
         return $dependencies;
     }
 
