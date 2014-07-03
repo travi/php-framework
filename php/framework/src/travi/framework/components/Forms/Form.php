@@ -119,6 +119,23 @@ class Form extends FormElementGroup
         }
     }
 
+    public function getFieldByName($fieldName)
+    {
+        $field = parent::getFieldByName($fieldName);
+
+        if (!isset($field)) {
+            /** @var Field $action */
+            foreach ($this->actions as $action) {
+                if (is_a($action, 'travi\\framework\\components\\Forms\\Field') && $fieldName === $action->getName()) {
+                    $field = $action;
+                }
+            }
+        }
+
+        return $field;
+    }
+
+
     public function hasErrors()
     {
         return !$this->isValid();

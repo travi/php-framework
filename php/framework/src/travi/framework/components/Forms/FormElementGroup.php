@@ -94,6 +94,7 @@ abstract class FormElementGroup extends ContentObject implements FormElement
             ) {
                 return $element;
             } elseif (is_a($element, 'travi\\framework\\components\\Forms\\FormElementGroup')) {
+                /** @var FormElementGroup $element */
                 $field = $element->getFieldByName($fieldName);
 
                 if (!empty($field)) {

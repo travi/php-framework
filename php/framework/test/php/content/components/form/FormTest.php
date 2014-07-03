@@ -6,6 +6,7 @@ use travi\framework\components\Forms\Form,
     travi\framework\components\Forms\inputs\DateInput,
     travi\framework\components\Forms\inputs\TextInput;
 use travi\framework\components\Forms\SubmitButton;
+use travi\framework\view\objects\LinkView;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -131,6 +132,16 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $dependencies = $this->form->getDependencies();
         $this->assertSame($validations, $dependencies['validations'][$anyField->getName()]);
+    }
+
+    public function testThatActionInputCanBeRetievedByName()
+    {
+        $action = new SubmitButton();
+
+        $this->form->addAction(new LinkView('some text', 'some href'));
+        $this->form->addAction($action);
+
+        $this->assertSame($action, $this->form->getFieldByName('submit'));
     }
 
     public function testValidationErrorsMappedToProperFields()
