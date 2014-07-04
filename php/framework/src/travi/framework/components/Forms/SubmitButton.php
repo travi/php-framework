@@ -6,6 +6,8 @@ use travi\framework\components\Forms\inputs\Input;
 
 class SubmitButton extends Input
 {
+    private $isOuterButton;
+
     public function __construct($options = array())
     {
         parent::__construct($options);
