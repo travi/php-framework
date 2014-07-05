@@ -72,6 +72,7 @@ entityList:
     jsDependencies:
       - richTextArea
       - dialog
+      - datePicker
       - buttons
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
       - /resources/thirdparty/travi-ui/js/dialog/richText.js
