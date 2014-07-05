@@ -137,6 +137,11 @@ richTextArea:
     - wymEditor-fullScreen
     - travi
 
+datePicker:
+  local: /resources/thirdparty/travi-ui/js/form/date.js
+  jsDependencies:
+    - jqueryUi
+
 buttons:
   local: /resources/thirdparty/travi-ui/js/form/buttons.js
   jsDependencies:
