@@ -14,7 +14,7 @@
     <target name="checkstyle">
         <mkdir dir="${build.logs}"/>
         <phpcodesniffer standard="build/codingStandard.xml"
-                        haltonwarning="true"
+                        haltonwarning="false"
                         haltonerror="true">
             <formatter type="full" usefile="false"/>
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
@@ -48,6 +48,7 @@
                     <include name="**/*Test.php"/>
                 </fileset>
             </batchtest>
+            <formatter type="plain" usefile="false"/>
             <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
             <formatter type="clover" todir="${build.logs}" outfile="clover.xml"/>
         </phpunit>
