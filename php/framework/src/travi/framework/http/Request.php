@@ -6,16 +6,16 @@ use travi\framework\page\AbstractResponse;
 
 class Request
 {
-    const GET = 'GET';
-    const POST = 'POST';
+    const GET    = 'GET';
+    const POST   = 'POST';
     const DELETE = 'DELETE';
 
     const ENHANCEMENT_VERSION_KEY = 'ev';
-    const BASE_ENHANCEMENT = 'base';
-    const SMALL_ENHANCEMENT = 'small';
-    const LARGE_ENHANCEMENT = 'large';
-    const LARGE_COOKIE_VALUE = 'l';
-    const SMALL_COOKIE_VALUE = 's';
+    const BASE_ENHANCEMENT        = 'base';
+    const SMALL_ENHANCEMENT       = 'small';
+    const LARGE_ENHANCEMENT       = 'large';
+    const LARGE_COOKIE_VALUE      = 'l';
+    const SMALL_COOKIE_VALUE      = 's';
 
     /** @var array */
     private $filters = array();
@@ -151,7 +151,7 @@ class Request
             $this->action = 'index';
         } elseif (is_numeric($this->uriParts[2])) {
             $this->action = 'index';
-            $this->id = $this->uriParts[2];
+            $this->id     = $this->uriParts[2];
         } else {
             $this->action = $this->uriParts[2];
         }
@@ -180,7 +180,7 @@ class Request
         }
         if (!$this->pathPartIsPlural($last) && !is_numeric($last)) {
             $this->action = $last;
-            $last = array_pop($this->uriParts);
+            $last         = array_pop($this->uriParts);
         }
         if (is_numeric($last)) {
             $this->setId($last);
@@ -197,7 +197,8 @@ class Request
     private function getPathFilters()
     {
         $filterId = array_pop($this->uriParts);
-        $filter = array_pop($this->uriParts);
+        $filter   = array_pop($this->uriParts);
+
         $this->filters[$filter] = $filterId;
     }
 

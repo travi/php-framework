@@ -16,16 +16,16 @@ class RestClient
 
     public function __construct ($url = null, $verb = 'GET', $requestBody = null)
     {
-        $this->url               = $url;
-        $this->verb              = $verb;
-        $this->requestBody       = $requestBody;
-        $this->requestLength     = 0;
-        $this->username          = null;
-        $this->password          = null;
-        $this->acceptType        = '';
-        //$this->acceptType        = 'application/json';
-        $this->responseBody      = null;
-        $this->responseInfo      = null;
+        $this->url           = $url;
+        $this->verb          = $verb;
+        $this->requestBody   = $requestBody;
+        $this->requestLength = 0;
+        $this->username      = null;
+        $this->password      = null;
+        $this->acceptType    = '';
+        $this->responseBody  = null;
+        $this->responseInfo  = null;
+        //$this->acceptType   = 'application/json';
 
         if ($this->requestBody !== null) {
             $this->buildPostBody();
@@ -34,11 +34,11 @@ class RestClient
 
     public function flush ()
     {
-        $this->requestBody       = null;
-        $this->requestLength     = 0;
-        $this->verb              = 'GET';
-        $this->responseBody      = null;
-        $this->responseInfo      = null;
+        $this->requestBody   = null;
+        $this->requestLength = 0;
+        $this->verb          = 'GET';
+        $this->responseBody  = null;
+        $this->responseInfo  = null;
     }
 
     public function execute ()
@@ -87,7 +87,7 @@ class RestClient
             throw new \InvalidArgumentException('Invalid data input for postBody.  Array expected');
         }
 
-        $data = http_build_query($data, '', '&');
+        $data              = http_build_query($data, '', '&');
         $this->requestBody = $data;
     }
 

@@ -12,10 +12,10 @@ use travi\framework\utilities\FileSystem,
 
 class DependencyManager
 {
-    const SITE_THEME_KEY = 'siteTheme';
+    const SITE_THEME_KEY          = 'siteTheme';
     const SITE_THEME_ENHANCED_KEY = 'siteThemeEnhanced';
-    const THIS_PAGE_KEY = 'thisPage';
-    const THIS_PAGE_ENHANCED_KEY = 'thisPageEnhanced';
+    const THIS_PAGE_KEY           = 'thisPage';
+    const THIS_PAGE_ENHANCED_KEY  = 'thisPageEnhanced';
 
     /** @var ClientDependencies */
     private $clientDependencyDefinitions;
@@ -32,10 +32,10 @@ class DependencyManager
 
     private $pageDependenciesLists = array();
 
-    const RESOURCES = '/resources';
+    const RESOURCES        = '/resources';
     const SHARED_RESOURCES = '/resources/thirdparty/travi-styles';
-    const MIN_DIR = '/min';
-    const THIRDPARTY = 'thirdparty';
+    const MIN_DIR          = '/min';
+    const THIRDPARTY       = 'thirdparty';
 
     public function addJavaScript($script)
     {
@@ -150,8 +150,8 @@ class DependencyManager
         $controllerName = strtolower($this->request->getController());
         if (isset($controllerList[$controllerName])) {
             $thisController = $controllerList[$controllerName];
-            $action = $this->request->getAction();
-            $thisPage = $thisController[$action];
+            $action         = $this->request->getAction();
+            $thisPage       = $thisController[$action];
 
             $this->addDependencies($thisPage);
 
@@ -276,12 +276,10 @@ class DependencyManager
     {
         if ($this->isSharedDependency($dependency)) {
             $length = strlen(self::SHARED_RESOURCES);
-            $pathToDependency = $this->fileSystem->getSharedPath() . '/client'
-                                . substr($dependency, $length);
-            return $pathToDependency;
+
+            return $this->fileSystem->getSharedPath() . '/client' . substr($dependency, $length);
         } else {
-            $pathToDependency = SITE_ROOT . 'doc_root' . $dependency;
-            return $pathToDependency;
+            return SITE_ROOT . 'doc_root' . $dependency;
         }
     }
 
@@ -343,15 +341,14 @@ class DependencyManager
     private function getEnhancedFileName($sheet)
     {
         $enhancementVersion = $this->request->getEnhancementVersion();
-        $enhancedFile = '';
+
         if ($enhancementVersion === Request::SMALL_ENHANCEMENT) {
-            $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
-            return $enhancedFile;
+            return substr($sheet, 0, strpos($sheet, '.css')) . '_m.css';
         } elseif ($enhancementVersion === Request::LARGE_ENHANCEMENT) {
-            $enhancedFile = substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
-            return $enhancedFile;
+            return substr($sheet, 0, strpos($sheet, '.css')) . '_d.css';
         }
-        return $enhancedFile;
+
+        return '';
     }
 
     private function removePageStyleIfAlreadyInList($index, $sheet, $styleSheetList)

@@ -8,8 +8,8 @@ class NavigationFactory
 {
     const NAVIGATION_NAMESPACE = "\\travi\\framework\\navigation\\";
 
-    const MENU_BAR = 'menuBar';
-    const TABS = 'tabs';
+    const MENU_BAR  = 'menuBar';
+    const TABS      = 'tabs';
     const ACCORDION = 'accordion';
 
     private $navOptions = array(

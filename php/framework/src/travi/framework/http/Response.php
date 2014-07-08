@@ -8,18 +8,18 @@ use travi\framework\page\AbstractResponse,
 
 class Response extends AbstractResponse
 {
-    const CREATED = '201 Created';
+    const CREATED  = '201 Created';
     const ACCEPTED = '202 Accepted';
 
-    const BAD_REQUEST = '400 Bad Request';
+    const BAD_REQUEST  = '400 Bad Request';
     const UNAUTHORIZED = '401 Unauthorized';
-    const NOT_ALLOWED = '405 Method Not Allowed';
+    const NOT_FOUND    = '404 Not Found';
+    const NOT_ALLOWED  = '405 Method Not Allowed';
 
     const NOT_IMPLEMENTED = '501 Not Implemented';
-    const SERVER_ERROR = '500 Internal Server Error';
+    const SERVER_ERROR    = '500 Internal Server Error';
 
     const SITE_FEED_KEY = 'Site Feed';
-    const NOT_FOUND = '404 Not Found';
 
     /** @var Request */
     private $request;
