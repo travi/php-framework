@@ -8,20 +8,20 @@ class PicasaService
 {
     const PICASA_URI = 'http://picasaweb.google.com/data/feed/api/user/';
     /* 1-indexed */
-    const OFFSET_QUERY_PARAM = 'start-index';
-    const COUNT_QUERY_PARAM = 'max-results';
+    const OFFSET_QUERY_PARAM    = 'start-index';
+    const COUNT_QUERY_PARAM     = 'max-results';
     const THUMBSIZE_QUERY_PARAM = 'thumbsize';
-    const UNCROPPED_KEY = 'u';
-    const CROPPED_KEY = 'c';
+    const UNCROPPED_KEY         = 'u';
+    const CROPPED_KEY           = 'c';
 
-    const MAX_WIDTH_KEY = 'w';
-    const MAX_SIZE_KEY = 's';
-    const MAX_HEIGHT_KEY = 'h';
+    const MAX_WIDTH_KEY   = 'w';
+    const MAX_SIZE_KEY    = 's';
+    const MAX_HEIGHT_KEY  = 'h';
     const MPEG_VIDEO_TYPE = 'video/mpeg4';
-    const MOBILE_SIZE = 360;
-    const VIDEO_MEDIUM = 'video';
-    const STANDARD_SIZE = 720;
-    const HIGH_DEF_SIZE = 1080;
+    const MOBILE_SIZE     = 360;
+    const VIDEO_MEDIUM    = 'video';
+    const STANDARD_SIZE   = 720;
+    const HIGH_DEF_SIZE   = 1080;
 
     /** @var RestClient */
     private $restClient;
@@ -103,7 +103,7 @@ class PicasaService
 
     private function createAlbumListFrom($responseBody)
     {
-        $xml = new \SimpleXMLElement($responseBody);
+        $xml        = new \SimpleXMLElement($responseBody);
         $namespaces = $xml->getNamespaces(true);
 
         $albums = array();
@@ -195,8 +195,8 @@ class PicasaService
     private function setThumbDetails($entry)
     {
         $entryNamespaces = $entry->getNamespaces(true);
-        $ns_media = $entry->children($entryNamespaces['media']);
-        $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
+        $ns_media        = $entry->children($entryNamespaces['media']);
+        $thumb_attr      = $ns_media->group->thumbnail[0]->attributes();
 
         $thumbnail = new Thumbnail();
         $thumbnail->setUrl((string) $thumb_attr['url']);
@@ -266,7 +266,7 @@ class PicasaService
             if (self::VIDEO_MEDIUM === (string) $attributes->medium
                 && self::MPEG_VIDEO_TYPE === (string) $attributes->type
             ) {
-                $width = (int) $attributes->width;
+                $width  = (int) $attributes->width;
                 $height = (int) $attributes->height;
 
                 $video->setWidth($width);

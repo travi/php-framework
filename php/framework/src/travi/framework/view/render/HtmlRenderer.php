@@ -93,8 +93,8 @@ class HtmlRenderer extends Renderer
      */
     private function buildTemplatePath()
     {
-        $controller = $this->request->getController();
-        $action = $this->request->getAction();
+        $controller     = $this->request->getController();
+        $action         = $this->request->getAction();
         $pathToTemplate = $controller . '/' . $action . '.tpl';
 
         if ($this->request->isAdmin()) {

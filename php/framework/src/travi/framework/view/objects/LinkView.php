@@ -12,6 +12,6 @@ class LinkView extends AbstractView
     function __construct($text, $url)
     {
         $this->text = $text;
-        $this->url = $url;
+        $this->url  = $url;
     }
 }

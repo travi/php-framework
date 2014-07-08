@@ -24,7 +24,7 @@ abstract class Renderer
     {
         if (is_object($item)) {
             $itemResult = array();
-            $ref = new \ReflectionClass($item);
+            $ref        = new \ReflectionClass($item);
 
             foreach (array_values($ref->getMethods()) as $method) {
                 if ($this->methodIsPublicGetter($method)) {
@@ -57,7 +57,7 @@ abstract class Renderer
 
     protected function getKeyFromMethodName($method)
     {
-        $key = substr($method->name, 3);
+        $key    = substr($method->name, 3);
         $key[0] = strtolower($key[0]);
         return $key;
     }

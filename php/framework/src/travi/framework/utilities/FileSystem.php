@@ -8,12 +8,12 @@ use travi\framework\http\Request;
 //        to make subsequent calls faster
 class FileSystem
 {
-    const PATH_TO_STYLE_SHEETS = '/resources/css/';
+    const PATH_TO_STYLE_SHEETS        = '/resources/css/';
     const PATH_TO_SHARED_STYLE_SHEETS = '/resources/thirdparty/travi-styles/css/';
-    const PATH_TO_SHARED = '/resources/thirdparty/';
-    const PATH_TO_SHARED_THIRDPARTY = '/resources/shared/thirdparty/';
-    const PAGE_STYLE_SHEET_DIR = 'pages/';
-    const CSS_EXT = '.css';
+    const PATH_TO_SHARED              = '/resources/thirdparty/';
+    const PATH_TO_SHARED_THIRDPARTY   = '/resources/shared/thirdparty/';
+    const PAGE_STYLE_SHEET_DIR        = 'pages/';
+    const CSS_EXT                     = '.css';
 
     const WRITING_ONLY = 'w';
     const READING_ONLY = 'r';
@@ -93,7 +93,7 @@ class FileSystem
     {
         $file = $pathToFile . $fileName;
 
-        $fileHandle = fopen($file, self::READING_ONLY) or die('cant open file');
+        $fileHandle   = fopen($file, self::READING_ONLY) or die('cant open file');
         $fileContents = fread($fileHandle, filesize($file));
         fclose($fileHandle);
 
