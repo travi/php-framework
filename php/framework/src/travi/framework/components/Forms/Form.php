@@ -18,8 +18,6 @@ class Form extends FormElementGroup
     private $action;
     /** @var string */
     private $encodingType;
-    /** @var boolean */
-    private $debug;
 
     private $actions = array();
     public $key;
@@ -126,7 +124,7 @@ class Form extends FormElementGroup
         if (!isset($field)) {
             /** @var Field $action */
             foreach ($this->actions as $action) {
-                if (is_a($action, 'travi\\framework\\components\\Forms\\Field') && $fieldName === $action->getName()) {
+                if ($this->fieldIsNamed($action, $fieldName)) {
                     $field = $action;
                 }
             }
@@ -135,6 +133,16 @@ class Form extends FormElementGroup
         return $field;
     }
 
+
+    /**
+     * @param $action
+     * @param $fieldName
+     * @return bool
+     */
+    private function fieldIsNamed($action, $fieldName)
+    {
+        return is_a($action, 'travi\\framework\\components\\Forms\\Field') && $fieldName === $action->getName();
+    }
 
     public function hasErrors()
     {

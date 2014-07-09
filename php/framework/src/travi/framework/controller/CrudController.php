@@ -90,7 +90,7 @@ abstract class CrudController extends RestController
     {
         $response->setTitle($this->getEditHeading());
 
-        $form = $this->mapper->mapToForm($this->model->getById($request->getId()), 'Update');
+        $form      = $this->mapper->mapToForm($this->model->getById($request->getId()), 'Update');
         $form->key = 'edit-resource';
         $response->setContent(
             array(
@@ -175,7 +175,7 @@ abstract class CrudController extends RestController
      */
     public function remove(&$request, &$response)
     {
-        $form = new Form(
+        $form      = new Form(
             array(
                 'action' => $this->getUrlPrefix() . $request->getId()
             )
@@ -216,6 +216,7 @@ abstract class CrudController extends RestController
      */
     protected function deleteById($id, &$response)
     {
+        //TODO: should be 'method not allowed'
         $response->setStatus(Response::NOT_IMPLEMENTED);
     }
 
@@ -226,15 +227,6 @@ abstract class CrudController extends RestController
     {
         $this->mapper = $mapper;
     }
-
-    /**
-     * @param $model CrudModel
-     */
-    public function setModel($model)
-    {
-        parent::setModel($model);
-    }
-
 
     abstract protected function getEditHeading();
     abstract protected function getAddHeading();

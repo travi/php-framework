@@ -2,8 +2,6 @@
 
 namespace travi\framework\components\Forms\choices;
 
-use travi\framework\components\Forms\choices\Choices;
-
 class SelectionBox extends Choices
 {
     private $optGroups = array();
@@ -31,13 +29,12 @@ class SelectionBox extends Choices
             foreach ($options as $optGroup => $values) {
                 $this->optGroups[$optGroup] = array();
                 foreach ($values as $value) {
-                    $selected=false;
-                    $disabled=false;
-
-                    $optionAR = array(  'option'    => $value['label'],
-                                        'value'     => $value['value'],
-                                        'selected'  => $selected,
-                                        'disabled'  => $disabled);
+                    $optionAR = array(
+                        'option' => $value['label'],
+                        'value' => $value['value'],
+                        'selected' => false,
+                        'disabled' => false
+                    );
 
                     array_push($this->optGroups[$optGroup], $optionAR);
                 }

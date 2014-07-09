@@ -3,16 +3,13 @@
 namespace travi\framework\components\Forms;
 
 use travi\framework\DependantObject,
-    travi\framework\content\ContentObject,
-    travi\framework\components\Forms\FormElement,
-    travi\framework\components\Forms\inputs\Input,
-    travi\framework\components\Forms\inputs\TextInput;
+    travi\framework\content\ContentObject;
 
 abstract class FormElementGroup extends ContentObject implements FormElement
 {
     /** @var FormElement[] */
     private $formElements = array();
-    private $errorCount = 0;
+    private $errorCount   = 0;
 
     public function addFormElement($formElement)
     {
