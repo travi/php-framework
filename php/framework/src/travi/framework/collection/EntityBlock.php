@@ -13,7 +13,8 @@ class EntityBlock
     private $type;
     private $preConf;
     private $summary;
-    private $details = array();
+
+    private $details         = array();
     private $extraActionRows = array();
 
     private $actions = array(
@@ -22,9 +23,9 @@ class EntityBlock
 
     public function __construct($id, $urlPrefix)
     {
-        $this->id = $id;
+        $this->id        = $id;
         $this->urlPrefix = $urlPrefix;
-        $this->selfLink = $urlPrefix . $id;
+        $this->selfLink  = $urlPrefix . $id;
 
         $this->addPrimaryAction('Edit');
     }

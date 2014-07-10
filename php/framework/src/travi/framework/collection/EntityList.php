@@ -17,7 +17,7 @@ class EntityList extends ContentObject
     /** @var LinkView */
     public $add;
 
-    public function __construct($path)
+    public function __construct()
     {
         $this->addJavaScript('entityList');
     }

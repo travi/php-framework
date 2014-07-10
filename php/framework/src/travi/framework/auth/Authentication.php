@@ -66,6 +66,7 @@ class Authentication
 
         foreach ($validUsers as $line) {
             $line = $this->removeLineEndings($line);
+
             list($validUser, $validPass) = explode(':', $line);
 
             if ($userName === $validUser) {

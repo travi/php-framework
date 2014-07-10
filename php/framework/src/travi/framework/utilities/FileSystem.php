@@ -100,6 +100,12 @@ class FileSystem
         return $fileContents;
     }
 
+    /**
+     * @param $fileName
+     * @param $pathToFile
+     * @return string[]
+     * @throws \Exception
+     */
     public function getLinesFromFile($fileName, $pathToFile)
     {
         $pwFile = $this->sitePath . $pathToFile . $fileName;

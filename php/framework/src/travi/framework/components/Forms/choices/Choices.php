@@ -6,12 +6,12 @@ use travi\framework\components\Forms\Field;
 
 abstract class Choices extends Field
 {
-    protected $type;					//type attribute for this field
-    protected $class;					//class attribute for this field
-    protected $template;                //template file to be used when rendering
+    protected $type;
+    protected $class;
+    protected $template;
 
     protected $settings = array();
-    protected $options = array();       //implemented as an n x 4 two-dimensional array
+    protected $options  = array();
 
     public function __construct($settings=array())
     {

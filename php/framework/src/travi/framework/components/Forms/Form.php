@@ -135,13 +135,14 @@ class Form extends FormElementGroup
 
 
     /**
-     * @param $action
+     * @param $action Field
      * @param $fieldName
      * @return bool
      */
     private function fieldIsNamed($action, $fieldName)
     {
-        return is_a($action, 'travi\\framework\\components\\Forms\\Field') && $fieldName === $action->getName();
+        return is_a($action, 'travi\\framework\\components\\Forms\\Field')
+            && $fieldName === $action->getName();
     }
 
     public function hasErrors()
