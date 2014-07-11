@@ -37,7 +37,7 @@ if (!defined('FRAMEWORK_PATH')) {
     define('FRAMEWORK_PATH', SITE_ROOT . 'vendor/travi/framework/php/framework/');
 }
 
-$config = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
+$config             = Spyc::YAMLLoad(SITE_ROOT . 'config/siteConfig.yml');
 $config['sitePath'] = SITE_ROOT;
 
 $container->dependencies()->set('uri', $_SERVER['REDIRECT_URL']);
@@ -51,8 +51,8 @@ $container->dependencies()->set('fileSystem', $fileSystem);
 
 //global vars for legacy stuff
 //TODO: clean this up once refactored
-$uiDeps = Spyc::YAMLLoad(__DIR__ . '/../../../../config/uiDependencies.yaml');
-$siteUiDeps = array();
+$uiDeps             = Spyc::YAMLLoad(__DIR__ . '/../../../../config/uiDependencies.yaml');
+$siteUiDeps         = array();
 $siteComponentsFile = SITE_ROOT . 'config/dependencies/components.yaml';
 if ($fileSystem->fileExists($siteComponentsFile)) {
     $siteUiDeps = Spyc::YAMLLoad($siteComponentsFile);
@@ -62,9 +62,9 @@ if ($fileSystem->fileExists($siteComponentsFile)) {
 //TODO: remove this once refactored
 $uiDeps = array_merge_recursive($uiDeps, $siteUiDeps);
 
-$config['uiDeps']['widgets'] = $uiDeps;
+$config['uiDeps']['widgets']     = $uiDeps;
 $config['uiDeps']['siteWidgets'] = $siteUiDeps;
-$config['uiDeps']['pages'] = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.yml');
+$config['uiDeps']['pages']       = Spyc::YAMLLoad(SITE_ROOT.'config/pageDependencies.yml');
 
 
 $config['nav'] = Spyc::YAMLLoad(SITE_ROOT.'config/nav.yml');
@@ -162,9 +162,9 @@ function smartyInit($smartyConfig, $debug)
         SITE_ROOT . $smartyConfig['siteTemplateDir'],
         FRAMEWORK_PATH . '../../php/templates'
     );
-    $smarty->compile_dir = $smartyConfig['smartyCompileDir'];
-    $smarty->cache_dir = $smartyConfig['smartyCacheDir'];
-    $smarty->config_dir = $smartyConfig['smartyConfigDir'];
+    $smarty->compile_dir  = $smartyConfig['smartyCompileDir'];
+    $smarty->cache_dir    = $smartyConfig['smartyCacheDir'];
+    $smarty->config_dir   = $smartyConfig['smartyConfigDir'];
 
     if ($debug) {
         $smarty->force_compile = true;

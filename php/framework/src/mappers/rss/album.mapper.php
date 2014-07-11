@@ -17,9 +17,9 @@ class AlbumRssMapper
     {
         $feedItem = new FeedItem();
 
-        $feedItem->title = $album->getTitle();
+        $feedItem->title    = $album->getTitle();
         $feedItem->category = $album->getCategory();
-        $feedItem->link = 'http://' . $this->request->getHost() . '/gallery/?album=' . $album->getId();
+        $feedItem->link     = 'http://' . $this->request->getHost() . '/gallery/?album=' . $album->getId();
 
         $description = '<ul>';
         /** @var $photo Photo */
