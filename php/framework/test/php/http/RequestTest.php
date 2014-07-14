@@ -20,6 +20,14 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->request = null;
     }
 
+    public function testThatFullUriIsAvailable()
+    {
+        $uri = 'some-url';
+        $this->request->setURI($uri);
+
+        $this->assertEquals($uri, $this->request->getUri());
+    }
+
     public function testGetController()
     {
         $this->request->setURI('/about/webmaster');

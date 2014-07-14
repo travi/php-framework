@@ -45,6 +45,11 @@ class Request
         $this->id = $id;
     }
 
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
     public function getController()
     {
         return $this->controller;
@@ -220,6 +225,33 @@ class Request
     }
 
     /**
+     * @return bool
+     */
+    private function isAdminUrl()
+    {
+        return $this->uriParts[1] === 'admin';
+    }
+
+    /**
+     * @param $last
+     * @param $test
+     * @return bool
+     */
+    private function endsWith($last, $test)
+    {
+        return substr_compare($last, $test, -strlen($test), strlen($test)) === 0;
+    }
+
+    /**
+     * @param $last
+     * @return bool
+     */
+    private function pathPartIsPlural($last)
+    {
+        return $this->endsWith($last, "s");
+    }
+
+    /**
      * @PdInject uri
      * @param $uri
      */
@@ -255,32 +287,5 @@ class Request
         } else {
             $this->setVersionBasedOnCookieValue($version);
         }
-    }
-
-    /**
-     * @return bool
-     */
-    private function isAdminUrl()
-    {
-        return $this->uriParts[1] === 'admin';
-    }
-
-    /**
-     * @param $last
-     * @param $test
-     * @return bool
-     */
-    private function endsWith($last, $test)
-    {
-        return substr_compare($last, $test, -strlen($test), strlen($test)) === 0;
-    }
-
-    /**
-     * @param $last
-     * @return bool
-     */
-    private function pathPartIsPlural($last)
-    {
-        return $this->endsWith($last, "s");
     }
 }
