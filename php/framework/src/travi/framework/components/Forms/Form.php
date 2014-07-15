@@ -34,8 +34,6 @@ class Form extends FormElementGroup
         }
         if (!empty($options['action'])) {
             $this->action = $options['action'];
-        } else {
-            $this->action = htmlentities($_SERVER['REQUEST_URI'] . "#Results");
         }
 
         $this->addStyleSheet('/resources/thirdparty/travi-styles/css/travi-form.css');
@@ -99,12 +97,28 @@ class Form extends FormElementGroup
         return $validations;
     }
 
+    public function hasErrors()
+    {
+        return !$this->isValid();
+    }
+
     /**
      * @param string $action
      */
     public function setAction($action)
     {
         $this->action = $action;
+    }
+
+    public function getActions()
+    {
+        return $this->actions;
+    }
+
+
+    public function addAction($action)
+    {
+        array_push($this->actions, $action);
     }
 
     public function mapErrorMessagesToFields($errors)
@@ -133,7 +147,6 @@ class Form extends FormElementGroup
         return $field;
     }
 
-
     /**
      * @param $action Field
      * @param $fieldName
@@ -143,20 +156,5 @@ class Form extends FormElementGroup
     {
         return is_a($action, 'travi\\framework\\components\\Forms\\Field')
             && $fieldName === $action->getName();
-    }
-
-    public function hasErrors()
-    {
-        return !$this->isValid();
-    }
-
-    public function addAction($action)
-    {
-        array_push($this->actions, $action);
-    }
-
-    public function getActions()
-    {
-        return $this->actions;
     }
 }
