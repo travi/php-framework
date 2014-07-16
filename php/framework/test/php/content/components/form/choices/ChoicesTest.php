@@ -1,6 +1,7 @@
 <?php
 
 use travi\framework\components\Forms\choices\Choices;
+use travi\framework\view\objects\inputs\Option;
 
 class ChoicesTest extends PHPUnit_Framework_TestCase
 {
@@ -19,24 +20,24 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
 
     public function testAddOption()
     {
-        $this->choices->addOption('option');
+        $text = 'option';
 
-        $this->assertSame(
-            array(
-                 array(
-                     'option' => 'option',
-                     'value' => '',
-                     'selected' => false,
-                     'disabled' => false
-                 )
-            ),
-            $this->choices->getOptions()
-        );
+        $this->choices->addOption($text);
+
+        /** @var Option[] $options */
+        $options = $this->choices->getOptions();
+
+        $option = $options[0];
+
+        $this->assertEquals($option->text, $text);
+        $this->assertEquals($option->value, $text);
+        $this->assertEquals($option->selected, false);
+        $this->assertEquals($option->disabled, false);
     }
 
     public function testGetNameNonePassed()
     {
-        $this->assertSame('label', $this->choices->getName());
+        $this->assertEquals('label', $this->choices->getName());
     }
 
     public function testGetNameConstructorSettings()
@@ -46,41 +47,41 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
             array(array('name' => 'name'))
         );
 
-        $this->assertSame('name', $this->choices->getName());
+        $this->assertEquals('name', $this->choices->getName());
     }
 
     public function testGetLabel()
     {
-        $this->assertSame('label', $this->choices->getLabel());
+        $this->assertEquals('label', $this->choices->getLabel());
     }
 
     public function testGetType()
     {
-        $this->assertSame(null, $this->choices->getType());
+        $this->assertEquals(null, $this->choices->getType());
     }
 
     public function testGetClass()
     {
-        $this->assertSame(null, $this->choices->getClass());
+        $this->assertEquals(null, $this->choices->getClass());
     }
 
     public function testValidations()
     {
         $this->choices->addValidation('validation');
 
-        $this->assertSame(array('validation'), $this->choices->getValidations());
+        $this->assertEquals(array('validation'), $this->choices->getValidations());
     }
 
     public function testDefaultTemplate()
     {
-        $this->assertSame('components/form/choices.tpl', $this->choices->getTemplate());
+        $this->assertEquals('components/form/choices.tpl', $this->choices->getTemplate());
     }
 
     public function testSetTemplate()
     {
         $this->choices->setTemplate('template');
 
-        $this->assertSame('template', $this->choices->getTemplate());
+        $this->assertEquals('template', $this->choices->getTemplate());
     }
 
     public function testValidIfNoValidationErrors()
@@ -127,23 +128,18 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertEquals(
-            array(
-                array(
-                    'option' => $text1,
-                    'value' => $value1,
-                    'selected' => '',
-                    'disabled' => ''
-                ),
-                array(
-                    'option' => $text2,
-                    'value' => $value2,
-                    'selected' => '',
-                    'disabled' => ''
-                )
-            ),
-            $this->choices->getOptions()
-        );
+        /** @var Option[] $options */
+        $options = $this->choices->getOptions();
+
+        $firstOption = $options[0];
+
+        $this->assertEquals($text1, $firstOption->text);
+        $this->assertEquals($value1, $firstOption->value);
+
+        $secondOption = $options[1];
+
+        $this->assertEquals($text2, $secondOption->text);
+        $this->assertEquals($value2, $secondOption->value);
     }
 
     public function testSetValueMarksSimpleOptionAsSelectedInList()
@@ -187,15 +183,14 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     private function assertSelectedOptionIs($value, $options)
     {
         $selected = 'provided selection (' . $value . ') is not selected';
+
+        /** @var Option $option */
         foreach ($options as $option) {
-            if ($option['selected'] === true) {
-                if (empty($option['value'])) {
-                    $selected = $option['option'];
-                } else {
-                    $selected = $option['value'];
-                }
+            if ($option->selected === true) {
+                $selected = $option->value;
             }
         }
+
         $this->assertEquals($value, $selected);
     }
 }

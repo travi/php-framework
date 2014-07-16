@@ -3,6 +3,7 @@
 namespace travi\framework\components\Forms\choices;
 
 use travi\framework\components\Forms\Field;
+use travi\framework\view\objects\inputs\Option;
 
 abstract class Choices extends Field
 {
@@ -13,7 +14,7 @@ abstract class Choices extends Field
     protected $settings = array();
     protected $options  = array();
 
-    public function __construct($settings=array())
+    public function __construct($settings = array())
     {
         $this->label = $settings['label'];
         if (!empty($settings['name'])) {
@@ -25,7 +26,9 @@ abstract class Choices extends Field
             $this->value = $settings['value'];
         }
         $this->settings = $settings;
-        $this->optionAdder($settings['options']);
+        if (isset($settings['options'])) {
+            $this->optionAdder($settings['options']);
+        }
         if (!empty($settings['validations'])) {
             foreach ($settings['validations'] as $validation) {
                 $this->addValidation($validation);
@@ -54,31 +57,22 @@ abstract class Choices extends Field
         }
     }
 
+    /**
+     * @param Option $option
+     * @return bool
+     */
     private function isThisOptionSelected($option)
     {
-        if (isset($this->value) && ($this->value === $option['value'])) {
-            return true;
-        } elseif ($this->value === $option) {
-            return true;
-        } elseif (empty($option['value']) && ($this->value === $option['option'])) {
-            return true;
-        } elseif (is_array($option) && isset($option['selected']) && $option['selected']) {
+        if (isset($this->value) && ($this->value === $option->value)) {
             return true;
         } else {
-            return false;
+            return $option->selected;
         }
     }
 
-    public function addOption($option, $value="", $selected=false, $disabled=false)
+    public function addOption($text, $value = null, $selected = false)
     {
-        $optionAR = array(
-            'option'    => $option,
-            'value'     => $value,
-            'selected'  => $selected,
-            'disabled'  => $disabled
-        );
-
-        array_push($this->options, $optionAR);
+        array_push($this->options, new Option($text, $value, $selected));
     }
 
     public function setValue($value)
@@ -94,7 +88,7 @@ abstract class Choices extends Field
     {
         foreach ($this->options as &$option) {
             if ($this->isThisOptionSelected($option)) {
-                $option['selected'] = true;
+                $option->selected = true;
             }
         }
 

@@ -8,19 +8,9 @@ class SelectionBox extends Choices
 
     public function __construct($options=array())
     {
-        $this->addOption("Select One");
+        $this->addOption("Select One", '');
         parent::__construct($options);
         $this->setTemplate('components/form/selectionBox.tpl');
-    }
-
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
     }
 
     protected function optionAdder($options=array())
