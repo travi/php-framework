@@ -49,7 +49,7 @@ abstract class Choices extends Field
                 $this->addOption(
                     $option['label'],
                     $option['value'],
-                    $this->isThisOptionSelected($option)
+                    false
                 );
             } else {
                 $this->addOption($option, null, $this->isThisOptionSelected($option));
@@ -65,6 +65,8 @@ abstract class Choices extends Field
     {
         if (isset($this->value) && ($this->value === $option->value)) {
             return true;
+        } elseif (is_string($option)) {
+            return false;
         } else {
             return $option->selected;
         }
