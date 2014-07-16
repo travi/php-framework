@@ -1,5 +1,7 @@
 <?php
 
+use travi\framework\collection\EntityList;
+use travi\framework\components\Forms\choices\RadioButtons;
 use travi\framework\components\Forms\Form;
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
@@ -66,28 +68,4 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($optionKey, $actualOption['option']);
         }
     }
-
-    /**
-     * @param $entityList
-     * @param $urlPrefix
-     */
-    protected function assertEntityListActions($entityList, $urlPrefix)
-    {
-        $actions = $entityList->getActions();
-        $this->assertEquals(
-            array(
-                'text' => 'Edit',
-                'link' => $urlPrefix
-            ),
-            $actions[0]
-        );
-        $this->assertEquals(
-            array(
-                'text' => 'Remove',
-                'link' => $urlPrefix
-            ),
-            $actions[1]
-        );
-    }
-
 }
