@@ -13,15 +13,19 @@ class SubmitButton extends Input
         parent::__construct($options);
         $this->setType("submit");
         $this->setName("Submit");
+        $this->setTemplate('components/form/input.tpl');
+        $this->addJavaScript('buttons');
+
         if (!empty($options['class'])) {
             $this->setClass($options['class']);
         } else {
             $this->setClass("submitButton");
         }
-        $this->setValue($options['label']);
-        $this->setTemplate('components/form/input.tpl');
-        $this->addJavaScript('buttons');
-    }
+
+        if (isset($options['label'])) {
+            $this->setValue($options['label']);
+        }
+      }
 
     public function isOuterButton($bool)
     {

@@ -14,23 +14,25 @@ abstract class Choices extends Field
     protected $settings = array();
     protected $options  = array();
 
-    public function __construct($settings = array())
+    public function __construct($options = array())
     {
-        $this->label = $settings['label'];
-        if (!empty($settings['name'])) {
-            $this->name = $settings['name'];
-        } else {
-            $this->name = strtolower($settings['label']);
+        if (isset($options['label'])) {
+            $this->label = $options['label'];
         }
-        if (isset($settings['value'])) {
-            $this->value = $settings['value'];
+        if (!empty($options['name'])) {
+            $this->name = $options['name'];
+        } elseif (isset($this->label)) {
+            $this->name = strtolower($options['label']);
         }
-        $this->settings = $settings;
-        if (isset($settings['options'])) {
-            $this->optionAdder($settings['options']);
+        if (isset($options['value'])) {
+            $this->value = $options['value'];
         }
-        if (!empty($settings['validations'])) {
-            foreach ($settings['validations'] as $validation) {
+        $this->settings = $options;
+        if (isset($options['options'])) {
+            $this->optionAdder($options['options']);
+        }
+        if (!empty($options['validations'])) {
+            foreach ($options['validations'] as $validation) {
                 $this->addValidation($validation);
             }
         }
@@ -113,5 +115,3 @@ abstract class Choices extends Field
         return $this->template;
     }
 }
-
- 

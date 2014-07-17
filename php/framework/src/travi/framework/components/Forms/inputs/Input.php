@@ -14,9 +14,9 @@ abstract class Input extends Field
         if (isset($options['label'])) {
             $this->label = $options['label'];
         }
-        if (!empty($options['name'])) {
+        if (isset($options['name'])) {
             $this->setName($options['name']);
-        } else {
+        } elseif (isset($this->label)) {
             $this->setName($options['label']);
         }
         if (isset($options['value'])) {

@@ -65,7 +65,7 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
                 $optionKey = $option;
             }
 
-            $this->assertEquals($optionKey, $actualOption->option);
+            $this->assertEquals($optionKey, $actualOption->value);
         }
     }
 }
