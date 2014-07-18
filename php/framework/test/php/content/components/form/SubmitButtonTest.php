@@ -1,7 +1,6 @@
 <?php
 
-use travi\framework\components\Forms\SubmitButton,
-    travi\framework\components\Forms\inputs\Input;
+use travi\framework\components\Forms\SubmitButton;
 
 class SubmitButtonTest extends PHPUnit_Framework_TestCase
 {
@@ -22,6 +21,11 @@ class SubmitButtonTest extends PHPUnit_Framework_TestCase
     {
         $button = new SubmitButton(array('class' => 'altSubmitButton'));
         $this->assertSame('altSubmitButton', $button->getClass());
+    }
+
+    public function testThatValueDefaultsToSubmit()
+    {
+        $this->assertEquals('Submit', $this->submitButton->getValue());
     }
 
     /**

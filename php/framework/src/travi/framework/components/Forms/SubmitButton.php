@@ -24,6 +24,8 @@ class SubmitButton extends Input
 
         if (isset($options['label'])) {
             $this->setValue($options['label']);
+        } else {
+            $this->setValue('Submit');
         }
       }
 
