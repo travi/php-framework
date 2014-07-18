@@ -45,9 +45,11 @@ abstract class DependantObject
 
     public function getDependencies()
     {
-        return array(   'scripts'   => $this->getJavaScripts(),
-                        'jsInits'   => $this->getJsInits(),
-                        'styles'    => $this->getStyles());
+        return array(
+            'scripts'   => $this->getJavaScripts(),
+            'jsInits' => $this->getJsInits(),
+            'styles' => $this->getStyles()
+        );
     }
 
     protected function addDependencies($dependencies = array())

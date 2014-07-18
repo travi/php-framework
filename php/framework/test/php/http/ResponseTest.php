@@ -314,7 +314,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->response->isProduction());
     }
 
-    public function testHtmlRendererUsedWhenAcceptHeaderSetToHtml()
+    public function testRendererDefaultsToHtmlWhenAcceptHeaderNotSet()
     {
         $template = 'some layout template';
         $content = 'some content';

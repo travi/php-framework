@@ -22,7 +22,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testThatFullUriIsAvailable()
     {
-        $uri = 'some-url';
+        $uri = 'some/url';
         $this->request->setURI($uri);
 
         $this->assertEquals($uri, $this->request->getUri());

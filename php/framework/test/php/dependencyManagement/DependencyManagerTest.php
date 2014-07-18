@@ -52,7 +52,9 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->clientDependencyDefinitions = $this->getMock(
             'travi\\framework\\dependencyManagement\\ClientDependencies'
         );
-        $this->session = $this->getMock('travi\\framework\\http\\Session');
+        $this->session = $this->getMockBuilder('travi\\framework\\http\\Session')
+                                ->disableOriginalConstructor()
+                                ->getMock();
 
         $this->dependencyManager = new DependencyManager();
         $this->dependencyManager->setClientDependencyDefinitions(new ClientDependencies());

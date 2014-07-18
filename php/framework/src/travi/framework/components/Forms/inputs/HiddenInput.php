@@ -2,11 +2,9 @@
 
 namespace travi\framework\components\Forms\inputs;
 
-use travi\framework\components\Forms\inputs\Input;
-
 class HiddenInput extends Input
 {
-    public function __construct($options)
+    public function __construct($options = array())
     {
         parent::__construct($options);
         $this->setType("hidden");

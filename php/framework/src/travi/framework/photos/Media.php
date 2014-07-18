@@ -2,15 +2,14 @@
 
 namespace travi\framework\photos;
 
-use travi\framework\photos\License,
-    travi\framework\photos\Thumbnail;
-
 class Media
 {
     /** @var License */
     protected $license;
     /** @var Thumbnail */
     private $thumbnail;
+    private $caption;
+    private $preview;
 
     public function getLicense()
     {

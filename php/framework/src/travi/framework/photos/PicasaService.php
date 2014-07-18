@@ -79,7 +79,7 @@ class PicasaService
         return $this->createPhotoListFrom($responseBody, $options);
     }
 
-    private function setEndpoint($options = array())
+    private function setEndpoint($options)
     {
         $endPoint = self::PICASA_URI
                 . $this->googleUser
@@ -90,11 +90,11 @@ class PicasaService
                 . $this->getCropThumbnailKey($options['thumbnail']['crop'])
                 . '&imgmax=1600';
 
-        if ($options['offset']) {
+        if (isset($options['offset'])) {
             $endPoint .= '&' . self::OFFSET_QUERY_PARAM . '=' . (intval($options['offset']) + 1);
         }
 
-        if ($options['count']) {
+        if (isset($options['count'])) {
             $endPoint .= '&' . self::COUNT_QUERY_PARAM . '=' . $options['count'];
         }
 
@@ -152,7 +152,7 @@ class PicasaService
                 $media->setOriginal($originalUrl);
             }
 
-            if ($options['preview']) {
+            if (isset($options['preview'])) {
                 $media->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
             }
 

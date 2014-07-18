@@ -2,7 +2,7 @@
 
 namespace travi\framework\page;
 
-use travi\framework\content\navigation\NavigationObject,
+use travi\framework\navigation\NavigationObject,
     travi\framework\view\render\JsonRenderer,
     travi\framework\view\render\HtmlRenderer,
     travi\framework\utilities\Environment;
@@ -278,7 +278,11 @@ abstract class AbstractResponse
 
     public function format()
     {
-        $acceptHeader = $_SERVER['HTTP_ACCEPT'];
+        $acceptHeader = "";
+
+        if (isset($_SERVER['HTTP_ACCEPT'])) {
+            $acceptHeader = $_SERVER['HTTP_ACCEPT'];
+        }
 
         if (strstr($acceptHeader, "application/json")) {
             echo $this->jsonRenderer->format($this->getContent());

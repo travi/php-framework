@@ -15,6 +15,8 @@ class SessionTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($_SESSION[Session::LOGGED_IN_USER]);
+
+        $this->destroySession();
     }
 
     public function testDebugModeReturnsFalseForNow()
@@ -29,5 +31,13 @@ class SessionTest extends PHPUnit_Framework_TestCase
         $this->session->logOutUser();
 
         $this->assertNull($_SESSION[Session::LOGGED_IN_USER]);
+    }
+
+    private function destroySession()
+    {
+        $sessionId = session_id();
+        if (!empty($sessionId)) {
+            session_destroy();
+        }
     }
 }

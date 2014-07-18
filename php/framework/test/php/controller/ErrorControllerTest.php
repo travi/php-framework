@@ -108,6 +108,6 @@ class ErrorControllerTest extends PHPUnit_Framework_TestCase
             ->method('setStatus')
             ->with(Response::UNAUTHORIZED);
 
-        $this->controller->error401($this->request, $this->response, new NotFoundException($errorMessage));
+        $this->controller->error401($this->request, $this->response, new NotFoundException());
     }
 }

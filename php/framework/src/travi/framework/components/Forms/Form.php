@@ -22,7 +22,7 @@ class Form extends FormElementGroup
     private $actions = array();
     public $key;
 
-    public function __construct($options)
+    public function __construct($options = array())
     {
         if (isset($options['name'])) {
             $this->name = $options['name'];
@@ -121,7 +121,7 @@ class Form extends FormElementGroup
         array_push($this->actions, $action);
     }
 
-    public function mapErrorMessagesToFields($errors)
+    public function mapErrorMessagesToFields($errors = array())
     {
         foreach ($errors as $fieldName => $error) {
             if ('name' === $fieldName) {

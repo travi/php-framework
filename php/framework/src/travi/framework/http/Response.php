@@ -57,20 +57,30 @@ class Response extends AbstractResponse
     {
         $this->config = $config;
 
-        $this->setSiteName($config['siteName']);
-        $this->setSiteHeader($config['siteHeader']);
-        $this->setTagLine($config['tagLine']);
+        if (isset($config['siteName'])) {
+            $this->setSiteName($config['siteName']);
+        }
+        if (isset($config['siteHeader'])) {
+            $this->setSiteHeader($config['siteHeader']);
+        }
+        if (isset($config['tagLine'])) {
+            $this->setTagLine($config['tagLine']);
+        }
         if (!empty($config['siteFeed'])) {
             $this->defineSiteFeed($config['siteFeed']);
         }
         $this->nav = new NavigationObject();  //TODO: need to refactor this
-        $this->setPrimaryNav($config['nav']);
+        if (isset($config['nav'])) {
+            $this->setPrimaryNav($config['nav']);
+        }
         if ($this->request->isAdmin()) {
             $this->setAdminNav($config['adminNav']);
         }
 
-        //temporarily set the layout template here until moving it to $View
-        $this->setLayoutTemplate($config['template']['layout']);
+        if (isset($config['template'])) {
+            //temporarily set the layout template here until moving it to $View
+            $this->setLayoutTemplate($config['template']['layout']);
+        }
     }
 
     /**

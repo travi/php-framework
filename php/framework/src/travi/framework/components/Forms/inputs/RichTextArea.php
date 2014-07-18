@@ -2,11 +2,9 @@
 
 namespace travi\framework\components\Forms\inputs;
 
-use travi\framework\components\Forms\inputs\TextArea;
-
 class RichTextArea extends TextArea
 {
-    public function __construct($options)
+    public function __construct($options = array())
     {
         parent::__construct($options);
         $this->setClass("textInput richEditor");

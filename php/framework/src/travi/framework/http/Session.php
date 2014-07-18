@@ -6,6 +6,11 @@ class Session
 {
     const LOGGED_IN_USER = 'username';
 
+    public function __construct()
+    {
+        session_start();
+    }
+
     public function isDebug()
     {
         return false;
@@ -13,7 +18,8 @@ class Session
 
     public function logOutUser()
     {
-        unset($_SESSION[self::LOGGED_IN_USER]);
+        $_SESSION = array();
+        session_destroy();
     }
 
     public function setLoggedInUser()

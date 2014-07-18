@@ -19,6 +19,14 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     const ANY_ALBUM_ID = 'someAlbumId';
     const SOME_SIZE = 14;
 
+    private $defaultOptions = array(
+        'albumId' => self::ANY_ALBUM_ID,
+        'thumbnail' => array(
+            'size' => self::ANY_INT,
+            'crop' => true
+        )
+    );
+
     /** @var PicasaService */
     private $picasaWeb;
 
@@ -107,7 +115,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             array(
                 'albumId' => self::ANY_ALBUM_ID,
                 'thumbnail' => array(
-                    'size' => self::ANY_INT
+                    'size' => self::ANY_INT,
+                    'crop' => false
                 ),
                 'preview' => array(
                     'width' => 600
@@ -326,9 +335,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->responseFromRestClient));
 
         $mediaList = $this->picasaWeb->getPhotos(
-            array(
-                'preview' => array(
-                    'width' => 600
+            array_merge(
+                $this->defaultOptions,
+                array(
+                    'preview' => array(
+                        'width' => 600
+                    )
                 )
             )
         );
@@ -379,7 +391,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     //probably a better way to handle this but better than how it is now
     public function testNullObjectReturnedWhenInvalidResponseWhenAlbumRequested()
     {
-        $album = $this->picasaWeb->getAlbum();
+        $album = $this->picasaWeb->getAlbum($this->defaultOptions);
 
         $this->assertNotNull($album);
         $this->assertEquals(new Album(), $album);
@@ -387,7 +399,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testEmptyListReturnedWhenInvalidResponseWhenPhotosWereRequested()
     {
-        $mediaList = $this->picasaWeb->getPhotos();
+        $mediaList = $this->picasaWeb->getPhotos($this->defaultOptions);
 
         $this->assertNotNull($mediaList);
         $this->assertEquals(array(), $mediaList);

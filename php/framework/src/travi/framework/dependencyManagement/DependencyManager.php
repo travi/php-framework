@@ -3,7 +3,6 @@
 namespace travi\framework\dependencyManagement;
 
 use travi\framework\utilities\FileSystem,
-    travi\framework\dependencyManagement\ClientDependencies,
     travi\framework\http\Request,
     travi\framework\utilities\Environment,
     travi\framework\http\Session,
@@ -258,6 +257,8 @@ class DependencyManager
 
     private function sortStyleSheets()
     {
+        $this->lazyInitializeList('css');
+
         uksort($this->requirementLists['css'], 'strnatcasecmp');
     }
 
@@ -361,7 +362,9 @@ class DependencyManager
 
     public function getPageStyle()
     {
-        $cssLists = $this->requirementLists['css'];
+        if (isset($this->requirementLists['css'])) {
+            $cssLists = $this->requirementLists['css'];
+        }
 
         if (isset($cssLists[self::THIS_PAGE_KEY])) {
             return $cssLists[self::THIS_PAGE_KEY];
@@ -385,7 +388,9 @@ class DependencyManager
     public function setPageDependenciesLists($lists)
     {
         $this->pageDependenciesLists = $lists;
-        $this->addDependencies($this->pageDependenciesLists['site']);
+        if (isset($this->pageDependenciesLists['site'])) {
+            $this->addDependencies($this->pageDependenciesLists['site']);
+        }
     }
 
     public function setSiteTheme($sheet)
@@ -407,7 +412,7 @@ class DependencyManager
 
     /**
      * @PdInject new:travi\framework\dependencyManagement\ClientDependencies
-     * @param travi\framework\dependencyManagement\ClientDependencies $clientDependencyDefinitions
+     * @param ClientDependencies $clientDependencyDefinitions
      */
     public function setClientDependencyDefinitions($clientDependencyDefinitions)
     {
@@ -445,7 +450,7 @@ class DependencyManager
     }
 
     /**
-     * @param $session \travi\framework\http\Session
+     * @param $session Session
      * @PdInject session
      */
     public function setSession($session)
