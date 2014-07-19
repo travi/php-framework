@@ -3,6 +3,7 @@
 use travi\framework\collection\EntityList;
 use travi\framework\components\Forms\choices\RadioButtons;
 use travi\framework\components\Forms\Form;
+use travi\framework\view\objects\inputs\Option;
 
 abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
 {
@@ -47,25 +48,28 @@ abstract class AbstractMapperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($value, $selected);
     }
 
+    /**
+     * @param $expectedOptions Option[]
+     * @param $actualOptions Option[]
+     */
     protected function assertSelectionBoxOptionsEqualTo($expectedOptions, $actualOptions)
     {
         array_shift($actualOptions);
         $this->assertOptionsEqual($expectedOptions, $actualOptions);
     }
 
+    /**
+     * @param $expectedOptions Option[]
+     * @param $actualOptions Option[]
+     */
     protected function assertOptionsEqual($expectedOptions, $actualOptions)
     {
         foreach ($expectedOptions as $index => $option) {
             $actualOption = $actualOptions[$index];
 
-            if (is_array($option)) {
-                $optionKey = $option['option'];
-                $this->assertEquals($option['value'], $actualOption->value);
-            } else {
-                $optionKey = $option;
-            }
-
-            $this->assertEquals($optionKey, $actualOption->value);
+            $this->assertEquals($option->text, $actualOption->text);
+            $this->assertEquals($option->value, $actualOption->value);
+            $this->assertEquals($option->selected, $actualOption->selected);
         }
     }
 }
