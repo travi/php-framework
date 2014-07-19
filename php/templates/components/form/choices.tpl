@@ -4,10 +4,8 @@
     {foreach from=$field->getOptions() item=option}
         <li>
             <label>
-                <input type="{$field->getType()}" name="{$field->getName()}"
-                       value="{if !empty($option['value'])}{$option['value']}{else}{$option['option']}{/if}"
-                       class="{$field->getClass()}"{if $option['disabled']} disabled{/if}{if $option['selected']||!empty($this->value) && (($option['option'] eq $this->value)||($option['value'] eq $this->value))} checked{/if}/>
-                {$option['option']}
+                <input type="{$field->getType()}" name="{$field->getName()}" value="{$option->value}" class="{$field->getClass()}"{if $option->selected} checked{/if}/>
+                {$option->text}
             </label>
         </li>
     {/foreach}
