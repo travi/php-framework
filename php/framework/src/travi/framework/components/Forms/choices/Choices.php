@@ -51,7 +51,7 @@ abstract class Choices extends Field
                 $this->addOption(
                     $option['label'],
                     $option['value'],
-                    false
+                    isset($option['selected']) ? $option['selected'] : false
                 );
             } else {
                 $this->addOption($option, null, $this->isThisOptionSelected($option));

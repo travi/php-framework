@@ -18,6 +18,10 @@ class NavigationFactory
         self::MENU_BAR => 'MenuBar'
     );
 
+    /**
+     * @param $type
+     * @throws NavigationTypeNotAnOptionException
+     */
     public function build($type)
     {
         $navType = $this->navOptions[$type];
