@@ -18,4 +18,4 @@ array_pop($levels);
 define('WEB_ROOT', join($levels, "/")."/");
 define('FRAMEWORK_PATH', dirname(__FILE__).'/');
 
-require_once SITE_ROOT.'config/framework/framework.conf';
+require_once __DIR__ . '/../../../../../config/framework/framework.conf';
