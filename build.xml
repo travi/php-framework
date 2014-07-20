@@ -8,6 +8,7 @@
 
     <target name="gates">
         <phingcall target="checkstyle"/>
+        <phingcall target="messDetect"/>
         <phingcall target="test"/>
     </target>
 
@@ -28,6 +29,19 @@
             <formatter type="full" usefile="false"/>
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
         </phpcodesniffer>
+    </target>
+
+    <target name="messDetect">
+        <mkdir dir="${build.logs}"/>
+        <phpcpd>
+            <fileset refid="all-src-files" />
+            <formatter type="pmd" outfile="${build.logs}/pmd-cpd.xml"/>
+        </phpcpd>
+        <phpmd>
+            <fileset refid="all-src-files" />
+            <formatter type="text" useFile="false" outfile="${build.logs}/pmd.txt"/>
+            <formatter type="xml" useFile="true" outfile="${build.logs}/pmd.xml"/>
+        </phpmd>
     </target>
 
     <target name="test">
