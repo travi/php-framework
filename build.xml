@@ -11,16 +11,22 @@
         <phingcall target="test"/>
     </target>
 
+    <fileset dir="${src.dir}" id="all-src-files">
+        <include name="**/*.php"/>
+    </fileset>
+
+    <fileset dir="php/framework/test" id="all-unit-tests">
+        <include name="**/*Test.php"/>
+    </fileset>
+
     <target name="checkstyle">
         <mkdir dir="${build.logs}"/>
         <phpcodesniffer standard="build/codingStandard.xml"
                         haltonwarning="false"
                         haltonerror="true">
+            <fileset refid="all-src-files" />
             <formatter type="full" usefile="false"/>
             <formatter type="checkstyle" outfile="${build.logs}/checkstyle.xml"/>
-            <fileset dir="${src.dir}">
-                <include name="**/*.php"/>
-            </fileset>
         </phpcodesniffer>
     </target>
 
@@ -43,11 +49,7 @@
                  printsummary="true"
                  haltonfailure="true"
                  codecoverage="true">
-            <batchtest>
-                <fileset dir="php/framework/test">
-                    <include name="**/*Test.php"/>
-                </fileset>
-            </batchtest>
+            <batchtest> <fileset refid="all-unit-tests" /> </batchtest>
             <formatter type="plain" usefile="false"/>
             <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
             <formatter type="clover" todir="${build.logs}" outfile="clover.xml"/>
