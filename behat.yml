@@ -1,0 +1,4 @@
+default:
+  paths:
+    features: test/php/acceptance/features
+    bootstrap: test/php/acceptance/features/bootstrap

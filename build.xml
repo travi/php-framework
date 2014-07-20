@@ -12,6 +12,11 @@
         <phingcall target="test"/>
     </target>
 
+    <target name="test">
+        <phingcall target="unit"/>
+        <phingcall target="acceptance"/>
+    </target>
+
     <fileset dir="${src.dir}" id="all-src-files">
         <include name="**/*.php"/>
     </fileset>
@@ -44,7 +49,7 @@
         </phpmd>
     </target>
 
-    <target name="test">
+    <target name="unit">
         <mkdir dir="${build.logs}"/>
         <coverage-setup database="logs/coverage-database">
             <fileset dir="php/framework">
@@ -68,5 +73,12 @@
             <formatter type="xml" todir="${build.logs}" outfile="phpunit.xml"/>
             <formatter type="clover" todir="${build.logs}" outfile="clover.xml"/>
         </phpunit>
+    </target>
+
+    <target name="acceptance">
+        <mkdir dir="${build.logs}/behat"/>
+        <exec checkreturn="true"
+              passthru="true"
+              command="vendor/bin/behat -f pretty,junit --tags ~@wip --out ,${build.logs}/behat"/>
     </target>
 </project>
