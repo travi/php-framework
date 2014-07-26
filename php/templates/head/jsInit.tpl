@@ -15,12 +15,10 @@
             });
 {/if}
 {if !empty($initArray)}
-            $(function () {literal}{{/literal}
 {foreach item=init from=$initArray}
                 {$init}
 {/foreach}
-{include file="head/jsValidations.tpl" validations=$dependencies['validations']}
-            {literal}});{/literal}
 {/if}
+{include file="head/jsValidations.tpl" validations=$dependencies['validations']}
         </script>
 {/if}
