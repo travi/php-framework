@@ -154,7 +154,7 @@
                 file="${deploy.archive}"
                 todir="${server.username}@${server.host}:${server.path}"
                 trust="true"
-                sftp="true"
+                verbose="true"
                 preserveLastmodified="true"
                 keyfile="${keyfile}"
                 passphrase="${passphrase}"
@@ -170,7 +170,6 @@
     </target>
 
     <target name="dist" depends="build">
-        <antcall target="minify"/>
         <antcall target="dist.tar"/>
     </target>
 
@@ -231,17 +230,6 @@
 
             println parsed.site
         </groovy>
-    </target>
-
-    <target name="jstestdriver">
-        <mkdir dir="${build.logs}/jstd"/>
-        <java jar="${ant.lib}${jstestdriver.jar}" failonerror="true" fork="true" dir="${site.dir}">
-            <arg line="--tests all"/>
-            <arg line="--config ${jstd.conf}"/>
-            <arg line="--testOutput ${build.logs}/jstd/"/>
-            <arg line="--server http://192.168.1.142:9876"/>
-            <arg line="--raiseOnFailure true"/>
-        </java>
     </target>
 
     <target name="clean">
