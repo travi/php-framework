@@ -1,9 +1,9 @@
 Travi Framework
 ===============
-[![Build Status](https://travis-ci.org/travi/php-framework.svg?branch=master)](https://travis-ci.org/travi/php-framework)
-[![Coverage Status](https://coveralls.io/repos/travi/php-framework/badge.png?branch=master)](https://coveralls.io/r/travi/php-framework?branch=master)
-[![Code Climate](https://codeclimate.com/github/travi/php-framework.png)](https://codeclimate.com/github/travi/php-framework)
-[![Dependency Status](https://gemnasium.com/travi/php-framework.svg)](https://gemnasium.com/travi/php-framework)
+[![Build Status](http://img.shields.io/travis/travi/php-framework.svg?style=flat)](https://travis-ci.org/travi/php-framework)
+[![Coverage Status](http://img.shields.io/coveralls/travi/php-framework.svg?style=flat)](https://coveralls.io/r/travi/php-framework?branch=master)
+[![Code Climate](http://img.shields.io/codeclimate/github/travi/php-framework.svg?style=flat)](https://codeclimate.com/github/travi/php-framework)
+[![Dependency Status](http://img.shields.io/gemnasium/travi/php-framework.svg?style=flat)](https://gemnasium.com/travi/php-framework)
 
 [![Latest Stable Version](https://poser.pugx.org/travi/framework/v/stable.png)](https://packagist.org/packages/travi/framework)
 [![Total Downloads](https://poser.pugx.org/travi/framework/downloads.png)](https://packagist.org/packages/travi/framework)
