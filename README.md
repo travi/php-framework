@@ -5,8 +5,8 @@ Travi Framework
 [![Code Climate](http://img.shields.io/codeclimate/github/travi/php-framework.svg?style=flat)](https://codeclimate.com/github/travi/php-framework)
 [![Dependency Status](http://img.shields.io/gemnasium/travi/php-framework.svg?style=flat)](https://gemnasium.com/travi/php-framework)
 
-[![Latest Stable Version](https://poser.pugx.org/travi/framework/v/stable.png)](https://packagist.org/packages/travi/framework)
-[![Total Downloads](https://poser.pugx.org/travi/framework/downloads.png)](https://packagist.org/packages/travi/framework)
+[![Latest Stable Version](http://img.shields.io/packagist/v/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
+[![Total Downloads](http://img.shields.io/packagist/dt/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
 
 This is a php web framework that I've built over the years as I've worked to understand web development better.
 
