@@ -30,6 +30,8 @@ class PicasaService
     private $album;
 
     /**
+     * @throws ServiceCallFailedException
+     * @throws \Exception
      * @return array Album
      */
     public function getAlbums()
@@ -39,6 +41,11 @@ class PicasaService
             . $this->googleUser
         );
         $this->restClient->execute();
+
+        if (200 !== $this->restClient->getStatusCode()) {
+            throw new ServiceCallFailedException();
+        }
+
         $responseBody = $this->restClient->getResponseBody();
 
         return $this->createAlbumListFrom($responseBody);
@@ -50,6 +57,11 @@ class PicasaService
         $this->setEndpoint($options);
 
         $this->restClient->execute();
+
+        if (200 !== $this->restClient->getStatusCode()) {
+            throw new ServiceCallFailedException();
+        }
+
         $responseBody = $this->restClient->getResponseBody();
         $album->setPhotos($this->createPhotoListFrom($responseBody, $options));
 
@@ -75,6 +87,11 @@ class PicasaService
         $this->setEndpoint($options);
 
         $this->restClient->execute();
+
+        if (200 !== $this->restClient->getStatusCode()) {
+            throw new ServiceCallFailedException();
+        }
+
         $responseBody = $this->restClient->getResponseBody();
 
         return $this->createPhotoListFrom($responseBody, $options);
@@ -104,7 +121,6 @@ class PicasaService
 
     private function createAlbumListFrom($responseBody)
     {
-
         try {
             $xml = new \SimpleXMLElement($responseBody);
         } catch (\Exception $e) {
@@ -135,6 +151,7 @@ class PicasaService
     private function createPhotoListFrom($responseBody, $options)
     {
         $mediaList = array();
+
         try {
             $xml = new \SimpleXMLElement($responseBody);
         } catch (\Exception $e) {

@@ -62,6 +62,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     public function testProperListOfAlbumsReturnedFromPicasaWebData()
     {
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('execute');
         $this->restClient->expects($this->once())
             ->method('setEndpoint')
@@ -96,6 +99,10 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testProperPhotoObjectsCreatedFromPicasaWebData()
     {
+
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
@@ -150,6 +157,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     public function testGetAlbumReturnsAlbumDetailsWithPhotoList()
     {
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
@@ -184,6 +194,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('execute');
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
@@ -214,6 +227,15 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('execute');
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
@@ -243,6 +265,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->restClient->expects($this->once())
             ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
@@ -276,6 +301,15 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('execute');
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
@@ -308,6 +342,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('execute');
         $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
+        $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
 
@@ -330,6 +367,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testVideoObjectUsedForVideoEntry()
     {
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(200));
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
             ->will($this->returnValue($this->responseFromRestClient));
@@ -393,6 +433,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionThrownWhenInvalidResponseFromWhenAlbumRequested()
     {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(500));
+
         $this->picasaWeb->getAlbum($this->defaultOptions);
     }
 
@@ -401,6 +447,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionThrownWhenInvalidResponseWhenPhotosWereRequested()
     {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(500));
+
         $this->picasaWeb->getPhotos($this->defaultOptions);
     }
 
@@ -409,6 +461,12 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionThrownWhenInvalidResponseWhenAlbumssWereRequested()
     {
+        $this->restClient->expects($this->once())
+            ->method('execute');
+        $this->restClient->expects($this->once())
+            ->method('getStatusCode')
+            ->will($this->returnValue(500));
+
         $this->picasaWeb->getAlbums();
     }
 
