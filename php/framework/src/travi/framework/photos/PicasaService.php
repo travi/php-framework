@@ -2,6 +2,7 @@
 
 namespace travi\framework\photos;
 
+use travi\framework\exception\ServiceCallFailedException;
 use travi\framework\http\RestClient;
 
 class PicasaService
@@ -55,7 +56,7 @@ class PicasaService
         try {
             $responseXml = new \SimpleXMLElement($responseBody);
         } catch (\Exception $e) {
-            return $album;
+            throw new ServiceCallFailedException();
         }
         $namespaces = $responseXml->getNamespaces(true);
 
@@ -103,7 +104,12 @@ class PicasaService
 
     private function createAlbumListFrom($responseBody)
     {
-        $xml        = new \SimpleXMLElement($responseBody);
+
+        try {
+            $xml = new \SimpleXMLElement($responseBody);
+        } catch (\Exception $e) {
+            throw new ServiceCallFailedException();
+        }
         $namespaces = $xml->getNamespaces(true);
 
         $albums = array();
@@ -132,7 +138,7 @@ class PicasaService
         try {
             $xml = new \SimpleXMLElement($responseBody);
         } catch (\Exception $e) {
-            return $mediaList;
+            throw new ServiceCallFailedException();
         }
 
         $namespaces = $xml->getNamespaces(true);

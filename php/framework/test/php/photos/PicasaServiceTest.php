@@ -388,21 +388,28 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1080, $video->getHeight());
     }
 
-    //probably a better way to handle this but better than how it is now
-    public function testNullObjectReturnedWhenInvalidResponseWhenAlbumRequested()
+    /**
+     * @expectedException travi\framework\exception\ServiceCallFailedException
+     */
+    public function testExceptionThrownWhenInvalidResponseFromWhenAlbumRequested()
     {
-        $album = $this->picasaWeb->getAlbum($this->defaultOptions);
-
-        $this->assertNotNull($album);
-        $this->assertEquals(new Album(), $album);
+        $this->picasaWeb->getAlbum($this->defaultOptions);
     }
 
-    public function testEmptyListReturnedWhenInvalidResponseWhenPhotosWereRequested()
+    /**
+     * @expectedException travi\framework\exception\ServiceCallFailedException
+     */
+    public function testExceptionThrownWhenInvalidResponseWhenPhotosWereRequested()
     {
-        $mediaList = $this->picasaWeb->getPhotos($this->defaultOptions);
+        $this->picasaWeb->getPhotos($this->defaultOptions);
+    }
 
-        $this->assertNotNull($mediaList);
-        $this->assertEquals(array(), $mediaList);
+    /**
+     * @expectedException travi\framework\exception\ServiceCallFailedException
+     */
+    public function testExceptionThrownWhenInvalidResponseWhenAlbumssWereRequested()
+    {
+        $this->picasaWeb->getAlbums();
     }
 
     private function assertNonEmptyArray($albums)
