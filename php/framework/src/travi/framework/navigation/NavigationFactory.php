@@ -21,6 +21,7 @@ class NavigationFactory
     /**
      * @param $type
      * @throws NavigationTypeNotAnOptionException
+     * @return NavigationObject
      */
     public function build($type)
     {
