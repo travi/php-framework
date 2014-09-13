@@ -7,6 +7,8 @@ use travi\framework\http\RestClient,
     travi\framework\photos\Photo,
     travi\framework\photos\Video,
     travi\framework\photos\License;
+use travi\framework\marshallers\PicasaUnmarshaller;
+use travi\framework\photos\Media;
 
 class PicasaServiceTest extends PHPUnit_Framework_TestCase
 {
@@ -19,6 +21,8 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     const ANY_ALBUM_ID = 'someAlbumId';
     const SOME_SIZE = 14;
 
+    private $mediaList;
+
     private $defaultOptions = array(
         'albumId' => self::ANY_ALBUM_ID,
         'thumbnail' => array(
@@ -30,16 +34,23 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     /** @var PicasaService */
     private $picasaWeb;
 
+    /** @var  PicasaUnmarshaller */
+    private $picasaUnmarshaller;
+
     protected function setUp()
     {
-        $this->picasaWeb = new PicasaService();
         $this->restClient = $this->getMock('travi\\framework\\http\\RestClient');
+        $this->picasaUnmarshaller = $this->getMock('travi\\framework\\marshallers\\PicasaUnmarshaller');
+
+        $this->picasaWeb = new PicasaService();
 
         $this->picasaWeb->setServiceUser(self::SOME_USER_ID);
         $this->picasaWeb->setRestClient($this->restClient);
+        $this->picasaWeb->setUnmarshaller($this->picasaUnmarshaller);
 
         $this->responseFromRestClient = file_get_contents(dirname(__FILE__).'/picasaExample.xml');
 
+        $this->mediaList = array(new Photo(), new Video());
     }
 
     public function testApiUriDefinedProperly()
@@ -99,6 +110,16 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testProperPhotoObjectsCreatedFromPicasaWebData()
     {
+        $options = array(
+            'albumId' => self::ANY_ALBUM_ID,
+            'thumbnail' => array(
+                'size' => self::ANY_INT,
+                'crop' => false
+            ),
+            'preview' => array(
+                'width' => 600
+            )
+        );
 
         $this->restClient->expects($this->once())
             ->method('getStatusCode')
@@ -117,45 +138,27 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
                 . PicasaService::THUMBSIZE_QUERY_PARAM . '=' . self::ANY_INT . PicasaService::UNCROPPED_KEY
                 . '&imgmax=1600'
             );
+        $this->picasaUnmarshaller->expects($this->once())
+            ->method('toMediaList')
+            ->with($this->responseFromRestClient, $options)
+            ->will($this->returnValue($this->mediaList));
 
-        $photos = $this->picasaWeb->getPhotos(
-            array(
-                'albumId' => self::ANY_ALBUM_ID,
-                'thumbnail' => array(
-                    'size' => self::ANY_INT,
-                    'crop' => false
-                ),
-                'preview' => array(
-                    'width' => 600
-                )
-            )
-        );
-        /** @var $firstPhoto Photo */
-        $firstPhoto = $photos[0];
+        $photos = $this->picasaWeb->getPhotos($options);
 
-        $this->assertNonEmptyArray($photos);
-        $this->assertEquals(4, count($photos));
-
-        $this->assertInstanceOf('travi\\framework\\photos\\Photo', $firstPhoto);
-        $this->assertEquals(
-            "https://lh4.googleusercontent.com/-ODK_V5lONjo/TGSYV24YDWI/" .
-            "AAAAAAAAF7I/x08IKQbCNjw/s1600/IMG_1245.JPG",
-            $firstPhoto->getOriginal()
-        );
-        $this->assertCommonDetailsSetCorrectly(
-            $firstPhoto,
-            array(
-                'preview' => 'https://lh4.googleusercontent.com/-ODK_V5lONjo/' .
-                    'TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/w600/IMG_1245.JPG',
-                'thumbnail' => 'https://lh4.googleusercontent.com/-ODK_V5lONjo/' .
-                    'TGSYV24YDWI/AAAAAAAAF7I/x08IKQbCNjw/s270-c/IMG_1245.JPG',
-                'caption' => "This is such a great pic, isn't it?"
-            )
-        );
+        $this->assertSame($this->mediaList, $photos);
     }
 
     public function testGetAlbumReturnsAlbumDetailsWithPhotoList()
     {
+        $options = array(
+            'albumId' => self::ANY_ALBUM_ID,
+            'thumbnail' => array(
+                'size' => self::ANY_INT,
+                'crop' => true
+            )
+        );
+        $expectedAlbum = new Album();
+
         $this->restClient->expects($this->once())
             ->method('getStatusCode')
             ->will($this->returnValue(200));
@@ -164,29 +167,16 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->responseFromRestClient));
         $this->restClient->expects($this->once())
             ->method('setEndpoint');
+        $this->picasaUnmarshaller->expects($this->once())
+            ->method('toAlbum')
+            ->with($this->responseFromRestClient, $options)
+            ->will($this->returnValue($expectedAlbum));
+
 
         /** @var $album Album */
-        $album = $this->picasaWeb->getAlbum(
-            array(
-                'albumId' => self::ANY_ALBUM_ID,
-                'thumbnail' => array(
-                    'size' => self::ANY_INT,
-                    'crop' => true
-                )
-            )
-        );
+        $album = $this->picasaWeb->getAlbum($options);
 
-        $this->assertNotNull($album);
-        $this->assertInstanceOf('travi\\framework\\photos\\Album', $album);
-        $this->assertNonEmptyArray($album->getPhotos());
-
-        $this->assertEquals('Andrea & I', $album->getTitle());
-        $this->assertEquals(5504, $album->getId());
-        $this->assertEquals(
-            'https://lh4.googleusercontent.com/-Ii1cVigA49I/TGSYUwDNbPE' .
-            '/AAAAAAAAGV4/EZ6QKMtAhIU/s160-c/AndreaI.jpg',
-            $album->getThumbnail()->getUrl()
-        );
+        $this->assertSame($expectedAlbum, $album);
     }
 
     public function testProperKeyUsedWhenThumbsShouldBeCropped()
@@ -336,98 +326,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             )
         );
     }
-
-    public function testTotalPhotosCountSetOnAlbumObject()
-    {
-        $this->restClient->expects($this->once())
-            ->method('execute');
-        $this->restClient->expects($this->once())
-            ->method('getStatusCode')
-            ->will($this->returnValue(200));
-        $this->restClient->expects($this->once())
-            ->method('getResponseBody')
-            ->will($this->returnValue($this->responseFromRestClient));
-
-        $this->picasaWeb->setRestClient($this->restClient);
-
-        /** @var $album Album */
-        $album = $this->picasaWeb->getAlbum(
-            array(
-                'albumId' => self::ANY_ALBUM_ID,
-                'thumbnail' => array(
-                    'size' => self::ANY_INT,
-                    'crop' => false
-                ),
-                'count' => self::SOME_SIZE
-            )
-        );
-
-        $this->assertEquals(3, $album->getTotalPhotoCount());
-    }
-
-    public function testVideoObjectUsedForVideoEntry()
-    {
-        $this->restClient->expects($this->once())
-            ->method('getStatusCode')
-            ->will($this->returnValue(200));
-        $this->restClient->expects($this->once())
-            ->method('getResponseBody')
-            ->will($this->returnValue($this->responseFromRestClient));
-
-        $mediaList = $this->picasaWeb->getPhotos(
-            array_merge(
-                $this->defaultOptions,
-                array(
-                    'preview' => array(
-                        'width' => 600
-                    )
-                )
-            )
-        );
-
-        /** @var $video Video */
-        $video = $mediaList[3];
-        $this->assertInstanceOf('travi\\framework\\photos\\Video', $video);
-
-        $this->assertEquals(
-            'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=18&source=picasa&' .
-            'cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,' .
-            'source,ip,ipbits,expire&signature=92F4A8A9CF326902E30CF6B669F3DD715CD095E3.' .
-            'CF2450B7783E34EBEC77D75753CDB2A8AEF62531&key=lh1',
-            $video->getMobile()
-        );
-
-        $this->assertEquals(
-            'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=22&source=picasa' .
-            '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,ip,' .
-            'ipbits,expire&signature=B3929D86A776C91DB28BED29E20827C3674884A.' .
-            '98E20D0F8AA7DF52270C160554221BD711A21BD6&key=lh1',
-            $video->getStandard()
-        );
-
-        $this->assertEquals(
-            'http://redirector.googlevideo.com/videoplayback?id=6b97ab834cad4bf8&itag=37&source=picasa' .
-            '&cmo=sensitive_content%3Dyes&ip=0.0.0.0&ipbits=0&expire=1343752561&sparams=id,itag,source,' .
-            'ip,ipbits,expire&signature=98A3F79B5F29F8F3988BCB03AFE999821C211F7E.' .
-            '460E76C2EFBBE65A04226A1CB0EA8175976F9835&key=lh1',
-            $video->getHighDef()
-        );
-
-        $this->assertCommonDetailsSetCorrectly(
-            $video,
-            array(
-                'preview' => 'https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/' .
-                'AAAAAAAAJpg/N1bST9ObDQE/w600/VID_20120610_200029.m4v.jpg',
-                'thumbnail' => 'https://lh6.googleusercontent.com/-t6-EYd0XUmQ/T-c1bx2HuvI/' .
-                'AAAAAAAAJpg/N1bST9ObDQE/s75-c/VID_20120610_200029.m4v.jpg',
-                'caption' => 'Tug of war while I try to wipe wax from the truck'
-            )
-        );
-
-        $this->assertEquals(608, $video->getWidth());
-        $this->assertEquals(1080, $video->getHeight());
-    }
-
+    
     /**
      * @expectedException travi\framework\exception\ServiceCallFailedException
      */
@@ -477,6 +376,10 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(empty($albums));
     }
 
+    /**
+     * @param $media Media
+     * @param array $details
+     */
     public function assertCommonDetailsSetCorrectly($media, $details = array())
     {
         $this->assertEquals(

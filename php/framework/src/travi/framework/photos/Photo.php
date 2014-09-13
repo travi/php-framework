@@ -2,8 +2,6 @@
 
 namespace travi\framework\photos;
 
-use travi\framework\photos\Media;
-
 class Photo extends Media
 {
     public function getOriginal()

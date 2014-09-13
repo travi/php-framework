@@ -4,6 +4,7 @@ namespace travi\framework\photos;
 
 use travi\framework\exception\ServiceCallFailedException;
 use travi\framework\http\RestClient;
+use travi\framework\marshallers\PicasaUnmarshaller;
 
 class PicasaService
 {
@@ -29,6 +30,9 @@ class PicasaService
     private $googleUser;
     private $album;
 
+    /** @var  PicasaUnmarshaller */
+    private $picasaUnmarshaller;
+
     /**
      * @throws ServiceCallFailedException
      * @throws \Exception
@@ -53,7 +57,6 @@ class PicasaService
 
     public function getAlbum($options)
     {
-        $album = new Album();
         $this->setEndpoint($options);
 
         $this->restClient->execute();
@@ -63,23 +66,8 @@ class PicasaService
         }
 
         $responseBody = $this->restClient->getResponseBody();
-        $album->setPhotos($this->createPhotoListFrom($responseBody, $options));
 
-        try {
-            $responseXml = new \SimpleXMLElement($responseBody);
-        } catch (\Exception $e) {
-            throw new ServiceCallFailedException();
-        }
-        $namespaces = $responseXml->getNamespaces(true);
-
-        $album->setTitle((string) $responseXml->title);
-        $ns_gphoto = $responseXml->children($namespaces['gphoto']);
-        $album->setId((string) $ns_gphoto->id);
-        $album->setTotalPhotoCount((int) $ns_gphoto->numphotos);
-
-        $album->setThumbnail($this->setAlbumThumbnailDetails($responseXml));
-
-        return $album;
+        return $this->picasaUnmarshaller->toAlbum($responseBody, $options);
     }
 
     public function getPhotos($options)
@@ -94,7 +82,7 @@ class PicasaService
 
         $responseBody = $this->restClient->getResponseBody();
 
-        return $this->createPhotoListFrom($responseBody, $options);
+        return $this->picasaUnmarshaller->toMediaList($responseBody, $options);
     }
 
     private function setEndpoint($options)
@@ -233,21 +221,6 @@ class PicasaService
         return $thumbnail;
     }
 
-    /**
-     * @PdInject new:travi\framework\http\RestClient
-     * @param $restClient
-     * @return void
-     */
-    public function setRestClient($restClient)
-    {
-        $this->restClient = $restClient;
-    }
-
-    public function setServiceUser($user)
-    {
-        $this->googleUser = $user;
-    }
-
     public function getCropThumbnailKey($cropThumb)
     {
         if ($cropThumb === true) {
@@ -275,7 +248,7 @@ class PicasaService
 
     /**
      * @param $video Video
-     * @param $entry
+     * @param $entry \SimpleXMLElement
      * @param $namespaces
      */
     private function setVideoVersions($video, $entry, $namespaces)
@@ -286,6 +259,7 @@ class PicasaService
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
+
             if (self::VIDEO_MEDIUM === (string) $attributes->medium
                 && self::MPEG_VIDEO_TYPE === (string) $attributes->type
             ) {
@@ -308,5 +282,29 @@ class PicasaService
                 }
             }
         }
+    }
+
+    public function setServiceUser($user)
+    {
+        $this->googleUser = $user;
+    }
+
+    /**
+     * @PdInject new:travi\framework\http\RestClient
+     * @param $restClient
+     * @return void
+     */
+    public function setRestClient($restClient)
+    {
+        $this->restClient = $restClient;
+    }
+
+    /**
+     * @PdInject new:travi\framework\marshallers\PicasaUnmarshaller
+     * @param $picasaUnmarshaller PicasaUnmarshaller
+     */
+    public function setUnmarshaller($picasaUnmarshaller)
+    {
+        $this->picasaUnmarshaller = $picasaUnmarshaller;
     }
 }
