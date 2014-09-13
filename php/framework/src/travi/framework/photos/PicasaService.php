@@ -135,74 +135,6 @@ class PicasaService
         return $albums;
     }
 
-
-    private function createPhotoListFrom($responseBody, $options)
-    {
-        $mediaList = array();
-
-        try {
-            $xml = new \SimpleXMLElement($responseBody);
-        } catch (\Exception $e) {
-            throw new ServiceCallFailedException();
-        }
-
-        $namespaces = $xml->getNamespaces(true);
-
-        foreach ($xml->entry as $entry) {
-            $ns_gphoto = $entry->children($namespaces['gphoto']);
-
-            $license_attr = $ns_gphoto->license->attributes();
-
-            $originalUrl = (string) $entry->content['src'];
-
-            if ($this->isVideo($entry, $namespaces)) {
-                $media = new Video();
-                $this->setVideoVersions($media, $entry, $namespaces);
-            } else {
-                $media = new Photo();
-                $media->setOriginal($originalUrl);
-            }
-
-            if (isset($options['preview'])) {
-                $media->setPreview($this->defineImageWidth($originalUrl, $options['preview']['width']));
-            }
-
-            $media->setThumbnail($this->setThumbDetails($entry));
-            $media->setCaption((string) $entry->summary[0]);
-
-            $license = new License();
-            $license->setId((int) $license_attr['id']);
-            $license->setName((string) $license_attr['name']);
-            $license->setUrl((string) $license_attr['url']);
-            $media->setLicense($license);
-
-            array_push($mediaList, $media);
-        }
-        return $mediaList;
-    }
-
-    private function defineImageWidth($originalUrl, $width)
-    {
-        $urlParts = explode('/', $originalUrl);
-
-        foreach ($urlParts as $key => $part) {
-            if (preg_match('/^s[0-9]+/', $part)) {
-                unset($urlParts[$key]);
-            }
-        }
-
-        /*
-         * should add configuration for:
-         *      cropped to square (add -c to crop)
-         *      also maybe an option to define height (h)
-         *          or maxsize (s) (height or width, whichever is higher)
-         *          instead of just width
-         */
-        array_splice($urlParts, -1, 0, self::MAX_WIDTH_KEY . $width);
-
-        return implode('/', $urlParts);
-    }
-
     private function setThumbDetails($entry)
     {
         $entryNamespaces = $entry->getNamespaces(true);
@@ -214,73 +146,12 @@ class PicasaService
         return $thumbnail;
     }
 
-    private function setAlbumThumbnailDetails($responseXml)
-    {
-        $thumbnail = new Thumbnail();
-        $thumbnail->setUrl((string) $responseXml->icon);
-        return $thumbnail;
-    }
-
     public function getCropThumbnailKey($cropThumb)
     {
         if ($cropThumb === true) {
             return self::CROPPED_KEY;
         } else {
             return self::UNCROPPED_KEY;
-        }
-    }
-
-    private function isVideo($entry, $namespaces)
-    {
-        $ns_media = $entry->children($namespaces['media']);
-
-        $versions = $ns_media->group->content;
-
-        foreach ($versions as $version) {
-            $attributes = $version->attributes();
-            if (self::VIDEO_MEDIUM === (string) $attributes->medium) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $video Video
-     * @param $entry \SimpleXMLElement
-     * @param $namespaces
-     */
-    private function setVideoVersions($video, $entry, $namespaces)
-    {
-        $ns_media = $entry->children($namespaces['media']);
-
-        $versions = $ns_media->group->content;
-
-        foreach ($versions as $version) {
-            $attributes = $version->attributes();
-
-            if (self::VIDEO_MEDIUM === (string) $attributes->medium
-                && self::MPEG_VIDEO_TYPE === (string) $attributes->type
-            ) {
-                $width  = (int) $attributes->width;
-                $height = (int) $attributes->height;
-
-                $video->setWidth($width);
-                $video->setHeight($height);
-
-                if (self::MOBILE_SIZE === $width || self::MOBILE_SIZE === $height) {
-                    $video->setMobile((string) $attributes->url);
-                }
-
-                if (self::STANDARD_SIZE === $width || self::STANDARD_SIZE === $height) {
-                    $video->setStandard((string) $attributes->url);
-                }
-
-                if (self::HIGH_DEF_SIZE === $width || self::HIGH_DEF_SIZE === $height) {
-                    $video->setHighDef((string) $attributes->url);
-                }
-            }
         }
     }
 

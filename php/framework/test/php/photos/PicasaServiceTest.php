@@ -326,7 +326,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             )
         );
     }
-    
+
     /**
      * @expectedException travi\framework\exception\ServiceCallFailedException
      */
