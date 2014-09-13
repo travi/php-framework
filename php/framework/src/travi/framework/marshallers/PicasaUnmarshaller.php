@@ -21,9 +21,9 @@ class PicasaUnmarshaller
         $namespaces = $xmlElement->getNamespaces(true);
 
         $googlePhotoNamespace = $xmlElement->children($namespaces['gphoto']);
-        $album->setId((string)$googlePhotoNamespace->id);
+        $album->setId((string) $googlePhotoNamespace->id);
 
-        $album->setTitle((string)$xmlElement->title);
+        $album->setTitle((string) $xmlElement->title);
 
         $album->setThumbnail($this->setAlbumThumbnailDetails($xmlElement));
 
@@ -46,7 +46,7 @@ class PicasaUnmarshaller
     private function setAlbumThumbnailDetails($responseXml)
     {
         $thumbnail = new Thumbnail();
-        $thumbnail->setUrl((string)$responseXml->icon);
+        $thumbnail->setUrl((string) $responseXml->icon);
         return $thumbnail;
     }
 
@@ -81,10 +81,10 @@ class PicasaUnmarshaller
         $thumbnail = new Thumbnail();
 
         $entryNamespaces = $entry->getNamespaces(true);
-        $ns_media = $entry->children($entryNamespaces['media']);
-        $thumb_attr = $ns_media->group->thumbnail[0]->attributes();
+        $ns_media        = $entry->children($entryNamespaces['media']);
+        $thumb_attr      = $ns_media->group->thumbnail[0]->attributes();
 
-        $thumbnail->setUrl((string)$thumb_attr['url']);
+        $thumbnail->setUrl((string) $thumb_attr['url']);
 
         return $thumbnail;
     }
@@ -100,7 +100,7 @@ class PicasaUnmarshaller
         $mediaList = array();
 
         foreach ($xmlElement->entry as $entry) {
-            $originalUrl = (string)$entry->content['src'];
+            $originalUrl = (string) $entry->content['src'];
 
             if ($this->isVideo($entry, $namespaces)) {
                 $media = new Video();
@@ -119,7 +119,7 @@ class PicasaUnmarshaller
             $googlePhotoNamespace = $entry->children($namespaces['gphoto']);
             $media->setLicense($this->setLicenseDetails($googlePhotoNamespace));
 
-            $media->setCaption((string)$entry->summary[0]);
+            $media->setCaption((string) $entry->summary[0]);
 
             array_push($mediaList, $media);
         }
@@ -136,9 +136,9 @@ class PicasaUnmarshaller
 
         $license_attr = $googlePhotoNamespace->license->attributes();
 
-        $license->setId((int)$license_attr['id']);
-        $license->setName((string)$license_attr['name']);
-        $license->setUrl((string)$license_attr['url']);
+        $license->setId((int) $license_attr['id']);
+        $license->setName((string) $license_attr['name']);
+        $license->setUrl((string) $license_attr['url']);
 
         return $license;
     }
@@ -151,7 +151,7 @@ class PicasaUnmarshaller
 
         foreach ($versions as $version) {
             $attributes = $version->attributes();
-            if (PicasaService::VIDEO_MEDIUM === (string)$attributes->medium) {
+            if (PicasaService::VIDEO_MEDIUM === (string) $attributes->medium) {
                 return true;
             }
         }
