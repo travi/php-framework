@@ -358,7 +358,7 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException travi\framework\exception\ServiceCallFailedException
      */
-    public function testExceptionThrownWhenInvalidResponseWhenAlbumssWereRequested()
+    public function testExceptionThrownWhenInvalidResponseWhenAlbumsWereRequested()
     {
         $this->restClient->expects($this->once())
             ->method('execute');
