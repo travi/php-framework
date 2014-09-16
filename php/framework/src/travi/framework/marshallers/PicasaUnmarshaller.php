@@ -43,6 +43,32 @@ class PicasaUnmarshaller
         return $this->buildPhotoListFrom($xmlElement, $options, $namespaces);
     }
 
+    public function toAlbumList($xml)
+    {
+        $albums = array();
+
+        $xmlElement = new \SimpleXMLElement($xml);
+
+        $namespaces = $xmlElement->getNamespaces(true);
+
+        foreach ($xmlElement->entry as $entry) {
+            $googlePhotoNamespace = $entry->children($namespaces['gphoto']);
+            $linkAttributes = $entry->link[1]->attributes();
+
+            $album = new Album();
+
+            $album->setId((string) $googlePhotoNamespace->id);
+            $album->setTitle((string) $entry->title);
+            $album->setUrl((string) $linkAttributes['href']);
+
+            $album->setThumbnail($this->setThumbDetails($entry));
+
+            array_push($albums, $album);
+        }
+
+        return $albums;
+    }
+
     private function setAlbumThumbnailDetails($responseXml)
     {
         $thumbnail = new Thumbnail();

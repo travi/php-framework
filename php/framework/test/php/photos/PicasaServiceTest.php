@@ -72,6 +72,9 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
 
     public function testProperListOfAlbumsReturnedFromPicasaWebData()
     {
+        $albumListResponseFromRestClient = file_get_contents(dirname(__FILE__) . '/picasaAlbumsExample.xml');
+        $expectedAlbums = array(new Album());
+
         $this->restClient->expects($this->once())
             ->method('getStatusCode')
             ->will($this->returnValue(200));
@@ -85,27 +88,15 @@ class PicasaServiceTest extends PHPUnit_Framework_TestCase
             );
         $this->restClient->expects($this->once())
             ->method('getResponseBody')
-            ->will($this->returnValue(file_get_contents(dirname(__FILE__).'/picasaAlbumsExample.xml')));
+            ->will($this->returnValue($albumListResponseFromRestClient));
+        $this->picasaUnmarshaller->expects($this->once())
+            ->method('toAlbumList')
+            ->with($albumListResponseFromRestClient)
+            ->will($this->returnValue($expectedAlbums));
 
         $albums = $this->picasaWeb->getAlbums();
-        /** @var $firstAlbum Album */
-        $firstAlbum = $albums[0];
 
-        $this->assertNonEmptyArray($albums);
-        $this->assertInstanceOf('travi\\framework\\photos\\Album', $firstAlbum);
-        $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
-        $this->assertEquals(
-            "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
-            $firstAlbum->getUrl()
-        );
-        $this->assertEquals(5575, $firstAlbum->getId());
-
-        $thumbnail = new Thumbnail();
-        $thumbnail->setUrl(
-            "https://lh5.googleusercontent.com/-ePrl_rE_oWs/TV9JLtXszbE/AAAAAAAAHEY/"
-            . "JAYLTmv0rqI/s160-c/Steamboat2011.jpg"
-        );
-        $this->assertEquals($thumbnail, $firstAlbum->getThumbnail());
+        $this->assertSame($expectedAlbums, $albums);
     }
 
     public function testProperPhotoObjectsCreatedFromPicasaWebData()

@@ -9,6 +9,7 @@ use travi\framework\marshallers\PicasaUnmarshaller;
 class PicasaService
 {
     const PICASA_URI = 'http://picasaweb.google.com/data/feed/api/user/';
+
     /* 1-indexed */
     const OFFSET_QUERY_PARAM    = 'start-index';
     const COUNT_QUERY_PARAM     = 'max-results';
@@ -28,7 +29,6 @@ class PicasaService
     /** @var RestClient */
     private $restClient;
     private $googleUser;
-    private $album;
 
     /** @var  PicasaUnmarshaller */
     private $picasaUnmarshaller;
@@ -52,7 +52,7 @@ class PicasaService
 
         $responseBody = $this->restClient->getResponseBody();
 
-        return $this->createAlbumListFrom($responseBody);
+        return $this->picasaUnmarshaller->toAlbumList($responseBody);
     }
 
     public function getAlbum($options)
@@ -107,46 +107,7 @@ class PicasaService
         $this->restClient->setEndpoint($endPoint);
     }
 
-    private function createAlbumListFrom($responseBody)
-    {
-        try {
-            $xml = new \SimpleXMLElement($responseBody);
-        } catch (\Exception $e) {
-            throw new ServiceCallFailedException();
-        }
-        $namespaces = $xml->getNamespaces(true);
-
-        $albums = array();
-        foreach ($xml->entry as $entry) {
-            $ns_gphoto = $entry->children($namespaces['gphoto']);
-            $link_attr = $entry->link[1]->attributes();
-
-            /** @var $album Album */
-            $album = new Album();
-            $album->setId((string) $ns_gphoto->id);
-            $album->setTitle((string) $entry->title);
-            $album->setUrl((string) $link_attr['href']);
-
-            $album->setThumbnail($this->setThumbDetails($entry));
-
-            array_push($albums, $album);
-        }
-
-        return $albums;
-    }
-
-    private function setThumbDetails($entry)
-    {
-        $entryNamespaces = $entry->getNamespaces(true);
-        $ns_media        = $entry->children($entryNamespaces['media']);
-        $thumb_attr      = $ns_media->group->thumbnail[0]->attributes();
-
-        $thumbnail = new Thumbnail();
-        $thumbnail->setUrl((string) $thumb_attr['url']);
-        return $thumbnail;
-    }
-
-    public function getCropThumbnailKey($cropThumb)
+    private function getCropThumbnailKey($cropThumb)
     {
         if ($cropThumb === true) {
             return self::CROPPED_KEY;

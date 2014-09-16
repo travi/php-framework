@@ -11,19 +11,21 @@ class PicasaUnmarshallerTest extends PHPUnit_Framework_TestCase
     /** @var  PicasaUnmarshaller */
     private $picasaUnmarshaller;
 
-    private $responseFromRestClient;
+    private $albumResponseFromRestClient;
+    private $albumListResponseFromRestClient;
 
     public function setUp()
     {
         $this->picasaUnmarshaller = new PicasaUnmarshaller();
 
-        $this->responseFromRestClient = file_get_contents(__DIR__ . '/../photos/picasaExample.xml');
+        $this->albumListResponseFromRestClient = file_get_contents(__DIR__ . '/../photos/picasaAlbumsExample.xml');
+        $this->albumResponseFromRestClient = file_get_contents(__DIR__ . '/../photos/picasaExample.xml');
     }
 
     public function testThatAlbumXmlUnmarshalledToAlbum()
     {
         $album = $this->picasaUnmarshaller->toAlbum(
-            $this->responseFromRestClient,
+            $this->albumResponseFromRestClient,
             array()
         );
 
@@ -42,7 +44,7 @@ class PicasaUnmarshallerTest extends PHPUnit_Framework_TestCase
     public function testThatMediaListXmlUnmarshalledToMediaList()
     {
         $mediaList = $this->picasaUnmarshaller->toMediaList(
-            $this->responseFromRestClient,
+            $this->albumResponseFromRestClient,
             array(
                 'preview' => array(
                     'width' => 600
@@ -51,6 +53,25 @@ class PicasaUnmarshallerTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertPhotoListBuiltCorrectly($mediaList, true);
+    }
+
+    public function testThatAlbumListXmlUnmarshalledToAlbumList()
+    {
+        $albums = $this->picasaUnmarshaller->toAlbumList($this->albumListResponseFromRestClient);
+
+        /** @var Album $firstAlbum */
+        $firstAlbum = $albums[0];
+        $this->assertEquals(5575, $firstAlbum->getId());
+        $this->assertEquals("Steamboat 2011", $firstAlbum->getTitle());
+        $this->assertEquals(
+            "https://picasaweb.google.com/107098889836094611170/Steamboat2011",
+            $firstAlbum->getUrl()
+        );
+        $this->assertEquals(
+            "https://lh5.googleusercontent.com/-ePrl_rE_oWs/TV9JLtXszbE/AAAAAAAAHEY/"
+            . "JAYLTmv0rqI/s160-c/Steamboat2011.jpg",
+            $firstAlbum->getThumbnail()->getUrl()
+        );
     }
 
     private function assertNonEmptyArray($list)
