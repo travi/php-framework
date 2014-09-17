@@ -40,52 +40,26 @@ class PicasaService
      */
     public function getAlbums()
     {
-        $this->restClient->setEndpoint(
-            self::PICASA_URI
-            . $this->googleUser
-        );
-        $this->restClient->execute();
-
-        if (200 !== $this->restClient->getStatusCode()) {
-            throw new ServiceCallFailedException();
-        }
-
-        $responseBody = $this->restClient->getResponseBody();
-
-        return $this->picasaUnmarshaller->toAlbumList($responseBody);
+        return $this->picasaUnmarshaller->toAlbumList($this->getFromPicasa(self::PICASA_URI . $this->googleUser));
     }
 
     public function getAlbum($options)
     {
-        $this->setEndpoint($options);
-
-        $this->restClient->execute();
-
-        if (200 !== $this->restClient->getStatusCode()) {
-            throw new ServiceCallFailedException();
-        }
-
-        $responseBody = $this->restClient->getResponseBody();
-
-        return $this->picasaUnmarshaller->toAlbum($responseBody, $options);
+        return $this->picasaUnmarshaller->toAlbum(
+            $this->getFromPicasa($this->buildEndpoint($options)),
+            $options
+        );
     }
 
     public function getPhotos($options)
     {
-        $this->setEndpoint($options);
-
-        $this->restClient->execute();
-
-        if (200 !== $this->restClient->getStatusCode()) {
-            throw new ServiceCallFailedException();
-        }
-
-        $responseBody = $this->restClient->getResponseBody();
-
-        return $this->picasaUnmarshaller->toMediaList($responseBody, $options);
+        return $this->picasaUnmarshaller->toMediaList(
+            $this->getFromPicasa($this->buildEndpoint($options)),
+            $options
+        );
     }
 
-    private function setEndpoint($options)
+    private function buildEndpoint($options)
     {
         $endPoint = self::PICASA_URI
                 . $this->googleUser
@@ -104,7 +78,7 @@ class PicasaService
             $endPoint .= '&' . self::COUNT_QUERY_PARAM . '=' . $options['count'];
         }
 
-        $this->restClient->setEndpoint($endPoint);
+        return $endPoint;
     }
 
     private function getCropThumbnailKey($cropThumb)
@@ -114,6 +88,24 @@ class PicasaService
         } else {
             return self::UNCROPPED_KEY;
         }
+    }
+
+    /**
+     * @param $endpoint
+     * @return null
+     * @throws ServiceCallFailedException
+     * @throws \Exception
+     */
+    private function getFromPicasa($endpoint)
+    {
+        $this->restClient->setEndpoint($endpoint);
+        $this->restClient->execute();
+
+        if (200 !== $this->restClient->getStatusCode()) {
+            throw new ServiceCallFailedException();
+        }
+
+        return $this->restClient->getResponseBody();
     }
 
     public function setServiceUser($user)
