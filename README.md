@@ -8,7 +8,7 @@ Travi Framework
 [![Latest Stable Version](http://img.shields.io/packagist/v/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
 [![Total Downloads](http://img.shields.io/packagist/dt/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
 
-This is a php web framework that I've built over the years as I've worked to understand web development better.
+This is a php web framework that I've built over the years as I've worked to better understand web development.
 
 ## Installation using [Composer] (http://getcomposer.org/)
 This framework is available via Composer [through Packagist] (https://packagist.org/packages/travi/framework)
