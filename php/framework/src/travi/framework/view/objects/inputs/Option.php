@@ -11,7 +11,7 @@ class Option extends AbstractView
 
     function __construct($text, $value, $selected)
     {
-        $this->text = $text;
+        $this->text     = $text;
         $this->selected = $selected;
 
         if (isset($value)) {
