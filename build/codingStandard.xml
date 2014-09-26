@@ -17,7 +17,9 @@
         </properties>
     </rule>
     <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
-    <rule ref="Generic.CodeAnalysis"/>
+    <rule ref="Generic.CodeAnalysis">
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    </rule>
     <rule ref="Generic.Commenting"/>
     <rule ref="Generic.Formatting">
         <exclude name="Generic.Formatting.NoSpaceAfterCast"/>

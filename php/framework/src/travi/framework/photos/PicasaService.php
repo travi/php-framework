@@ -40,7 +40,9 @@ class PicasaService
      */
     public function getAlbums()
     {
-        return $this->picasaUnmarshaller->toAlbumList($this->getFromPicasa(self::PICASA_URI . $this->googleUser));
+        return $this->picasaUnmarshaller->toAlbumList(
+            $this->getFromPicasa(self::PICASA_URI . $this->googleUser)
+        );
     }
 
     public function getAlbum($options)

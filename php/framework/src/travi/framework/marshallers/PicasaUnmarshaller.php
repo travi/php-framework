@@ -53,7 +53,7 @@ class PicasaUnmarshaller
 
         foreach ($xmlElement->entry as $entry) {
             $googlePhotoNamespace = $entry->children($namespaces['gphoto']);
-            $linkAttributes = $entry->link[1]->attributes();
+            $linkAttributes       = $entry->link[1]->attributes();
 
             $album = new Album();
 
