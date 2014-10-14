@@ -41,32 +41,7 @@ class DependencyManager
         $this->lazyInitializeList('js');
 
         if (!is_array($script)) {
-            $fileURI = $this->clientDependencyDefinitions->resolveFileURI($script);
-            if (!in_array($fileURI, $this->requirementLists['js'])) {
-                $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
-
-                if (!empty($dependencies)) {
-                    if (!empty($dependencies['jsDependencies'])) {
-                        foreach ($dependencies['jsDependencies'] as $dependency) {
-                            $this->addJavaScript($dependency);
-                        }
-                    }
-                    if (!empty($dependencies['cssDependencies'])) {
-                        foreach ($dependencies['cssDependencies'] as $dependency) {
-                            $this->addStyleSheet($dependency);
-                        }
-                    }
-                    if (!empty($dependencies['clientTemplates'])) {
-                        foreach ($dependencies['clientTemplates'] as $name => $dependency) {
-                            $this->addClientTemplate($name, $dependency);
-                        }
-                    }
-                    $script = $this->clientDependencyDefinitions->resolveFileURI($script);
-                }
-                if (!empty($script)) {
-                    array_push($this->requirementLists['js'], $script);
-                }
-            }
+            $this->addScriptAndItsDependencies($script);
         }
     }
 
@@ -76,28 +51,8 @@ class DependencyManager
 
         $sheet = $this->resolveFileUri($sheet);
 
-        $styleSheetList = &$this->requirementLists['css'];
-
-        if (!in_array($sheet, $styleSheetList) || $index === self::THIS_PAGE_KEY) {
-            $enhancedFile = $this->getEnhancedFileName($sheet);
-
-            if (!empty($index)) {
-                $this->removePageStyleIfAlreadyInList($index, $sheet, $styleSheetList);
-
-                if ($this->fileSystem->styleSheetExists($sheet)) {
-                    $styleSheetList[$index] = $sheet;
-                }
-                if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
-                    $styleSheetList[$index . 'Enhanced'] = $enhancedFile;
-                }
-            } else {
-                if ($this->fileSystem->styleSheetExists($sheet) || !$this->isLocalFile($sheet)) {
-                    array_push($styleSheetList, $sheet);
-                }
-                if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
-                    array_push($styleSheetList, $enhancedFile);
-                }
-            }
+        if ($this->addingThisStylesheetShouldAdjustExistingList($sheet, $index)) {
+            $this->addStylesheetToList($sheet, $index);
         }
     }
 
@@ -408,6 +363,176 @@ class DependencyManager
         }
 
         return $dependencies;
+    }
+
+    /**
+     * @param $fileURI
+     * @param $dependencyType
+     * @return bool
+     */
+    private function hasNotAlreadyBeenAddedToDependencyListFor($fileURI, $dependencyType)
+    {
+        return !in_array($fileURI, $this->requirementLists[$dependencyType]);
+    }
+
+    /**
+     * @param $dependencies
+     */
+    private function mapDependencies($dependencies)
+    {
+        if (!empty($dependencies['jsDependencies'])) {
+            foreach ($dependencies['jsDependencies'] as $dependency) {
+                $this->addJavaScript($dependency);
+            }
+        }
+        if (!empty($dependencies['cssDependencies'])) {
+            foreach ($dependencies['cssDependencies'] as $dependency) {
+                $this->addStyleSheet($dependency);
+            }
+        }
+        if (!empty($dependencies['clientTemplates'])) {
+            foreach ($dependencies['clientTemplates'] as $name => $dependency) {
+                $this->addClientTemplate($name, $dependency);
+            }
+        }
+    }
+
+    /**
+     * @param $script
+     */
+    private function addAsDependency($script)
+    {
+        if (!empty($script)) {
+            array_push($this->requirementLists['js'], $script);
+        }
+    }
+
+    /**
+     * @param $script
+     */
+    private function addScriptAndItsDependencies($script)
+    {
+        $fileURI = $this->clientDependencyDefinitions->resolveFileURI($script);
+
+        if ($this->hasNotAlreadyBeenAddedToDependencyListFor($fileURI, 'js')) {
+            $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
+
+            if (!empty($dependencies)) {
+                $this->mapDependencies($dependencies);
+
+                $script = $this->clientDependencyDefinitions->resolveFileURI($script);
+            }
+
+            $this->addAsDependency($script);
+        }
+    }
+
+    /**
+     * @param $index
+     * @return bool
+     */
+    private function isStylesheetForThisPage($index)
+    {
+        return $index === self::THIS_PAGE_KEY;
+    }
+
+    /**
+     * @param $index
+     * @return bool
+     */
+    private function stylesheetShouldBeRankedBy($index)
+    {
+        return !empty($index);
+    }
+
+    /**
+     * @param $sheet
+     * @param $index
+     * @param $styleSheetList
+     * @return mixed
+     */
+    private function addStylesheetAt($sheet, $index, &$styleSheetList)
+    {
+        if ($this->fileSystem->styleSheetExists($sheet)) {
+            $styleSheetList[$index] = $sheet;
+            return $styleSheetList;
+        }
+    }
+
+    /**
+     * @param $index
+     * @param $enhancedFile
+     * @param $styleSheetList
+     */
+    private function addEnhancementStylesheetAt($index, $enhancedFile, &$styleSheetList)
+    {
+        if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
+            $styleSheetList[$index . 'Enhanced'] = $enhancedFile;
+        }
+    }
+
+    /**
+     * @param $enhancedFile
+     * @param $styleSheetList
+     */
+    private function addEnhancementStylesheet($enhancedFile, &$styleSheetList)
+    {
+        if (!empty($enhancedFile) && $this->fileSystem->styleSheetExists($enhancedFile)) {
+            array_push($styleSheetList, $enhancedFile);
+        }
+    }
+
+    /**
+     * @param $sheet
+     * @param $index
+     * @param $styleSheetList
+     * @param $enhancedFile
+     */
+    private function placeStylesheetAtProperRank($sheet, $index, &$styleSheetList, $enhancedFile)
+    {
+        $this->removePageStyleIfAlreadyInList($index, $sheet, $styleSheetList);
+        $this->addStylesheetAt($sheet, $index, $styleSheetList);
+        $this->addEnhancementStylesheetAt($index, $enhancedFile, $styleSheetList);
+    }
+
+    /**
+     * @param $sheet
+     * @param $enhancedFile
+     * @param $styleSheetList
+     */
+    private function addStylesheetAtEndOfList($sheet, $enhancedFile, &$styleSheetList)
+    {
+        if ($this->fileSystem->styleSheetExists($sheet) || !$this->isLocalFile($sheet)) {
+            array_push($styleSheetList, $sheet);
+        }
+        $this->addEnhancementStylesheet($enhancedFile, $styleSheetList);
+    }
+
+    /**
+     * @param $sheet
+     * @param $index
+     * @internal param $styleSheetList
+     */
+    private function addStylesheetToList($sheet, $index)
+    {
+        $styleSheetList = &$this->requirementLists['css'];
+        $enhancedFile = $this->getEnhancedFileName($sheet);
+
+        if ($this->stylesheetShouldBeRankedBy($index)) {
+            $this->placeStylesheetAtProperRank($sheet, $index, $styleSheetList, $enhancedFile);
+        } else {
+            $this->addStylesheetAtEndOfList($sheet, $enhancedFile, $styleSheetList);
+        }
+    }
+
+    /**
+     * @param $sheet
+     * @param $index
+     * @return bool
+     */
+    private function addingThisStylesheetShouldAdjustExistingList($sheet, $index)
+    {
+        return $this->hasNotAlreadyBeenAddedToDependencyListFor($sheet, 'css') || $this->isStylesheetForThisPage($index);
     }
 
     /**
