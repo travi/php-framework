@@ -48,18 +48,18 @@ class ClientDependencies
 
         foreach ($deps as $name => $dep) {
             $this->mapConfigDetails($dep, $name, $requirement);
-            if ($this->desktopVersionRequested() && $this->desktopEnhancementsDefined($dep)) {
+            if ($this->largeScreenVersionRequested() && $this->largeScreenEnhancementsDefined($dep)) {
                 $this->mapConfigDetails($dep[Request::LARGE_ENHANCEMENT], $name, $requirement);
             }
         }
     }
 
-    private function desktopEnhancementsDefined($dep)
+    private function largeScreenEnhancementsDefined($dep)
     {
         return !empty($dep[Request::LARGE_ENHANCEMENT]);
     }
 
-    private function desktopVersionRequested()
+    private function largeScreenVersionRequested()
     {
         return $this->request->getEnhancementVersion() === Request::LARGE_ENHANCEMENT;
     }
