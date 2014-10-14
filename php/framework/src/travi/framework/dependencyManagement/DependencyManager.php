@@ -532,7 +532,8 @@ class DependencyManager
      */
     private function addingThisStylesheetShouldAdjustExistingList($sheet, $index)
     {
-        return $this->hasNotAlreadyBeenAddedToDependencyListFor($sheet, 'css') || $this->isStylesheetForThisPage($index);
+        return $this->hasNotAlreadyBeenAddedToDependencyListFor($sheet, 'css')
+            || $this->isStylesheetForThisPage($index);
     }
 
     /**
