@@ -46,11 +46,6 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
         $this->htmlRenderer->setFileSystem($this->fileSystem);
     }
 
-    public function tearDown()
-    {
-        $_SERVER['HTTP_X_REQUESTED_WITH'] = null;
-    }
-
     public function testAttributesAddedToSmartyBeforeRendering()
     {
         $data = array();
@@ -92,8 +87,11 @@ class HtmlRendererTest extends PHPUnit_Framework_TestCase
 
     public function testThatContentRenderingNotWrappedInLayoutWhenAjaxRequest()
     {
-        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
         $data = array();
+
+        $this->request->expects($this->once())
+            ->method('isAjax')
+            ->will($this->returnValue(true));
 
         $this->page->expects($this->any())
             ->method('getPageTemplate')

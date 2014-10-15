@@ -39,11 +39,10 @@ class HtmlRenderer extends Renderer
         $this->smarty->assign('page', $page);
         $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
 
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-            $this->smarty->assign('content', $data);
-            $this->smarty->display('pages/' . $page->getPageTemplate());
+        if ($this->request->isAjax()) {
+            $this->renderContentSection($data, $page);
         } else {
-            $this->smarty->display($this->layoutTemplate);
+            $this->renderFullPage();
         }
     }
 
@@ -86,6 +85,30 @@ class HtmlRenderer extends Renderer
     {
         return $this->fileSystem->pageTemplateExists($pathToTemplate)
             || $this->fileSystem->frameworkTemplateExists($pathToTemplate);
+    }
+
+    /**
+     * @param $fileSystem
+     * @PdInject fileSystem
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
+    }
+
+    /**
+     * @param $data
+     * @param $page
+     */
+    private function renderContentSection($data, $page)
+    {
+        $this->smarty->assign('content', $data);
+        $this->smarty->display('pages/' . $page->getPageTemplate());
+    }
+
+    private function renderFullPage()
+    {
+        $this->smarty->display($this->layoutTemplate);
     }
 
     /**
@@ -136,14 +159,5 @@ class HtmlRenderer extends Renderer
     public function setRequest($request)
     {
         $this->request = $request;
-    }
-
-    /**
-     * @param $fileSystem
-     * @PdInject fileSystem
-     */
-    public function setFileSystem($fileSystem)
-    {
-        $this->fileSystem = $fileSystem;
     }
 }

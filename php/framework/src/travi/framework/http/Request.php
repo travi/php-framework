@@ -251,6 +251,11 @@ class Request
         return $this->endsWith($last, "s");
     }
 
+    public function isAjax()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']);
+    }
+
     /**
      * @PdInject uri
      * @param $uri

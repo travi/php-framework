@@ -18,6 +18,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->request = null;
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = null;
     }
 
     public function testThatFullUriIsAvailable()
@@ -190,5 +191,17 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $this->request->setEnhancementVersion('s');
         $this->assertEquals(Request::SMALL_ENHANCEMENT, $this->request->getEnhancementVersion());
+    }
+
+    public function testThatIsAjaxReturnsTrueWhenProperHeaderIsSet()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+
+        $this->assertTrue($this->request->isAjax());
+    }
+
+    public function testThatIsAjaxReturnsFalseWhenProperHeaderIsNotSet()
+    {
+        $this->assertFalse($this->request->isAjax());
     }
 }
