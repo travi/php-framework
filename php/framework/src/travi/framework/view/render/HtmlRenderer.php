@@ -2,8 +2,7 @@
 
 namespace travi\framework\view\render;
 
-use travi\framework\view\render\Renderer,
-    travi\framework\dependencyManagement\DependencyManager,
+use travi\framework\dependencyManagement\DependencyManager,
     travi\framework\http\Request,
     travi\framework\utilities\FileSystem,
     travi\framework\page\AbstractResponse,
@@ -28,22 +27,9 @@ class HtmlRenderer extends Renderer
      */
     public function format($data, $page = null)
     {
-        $this->dependencyManager->resolveContentDependencies($data);
-        $this->dependencyManager->loadPageDependencies();
-        $this->dependencyManager->addCacheBusters();
-
         $this->setPageTemplateByConvention($page, $data);
-
-        $this->smarty->clearAllAssign();
-        $this->smarty->assign('dependencies', $this->dependencyManager->getDependenciesInProperForm());
-        $this->smarty->assign('page', $page);
-        $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
-
-        if ($this->request->isAjax()) {
-            $this->renderContentSection($data, $page);
-        } else {
-            $this->renderFullPage();
-        }
+        $this->passVariablesToSmarty($data, $page);
+        $this->render($data, $page);
     }
 
     /**
@@ -56,11 +42,7 @@ class HtmlRenderer extends Renderer
         $pageTemplate = $page->getPageTemplate();
 
         if (empty($pageTemplate)) {
-            if (is_array($data) && isset($data['form'])) {
-                $pathToTemplate = '../wrap/formWrapper.tpl';
-            } else {
-                $pathToTemplate = $this->buildTemplatePath();
-            }
+            $pathToTemplate = $this->determineConventionalPathToTemplate($data);
 
             if ($this->matchingTemplateExists($pathToTemplate)) {
                 $page->setPageTemplate($pathToTemplate);
@@ -73,6 +55,7 @@ class HtmlRenderer extends Renderer
     private function shouldShowMetaViewport()
     {
         $enhancementVersion = $this->request->getEnhancementVersion();
+
         return ($enhancementVersion === Request::SMALL_ENHANCEMENT
                 || $enhancementVersion === Request::BASE_ENHANCEMENT);
     }
@@ -98,7 +81,7 @@ class HtmlRenderer extends Renderer
 
     /**
      * @param $data
-     * @param $page
+     * @param $page AbstractResponse
      */
     private function renderContentSection($data, $page)
     {
@@ -125,6 +108,60 @@ class HtmlRenderer extends Renderer
             return $pathToTemplate;
         }
         return $pathToTemplate;
+    }
+
+
+    /**
+     * @param $data
+     * @return array
+     */
+    private function calculateDependencies($data)
+    {
+        $this->dependencyManager->resolveContentDependencies($data);
+        $this->dependencyManager->loadPageDependencies();
+        $this->dependencyManager->addCacheBusters();
+
+        return $this->dependencyManager->getDependenciesInProperForm();
+    }
+
+    /**
+     * @param $data
+     * @param $page
+     */
+    private function passVariablesToSmarty($data, $page)
+    {
+        $this->smarty->clearAllAssign();
+        $this->smarty->assign('dependencies', $this->calculateDependencies($data));
+        $this->smarty->assign('page', $page);
+        $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    private function determineConventionalPathToTemplate($data)
+    {
+        if (is_array($data) && isset($data['form'])) {
+            $pathToTemplate = '../wrap/formWrapper.tpl';
+            return $pathToTemplate;
+        } else {
+            $pathToTemplate = $this->buildTemplatePath();
+            return $pathToTemplate;
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $page
+     */
+    private function render($data, $page)
+    {
+        if ($this->request->isAjax()) {
+            $this->renderContentSection($data, $page);
+        } else {
+            $this->renderFullPage();
+        }
     }
 
     public function setLayoutTemplate($layoutTemplate)
