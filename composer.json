@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "smarty/smarty": "3.1.*@stable",
+        "smarty/smarty": "3.1.18",
         "lightopenid/lightopenid": "0.7.0",
         "html2text/html2text": "1.0.0",
         "mustangostang/spyc": "0.5.1"

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11cd208c8fb068e5afcf2abc21a2c104",
+    "hash": "5a8b011aed340021ea19817329d4b17c",
     "packages": [
         {
             "name": "html2text/html2text",
@@ -112,11 +112,11 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.20",
+            "version": "v3.1.18",
             "source": {
                 "type": "svn",
                 "url": "http://smarty-php.googlecode.com/svn",
-                "reference": "/tags/v3.1.20/@4891"
+                "reference": "/tags/v3.1.18/@4839"
             },
             "require": {
                 "php": ">=5.2"
@@ -152,7 +152,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-10-12 15:41:32"
+            "time": "2014-05-08 18:38:30"
         }
     ],
     "packages-dev": [
@@ -1948,9 +1948,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "smarty/smarty": 0
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "platform": [],
     "platform-dev": []
