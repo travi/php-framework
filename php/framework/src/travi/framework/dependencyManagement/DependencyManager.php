@@ -95,26 +95,14 @@ class DependencyManager
 
     public function loadPageDependencies()
     {
-        if ($this->request->isAdmin()) {
-            $controllerList = $this->pageDependenciesLists['admin'];
-        } else {
-            $controllerList = $this->pageDependenciesLists;
-        }
+        $controllerList = $this->getListOfControllers();
 
         $controllerName = strtolower($this->request->getController());
-        if (isset($controllerList[$controllerName])) {
-            $thisController = $controllerList[$controllerName];
-            $action         = $this->request->getAction();
-            $thisPage       = $thisController[$action];
+        if ($this->controllerIsIn($controllerList, $controllerName)) {
+            $thisPage = $this->getDependenciesForThisPage($controllerList, $controllerName);
 
             $this->addDependencies($thisPage);
-
-            if (isset($thisPage['pageStyle'])) {
-                $thisPageStyle = $thisPage['pageStyle'];
-            } else {
-                $thisPageStyle = null;
-            }
-            $this->setPageStyle($thisPageStyle);
+            $this->setPageStyleFrom($thisPage);
         } else {
             $this->setPageStyle();
         }
@@ -582,5 +570,55 @@ class DependencyManager
     public function setSession($session)
     {
         $this->session = $session;
+    }
+
+    /**
+     * @return array
+     */
+    private function getListOfControllers()
+    {
+        if ($this->request->isAdmin()) {
+            $controllerList = $this->pageDependenciesLists['admin'];
+            return $controllerList;
+        } else {
+            $controllerList = $this->pageDependenciesLists;
+            return $controllerList;
+        }
+    }
+
+    /**
+     * @param $controllerList
+     * @param $controllerName
+     * @return bool
+     */
+    private function controllerIsIn($controllerList, $controllerName)
+    {
+        return isset($controllerList[$controllerName]);
+    }
+
+    /**
+     * @param $thisPage
+     */
+    private function setPageStyleFrom($thisPage)
+    {
+        if (isset($thisPage['pageStyle'])) {
+            $thisPageStyle = $thisPage['pageStyle'];
+        } else {
+            $thisPageStyle = null;
+        }
+        $this->setPageStyle($thisPageStyle);
+    }
+
+    /**
+     * @param $controllerList
+     * @param $controllerName
+     * @return mixed
+     */
+    private function getDependenciesForThisPage($controllerList, $controllerName)
+    {
+        $thisController = $controllerList[$controllerName];
+        $action = $this->request->getAction();
+        $thisPage = $thisController[$action];
+        return $thisPage;
     }
 }
