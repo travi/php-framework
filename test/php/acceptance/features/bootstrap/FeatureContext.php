@@ -29,7 +29,13 @@ class FeatureContext extends BehatContext
      */
     public function __construct(array $parameters)
     {
+        set_include_path(
+            get_include_path() . PATH_SEPARATOR .
+            __DIR__ . '/../../../../../php/thirdparty/PHP-Dependency/library/'
+        );
+
         $this->useContext('authentication', new FormContext());
+        $this->useContext('dependencies', new DependenciesContext());
     }
 
     /**
