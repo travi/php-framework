@@ -105,8 +105,10 @@ class HtmlRenderer extends Renderer
 
         if ($this->request->isAdmin()) {
             $pathToTemplate = 'admin/' . $pathToTemplate;
+
             return $pathToTemplate;
         }
+
         return $pathToTemplate;
     }
 

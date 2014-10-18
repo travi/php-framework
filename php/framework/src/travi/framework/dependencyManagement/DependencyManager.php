@@ -249,12 +249,13 @@ class DependencyManager
         foreach ($dependencies[$list] as &$dependency) {
             $dependency = $this->replaceWithMinifiedVersion($dependency);
         }
+
         return $dependencies;
     }
 
     private function replaceWithMinifiedVersion($dependency)
     {
-        if (strpos($dependency, self::THIRDPARTY)) {
+        if ($this->isThirdpartyDependency($dependency)) {
             return preg_replace(
                 '/\/(' . self::THIRDPARTY . ')\//',
                 self::MIN_DIR . '/$1/',
@@ -277,8 +278,10 @@ class DependencyManager
 
         if (!empty($resolved)) {
             $sheet = $resolved;
+
             return $sheet;
         }
+
         return $sheet;
     }
 
@@ -322,6 +325,7 @@ class DependencyManager
             $this->addStyleSheet($thisPageStyle, self::THIS_PAGE_KEY);
         } elseif (empty($currentPageStyle)) {
             $pageStyleByConvention = $this->fileSystem->getPageStyleByConvention();
+
             if ($pageStyleByConvention) {
                 $this->setPageStyle($pageStyleByConvention);
             }
@@ -345,7 +349,7 @@ class DependencyManager
     {
         $dependencies = $this->getDependencies();
 
-        if (!$this->environment->isLocal() && !$this->session->isDebug()) {
+        if ($this->shouldUseBuiltVersion()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');
         }
@@ -525,54 +529,6 @@ class DependencyManager
     }
 
     /**
-     * @PdInject new:travi\framework\dependencyManagement\ClientDependencies
-     * @param ClientDependencies $clientDependencyDefinitions
-     */
-    public function setClientDependencyDefinitions($clientDependencyDefinitions)
-    {
-        $this->clientDependencyDefinitions = $clientDependencyDefinitions;
-    }
-
-    /**
-     * @PdInject fileSystem
-     * @param $fileSystem
-     * @return void
-     */
-    public function setFileSystem($fileSystem)
-    {
-        $this->fileSystem = $fileSystem;
-    }
-
-    /**
-     * @PdInject environment
-     * @param $env \travi\framework\utilities\Environment
-     * @return void
-     */
-    public function setEnvironmentUtility($env)
-    {
-        $this->environment = $env;
-    }
-
-    /**
-     * @PdInject request
-     * @param $request Request
-     * @return void
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
-    }
-
-    /**
-     * @param $session Session
-     * @PdInject session
-     */
-    public function setSession($session)
-    {
-        $this->session = $session;
-    }
-
-    /**
      * @return array
      */
     private function getListOfControllers()
@@ -619,6 +575,72 @@ class DependencyManager
         $thisController = $controllerList[$controllerName];
         $action = $this->request->getAction();
         $thisPage = $thisController[$action];
+
         return $thisPage;
+    }
+
+    /**
+     * @param $dependency
+     * @return int
+     */
+    private function isThirdpartyDependency($dependency)
+    {
+        return strpos($dependency, self::THIRDPARTY);
+    }
+
+    /**
+     * @return bool
+     */
+    private function shouldUseBuiltVersion()
+    {
+        return !$this->environment->isLocal() && !$this->session->isDebug();
+    }
+
+    /**
+     * @PdInject new:travi\framework\dependencyManagement\ClientDependencies
+     * @param ClientDependencies $clientDependencyDefinitions
+     */
+    public function setClientDependencyDefinitions($clientDependencyDefinitions)
+    {
+        $this->clientDependencyDefinitions = $clientDependencyDefinitions;
+    }
+
+    /**
+     * @PdInject fileSystem
+     * @param $fileSystem
+     * @return void
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
+    }
+
+    /**
+     * @PdInject environment
+     * @param $env \travi\framework\utilities\Environment
+     * @return void
+     */
+    public function setEnvironmentUtility($env)
+    {
+        $this->environment = $env;
+    }
+
+    /**
+     * @PdInject request
+     * @param $request Request
+     * @return void
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @param $session Session
+     * @PdInject session
+     */
+    public function setSession($session)
+    {
+        $this->session = $session;
     }
 }
