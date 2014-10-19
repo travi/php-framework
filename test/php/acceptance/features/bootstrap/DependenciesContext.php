@@ -50,9 +50,9 @@ class DependenciesContext extends BehatContext
     }
 
     /**
-     * @When /^page "([^"]*)" has been requested$/
+     * @When /^page is rendered$/
      */
-    public function pageHasBeenRequested($path)
+    public function pageHasBeenRequested()
     {
         $this->frontController->processRequest();
     }
@@ -62,14 +62,7 @@ class DependenciesContext extends BehatContext
      */
     public function theDependenciesListsShouldContain(TableNode $table)
     {
-        $hash = $table->getHash();
-        $css = array();
-        $js = array();
-
-        foreach ($hash as $row) {
-            $this->addEntryTo($css, $row['css']);
-            $this->addEntryTo($js, $row['js']);
-        }
+        list($css, $js) = $this->parseDependencyListsFrom($table);
 
         assertEmpty($css);
         assertEmpty($js);
@@ -84,6 +77,24 @@ class DependenciesContext extends BehatContext
         if (!empty($entry)) {
             array_push($list, $entry);
         }
+    }
+
+    /**
+     * @param TableNode $table
+     * @return array
+     */
+    private function parseDependencyListsFrom(TableNode $table)
+    {
+        $hash = $table->getHash();
+        $css = array();
+        $js = array();
+
+        foreach ($hash as $row) {
+            $this->addEntryTo($css, $row['css']);
+            $this->addEntryTo($js, $row['js']);
+        }
+
+        return array($css, $js);
     }
 }
 

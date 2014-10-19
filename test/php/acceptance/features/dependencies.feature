@@ -4,7 +4,7 @@ Feature: Front-end Dependency Management
   I need the middle-end framework to manage the dependencies carefully
 
 Scenario:
-  When page "/" has been requested
+  When page is rendered
   Then the dependencies lists should contain
     | js | css |
     |    |     |
