@@ -338,8 +338,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($dependencies);
         $this->assertSame(
             array(
-                'css' => array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet'),
-                'js' => array('/resources' . DependencyManager::MIN_DIR . '/js/some script')
+                'js' => array('/resources' . DependencyManager::MIN_DIR . '/js/some script'),
+                'css' => array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet')
             ),
             $dependencies
         );
@@ -366,8 +366,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($dependencies);
         $this->assertSame(
             array(
-                'css' => array($sheet),
-                'js' => array($script)
+                'js' => array($script),
+                'css' => array($sheet)
             ),
             $dependencies
         );
@@ -398,8 +398,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($dependencies);
         $this->assertSame(
             array(
-                'css' => array($sheet),
-                'js' => array($script)
+                'js' => array($script),
+                'css' => array($sheet)
             ),
             $dependencies
         );
@@ -674,5 +674,13 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $dependencies = $this->dependencyManager->getDependencies();
 
         $this->assertEquals(array($jsDependency), $dependencies['js']);
+    }
+
+    public function testThatEmptyListsReturnedIfNoDependenciesToList()
+    {
+        $dependencies = $this->dependencyManager->getDependencies();
+
+        $this->assertEmpty(array(), $dependencies['css']);
+        $this->assertEquals(array(), $dependencies['js']);
     }
 }

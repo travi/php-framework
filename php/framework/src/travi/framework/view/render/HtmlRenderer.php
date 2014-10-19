@@ -115,6 +115,18 @@ class HtmlRenderer extends Renderer
 
     /**
      * @param $data
+     * @param $page
+     */
+    private function passVariablesToSmarty($data, $page)
+    {
+        $this->smarty->clearAllAssign();
+        $this->smarty->assign('dependencies', $this->calculateDependencies($data));
+        $this->smarty->assign('page', $page);
+        $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
+    }
+
+    /**
+     * @param $data
      * @return array
      */
     private function calculateDependencies($data)
@@ -124,18 +136,6 @@ class HtmlRenderer extends Renderer
         $this->dependencyManager->addCacheBusters();
 
         return $this->dependencyManager->getDependenciesInProperForm();
-    }
-
-    /**
-     * @param $data
-     * @param $page
-     */
-    private function passVariablesToSmarty($data, $page)
-    {
-        $this->smarty->clearAllAssign();
-        $this->smarty->assign('dependencies', $this->calculateDependencies($data));
-        $this->smarty->assign('page', $page);
-        $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
     }
 
     /**

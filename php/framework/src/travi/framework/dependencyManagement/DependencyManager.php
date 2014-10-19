@@ -18,7 +18,9 @@ class DependencyManager
 
     /** @var ClientDependencies */
     private $clientDependencyDefinitions;
-    private $requirementLists = array();
+    private $requirementLists = array(
+        'js' => array()
+    );
 
     /** @var FileSystem */
     private $fileSystem;
@@ -90,6 +92,7 @@ class DependencyManager
     public function getDependencies()
     {
         $this->sortStyleSheets();
+
         return $this->requirementLists;
     }
 

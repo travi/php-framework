@@ -64,8 +64,13 @@ class DependenciesContext extends BehatContext
     {
         list($css, $js) = $this->parseDependencyListsFrom($table);
 
-        assertEmpty($css);
-        assertEmpty($js);
+        /** @var Smarty $smarty */
+        $smarty = $this->container->dependencies()->get('Smarty');
+
+        $dependencies = $smarty->getVariable('dependencies')->value;
+
+        assertEquals($css, $dependencies['css']);
+        assertEquals($js, $dependencies['js']);
     }
 
     /**
