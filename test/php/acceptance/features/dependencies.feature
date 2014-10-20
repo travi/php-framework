@@ -24,6 +24,6 @@ Scenario:
     | /resources/min/thirdparty/jsrender/jsrender.js  |     |
     | /resources/min/thirdparty/travi-core/js/travi/templates.js  |     |
     | /resources/min/thirdparty/travi-core/js/travi/cookies.js  |     |
-    | /resources/min/thirdparty/travi-core/js/travi/location.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/browserProxy.js  |     |
     | /resources/min/thirdparty/travi-core/js/travi/enhancements.js  |     |
     | /resources/min/thirdparty/travi-core/js/travi/framework.js  |     |

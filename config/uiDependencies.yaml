@@ -33,7 +33,7 @@ enhancements:
   jsDependencies:
     - template
     - cookieUtil
-    - locationUtil
+    - browserProxy
   clientTemplates:
     chooseEnhancement: /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl
 
@@ -84,8 +84,8 @@ entityList:
 cookieUtil:
   local: /resources/thirdparty/travi-core/js/travi/cookies.js
 
-locationUtil:
-  local: /resources/thirdparty/travi-core/js/travi/location.js
+browserProxy:
+  local: /resources/thirdparty/travi-core/js/travi/browserProxy.js
 
 carousel:
   cssDependencies:
