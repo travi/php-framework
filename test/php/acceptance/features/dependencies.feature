@@ -4,7 +4,26 @@ Feature: Front-end Dependency Management
   I need the middle-end framework to manage the dependencies carefully
 
 Scenario:
+  Given no dependencies are defined
   When page is rendered
   Then the dependencies lists should contain
     | js | css |
     |    |     |
+
+Scenario:
+  Given "framework" defined as a dependency
+  When page is rendered
+  Then the dependencies lists should contain
+    | js | css |
+    | /resources/min/thirdparty/jquery/jquery.js   |     |
+    | /resources/min/thirdparty/travi-core/js/travi.js   |     |
+    | /resources/min/thirdparty/travi-core/js/travi/dependencies/loader.js   |     |
+    | /resources/min/thirdparty/travi-core/js/travi/dependencies/checker.js  |     |
+    | /resources/min/thirdparty/amplify/amplify.core.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/events.js  |     |
+    | /resources/min/thirdparty/jsrender/jsrender.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/templates.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/cookies.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/location.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/enhancements.js  |     |
+    | /resources/min/thirdparty/travi-core/js/travi/framework.js  |     |

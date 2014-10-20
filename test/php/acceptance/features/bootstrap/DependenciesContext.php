@@ -4,6 +4,7 @@ use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use travi\framework\controller\front\FrontController;
+use travi\framework\dependencyManagement\DependencyManager;
 use travi\framework\http\Session;
 
 class DependenciesContext extends BehatContext
@@ -12,17 +13,27 @@ class DependenciesContext extends BehatContext
     private $container;
     /** @var  FrontController */
     private $frontController;
+    /** @var  DependencyManager */
+    private $dependencyManager;
 
     /**
      * @BeforeScenario
      */
     public function initializeApplication()
     {
+        if (!defined('SITE_ROOT')) {
+            define('SITE_ROOT', __DIR__ . '/../../../../../php/framework/test/php/mockProject/');
+        }
+
         $_SERVER['HTTP_HOST'] = '';
 
         $this->container = Pd_Container::get();
 
         $containerDependencies = $this->container->dependencies();
+
+        $uiDeps = Spyc::YAMLLoad(__DIR__ . '/../../../../../config/uiDependencies.yaml');
+        $containerDependencies->set('uiDeps', $uiDeps);
+
         $containerDependencies->set('uri', '/');
         $containerDependencies->set('session', Pd_Make::name('SessionShunt'));
         $containerDependencies->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
@@ -37,8 +48,8 @@ class DependenciesContext extends BehatContext
         $environment = Pd_Make::name('travi\\framework\\utilities\\Environment');
         $containerDependencies->set('environment', $environment);
 
-        $dependencyManager = Pd_Make::name('travi\\framework\\dependencyManagement\\DependencyManager');
-        $containerDependencies->set('dependencyManager', $dependencyManager);
+        $this->dependencyManager = Pd_Make::name('travi\\framework\\dependencyManagement\\DependencyManager');
+        $containerDependencies->set('dependencyManager', $this->dependencyManager);
 
         $containerDependencies->set(
             'htmlRenderer',
@@ -47,6 +58,22 @@ class DependenciesContext extends BehatContext
         $containerDependencies->set('response', Pd_Make::name('travi\\framework\\http\\Response'));
 
         $this->frontController = Pd_Make::name('travi\\framework\\controller\\front\\FrontController');
+    }
+
+    /**
+     * @Given /^no dependencies are defined$/
+     */
+    public function noDependenciesAreDefined()
+    {
+
+    }
+
+    /**
+     * @Given /^"([^"]*)" defined as a dependency$/
+     */
+    public function definedAsADependency($dependency)
+    {
+        $this->dependencyManager->addJavaScript($dependency);
     }
 
     /**
