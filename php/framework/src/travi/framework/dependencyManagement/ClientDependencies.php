@@ -40,17 +40,11 @@ class ClientDependencies
 
     private function flattenDeps($deps = array(), $requirement = null)
     {
-        if (defined('JQUERY_UI_THEME')) {
-            $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = JQUERY_UI_THEME;
-        } else {
-            $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = self::DEFAULT_JQUERY_UI_THEME;
-        }
+        $this->jsNeeds['jqueryUiTheme'][self::LOCAL] = $this->determineJqueryUiTheme();
 
         foreach ($deps as $name => $dep) {
             $this->mapConfigDetails($dep, $name, $requirement);
-            if ($this->largeScreenVersionRequested() && $this->largeScreenEnhancementsDefined($dep)) {
-                $this->mapConfigDetails($dep[Request::LARGE_ENHANCEMENT], $name, $requirement);
-            }
+            $this->applyLargeScreenEnhancement($requirement, $dep, $name);
         }
     }
 
@@ -68,17 +62,8 @@ class ClientDependencies
     {
         $item = &$this->jsNeeds[$name];
 
-        if (!empty($dep[self::LOCAL])) {
-            $item[self::LOCAL] = $dep[self::LOCAL];
-        } else {
-            if (empty($dep[Request::LARGE_ENHANCEMENT])) {
-                throw new MissingLocalPathToResourceException($name);
-            }
-        }
-
-        if (isset($dep['cdn'])) {
-            $item['cdn'] = $dep['cdn'];
-        }
+        $this->setLocalVersion($dep, $name, $item);
+        $this->setCdnVersion($dep, $item);
 
         $this->addDependenciesToListForComponent($dep, $item, self::JS_DEPENDENCIES_KEY, $requirement);
         $this->addDependenciesToListForComponent($dep, $item, self::CSS_DEPENDENCIES_KEY);
@@ -136,5 +121,58 @@ class ClientDependencies
     public function setRequest($request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * @return string
+     */
+    private function determineJqueryUiTheme()
+    {
+        if (defined('JQUERY_UI_THEME')) {
+            return JQUERY_UI_THEME;
+        } else {
+            return self::DEFAULT_JQUERY_UI_THEME;
+        }
+    }
+
+    /**
+     * @param $requirement
+     * @param $dep
+     * @param $name
+     */
+    private function applyLargeScreenEnhancement($requirement, $dep, $name)
+    {
+        if ($this->largeScreenVersionRequested() && $this->largeScreenEnhancementsDefined($dep)) {
+            $this->mapConfigDetails($dep[Request::LARGE_ENHANCEMENT], $name, $requirement);
+        }
+    }
+
+    /**
+     * @param $dep
+     * @param $name
+     * @param $item
+     * @return array
+     * @throws MissingLocalPathToResourceException
+     */
+    private function setLocalVersion($dep, $name, &$item)
+    {
+        if (!empty($dep[self::LOCAL])) {
+            $item[self::LOCAL] = $dep[self::LOCAL];
+        } else {
+            if (empty($dep[Request::LARGE_ENHANCEMENT])) {
+                throw new MissingLocalPathToResourceException($name);
+            }
+        }
+    }
+
+    /**
+     * @param $dep
+     * @param $item
+     */
+    private function setCdnVersion(&$dep, &$item)
+    {
+        if (isset($dep['cdn'])) {
+            $item['cdn'] = $dep['cdn'];
+        }
     }
 }
