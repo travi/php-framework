@@ -77,6 +77,16 @@ class DependenciesContext extends BehatContext
     }
 
     /**
+     * @Given /^environment is "([^"]*)"$/
+     */
+    public function environmentIs($environment)
+    {
+        if ('local' === $environment) {
+            $_SERVER['HTTP_HOST'] = 'mock.dev';
+        }
+    }
+
+    /**
      * @When /^page is rendered$/
      */
     public function pageHasBeenRequested()
