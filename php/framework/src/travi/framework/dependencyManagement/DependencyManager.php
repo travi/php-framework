@@ -19,7 +19,8 @@ class DependencyManager
     /** @var ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array(
-        'js' => array()
+        'js' => array(),
+        'clientTemplates' => array()
     );
 
     /** @var FileSystem */
@@ -40,8 +41,6 @@ class DependencyManager
 
     public function addJavaScript($script)
     {
-        $this->lazyInitializeList('js');
-
         if (!is_array($script)) {
             $this->addScriptAndItsDependencies($script);
         }

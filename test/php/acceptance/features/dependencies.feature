@@ -7,18 +7,18 @@ Feature: Front-end Dependency Management
         Given no dependencies are defined
         When page is rendered
         Then the dependencies lists should contain
-            | js | css |
-            |    |     |
+            | js | css | templates |
+            |    |     |           |
 
     Scenario:
         Given "framework" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                        | css |
-            | /resources/min/thirdparty/jquery/jquery.js                |     |
-            | /resources/min/thirdparty/amplify/amplify.core.js         |     |
-            | /resources/min/thirdparty/jsrender/jsrender.js            |     |
-            | /resources/min/thirdparty/travi-core/js/travi-core.min.js |     |
+            | js                                                        | css | templates                                                          |
+            | /resources/min/thirdparty/jquery/jquery.js                |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/min/thirdparty/amplify/amplify.core.js         |     |                                                                    |
+            | /resources/min/thirdparty/jsrender/jsrender.js            |     |                                                                    |
+            | /resources/min/thirdparty/travi-core/js/travi-core.min.js |     |                                                                    |
 
     Scenario:
         Given environment is "local"

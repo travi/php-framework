@@ -339,6 +339,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(
             array(
                 'js' => array('/resources' . DependencyManager::MIN_DIR . '/js/some script'),
+                'clientTemplates' => array(),
                 'css' => array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet')
             ),
             $dependencies
@@ -367,6 +368,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(
             array(
                 'js' => array($script),
+                'clientTemplates' => array(),
                 'css' => array($sheet)
             ),
             $dependencies
@@ -399,6 +401,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(
             array(
                 'js' => array($script),
+                'clientTemplates' => array(),
                 'css' => array($sheet)
             ),
             $dependencies
@@ -682,5 +685,6 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEmpty(array(), $dependencies['css']);
         $this->assertEquals(array(), $dependencies['js']);
+        $this->assertEquals(array(), $dependencies['clientTemplates']);
     }
 }
