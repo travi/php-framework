@@ -25,8 +25,8 @@ Feature: Front-end Dependency Management
         And "framework" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                          | css |
-            | /resources/thirdparty/jquery/jquery.js                      |     |
-            | /resources/thirdparty/amplify/amplify.core.js               |     |
-            | /resources/thirdparty/jsrender/jsrender.js                  |     |
-            | /resources/thirdparty/travi-core/js/travi-core.min.js |     |
+            | js                                                    | css | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/amplify/amplify.core.js         |     |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js            |     |                                                                    |
+            | /resources/thirdparty/travi-core/js/travi-core.min.js |     |                                                                    |

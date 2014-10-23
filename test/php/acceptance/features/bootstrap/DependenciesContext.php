@@ -99,7 +99,7 @@ class DependenciesContext extends BehatContext
      */
     public function theDependenciesListsShouldContain(TableNode $table)
     {
-        list($css, $js) = $this->parseDependencyListsFrom($table);
+        list($css, $js, $templates) = $this->parseDependencyListsFrom($table);
 
         /** @var Smarty $smarty */
         $smarty = $this->container->dependencies()->get('Smarty');
@@ -108,6 +108,7 @@ class DependenciesContext extends BehatContext
 
         assertEquals($css, $dependencies['css']);
         assertEquals($js, $dependencies['js']);
+        assertEquals($templates, array_values($dependencies['clientTemplates']));
     }
 
     /**
@@ -130,13 +131,15 @@ class DependenciesContext extends BehatContext
         $hash = $table->getHash();
         $css = array();
         $js = array();
+        $templates = array();
 
         foreach ($hash as $row) {
             $this->addEntryTo($css, $row['css']);
             $this->addEntryTo($js, $row['js']);
+            $this->addEntryTo($templates, $row['templates']);
         }
 
-        return array($css, $js);
+        return array($css, $js, $templates);
     }
 }
 
