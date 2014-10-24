@@ -1,6 +1,6 @@
 #=======Framework Components=======
 framework:
-  local: /resources/thirdparty/travi-core/js/travi-core.min.js
+  local: /resources/thirdparty/travi-core/dist/travi-core.min.js
   jsDependencies:
     - jquery
     - amplify
