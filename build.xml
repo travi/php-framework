@@ -79,7 +79,6 @@
         <mkdir dir="${build.logs}/behat"/>
         <exec checkreturn="true"
               passthru="true"
-              error=""
               command="vendor/bin/behat -f pretty,junit --tags ~@wip --out ,${build.logs}/behat"/>
     </target>
 </project>
