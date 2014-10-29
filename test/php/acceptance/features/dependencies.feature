@@ -14,19 +14,32 @@ Feature: Front-end Dependency Management
         Given "framework" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                        | css | templates                                                          |
-            | /resources/min/thirdparty/jquery/jquery.js                |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/min/thirdparty/amplify/amplify.core.js         |     |                                                                    |
-            | /resources/min/thirdparty/jsrender/jsrender.js            |     |                                                                    |
-            | /resources/min/thirdparty/travi-core/js/travi-core.min.js |     |                                                                    |
+            | js                                                          | css | templates                                                          |
+            | /resources/min/thirdparty/jquery/jquery.js                  |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/min/thirdparty/amplify/amplify.core.js           |     |                                                                    |
+            | /resources/min/thirdparty/jsrender/jsrender.js              |     |                                                                    |
+            | /resources/min/thirdparty/travi-core/dist/travi-core.min.js |     |                                                                    |
 
     Scenario:
         Given environment is "local"
         And "framework" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                    | css | templates                                                          |
-            | /resources/thirdparty/jquery/jquery.js                |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/thirdparty/amplify/amplify.core.js         |     |                                                                    |
-            | /resources/thirdparty/jsrender/jsrender.js            |     |                                                                    |
-            | /resources/thirdparty/travi-core/js/travi-core.min.js |     |                                                                    |
+            | js                                                      | css | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                  |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/amplify/amplify.core.js           |     |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js              |     |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js |     |                                                                    |
+
+    Scenario:
+        Given environment is "local"
+        And "dialog" defined as a dependency
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                         | css | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                     |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/amplify/amplify.core.js              |     |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                 |     |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js    |     |                                                                    |
+            | /resources/thirdparty/travi-ui/js/form/validationMapper.js |     |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/dialog.min.js          |     |                                                                    |

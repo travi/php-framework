@@ -15,12 +15,10 @@ pagination:
     - dependencyChecker
 
 dialog:
-  local: /resources/thirdparty/travi-ui/js/dialog/conventions.js
+  local: /resources/thirdparty/travi-ui/dist/dialog.min.js
   jsDependencies:
-    - /resources/thirdparty/travi-ui/js/dialog/events.js
-    - /resources/thirdparty/travi-ui/js/dialog/core.js
+    - framework
     - /resources/thirdparty/travi-ui/js/form/validationMapper.js
-    - /resources/thirdparty/travi-ui/js/dialog/form.js
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
