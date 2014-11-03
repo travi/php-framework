@@ -11,21 +11,20 @@ framework:
 pagination:
   local: /resources/thirdparty/travi-ui/js/pagination.js
   jsDependencies:
-    - events
-    - dependencyChecker
+    - framework
 
 dialog:
   local: /resources/thirdparty/travi-ui/dist/dialog.min.js
   jsDependencies:
     - framework
+    - jqueryUi
     - /resources/thirdparty/travi-ui/js/form/validationMapper.js
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js
   jsDependencies:
-    - jqueryUi
-    - ajaxForm
     - framework
+    - ajaxForm
     - pagination
   cssDependencies:
     - /resources/thirdparty/travi-styles/css/travi-entities.css
@@ -39,9 +38,6 @@ entityList:
       - datePicker
       - buttons
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
-      - /resources/thirdparty/travi-ui/js/dialog/richText.js
-      - /resources/thirdparty/travi-ui/js/dialog/date.js
-      - /resources/thirdparty/travi-ui/js/dialog/buttons.js
     cssDependencies:
       - /resources/thirdparty/travi-styles/css/travi-form.css
 

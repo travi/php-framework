@@ -106,8 +106,8 @@ class DependenciesContext extends BehatContext
 
         $dependencies = $smarty->getVariable('dependencies')->value;
 
-        assertEquals($css, $dependencies['css']);
         assertEquals($js, $dependencies['js']);
+        assertEquals($css, $dependencies['css']);
         assertEquals($templates, array_values($dependencies['clientTemplates']));
     }
 
