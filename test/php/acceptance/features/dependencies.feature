@@ -33,7 +33,7 @@ Feature: Front-end Dependency Management
 
     Scenario:
         Given environment is "local"
-#        And device has a "small" screen size
+        And device has a "small" screen size
         And "dialog" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
@@ -48,7 +48,7 @@ Feature: Front-end Dependency Management
 
     Scenario:
         Given environment is "local"
-#        And device has a "small" screen size
+        And device has a "small" screen size
         And "entityList" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
