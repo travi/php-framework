@@ -18,7 +18,7 @@ dialog:
   jsDependencies:
     - framework
     - jqueryUi
-    - /resources/thirdparty/travi-ui/js/form/validationMapper.js
+    - /resources/thirdparty/travi-ui/dist/form.min.js
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList.js

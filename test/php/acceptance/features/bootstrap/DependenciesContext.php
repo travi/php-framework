@@ -61,19 +61,19 @@ class DependenciesContext extends BehatContext
     }
 
     /**
+     * @AfterScenario
+     */
+    public function unsetScreenSizeCookie()
+    {
+        $_COOKIE = array();
+    }
+
+    /**
      * @Given /^no dependencies are defined$/
      */
     public function noDependenciesAreDefined()
     {
 
-    }
-
-    /**
-     * @Given /^"([^"]*)" defined as a dependency$/
-     */
-    public function definedAsADependency($dependency)
-    {
-        $this->dependencyManager->addJavaScript($dependency);
     }
 
     /**
@@ -84,6 +84,26 @@ class DependenciesContext extends BehatContext
         if ('local' === $environment) {
             $_SERVER['HTTP_HOST'] = 'mock.dev';
         }
+    }
+
+    /**
+     * @Given /^device has a "([^"]*)" screen size$/
+     */
+    public function deviceHasAScreenSize($screenSize)
+    {
+        if ("small" === $screenSize) {
+            $_COOKIE['ev'] = 'm';
+        } elseif ("large" === $screenSize) {
+            $_COOKIE['ev'] = 'l';
+        }
+    }
+
+    /**
+     * @Given /^"([^"]*)" defined as a dependency$/
+     */
+    public function definedAsADependency($dependency)
+    {
+        $this->dependencyManager->addJavaScript($dependency);
     }
 
     /**
