@@ -5,10 +5,13 @@ use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use travi\framework\controller\front\FrontController;
 use travi\framework\dependencyManagement\DependencyManager;
+use travi\framework\http\Request;
 use travi\framework\http\Session;
 
 class DependenciesContext extends BehatContext
 {
+    /** @var  Request */
+    private $request;
     /** @var  Pd_Container */
     private $container;
     /** @var  FrontController */
@@ -36,7 +39,8 @@ class DependenciesContext extends BehatContext
 
         $containerDependencies->set('uri', '/');
         $containerDependencies->set('session', Pd_Make::name('SessionShunt'));
-        $containerDependencies->set('request', Pd_Make::name('travi\\framework\\http\\Request'));
+        $this->request = Pd_Make::name('travi\\framework\\http\\Request');
+        $containerDependencies->set('request', $this->request);
 
         /** @var Smarty $smarty */
         $smarty = Pd_Make::name('SmartyShunt');
@@ -66,6 +70,7 @@ class DependenciesContext extends BehatContext
     public function unsetScreenSizeCookie()
     {
         $_COOKIE = array();
+        $this->request->setEnhancementVersion(Request::BASE_ENHANCEMENT);
     }
 
     /**
@@ -93,8 +98,10 @@ class DependenciesContext extends BehatContext
     {
         if ("small" === $screenSize) {
             $_COOKIE['ev'] = 'm';
+            $this->request->setEnhancementVersion(Request::SMALL_COOKIE_VALUE);
         } elseif ("large" === $screenSize) {
             $_COOKIE['ev'] = 'l';
+            $this->request->setEnhancementVersion(Request::LARGE_COOKIE_VALUE);
         }
     }
 
