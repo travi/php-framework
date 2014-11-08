@@ -21,7 +21,7 @@ dialog:
     - /resources/thirdparty/travi-ui/dist/form.min.js
 
 entityList:
-  local: /resources/thirdparty/travi-ui/js/entityList.js
+  local: /resources/thirdparty/travi-ui/js/entityList/pagination.js
   jsDependencies:
     - framework
     - ajaxForm
