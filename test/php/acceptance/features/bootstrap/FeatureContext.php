@@ -43,9 +43,13 @@ class FeatureContext extends BehatContext
      */
     public function theFileNewfileJsExistsInHomeTraviSandboxResourcesTraviOrgOptimizedJs($fileName, $directory)
     {
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+        touch($directory . $fileName);
+
         $this->fileName = $fileName;
         $this->directory = $directory;
-        echo "this was done manually";
     }
 
     /**
