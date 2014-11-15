@@ -21,6 +21,10 @@ use travi\framework\utilities\FileSystem;
  */
 class FeatureContext extends BehatContext
 {
+    private $fileName;
+    private $directory;
+    private $fileContents;
+
     /**
      * Initializes context.
      * Every scenario gets it's own context object.
@@ -40,6 +44,8 @@ class FeatureContext extends BehatContext
 
     /**
      * @Given /^the file "([^"]*)" exists in "([^"]*)"$/
+     * @param $fileName
+     * @param $directory
      */
     public function theFileNewfileJsExistsInHomeTraviSandboxResourcesTraviOrgOptimizedJs($fileName, $directory)
     {
@@ -63,6 +69,7 @@ class FeatureContext extends BehatContext
 
     /**
      * @Then /^the framework should receive the following string: "([^"]*)"$/
+     * @param $fileContents
      */
     public function theFrameworkShouldReceiveTheFollowingStringSomeText($fileContents)
     {
