@@ -1,10 +1,4 @@
-build/coverage/*
-build/logs/*
-build/site/*
-build/dist/*
 vendor/*
-node_modules/*
 **/bower_components/*
-client/css/*
 .idea/*
 logs/*
