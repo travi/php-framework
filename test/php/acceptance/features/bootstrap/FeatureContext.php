@@ -14,17 +14,11 @@ require_once __DIR__ . '/../../../../../vendor/autoload.php';
 require_once __DIR__ . '/../../../../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
 require_once __DIR__ . '/../../../../../vendor/phpunit/phpunit/src/Framework/Assert.php';
 
-use travi\framework\utilities\FileSystem;
-
 /**
  * Features context.
  */
 class FeatureContext extends BehatContext
 {
-    private $fileName;
-    private $directory;
-    private $fileContents;
-
     /**
      * Initializes context.
      * Every scenario gets it's own context object.
@@ -40,39 +34,6 @@ class FeatureContext extends BehatContext
 
         $this->useContext('authentication', new FormContext());
         $this->useContext('dependencies', new DependenciesContext());
-    }
-
-    /**
-     * @Given /^the file "([^"]*)" exists in "([^"]*)"$/
-     * @param $fileName
-     * @param $directory
-     */
-    public function theFileNewfileJsExistsInHomeTraviSandboxResourcesTraviOrgOptimizedJs($fileName, $directory)
-    {
-        if (!file_exists($directory)) {
-            mkdir($directory, 0777, true);
-        }
-        touch($directory . $fileName);
-
-        $this->fileName = $fileName;
-        $this->directory = $directory;
-    }
-
-    /**
-     * @When /^the framework requests the the contents of the file$/
-     */
-    public function theFrameworkRequestsTheTheContentsOfTheFile()
-    {
-        $fileSystem = new FileSystem();
-        $this->fileContents = $fileSystem->readFile($this->fileName, $this->directory);
-    }
-
-    /**
-     * @Then /^the framework should receive the following string: "([^"]*)"$/
-     * @param $fileContents
-     */
-    public function theFrameworkShouldReceiveTheFollowingStringSomeText($fileContents)
-    {
-        assertEquals($fileContents, trim($this->fileContents));
+        $this->useContext('files', new FilesContext());
     }
 }
