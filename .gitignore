@@ -2,3 +2,4 @@ vendor/*
 **/bower_components/*
 .idea/*
 logs/*
+php/framework/test/php/mockProject/doc_root/resources/
