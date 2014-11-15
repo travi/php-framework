@@ -1,9 +1,6 @@
 {
   "name": "mock-project-for-testing",
   "devDependencies": {
-    "travi-framework": "~0.7.1"
-  },
-  "dependencies": {
-    "travi-framework": "~0.7.1"
+    "travi-framework": "0.8.0"
   }
 }
