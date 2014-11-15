@@ -7,6 +7,7 @@ use travi\framework\controller\front\FrontController;
 use travi\framework\dependencyManagement\DependencyManager;
 use travi\framework\http\Request;
 use travi\framework\http\Session;
+use travi\framework\utilities\FileSystem;
 
 class DependenciesContext extends BehatContext
 {
@@ -46,7 +47,9 @@ class DependenciesContext extends BehatContext
         $smarty = Pd_Make::name('SmartyShunt');
         $containerDependencies->set('Smarty', $smarty);
 
+        /** @var FileSystem $fileSystem */
         $fileSystem = Pd_Make::name('travi\\framework\\utilities\\FileSystem');
+        $fileSystem->setSitePath(SITE_ROOT);
         $containerDependencies->set('fileSystem', $fileSystem);
 
         $environment = Pd_Make::name('travi\\framework\\utilities\\Environment');

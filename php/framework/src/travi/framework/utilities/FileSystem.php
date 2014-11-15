@@ -10,8 +10,8 @@ class FileSystem
 {
     const PATH_TO_STYLE_SHEETS        = '/resources/css/';
     const PATH_TO_SHARED_STYLE_SHEETS = '/resources/thirdparty/travi-styles/css/';
-    const PATH_TO_SHARED              = '/resources/thirdparty/';
-    const PATH_TO_SHARED_THIRDPARTY   = '/resources/shared/thirdparty/';
+    const PATH_TO_THIRDPARTY          = '/resources/thirdparty/';
+    const PATH_TO_SHARED              = '/resources/shared/thirdparty/';
     const PAGE_STYLE_SHEET_DIR        = 'pages/';
     const CSS_EXT                     = '.css';
 
@@ -39,16 +39,11 @@ class FileSystem
 
     public function styleSheetExists($sheet)
     {
-        if (strstr($sheet, self::PATH_TO_STYLE_SHEETS)) {
-            $pathToSheet = $this->sitePath . '/doc_root' . $sheet;
-        } elseif (strstr($sheet, self::PATH_TO_SHARED)) {
-            $pathToSheet = $this->sitePath . '/doc_root/resources' . substr($sheet, strlen('/resources'));
-        } elseif (strstr($sheet, '//')) {
+        if ($this->isExternalStylesheet($sheet)) {
             return false;
-        } else {
-            $pathToSheet = $this->sitePath . '/doc_root' . self::PATH_TO_STYLE_SHEETS . $sheet;
         }
-        return $this->fileExists($pathToSheet);
+
+        return $this->fileExists($this->resolveStylesheetPath($sheet));
     }
 
     /**
@@ -154,5 +149,49 @@ class FileSystem
     public function setRequest($request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * @param $sheet
+     * @return string
+     */
+    private function isLocalStylesheet($sheet)
+    {
+        return strstr($sheet, self::PATH_TO_STYLE_SHEETS);
+    }
+
+    /**
+     * @param $sheet
+     * @return string
+     */
+    private function isThirdPartyStylesheet($sheet)
+    {
+        return strstr($sheet, self::PATH_TO_THIRDPARTY);
+    }
+
+    /**
+     * @param $sheet
+     * @return string
+     */
+    private function isExternalStylesheet($sheet)
+    {
+        return strstr($sheet, '//');
+    }
+
+    /**
+     * @param $sheet
+     * @return string
+     */
+    private function resolveStylesheetPath($sheet)
+    {
+        $docRootConvention = '/doc_root';
+
+        if ($this->isLocalStylesheet($sheet)) {
+            return $this->sitePath . $docRootConvention . $sheet;
+        } elseif ($this->isThirdPartyStylesheet($sheet)) {
+            return $this->sitePath . $docRootConvention . '/resources' . substr($sheet, strlen('/resources'));
+        } else {
+            return $this->sitePath . $docRootConvention . self::PATH_TO_STYLE_SHEETS . $sheet;
+        }
     }
 }

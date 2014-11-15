@@ -33,18 +33,37 @@ Feature: Front-end Dependency Management
 
     Scenario:
         Given environment is "local"
-        And device has a "small" screen size
+        And "form" defined as a dependency
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                                                | css                                                   | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | /resources/thirdparty/travi-styles/css/travi-form.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                       |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                       |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                       |                                                                    |
+            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                       |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                       |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                       |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                       |                                                                    |
+
+
+    Scenario:
+        Given environment is "local"
+        And device has a "large" screen size
         And "dialog" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                      | css                                                                                      | templates                                                          |
-            | /resources/thirdparty/jquery/jquery.js                  | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/thirdparty/amplify/amplify.core.js           |                                                                                          |                                                                    |
-            | /resources/thirdparty/jsrender/jsrender.js              |                                                                                          |                                                                    |
-            | /resources/thirdparty/travi-core/dist/travi-core.min.js |                                                                                          |                                                                    |
-            | /resources/thirdparty/jquery-ui/jquery-ui.js            |                                                                                          |                                                                    |
-            | /resources/thirdparty/travi-ui/dist/form.min.js         |                                                                                          |                                                                    |
-            | /resources/thirdparty/travi-ui/dist/dialog.min.js       |                                                                                          |                                                                    |
+            | js                                                                                | css                                                                                      | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/amplify/amplify.core.js                                     | /resources/thirdparty/travi-styles/css/travi-form.css                                    |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/dialog.min.js                                 |                                                                                          |                                                                    |
 
     Scenario:
         Given environment is "local"
@@ -69,15 +88,15 @@ Feature: Front-end Dependency Management
         Then the dependencies lists should contain
             | js                                                                                | css                                                                                      | templates                                                          |
             | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                                                          | /resources/thirdparty/travi-core/templates/entity-item.tmpl        |
+            | /resources/thirdparty/amplify/amplify.core.js                                     | /resources/thirdparty/travi-styles/css/travi-form.css                                    | /resources/thirdparty/travi-core/templates/entity-item.tmpl        |
             | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
             | /resources/thirdparty/jquery-form/jquery.form.js                                  |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/js/pagination.js                                   |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      |                                                                                          |                                                                    |
             | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
             | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
             | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
-            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/dist/dialog.min.js                                 |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/js/entityList/updates.js                           |                                                                                          |                                                                    |

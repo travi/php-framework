@@ -18,7 +18,7 @@ dialog:
   jsDependencies:
     - framework
     - jqueryUi
-    - /resources/thirdparty/travi-ui/dist/form.min.js
+    - form
 
 entityList:
   local: /resources/thirdparty/travi-ui/js/entityList/pagination.js
@@ -33,11 +33,8 @@ entityList:
   large:
     local: /resources/thirdparty/travi-ui/js/entityList/pagination.js
     jsDependencies:
-      - richTextArea
       - dialog
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
-    cssDependencies:
-      - /resources/thirdparty/travi-styles/css/travi-form.css
 
 carousel:
   cssDependencies:
@@ -84,6 +81,15 @@ gallery:
       - reflection
 
 #-------Form--------
+form:
+  local: /resources/thirdparty/travi-ui/dist/form.min.js
+  cssDependencies:
+    - /resources/thirdparty/travi-styles/css/travi-form.css
+  jsDependencies:
+    - wymEditor
+    - wymEditor-fullScreen
+    - framework
+
 richTextArea:
   local: /resources/thirdparty/travi-ui/js/form/richText.js
   jsDependencies:
