@@ -1,7 +1,6 @@
 {
     "name": "travi/framework",
     "description": "web framework",
-    "version": "0.13.0",
     "authors": [
         {
             "name": "Matt Travi",
