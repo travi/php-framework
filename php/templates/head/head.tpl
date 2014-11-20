@@ -16,17 +16,8 @@
 {foreach item=link from=$page->getLinkTags()}
         <link   {if !empty($link['type'])}type="{$link['type']}" {/if}rel="{$link['rel']}"{if !empty($link['title'])} title="{$link['title']}"{/if} href="{$link['link']}" />
 {/foreach}
-{foreach item=style from=$dependencies['css']}
-        <link   type="text/css" rel="stylesheet" media="screen" href="{$style}" />
-{/foreach}
-        <script type="text/javascript" src="/resources/{if $page->isProduction()}min/{/if}thirdparty/travi-core/thirdparty/modernizr.js"> </script>
-        <script type="text/javascript" src="/resources/thirdparty/travi-styles/icons/grunticon.loader.js"> </script>
-        <script>
-            grunticon([
-                "/resources/thirdparty/travi-styles/icons/icons.data.svg.css",
-                "/resources/thirdparty/travi-styles/icons/icons.data.png.css",
-                "/resources/thirdparty/travi-styles/icons/icons.fallback.css"
-            ]);
-        </script>
-        <noscript><link href="/resources/thirdparty/travi-styles/icons/icons.fallback.css" rel="stylesheet"></noscript>
+        {include file='head/cssInclude.tpl'}
+
+        {include file='head/crtical.tpl'}
+        {include file='head/grunticon.tpl'}
     </head>
