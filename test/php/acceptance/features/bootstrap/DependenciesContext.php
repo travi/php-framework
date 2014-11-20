@@ -131,15 +131,32 @@ class DependenciesContext extends BehatContext
     {
         list($css, $js, $templates) = $this->parseDependencyListsFrom($table);
 
-        /** @var Smarty $smarty */
-        $smarty = $this->container->dependencies()->get('Smarty');
-
-        $dependencies = $smarty->getVariable('dependencies')->value;
+        $dependencies = $this->getActualDependencies();
 
         assertEquals($js, $dependencies['js']);
         assertEquals($css, $dependencies['css']);
         assertEquals($templates, array_values($dependencies['clientTemplates']));
     }
+
+    /**
+     * @Then /^the critical list should contain$/
+     */
+    public function theCriticalListShouldContain(TableNode $table)
+    {
+
+        $hash = $table->getHash();
+        $criticalJs = array();
+
+        foreach ($hash as $row) {
+            $this->addEntryTo($criticalJs, $row['js']);
+        }
+
+        $dependencies = $this->getActualDependencies();
+
+        assertEquals($criticalJs, $dependencies['criticalJs']);
+    }
+
+
 
     /**
      * @param $list
@@ -170,6 +187,18 @@ class DependenciesContext extends BehatContext
         }
 
         return array($css, $js, $templates);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getActualDependencies()
+    {
+        /** @var Smarty $smarty */
+        $smarty = $this->container->dependencies()->get('Smarty');
+
+        $dependencies = $smarty->getVariable('dependencies')->value;
+        return $dependencies;
     }
 }
 

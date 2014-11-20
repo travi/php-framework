@@ -101,3 +101,19 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-ui/dist/dialog.min.js                                 |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/js/entityList/updates.js                           |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/js/entityList/pagination.js                        |                                                                                          |                                                                    |
+
+    @wip
+    Scenario: Initial site visit
+        Given environment is "local"
+        When page is rendered
+        Then the critical list should contain
+            | js |
+            | /resources/thirdparty/travi-core/thirdparty/modernizr.js |
+
+    @wip
+    Scenario: Initial site visit
+        Given environment is "production"
+        When page is rendered
+        Then the critical list should contain
+            | js |
+            | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js |
