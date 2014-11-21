@@ -351,6 +351,8 @@ class DependencyManager
     {
         $dependencies = $this->getDependencies();
 
+        $dependencies['criticalJs'] = array();
+
         if ($this->shouldUseBuiltVersion()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');

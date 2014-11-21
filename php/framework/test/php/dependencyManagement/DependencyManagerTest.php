@@ -335,15 +335,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->dependencyManager->addJavaScript($script);
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
-        $this->assertNotNull($dependencies);
-        $this->assertSame(
-            array(
-                'js' => array('/resources' . DependencyManager::MIN_DIR . '/js/some script'),
-                'clientTemplates' => array(),
-                'css' => array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet')
-            ),
-            $dependencies
-        );
+        $this->assertEquals($dependencies['js'], array('/resources' . DependencyManager::MIN_DIR . '/js/some script'));
+        $this->assertEquals($dependencies['css'], array('/resources' . DependencyManager::MIN_DIR . '/css/some sheet'));
     }
 
     public function testReturnsFullSourceFormOfJsAndCssWhenLocal()
@@ -364,15 +357,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->dependencyManager->addJavaScript($script);
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
-        $this->assertNotNull($dependencies);
-        $this->assertSame(
-            array(
-                'js' => array($script),
-                'clientTemplates' => array(),
-                'css' => array($sheet)
-            ),
-            $dependencies
-        );
+        $this->assertEquals($dependencies['js'], array($script));
+        $this->assertEquals($dependencies['css'], array($sheet));
     }
 
     public function testReturnsFullSourceFormOfJsAndCssWhenDebug()
@@ -397,15 +383,8 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->dependencyManager->addJavaScript($script);
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
-        $this->assertNotNull($dependencies);
-        $this->assertSame(
-            array(
-                'js' => array($script),
-                'clientTemplates' => array(),
-                'css' => array($sheet)
-            ),
-            $dependencies
-        );
+        $this->assertEquals($dependencies['js'], array($script));
+        $this->assertEquals($dependencies['css'], array($sheet));
     }
 
     public function testJsInitSpecificToEnhancementVersionWhenIfDefinedInConfig()
@@ -686,5 +665,12 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty(array(), $dependencies['css']);
         $this->assertEquals(array(), $dependencies['js']);
         $this->assertEquals(array(), $dependencies['clientTemplates']);
+    }
+
+    public function testThatCriticalJsListIncludesModernizr()
+    {
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertEquals(array(), $dependencies['criticalJs']);
     }
 }
