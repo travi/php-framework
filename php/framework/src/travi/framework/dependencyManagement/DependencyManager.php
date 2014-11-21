@@ -351,11 +351,12 @@ class DependencyManager
     {
         $dependencies = $this->getDependencies();
 
-        $dependencies['criticalJs'] = array();
+        $dependencies['criticalJs'] = array('/resources/thirdparty/travi-core/thirdparty/modernizr.js');
 
         if ($this->shouldUseBuiltVersion()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');
+            $dependencies = $this->minify($dependencies, 'criticalJs');
         }
 
         return $dependencies;

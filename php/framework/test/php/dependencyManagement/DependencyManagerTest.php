@@ -669,8 +669,29 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testThatCriticalJsListIncludesModernizr()
     {
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(true));
+
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
-        $this->assertEquals(array(), $dependencies['criticalJs']);
+        $this->assertEquals(
+            array('/resources/thirdparty/travi-core/thirdparty/modernizr.js'),
+            $dependencies['criticalJs']
+        );
+    }
+
+    public function testThatCriticalJsListGetsMinifiedInProdEnvironment()
+    {
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(false));
+
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertEquals(
+            array('/resources/min/thirdparty/travi-core/thirdparty/modernizr.js'),
+            $dependencies['criticalJs']
+        );
     }
 }
