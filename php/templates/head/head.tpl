@@ -18,6 +18,6 @@
 {/foreach}
         {include file='head/cssInclude.tpl'}
 
-        {include file='head/crtical.tpl'}
+        {include file='head/critical.tpl'}
         {include file='head/grunticon.tpl'}
     </head>
