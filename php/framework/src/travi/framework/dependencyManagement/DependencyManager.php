@@ -353,6 +353,10 @@ class DependencyManager
 
         $dependencies['criticalJs'] = array('/resources/thirdparty/travi-core/thirdparty/modernizr.js');
 
+        if ($this->request->getEnhancementVersion() === Request::BASE_ENHANCEMENT) {
+            array_push($dependencies['criticalJs'], '/resources/thirdparty/travi-core/dist/travi-critical.min.js');
+        }
+
         if ($this->shouldUseBuiltVersion()) {
             $dependencies = $this->minify($dependencies, 'css');
             $dependencies = $this->minify($dependencies, 'js');

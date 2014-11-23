@@ -103,17 +103,28 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-ui/js/entityList/pagination.js                        |                                                                                          |                                                                    |
 
     @wip
-    Scenario: Initial site visit
+    Scenario: critical-js on initial site visit
         Given environment is "local"
         When page is rendered
         Then the critical list should contain
-            | js |
+            | js                                                          |
+            | /resources/thirdparty/travi-core/thirdparty/modernizr.js    |
+            | /resources/thirdparty/travi-core/dist/travi-critical.min.js |
+
+    @wip
+    Scenario: critical-js after initial page
+        Given environment is "local"
+        And device has a "large" screen size
+        When page is rendered
+        Then the critical list should contain
+            | js                                                       |
             | /resources/thirdparty/travi-core/thirdparty/modernizr.js |
 
     @wip
-    Scenario: Initial site visit
+    Scenario: critical-js on production
         Given environment is "production"
         When page is rendered
         Then the critical list should contain
-            | js |
+            | js                                                           |
             | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js |
+            | /resources/min/thirdparty/travi-core/dist/travi-critical.min.js |

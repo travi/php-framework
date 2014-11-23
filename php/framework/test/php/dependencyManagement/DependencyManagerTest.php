@@ -672,6 +672,9 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->environmentUtility->expects($this->once())
             ->method('isLocal')
             ->will($this->returnValue(true));
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::LARGE_ENHANCEMENT));
 
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
@@ -681,8 +684,31 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testThatCriticalJsIncludesFeatureDetectionWhenVersionNotKnown()
+    {
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(true));
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::BASE_ENHANCEMENT));
+
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertEquals(
+            array(
+                '/resources/thirdparty/travi-core/thirdparty/modernizr.js',
+                '/resources/thirdparty/travi-core/dist/travi-critical.min.js'
+            ),
+            $dependencies['criticalJs']
+        );
+    }
+
     public function testThatCriticalJsListGetsMinifiedInProdEnvironment()
     {
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::BASE_ENHANCEMENT));
         $this->environmentUtility->expects($this->once())
             ->method('isLocal')
             ->will($this->returnValue(false));
@@ -690,7 +716,10 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
         $this->assertEquals(
-            array('/resources/min/thirdparty/travi-core/thirdparty/modernizr.js'),
+            array(
+                '/resources/min/thirdparty/travi-core/thirdparty/modernizr.js',
+                '/resources/min/thirdparty/travi-core/dist/travi-critical.min.js'
+            ),
             $dependencies['criticalJs']
         );
     }
