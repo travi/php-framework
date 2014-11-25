@@ -56,7 +56,6 @@ thumbnails:
     - /resources/css/pages/gallery/thumbnails.css
   jsDependencies:
     - framework
-    - template
   clientTemplates:
     thumbnail: /resources/templates/thumbnail.tmpl
 
@@ -64,7 +63,6 @@ videoPlayer:
   local: /resources/js/video/player.js
   jsDependencies:
     - http://cdn.sublimevideo.net/js/ws9xvgbm.js
-    - template
   clientTemplates:
     videoStage: /resources/templates/videoStage.tmpl
 
