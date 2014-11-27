@@ -660,11 +660,12 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
     public function testThatEmptyListsReturnedIfNoDependenciesToList()
     {
-        $dependencies = $this->dependencyManager->getDependencies();
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
 
         $this->assertEmpty(array(), $dependencies['css']);
         $this->assertEquals(array(), $dependencies['js']);
         $this->assertEquals(array(), $dependencies['clientTemplates']);
+        $this->assertEquals(array(), $dependencies['validations']);
     }
 
     public function testThatCriticalJsListIncludesModernizr()

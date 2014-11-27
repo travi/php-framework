@@ -90,6 +90,7 @@ class DependencyManager
 
     public function getDependencies()
     {
+        $this->lazyInitializeList('validations');
         $this->sortStyleSheets();
 
         return $this->requirementLists;
