@@ -19,8 +19,11 @@ class DependencyManager
     /** @var ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array(
+        'css' => array(),
         'js' => array(),
-        'clientTemplates' => array()
+        'clientTemplates' => array(),
+        'validations' => array(),
+        'jsInit' => array()
     );
 
     /** @var FileSystem */
@@ -48,8 +51,6 @@ class DependencyManager
 
     public function addStyleSheet($sheet, $index = "")
     {
-        $this->lazyInitializeList('css');
-
         $sheet = $this->resolveFileUri($sheet);
 
         if ($this->addingThisStylesheetShouldAdjustExistingList($sheet, $index)) {
@@ -59,8 +60,6 @@ class DependencyManager
 
     public function addClientTemplate($name, $template)
     {
-        $this->lazyInitializeList('clientTemplates');
-
         if (!in_array($name, $this->requirementLists['clientTemplates'])) {
             $this->requirementLists['clientTemplates'][$name] = $template;
         }
@@ -68,16 +67,12 @@ class DependencyManager
 
     public function addJsInit($init)
     {
-        $this->lazyInitializeList('jsInit');
-
         array_push($this->requirementLists['jsInit'], $init);
     }
 
     public function addValidations($list, $form)
     {
         $validations = array();
-
-        $this->lazyInitializeList('validations');
 
         foreach ($list as $field => $rules) {
             if (!empty($rules)) {
@@ -90,8 +85,7 @@ class DependencyManager
 
     public function getDependencies()
     {
-        $this->lazyInitializeList('validations');
-        $this->sortStyleSheets();
+        $this->requirementLists['css'] = $this->getStyleSheets();
 
         return $this->requirementLists;
     }
@@ -118,9 +112,7 @@ class DependencyManager
 
     public function getStyleSheets()
     {
-        $this->sortStyleSheets();
-
-        return $this->requirementLists['css'];
+        return $this->sortStyleSheets();
     }
 
     public function addDependencies($dependencies = array(), $component = null)
@@ -203,9 +195,11 @@ class DependencyManager
 
     private function sortStyleSheets()
     {
-        $this->lazyInitializeList('css');
+        $css = $this->requirementLists['css'];
 
-        uksort($this->requirementLists['css'], 'strnatcasecmp');
+        uksort($css, 'strnatcasecmp');
+
+        return $css;
     }
 
     private function addCacheBusterIfFileExists($dependency, $key, $index)
@@ -238,13 +232,6 @@ class DependencyManager
     private function isLocalFile($dependency)
     {
         return strpos($dependency, self::RESOURCES) === 0;
-    }
-
-    private function lazyInitializeList($category)
-    {
-        if (!isset($this->requirementLists[$category])) {
-            $this->requirementLists[$category] = array();
-        }
     }
 
     private function minify($dependencies, $list)
@@ -343,28 +330,19 @@ class DependencyManager
         }
     }
 
-    public function setSiteTheme($sheet)
-    {
-        $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
-    }
-
     public function getDependenciesInProperForm()
     {
         $dependencies = $this->getDependencies();
 
-        $dependencies['criticalJs'] = array('/resources/thirdparty/travi-core/thirdparty/modernizr.js');
-
-        if ($this->request->getEnhancementVersion() === Request::BASE_ENHANCEMENT) {
-            array_push($dependencies['criticalJs'], '/resources/thirdparty/travi-core/dist/travi-critical.min.js');
-        }
-
-        if ($this->shouldUseBuiltVersion()) {
-            $dependencies = $this->minify($dependencies, 'css');
-            $dependencies = $this->minify($dependencies, 'js');
-            $dependencies = $this->minify($dependencies, 'criticalJs');
-        }
+        $dependencies['criticalJs'] = $this->populateCriticalJs();
+        $dependencies = $this->minifyAll($dependencies);
 
         return $dependencies;
+    }
+
+    public function setSiteTheme($sheet)
+    {
+        $this->addStyleSheet($sheet, self::SITE_THEME_KEY);
     }
 
     /**
@@ -652,5 +630,35 @@ class DependencyManager
     public function setSession($session)
     {
         $this->session = $session;
+    }
+
+    /**
+     * @return array
+     */
+    private function populateCriticalJs()
+    {
+        $criticalJs = array();
+        array_push($criticalJs, '/resources/thirdparty/travi-core/thirdparty/modernizr.js');
+
+        if ($this->request->getEnhancementVersion() === Request::BASE_ENHANCEMENT) {
+            array_push($criticalJs, '/resources/thirdparty/travi-core/dist/travi-critical.min.js');
+            return $criticalJs;
+        }
+        return $criticalJs;
+    }
+
+    /**
+     * @param $dependencies
+     * @return mixed
+     */
+    private function minifyAll($dependencies)
+    {
+        if ($this->shouldUseBuiltVersion()) {
+            $dependencies = $this->minify($dependencies, 'css');
+            $dependencies = $this->minify($dependencies, 'js');
+            $dependencies = $this->minify($dependencies, 'criticalJs');
+            return $dependencies;
+        }
+        return $dependencies;
     }
 }

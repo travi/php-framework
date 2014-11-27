@@ -664,6 +664,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEmpty(array(), $dependencies['css']);
         $this->assertEquals(array(), $dependencies['js']);
+        $this->assertEquals(array(), $dependencies['jsInit']);
         $this->assertEquals(array(), $dependencies['clientTemplates']);
         $this->assertEquals(array(), $dependencies['validations']);
     }
