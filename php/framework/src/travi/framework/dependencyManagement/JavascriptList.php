@@ -2,12 +2,10 @@
 
 namespace travi\framework\dependencyManagement;
 
-use travi\framework\utilities\Environment;
-
 class JavascriptList implements DependencyList
 {
-    /** @var  Environment */
-    private $environment;
+    /** @var  Minifier */
+    private $minifier;
 
     private $list = array();
 
@@ -15,7 +13,7 @@ class JavascriptList implements DependencyList
      * @param $dependency
      * @return void
      */
-    function add($dependency)
+    public function add($dependency)
     {
         array_push($this->list, $dependency);
     }
@@ -23,41 +21,15 @@ class JavascriptList implements DependencyList
     /**
      * @return string[]
      */
-    function get()
+    public function get()
     {
-        $this->minifyList();
+        $list = $this->minifier->minifyList($this->list);
 
-        return $this->list;
+        return $list;
     }
 
-    /**
-     * @param $environment Environment
-     */
-    public function setEnvironment($environment)
+    public function setMinifier($minifier)
     {
-        $this->environment = $environment;
-    }
-
-    private function minifyList()
-    {
-        if (!$this->environment->isLocal()) {
-            foreach ($this->list as &$dependency) {
-                $dependency = $this->minify($dependency);
-            }
-        }
-    }
-
-    /**
-     * @param $dependency
-     * @return mixed
-     */
-    private function minify($dependency)
-    {
-        return preg_replace(
-            '/\/(resources.*)\/(css|js)\//',
-            '/$1' . DependencyManager::MIN_DIR . '/$2/',
-            $dependency,
-            1
-        );
+        $this->minifier = $minifier;
     }
 }

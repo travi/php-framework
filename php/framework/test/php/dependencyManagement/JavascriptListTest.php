@@ -5,6 +5,7 @@ namespace dependencyManagement;
 use PHPUnit_Framework_TestCase;
 use travi\framework\dependencyManagement\DependencyManager;
 use travi\framework\dependencyManagement\JavascriptList;
+use travi\framework\dependencyManagement\Minifier;
 use travi\framework\utilities\Environment;
 
 class JavascriptListTest extends PHPUnit_Framework_TestCase
@@ -15,10 +16,12 @@ class JavascriptListTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->environment = $this->getMock('Environment');
+        $this->environment = $this->getMock('travi\\framework\\utilities\\Environment');
+        $minifier = new Minifier();
+        $minifier->setEnvironment($this->environment);
 
         $this->list = new JavascriptList();
-        $this->list->setEnvironment($this->environment);
+        $this->list->setMinifier($minifier);
     }
 
     public function testThatListIsEmptyIfNothingHasBeenAdded()
@@ -37,6 +40,10 @@ class JavascriptListTest extends PHPUnit_Framework_TestCase
 
     public function testThatFullSourceIsReturnedWhenLocal()
     {
+        $this->environment->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(true));
+
         $someScript = '/resources/js/some script';
 
         $this->list->add($someScript);
@@ -46,6 +53,10 @@ class JavascriptListTest extends PHPUnit_Framework_TestCase
 
     public function testThatListIsMinifiedWhenNotLocal()
     {
+        $this->environment->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(false));
+
         $this->list->add('/resources/js/some script');
 
         $this->assertEquals(
