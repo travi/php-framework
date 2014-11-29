@@ -131,50 +131,6 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @todo Implement testGetNavSection().
-     */
-    public function testGetNavSection()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testAddNavItem().
-     */
-    public function testAddNavItem()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetNav().
-     */
-    public function testGetNav()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetSiteSection().
-     */
-    public function testGetSiteSection()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
     public function testLayoutTemplate()
     {
         $template = 'template';
@@ -195,27 +151,5 @@ class AbstractResponseTest extends PHPUnit_Framework_TestCase
         $name = 'name';
         $this->response->addClientTemplate($name, $template);
         $this->assertSame(array($name => $template), $this->response->getClientTemplates());
-    }
-
-    /**
-     * @todo Implement testDisplay().
-     */
-    public function testDisplay()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testRedirect().
-     */
-    public function testRedirect()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
 }
