@@ -64,4 +64,11 @@ class JavascriptListTest extends PHPUnit_Framework_TestCase
             $this->list->get()
         );
     }
+
+    public function testThatEmptyStringIsNotAdded()
+    {
+        $this->list->add('');
+
+        $this->assertEmpty($this->list->get());
+    }
 }

@@ -15,7 +15,9 @@ class JavascriptList implements DependencyList
      */
     public function add($dependency)
     {
-        array_push($this->list, $dependency);
+        if ($this->shouldBeAdded($dependency)) {
+            array_push($this->list, $dependency);
+        }
     }
 
     /**
@@ -26,6 +28,15 @@ class JavascriptList implements DependencyList
         $list = $this->minifier->minifyList($this->list);
 
         return $list;
+    }
+
+    /**
+     * @param $dependency
+     * @return bool
+     */
+    private function shouldBeAdded($dependency)
+    {
+        return '' !== $dependency;
     }
 
     public function setMinifier($minifier)
