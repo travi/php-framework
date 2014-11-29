@@ -9,10 +9,10 @@ interface DependencyList
      * @param $dependency
      * @return void
      */
-    function add($dependency);
+    public function add($dependency);
 
     /**
      * @return string[]
      */
-    function get();
+    public function get();
 }
