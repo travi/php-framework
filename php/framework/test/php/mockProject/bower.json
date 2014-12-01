@@ -1,7 +1,7 @@
 {
   "name": "mock-project-for-testing",
   "devDependencies": {
-    "travi-framework": "0.9.1"
+    "travi-framework": "0.9.2"
   },
   "resolutions": {
     "jquery": "1.11.x"

@@ -4,7 +4,13 @@ php:
   - 5.4
   - 5.5
 
-install: composer install
+before_install:
+  - npm install -g bower
+  - npm install -g grunt-cli
+
+install:
+  - composer install
+  - sh php/framework/test/php/mockProject/install-dependencies.sh
 
 script: vendor/bin/phing
 
