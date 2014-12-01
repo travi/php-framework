@@ -198,6 +198,24 @@ class DependenciesContext extends BehatContext
         $smarty = $this->container->dependencies()->get('Smarty');
 
         $dependencies = $smarty->getVariable('dependencies')->value;
+
+        return $this->stripCacheBusters($dependencies);
+    }
+
+    /**
+     * @param $dependencies
+     * @internal param $dependency
+     * @return string
+     */
+    private function stripCacheBusters($dependencies)
+    {
+        foreach ($dependencies['js'] as &$dependency) {
+            $cacheBusterPosition = strpos($dependency, '?');
+            if (false !== $cacheBusterPosition) {
+                $dependency = substr($dependency, 0, $cacheBusterPosition);
+            }
+        }
+
         return $dependencies;
     }
 }
