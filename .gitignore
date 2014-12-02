@@ -1,6 +1,7 @@
 vendor/*
 **/bower_components/*
-php/framework/test/php/mockProject/node_modules/
 .idea/*
 logs/*
+php/framework/test/php/mockProject/node_modules/
 php/framework/test/php/mockProject/doc_root/resources/
+php/framework/test/php/mockProject/.sass-cache

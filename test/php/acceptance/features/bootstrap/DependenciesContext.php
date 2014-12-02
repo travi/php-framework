@@ -209,10 +209,14 @@ class DependenciesContext extends BehatContext
      */
     private function stripCacheBusters($dependencies)
     {
-        foreach ($dependencies['js'] as &$dependency) {
-            $cacheBusterPosition = strpos($dependency, '?');
-            if (false !== $cacheBusterPosition) {
-                $dependency = substr($dependency, 0, $cacheBusterPosition);
+        foreach ($dependencies as $key => &$list) {
+            if ('js' === $key || 'css' === $key) {
+                foreach ($list as &$dependency) {
+                    $cacheBusterPosition = strpos($dependency, '?');
+                    if (false !== $cacheBusterPosition) {
+                        $dependency = substr($dependency, 0, $cacheBusterPosition);
+                    }
+                }
             }
         }
 

@@ -38,9 +38,8 @@ class DependencyManager
     private $pageDependenciesLists = array();
 
     const RESOURCES        = '/resources';
-    const SHARED_RESOURCES = '/resources/thirdparty/travi-styles';
+    const SHARED_RESOURCES = '/resources/shared';
     const MIN_DIR          = '/min';
-    const THIRDPARTY       = 'thirdparty';
 
     public function addJavaScript($script)
     {
@@ -245,21 +244,12 @@ class DependencyManager
 
     private function replaceWithMinifiedVersion($dependency)
     {
-        if ($this->isThirdpartyDependency($dependency)) {
-            return preg_replace(
-                '/\/(' . self::THIRDPARTY . ')\//',
-                self::MIN_DIR . '/$1/',
-                $dependency,
-                1
-            );
-        } else {
-            return preg_replace(
-                '/\/(resources.*)\/(css|js)\//',
-                '/$1' . self::MIN_DIR . '/$2/',
-                $dependency,
-                1
-            );
-        }
+        return preg_replace(
+            '/\/(resources)\/(css|js|thirdparty)\//',
+            '/$1' . self::MIN_DIR . '/$2/',
+            $dependency,
+            1
+        );
     }
 
     private function resolveFileUri($sheet)
@@ -565,15 +555,6 @@ class DependencyManager
         $thisPage = $thisController[$action];
 
         return $thisPage;
-    }
-
-    /**
-     * @param $dependency
-     * @return int
-     */
-    private function isThirdpartyDependency($dependency)
-    {
-        return strpos($dependency, self::THIRDPARTY);
     }
 
     /**

@@ -8,4 +8,4 @@ cd $(dirname `readlink -f $0 || realpath $0`)
 
 #bower install --config.interactive=false
 npm install
-grunt bower
+grunt build
