@@ -6,3 +6,13 @@ default:
     parameters:
       output_styles:
         comment: [magenta]
+
+ci:
+  filters:
+    tags: '~@wip'
+  formatter:
+    name: pretty,junit
+    parameters:
+      output_path: null,logs/behat
+      output_styles:
+        comment: [magenta]

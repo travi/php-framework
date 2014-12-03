@@ -3,6 +3,7 @@ Feature: Read/Write Files
   As the framework
   I need the ability to create, write, and read files
 
+@wip
 Scenario: Read the contents of a file
   Given the file "newFile.js" exists in "/home/travi/sandbox/resources/travi.org/optimized/js/"
   When the framework requests the the contents of the file
