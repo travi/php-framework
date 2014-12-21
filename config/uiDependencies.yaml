@@ -82,7 +82,7 @@ gallery:
 form:
   local: /resources/thirdparty/travi-ui/dist/form.min.js
   cssDependencies:
-    - /resources/thirdparty/travi-styles/css/travi-form.css
+    - /resources/thirdparty/travi-styles/dist/css/form/travi-form.css
   jsDependencies:
     - wymEditor
     - wymEditor-fullScreen
