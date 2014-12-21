@@ -97,7 +97,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $dependencies = $this->form->getDependencies();
         $this->assertContains(
-            '/resources/thirdparty/travi-styles/css/travi-form.css',
+            '/resources/thirdparty/travi-styles/dist/css/form/travi-form.css',
             $dependencies['styles']
         );
     }

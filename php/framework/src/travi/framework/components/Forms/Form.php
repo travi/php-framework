@@ -36,7 +36,7 @@ class Form extends FormElementGroup
             $this->action = $options['action'];
         }
 
-        $this->addStyleSheet('/resources/thirdparty/travi-styles/css/travi-form.css');
+        $this->addStyleSheet('/resources/thirdparty/travi-styles/dist/css/form/travi-form.css');
     }
 
     public function getName()
