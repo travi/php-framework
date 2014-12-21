@@ -27,7 +27,7 @@ entityList:
     - ajaxForm
     - pagination
   cssDependencies:
-    - /resources/thirdparty/travi-styles/css/travi-entities.css
+    - /resources/thirdparty/travi-styles/dist/css/entities/travi-entities.css
   clientTemplates:
     update-item: /resources/thirdparty/travi-core/templates/entity-item.tmpl
   large:
