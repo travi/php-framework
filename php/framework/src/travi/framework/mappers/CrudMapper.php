@@ -5,7 +5,7 @@ use travi\framework\components\Forms\Form;
 use travi\framework\collection\EntityList;
 use travi\framework\collection\EntityBlock;
 
-abstract class CrudMapper
+abstract class CrudMapper extends AbstractMapper
 {
     /**
      * @param $entity
@@ -44,24 +44,4 @@ abstract class CrudMapper
      * @return Form
      */
     abstract public function mapRequestToForm();
-
-
-    /**
-     * @param $form Form
-     * @param $values
-     */
-    protected function setFieldValues($form, $values)
-    {
-        foreach ($values as $field => $value) {
-            $form->getFieldByName($field)->setValue($value);
-        }
-    }
-
-    /**
-     * @param $form Form
-     */
-    protected function mapRequestValuesToForm($form)
-    {
-        $this->setFieldValues($form, $_POST);
-    }
 }
