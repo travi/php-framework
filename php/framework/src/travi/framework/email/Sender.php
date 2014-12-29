@@ -10,7 +10,8 @@ class Sender
      * @param $subject
      * @param $content
      */
-    public function send($to, $from, $subject, $content) {
+    public function send($to, $from, $subject, $content)
+    {
         $this->mail($to, $subject, $content, "From: " . $from->getName() . " <" . $from->getAddress() . ">");
     }
 
