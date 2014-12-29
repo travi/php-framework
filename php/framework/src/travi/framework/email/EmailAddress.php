@@ -3,7 +3,7 @@
 namespace travi\framework\email;
 
 
-class Address
+class EmailAddress
 {
     private $name;
     private $address;
