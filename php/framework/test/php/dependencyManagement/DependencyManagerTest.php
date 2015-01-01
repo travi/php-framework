@@ -720,9 +720,35 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 '/resources/min/thirdparty/travi-core/thirdparty/modernizr.js',
-                '/resources/min/thirdparty/travi-core/dist/travi-critical.min.js'
+                '/resources/thirdparty/travi-core/dist/travi-critical.min.js'
             ),
             $dependencies['criticalJs']
         );
+    }
+
+    public function testThatThirdpartyResourcesWithDistNotReMinified()
+    {
+        $distStyleSheet = '/resources/thirdparty/travi-something/dist/css/style.css';
+
+        $this->request->expects($this->any())
+            ->method('getEnhancementVersion')
+            ->will($this->returnValue(Request::BASE_ENHANCEMENT));
+        $this->environmentUtility->expects($this->once())
+            ->method('isLocal')
+            ->will($this->returnValue(false));
+        $this->fileSystem->expects($this->once())
+            ->method('styleSheetExists')
+            ->with($distStyleSheet)
+            ->will($this->returnValue(true));
+
+        $this->dependencyManager->addStyleSheet($distStyleSheet);
+
+        $dependencies = $this->dependencyManager->getDependenciesInProperForm();
+
+        $this->assertEquals(
+            array($distStyleSheet),
+            $dependencies['css']
+        );
+
     }
 }

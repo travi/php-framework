@@ -244,12 +244,16 @@ class DependencyManager
 
     private function replaceWithMinifiedVersion($dependency)
     {
-        return preg_replace(
-            '/\/(resources)\/(css|js|thirdparty)\//',
-            '/$1' . self::MIN_DIR . '/$2/',
-            $dependency,
-            1
-        );
+        if ($this->containedInDist($dependency)) {
+            return preg_replace(
+                '/\/(resources)\/(css|js|thirdparty)\//',
+                '/$1' . self::MIN_DIR . '/$2/',
+                $dependency,
+                1
+            );
+        } else {
+            return $dependency;
+        }
     }
 
     private function resolveFileUri($sheet)
@@ -625,6 +629,7 @@ class DependencyManager
             array_push($criticalJs, '/resources/thirdparty/travi-core/dist/travi-critical.min.js');
             return $criticalJs;
         }
+
         return $criticalJs;
     }
 
@@ -641,5 +646,14 @@ class DependencyManager
             return $dependencies;
         }
         return $dependencies;
+    }
+
+    /**
+     * @param $dependency
+     * @return bool
+     */
+    private function containedInDist($dependency)
+    {
+        return false === strpos($dependency, '/dist/');
     }
 }
