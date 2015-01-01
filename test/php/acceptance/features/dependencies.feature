@@ -18,7 +18,7 @@ Feature: Front-end Dependency Management
             | /resources/min/thirdparty/jquery/jquery.js                  |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
             | /resources/min/thirdparty/amplify/amplify.core.js           |     |                                                                    |
             | /resources/min/thirdparty/jsrender/jsrender.js              |     |                                                                    |
-            | /resources/min/thirdparty/travi-core/dist/travi-core.min.js |     |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js |     |                                                                    |
 
     Scenario:
         Given environment is "local"
@@ -127,4 +127,4 @@ Feature: Front-end Dependency Management
         Then the critical list should contain
             | js                                                              |
             | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js    |
-            | /resources/min/thirdparty/travi-core/dist/travi-critical.min.js |
+            | /resources/thirdparty/travi-core/dist/travi-critical.min.js |
