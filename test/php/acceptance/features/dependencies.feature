@@ -14,10 +14,10 @@ Feature: Front-end Dependency Management
         Given "framework" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                          | css | templates                                                          |
-            | /resources/min/thirdparty/jquery/jquery.js                  |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/min/thirdparty/amplify/amplify.core.js           |     |                                                                    |
-            | /resources/min/thirdparty/jsrender/jsrender.js              |     |                                                                    |
+            | js                                                      | css | templates                                                          |
+            | /resources/min/thirdparty/jquery/jquery.js              |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/min/thirdparty/amplify/amplify.core.js       |     |                                                                    |
+            | /resources/min/thirdparty/jsrender/jsrender.js          |     |                                                                    |
             | /resources/thirdparty/travi-core/dist/travi-core.min.js |     |                                                                    |
 
     Scenario:
@@ -125,6 +125,6 @@ Feature: Front-end Dependency Management
         Given environment is "production"
         When page is rendered
         Then the critical list should contain
-            | js                                                              |
-            | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js    |
-            | /resources/thirdparty/travi-core/dist/travi-critical.min.js |
+            | js                                                           |
+            | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js |
+            | /resources/thirdparty/travi-core/dist/travi-critical.min.js  |
