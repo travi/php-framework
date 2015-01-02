@@ -3,16 +3,16 @@
 use travi\framework\components\Forms\choices\Choices;
 use travi\framework\view\objects\inputs\Option;
 
-class ChoicesTest extends PHPUnit_Framework_TestCase
+class ChoicesTest extends FieldTest
 {
     /** @var Choices */
-    protected $choices;
+    protected $field;
 
     protected function setUp()
     {
         $settings = array('label' => 'label');
 
-        $this->choices = $this->getMockForAbstractClass(
+        $this->field = $this->getMockForAbstractClass(
             'travi\\framework\\components\\Forms\\choices\\Choices',
             array($settings)
         );
@@ -22,10 +22,10 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
     {
         $text = 'option';
 
-        $this->choices->addOption($text);
+        $this->field->addOption($text);
 
         /** @var Option[] $options */
-        $options = $this->choices->getOptions();
+        $options = $this->field->getOptions();
 
         $option = $options[0];
 
@@ -37,76 +37,64 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
 
     public function testGetNameNonePassed()
     {
-        $this->assertEquals('label', $this->choices->getName());
+        $this->assertEquals('label', $this->field->getName());
     }
 
     public function testGetNameConstructorSettings()
     {
-        $this->choices = $this->getMockForAbstractClass(
+        $this->field = $this->getMockForAbstractClass(
             'travi\\framework\\components\\Forms\\choices\\Choices',
             array(array('name' => 'name'))
         );
 
-        $this->assertEquals('name', $this->choices->getName());
+        $this->assertEquals('name', $this->field->getName());
     }
 
     public function testGetLabel()
     {
-        $this->assertEquals('label', $this->choices->getLabel());
+        $this->assertEquals('label', $this->field->getLabel());
     }
 
     public function testGetType()
     {
-        $this->assertEquals(null, $this->choices->getType());
+        $this->assertEquals(null, $this->field->getType());
     }
 
     public function testGetClass()
     {
-        $this->assertEquals(null, $this->choices->getClass());
+        $this->assertEquals(null, $this->field->getClass());
     }
 
     public function testValidations()
     {
-        $this->choices->addValidation('validation');
+        $this->field->addValidation('validation');
 
-        $this->assertEquals(array('validation'), $this->choices->getValidations());
+        $this->assertEquals(array('validation'), $this->field->getValidations());
     }
 
     public function testDefaultTemplate()
     {
-        $this->assertEquals('components/form/choices.tpl', $this->choices->getTemplate());
+        $this->assertEquals('components/form/choices.tpl', $this->field->getTemplate());
     }
 
     public function testSetTemplate()
     {
-        $this->choices->setTemplate('template');
+        $this->field->setTemplate('template');
 
-        $this->assertEquals('template', $this->choices->getTemplate());
+        $this->assertEquals('template', $this->field->getTemplate());
     }
 
     public function testValidIfNoValidationErrors()
     {
-        $this->assertTrue($this->choices->isValid());
-    }
-
-    public function testNotValidWhenRequiredFieldHasNoValue()
-    {
-        $this->choices->addValidation('required');
-        $this->choices->setValue('');
-
-        $this->assertFalse($this->choices->isValid());
-        $this->assertEquals(
-            $this->choices->getLabel() . ' is required',
-            $this->choices->getValidationError()
-        );
+        $this->assertTrue($this->field->isValid());
     }
 
     public function testValidWhenRequiredFieldHasValue()
     {
-        $this->choices->addValidation('required');
-        $this->choices->setValue('something');
+        $this->field->addValidation('required');
+        $this->field->setValue('something');
 
-        $this->assertTrue($this->choices->isValid());
+        $this->assertTrue($this->field->isValid());
     }
 
     public function testAddOptionsCreatesProperOptionList()
@@ -115,7 +103,7 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         $value1 = 'some value';
         $text2 = 'option 2';
         $value2 = 'some other value';
-        $this->choices->addOptions(
+        $this->field->addOptions(
             array(
                 array(
                     'label' => $text1,
@@ -129,7 +117,7 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
         );
 
         /** @var Option[] $options */
-        $options = $this->choices->getOptions();
+        $options = $this->field->getOptions();
 
         $firstOption = $options[0];
 
@@ -149,13 +137,13 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
             $someValue,
             'option 2'
         );
-        $this->choices->addOptions($options);
+        $this->field->addOptions($options);
 
-        $this->choices->setValue($someValue);
+        $this->field->setValue($someValue);
 
-        $returnedValue = $this->choices->getValue();
+        $returnedValue = $this->field->getValue();
         $this->assertEquals($someValue, $returnedValue);
-        $this->assertSelectedOptionIs($returnedValue, $this->choices->getOptions());
+        $this->assertSelectedOptionIs($returnedValue, $this->field->getOptions());
     }
 
     public function testSetValueMarksComplexOptionAsSelectedInList()
@@ -171,13 +159,13 @@ class ChoicesTest extends PHPUnit_Framework_TestCase
                 'value' => 'some other value'
             )
         );
-        $this->choices->addOptions($options);
+        $this->field->addOptions($options);
 
-        $this->choices->setValue($someValue);
+        $this->field->setValue($someValue);
 
-        $returnedValue = $this->choices->getValue();
+        $returnedValue = $this->field->getValue();
         $this->assertEquals($someValue, $returnedValue);
-        $this->assertSelectedOptionIs($returnedValue, $this->choices->getOptions());
+        $this->assertSelectedOptionIs($returnedValue, $this->field->getOptions());
     }
 
     private function assertSelectedOptionIs($value, $options)

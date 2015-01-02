@@ -2,14 +2,14 @@
 
 use travi\framework\components\Forms\inputs\Input;
 
-class InputTest extends PHPUnit_Framework_TestCase
+class InputTest extends FieldTest
 {
     const LABEL_KEY = self::ANY_LABEL;
     const ANY_LABEL = 'label';
     /**
      * @var Input
      */
-    protected $input;
+    protected $field;
 
     protected function setUp()
     {
@@ -18,7 +18,7 @@ class InputTest extends PHPUnit_Framework_TestCase
         $options['value'] = 'value';
         $options['validations'] = array('validation1', 'validation2');
 
-        $this->input = $this->getMockForAbstractClass(
+        $this->field = $this->getMockForAbstractClass(
             'travi\\framework\\components\\Forms\\inputs\\Input',
             array($options)
         );
@@ -26,9 +26,9 @@ class InputTest extends PHPUnit_Framework_TestCase
 
     public function testAddValidation()
     {
-        $this->input->addValidation('validation3');
+        $this->field->addValidation('validation3');
 
-        $this->assertSame(array('validation1', 'validation2', 'validation3'), $this->input->getValidations());
+        $this->assertSame(array('validation1', 'validation2', 'validation3'), $this->field->getValidations());
     }
 
     public function testConstructorSetNameWhenNameIncluded()
@@ -50,109 +50,97 @@ class InputTest extends PHPUnit_Framework_TestCase
 
     public function testConstructorSetNameToLabelWhenNameNotIncluded()
     {
-        $this->assertSame(self::ANY_LABEL, $this->input->getName());
+        $this->assertSame(self::ANY_LABEL, $this->field->getName());
     }
 
     public function testSetNameLowerCased()
     {
         $nameWithCapitals = 'NameWithCapitals';
 
-        $this->input->setName($nameWithCapitals);
+        $this->field->setName($nameWithCapitals);
 
-        $this->assertSame(strtolower($nameWithCapitals), $this->input->getName());
+        $this->assertSame(strtolower($nameWithCapitals), $this->field->getName());
     }
 
     public function testSetNameSpacesToUnderscores()
     {
         $nameWithSpaces = 'name with spaces';
 
-        $this->input->setName($nameWithSpaces);
+        $this->field->setName($nameWithSpaces);
 
-        $this->assertSame(str_replace(' ', '_', $nameWithSpaces), $this->input->getName());
+        $this->assertSame(str_replace(' ', '_', $nameWithSpaces), $this->field->getName());
     }
 
     public function testSetNameWithNameExpando()
     {
         $nameExpando = 'name';
 
-        $this->input->setName($nameExpando);
+        $this->field->setName($nameExpando);
 
-        $this->assertSame($nameExpando . '_value', $this->input->getName());
+        $this->assertSame($nameExpando . '_value', $this->field->getName());
     }
 
     public function testSetNameWithIdExpando()
     {
         $idExpando = 'id';
 
-        $this->input->setName($idExpando);
+        $this->field->setName($idExpando);
 
-        $this->assertSame($idExpando . '_value', $this->input->getName());
+        $this->assertSame($idExpando . '_value', $this->field->getName());
     }
 
     public function testGetLabel()
     {
-        $this->assertSame(self::ANY_LABEL, $this->input->getLabel());
+        $this->assertSame(self::ANY_LABEL, $this->field->getLabel());
     }
 
     public function testSetLabel()
     {
         $someLabel = 'some other label';
 
-        $this->input->setLabel($someLabel);
+        $this->field->setLabel($someLabel);
 
-        $this->assertSame($someLabel, $this->input->getLabel());
+        $this->assertSame($someLabel, $this->field->getLabel());
     }
 
     public function testGetType()
     {
-        $this->assertSame(null, $this->input->getType());
+        $this->assertSame(null, $this->field->getType());
     }
 
     public function testGetValue()
     {
-        $this->assertSame('value', $this->input->getValue());
+        $this->assertSame('value', $this->field->getValue());
     }
 
     public function testGetClass()
     {
-        $this->assertSame(null, $this->input->getClass());
+        $this->assertSame(null, $this->field->getClass());
     }
 
     public function testGetValidations()
     {
-        $this->assertSame(array('validation1', 'validation2'), $this->input->getValidations());
+        $this->assertSame(array('validation1', 'validation2'), $this->field->getValidations());
     }
 
     public function testValidationError()
     {
         $message = 'some message';
-        $this->input->setValidationError($message);
+        $this->field->setValidationError($message);
 
-        $this->assertEquals($message, $this->input->getValidationError());
+        $this->assertEquals($message, $this->field->getValidationError());
     }
 
     public function testValidIfNoValidationErrors()
     {
-        $this->assertTrue($this->input->isValid());
-    }
-
-    public function testNotValidWhenRequiredFieldHasNoValue()
-    {
-        $this->input->addValidation('required');
-        $this->input->setValue('');
-
-        $this->assertFalse($this->input->isValid());
-        $this->assertEquals(
-            $this->input->getLabel() . ' is required',
-            $this->input->getValidationError()
-        );
+        $this->assertTrue($this->field->isValid());
     }
 
     public function testValidWhenRequiredFieldHasValue()
     {
-        $this->input->addValidation('required');
-        $this->input->setValue('something');
+        $this->field->addValidation('required');
+        $this->field->setValue('something');
 
-        $this->assertTrue($this->input->isValid());
+        $this->assertTrue($this->field->isValid());
     }
 }
