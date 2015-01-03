@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../FieldTest.php';
+
 use travi\framework\components\Forms\choices\Choices;
 use travi\framework\view\objects\inputs\Option;
 
