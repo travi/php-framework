@@ -23,6 +23,6 @@ abstract class FieldTest extends PHPUnit_Framework_TestCase
     {
         $this->field->setValue('');
 
-        $this->assertFalse($this->field->isValid());
+        $this->assertTrue($this->field->isValid());
     }
 }
