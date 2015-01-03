@@ -2,6 +2,7 @@
 
 namespace travi\framework\exception;
 
-class EmailNotAcceptedForDeliveryException extends \Exception{
+class EmailNotAcceptedForDeliveryException extends \Exception
+{
 
 }
