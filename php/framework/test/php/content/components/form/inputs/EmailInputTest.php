@@ -12,6 +12,12 @@ class EmailInputTest extends FieldTest
         $this->field = new EmailInput();
     }
 
+    public function testThatAttributesAreSetCorrectly()
+    {
+        $this->assertEquals('email', $this->field->getType());
+        $this->assertEquals('textInput', $this->field->getClass());
+    }
+
     public function testThatValidEmailPassesValidation()
     {
         $this->field->setValue('me@test.org');
