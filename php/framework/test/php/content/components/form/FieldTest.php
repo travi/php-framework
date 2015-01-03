@@ -18,4 +18,11 @@ abstract class FieldTest extends PHPUnit_Framework_TestCase
             $this->field->getValidationError()
         );
     }
+
+    public function testThatBlankInputIsAcceptableIfNotRequired()
+    {
+        $this->field->setValue('');
+
+        $this->assertFalse($this->field->isValid());
+    }
 }

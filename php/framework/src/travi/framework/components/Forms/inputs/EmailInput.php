@@ -29,7 +29,9 @@ class EmailInput extends Input
      */
     private function isValidEmailFormat()
     {
-        return 1 === preg_match('/.+@.+\..+/', $this->getValue());
+        $value = $this->getValue();
+
+        return empty($value) || 1 === preg_match('/.+@.+\..+/', $value);
     }
 
 }
