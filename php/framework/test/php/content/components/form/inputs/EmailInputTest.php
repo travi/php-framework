@@ -18,6 +18,25 @@ class EmailInputTest extends FieldTest
         $this->assertEquals('textInput', $this->field->getClass());
     }
 
+    public function testThatInitializingWithOptionsSetsOptions()
+    {
+        $label = 'Some Label';
+        $validations = array('required');
+
+        $field = new EmailInput(
+            array(
+                'label' => $label,
+                'validations' => $validations
+            )
+        );
+
+        $this->assertEquals($label, $field->getLabel());
+        $this->assertEquals('some_label', $field->getName());
+        $this->assertEquals($validations, $field->getValidations());
+        $this->assertEquals('components/form/inputWithLabel.tpl', $field->getTemplate());
+    }
+
+
     public function testThatValidEmailPassesValidation()
     {
         $this->field->setValue('me@test.org');

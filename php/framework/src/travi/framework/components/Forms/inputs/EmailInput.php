@@ -7,6 +7,7 @@ class EmailInput extends Input
 {
     public function __construct($options = array())
     {
+        parent::__construct($options);
         $this->setClass("textInput");
         $this->setType('email');
     }
@@ -32,5 +33,4 @@ class EmailInput extends Input
 
         return empty($value) || 1 === preg_match('/.+@.+\..+/', $value);
     }
-
 }
