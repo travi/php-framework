@@ -34,7 +34,6 @@ class ChoicesTest extends FieldTest
         $this->assertEquals($option->text, $text);
         $this->assertEquals($option->value, $text);
         $this->assertEquals($option->selected, false);
-        $this->assertEquals($option->disabled, false);
     }
 
     public function testGetNameNonePassed()

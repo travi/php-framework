@@ -9,7 +9,7 @@ abstract class Input extends Field
     private $type;
     protected $class;
 
-    public function __construct($options)
+    public function __construct($options = array())
     {
         if (isset($options['label'])) {
             $this->label = $options['label'];

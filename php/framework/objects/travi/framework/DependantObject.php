@@ -54,14 +54,24 @@ abstract class DependantObject
 
     protected function addDependencies($dependencies = array())
     {
-        foreach ($dependencies['scripts'] as $jsDependency) {
-            $this->addJavaScript($jsDependency);
+        $scripts = $dependencies['scripts'];
+        $jsInits = $dependencies['jsInits'];
+        $styles = $dependencies['styles'];
+
+        if (isset($scripts)) {
+            foreach ($scripts as $jsDependency) {
+                $this->addJavaScript($jsDependency);
+            }
         }
-        foreach ($dependencies['jsInits'] as $jsInit) {
-            $this->addJsInit($jsInit);
+        if (isset($jsInits)) {
+            foreach ($jsInits as $jsInit) {
+                $this->addJsInit($jsInit);
+            }
         }
-        foreach ($dependencies['styles'] as $styleDependency) {
-            $this->addStyleSheet($styleDependency);
+        if ($styles) {
+            foreach ($styles as $styleDependency) {
+                $this->addStyleSheet($styleDependency);
+            }
         }
     }
 }
