@@ -4,6 +4,7 @@ use travi\framework\components\Forms\inputs\EmailInput;
 
 class EmailInputTest extends FieldTest
 {
+    const ERROR_MESSAGE = 'Please enter a valid email address.';
     /** @var  EmailInput */
     protected $field;
 
@@ -50,7 +51,7 @@ class EmailInputTest extends FieldTest
 
         $this->assertFalse($this->field->isValid());
         $this->assertEquals(
-            'A valid email address must be supplied',
+            self::ERROR_MESSAGE,
             $this->field->getValidationError()
         );
     }
@@ -61,7 +62,7 @@ class EmailInputTest extends FieldTest
 
         $this->assertFalse($this->field->isValid());
         $this->assertEquals(
-            'A valid email address must be supplied',
+            self::ERROR_MESSAGE,
             $this->field->getValidationError()
         );
     }

@@ -17,7 +17,7 @@ class EmailInput extends Input
         $isValid = parent::isValid();
 
         if ($isValid && !$this->isValidEmailFormat()) {
-            $this->setValidationError('A valid email address must be supplied');
+            $this->setValidationError('Please enter a valid email address.');
             return false;
         }
 
