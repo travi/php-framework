@@ -79,15 +79,6 @@ abstract class Choices extends Field
         array_push($this->options, new Option($text, $value, $selected));
     }
 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
-    }
     public function getOptions()
     {
         foreach ($this->options as &$option) {

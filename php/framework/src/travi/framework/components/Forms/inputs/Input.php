@@ -48,14 +48,6 @@ abstract class Input extends Field
     {
         return $this->type;
     }
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-    public function getValue()
-    {
-        return $this->value;
-    }
     public function setClass($class)
     {
         $this->class = $class;

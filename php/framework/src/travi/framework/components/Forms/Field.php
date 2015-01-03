@@ -56,4 +56,14 @@ abstract class Field extends ContentObject implements FormElement
 
         return true;
     }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
