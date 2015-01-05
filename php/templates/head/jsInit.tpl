@@ -19,6 +19,5 @@
                 {$init}
 {/foreach}
 {/if}
-{include file="head/jsValidations.tpl" validations=$dependencies['validations']}
         </script>
 {/if}
