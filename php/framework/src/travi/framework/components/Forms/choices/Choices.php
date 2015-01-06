@@ -16,26 +16,13 @@ abstract class Choices extends Field
 
     public function __construct($options = array())
     {
-        if (isset($options['label'])) {
-            $this->label = $options['label'];
-        }
-        if (!empty($options['name'])) {
-            $this->name = $options['name'];
-        } elseif (isset($this->label)) {
-            $this->name = strtolower($options['label']);
-        }
-        if (isset($options['value'])) {
-            $this->value = $options['value'];
-        }
-        $this->settings = $options;
-        if (isset($options['options'])) {
-            $this->optionAdder($options['options']);
-        }
-        if (!empty($options['validations'])) {
-            foreach ($options['validations'] as $validation) {
-                $this->addValidation($validation);
-            }
-        }
+        $this->initializeLabel($options);
+        $this->initializeName($options);
+        $this->initializeValue($options);
+        $this->initializeOptions($options);
+        $this->initializeValidations($options);
+            $this->settings = $options;
+
         $this->setTemplate('components/form/choices.tpl');
     }
 
@@ -89,20 +76,27 @@ abstract class Choices extends Field
 
         return $this->options;
     }
+
     public function getType()
     {
         return $this->type;
     }
+
     public function getClass()
     {
         return $this->class;
     }
-    public function setTemplate($template)
+
+    /**
+     * @param $options
+     * @return mixed
+     */
+    private function initializeOptions($options)
     {
-        $this->template = $template;
+        if (isset($options['options'])) {
+            $this->optionAdder($options['options']);
+        }
     }
-    public function getTemplate()
-    {
-        return $this->template;
-    }
+
+
 }

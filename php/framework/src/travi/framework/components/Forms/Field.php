@@ -17,7 +17,19 @@ abstract class Field extends ContentObject implements FormElement
         return $this->validations;
     }
 
+    public function setName($name)
+    {
+        $name = str_replace(' ', '_', strtolower($name));
+
+        $this->name = $name;
+    }
+
     public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getId()
     {
         return $this->name;
     }
@@ -65,5 +77,52 @@ abstract class Field extends ContentObject implements FormElement
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @param $options
+     */
+    protected function initializeValidations($options)
+    {
+        if (!empty($options['validations'])) {
+            foreach ($options['validations'] as $validation) {
+                $this->addValidation($validation);
+            }
+        }
+    }
+
+    /**
+     * @param $options
+     * @return mixed
+     */
+    protected function initializeLabel($options)
+    {
+        if (isset($options['label'])) {
+            $this->label = $options['label'];
+        }
+    }
+
+    /**
+     * @param $options
+     * @return mixed
+     */
+    protected function initializeName($options)
+    {
+        if (!empty($options['name'])) {
+            $this->setName($options['name']);
+        } elseif (isset($this->label)) {
+            $this->setName($options['label']);
+        }
+    }
+
+    /**
+     * @param $options
+     * @return mixed
+     */
+    protected function initializeValue($options)
+    {
+        if (isset($options['value'])) {
+            $this->value = $options['value'];
+        }
     }
 }

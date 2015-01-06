@@ -25,4 +25,15 @@ abstract class FieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->field->isValid());
     }
+
+    public function testThatIdIsSetToEqualName()
+    {
+        $label = 'Some Name';
+        $name = 'some_name';
+
+        $this->field->setName($label);
+
+        $this->assertEquals($name, $this->field->getName());
+        $this->assertEquals($name, $this->field->getId());
+    }
 }
