@@ -1,7 +1,7 @@
 {assign var='pageTemplate' value=$page->getPageTemplate()}
 {assign var='content' value=$page->getContent()}
 {if !empty($pageTemplate)}
-    {include file="pages/$pageTemplate" content=$page->getContent()}
+    {include file="pages/$pageTemplate" content=$content}
 {else}
     {if is_array($content)}
         {foreach item=contentObject from=$content}
