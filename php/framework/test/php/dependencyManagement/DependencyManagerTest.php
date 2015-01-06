@@ -250,7 +250,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $this->dependencyManager->setPageStyle($this->pageStyle);
-        $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
+        $this->dependencyManager->addStyleSheet($pathToFormSheet);
 
         $dependencies = $this->dependencyManager->getDependencies();
 
@@ -304,7 +304,7 @@ class DependencyManagerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $this->dependencyManager->setSiteTheme(self::SITE_THEME);
-        $this->dependencyManager->resolveContentDependencies(array(new Form(array())));
+        $this->dependencyManager->addStyleSheet($pathToFormSheet);
 
         $dependencies = $this->dependencyManager->getDependencies();
 

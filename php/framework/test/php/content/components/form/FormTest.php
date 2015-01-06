@@ -96,10 +96,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     public function testDependencyInitialization()
     {
         $dependencies = $this->form->getDependencies();
-        $this->assertContains(
-            '/resources/thirdparty/travi-styles/dist/css/form/travi-form.css',
-            $dependencies['styles']
-        );
+        $this->assertContains('form', $dependencies['scripts']);
     }
 
     public function testThatDependenciesForActionsIncludedInFormDependencies()
