@@ -12,6 +12,14 @@ abstract class Field extends ContentObject implements FormElement
     protected $value;
     protected $error;
 
+    public function __construct($options)
+    {
+        $this->initializeLabel($options);
+        $this->initializeName($options);
+        $this->initializeValue($options);
+        $this->initializeValidations($options);
+    }
+
     public function getValidations()
     {
         return $this->validations;

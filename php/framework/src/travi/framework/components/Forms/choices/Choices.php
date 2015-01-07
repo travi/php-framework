@@ -16,12 +16,9 @@ abstract class Choices extends Field
 
     public function __construct($options = array())
     {
-        $this->initializeLabel($options);
-        $this->initializeName($options);
-        $this->initializeValue($options);
-        $this->initializeOptions($options);
-        $this->initializeValidations($options);
-            $this->settings = $options;
+        parent::__construct($options);
+        $this->initializeChoices($options);
+        $this->settings = $options;
 
         $this->setTemplate('components/form/choices.tpl');
     }
@@ -91,7 +88,7 @@ abstract class Choices extends Field
      * @param $options
      * @return mixed
      */
-    private function initializeOptions($options)
+    private function initializeChoices($options)
     {
         if (isset($options['options'])) {
             $this->optionAdder($options['options']);

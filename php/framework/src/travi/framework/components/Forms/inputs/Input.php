@@ -11,10 +11,7 @@ abstract class Input extends Field
 
     public function __construct($options = array())
     {
-        $this->initializeLabel($options);
-        $this->initializeName($options);
-        $this->initializeValue($options);
-        $this->initializeValidations($options);
+        parent::__construct($options);
 
         $this->setTemplate('components/form/inputWithLabel.tpl');
     }
