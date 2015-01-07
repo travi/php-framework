@@ -8,7 +8,6 @@ use travi\framework\view\objects\inputs\Option;
 abstract class Choices extends Field
 {
     protected $type;
-    protected $class;
     protected $template;
 
     protected $settings = array();
@@ -72,16 +71,6 @@ abstract class Choices extends Field
         }
 
         return $this->options;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function getClass()
-    {
-        return $this->class;
     }
 
     /**

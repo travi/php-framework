@@ -6,9 +6,6 @@ use travi\framework\components\Forms\Field;
 
 abstract class Input extends Field
 {
-    private $type;
-    protected $class;
-
     public function __construct($options = array())
     {
         parent::__construct($options);
@@ -26,25 +23,5 @@ abstract class Input extends Field
         }
 
         $this->name = $name;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function setClass($class)
-    {
-        $this->class = $class;
-    }
-
-    public function getClass()
-    {
-        return $this->class;
     }
 }

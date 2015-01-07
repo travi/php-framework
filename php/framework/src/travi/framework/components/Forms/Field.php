@@ -11,6 +11,8 @@ abstract class Field extends ContentObject implements FormElement
     protected $label;
     protected $value;
     protected $error;
+    protected $type;
+    protected $class;
 
     public function __construct($options)
     {
@@ -50,6 +52,26 @@ abstract class Field extends ContentObject implements FormElement
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    public function getClass()
+    {
+        return $this->class;
     }
 
     public function addValidation($validation)
