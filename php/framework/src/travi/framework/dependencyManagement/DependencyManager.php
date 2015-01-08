@@ -374,7 +374,7 @@ class DependencyManager
     /**
      * @param $script
      */
-    private function addAsDependency($script)
+    private function addAsScriptDependency($script)
     {
         if (!empty($script)) {
             array_push($this->requirementLists['js'], $script);
@@ -397,7 +397,7 @@ class DependencyManager
                 $script = $this->clientDependencyDefinitions->resolveFileURI($script);
             }
 
-            $this->addAsDependency($script);
+            $this->addAsScriptDependency($script);
         }
     }
 
