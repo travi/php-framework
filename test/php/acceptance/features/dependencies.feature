@@ -106,7 +106,6 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-ui/js/entityList/updates.js                           |                                                                                          |                                                                    |
             | /resources/thirdparty/travi-ui/js/entityList/pagination.js                        |                                                                                          |                                                                    |
 
-    @wip
     Scenario: critical-js on initial site visit
         Given environment is "local"
         When page is rendered
@@ -115,7 +114,6 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-core/thirdparty/modernizr.js    |
             | /resources/thirdparty/travi-core/dist/travi-critical.min.js |
 
-    @wip
     Scenario: critical-js after initial page
         Given environment is "local"
         And device has a "large" screen size
@@ -124,7 +122,6 @@ Feature: Front-end Dependency Management
             | js                                                       |
             | /resources/thirdparty/travi-core/thirdparty/modernizr.js |
 
-    @wip
     Scenario: critical-js on production
         Given environment is "production"
         When page is rendered
