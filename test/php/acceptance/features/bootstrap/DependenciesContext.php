@@ -3,6 +3,7 @@
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
+use travi\framework\components\Forms\Form;
 use travi\framework\controller\front\FrontController;
 use travi\framework\dependencyManagement\DependencyManager;
 use travi\framework\http\Request;
@@ -114,6 +115,21 @@ class DependenciesContext extends BehatContext
     public function definedAsADependency($dependency)
     {
         $this->dependencyManager->addJavaScript($dependency);
+    }
+
+    /**
+     * @Given /^"([^"]*)" included as a component$/
+     * @param $component
+     */
+    public function includedAsAComponent($component)
+    {
+        $content = array();
+
+        if ($component === 'Form') {
+            array_push($content, new Form());
+        }
+
+        $this->dependencyManager->resolveContentDependencies($content);
     }
 
     /**

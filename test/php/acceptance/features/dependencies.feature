@@ -129,3 +129,79 @@ Feature: Front-end Dependency Management
             | js                                                           |
             | /resources/min/thirdparty/travi-core/thirdparty/modernizr.js |
             | /resources/thirdparty/travi-core/dist/travi-critical.min.js  |
+
+    Scenario: Component and page should not duplicate dependencies
+        Given environment is "local"
+        And "Form" included as a component
+        And "form" defined as a dependency
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                                                | css                                                                                      | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      | /resources/thirdparty/travi-styles/dist/css/form/travi-form.css                          |                                                                    |
+            | /resources/thirdparty/jquery.validation/jquery.validate.js                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
+            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                                                          |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
+
+    Scenario: Component and page should not duplicate dependencies
+        Given environment is "local"
+        And "Form" included as a component
+        And "/resources/thirdparty/travi-ui/dist/form.min.js" defined as a dependency
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                                                | css                                                                                      | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      | /resources/thirdparty/travi-styles/dist/css/form/travi-form.css                          |                                                                    |
+            | /resources/thirdparty/jquery.validation/jquery.validate.js                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
+            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                                                          |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
+
+    @wip
+    Scenario: Sub-component should not be included separately when bundled with other component
+        Given environment is "local"
+        And "Form" included as a component
+        And "datePicker" defined as a dependency
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                                                | css                                                                                      | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      | /resources/thirdparty/travi-styles/dist/css/form/travi-form.css                          |                                                                    |
+            | /resources/thirdparty/jquery.validation/jquery.validate.js                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
+            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                                                          |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
+#            | /resources/thirdparty/travi-ui/js/form/date.js                                    |                                                                                          |                                                                    |
+
+    @wip
+    Scenario: Sub-component should not be included separately when bundled with other component
+        Given environment is "local"
+        And "datePicker" defined as a dependency
+        And "Form" included as a component
+        When page is rendered
+        Then the dependencies lists should contain
+            | js                                                                                | css                                                                                      | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                            | http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery-ui/jquery-ui.js                                      | /resources/thirdparty/travi-styles/dist/css/form/travi-form.css                          |                                                                    |
+            | /resources/thirdparty/amplify/amplify.core.js                                     |                                                                                          |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                           |                                                                                          |                                                                    |
+#            | /resources/thirdparty/travi-ui/js/form/date.js                                    |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery.validation/jquery.validate.js                        |                                                                                          |                                                                    |
+            | /resources/thirdparty/jquery-migrate/jquery-migrate.js                            |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/jquery.wymeditor.js                               |                                                                                          |                                                                    |
+            | /resources/thirdparty/wymeditor/plugins/fullscreen/jquery.wymeditor.fullscreen.js |                                                                                          |                                                                    |
+            | /resources/thirdparty/travi-ui/dist/form.min.js                                   |                                                                                          |                                                                    |
