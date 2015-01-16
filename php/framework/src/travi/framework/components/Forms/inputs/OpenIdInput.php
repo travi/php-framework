@@ -2,16 +2,17 @@
 
 namespace travi\framework\components\Forms\inputs;
 
-use travi\framework\components\Forms\inputs\Input;
-
 class OpenIdInput extends Input
 {
-    public function __construct()
+    public function __construct($options = array())
     {
         parent::__construct(
-            array(
-                'label' => 'OpenID',
-                'name'  => 'openid_identifier'
+            array_merge(
+                array(
+                    'label' => 'OpenID',
+                    'name'  => 'openid_identifier'
+                ),
+                $options
             )
         );
 
