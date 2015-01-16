@@ -1,6 +1,6 @@
 <phpunit bootstrap="../vendor/autoload.php">
     <php>
-        <ini name="error_reporting"  value="E_ALL &amp; ~E_WARNING"/>
-        <!--<ini name="error_reporting"  value="E_ALL"/>-->
+        <!--<ini name="error_reporting"  value="E_ALL &amp; ~E_WARNING"/>-->
+        <ini name="error_reporting"  value="E_ALL"/>
     </php>
 </phpunit>
