@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../FieldTest.php';
+
 use travi\framework\components\Forms\inputs\OpenIdInput;
 
 class OpenIdInputTest extends FieldTest {
