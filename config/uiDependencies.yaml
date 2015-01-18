@@ -109,13 +109,6 @@ buttons:
     - jqueryUi
     - framework
 
-validation:
-  local: /resources/thirdparty/travi-ui/js/form/validation/active.js
-  jsDependencies:
-    - jqueryValidation
-  cssDependencies:
-    - /resources/thirdparty/travi-styles/dist/css/form/travi-form.css
-
 #=======jQuery======
 jquery:
   local: /resources/thirdparty/jquery/jquery.js
@@ -147,7 +140,7 @@ jquery:
     jsRender:
       local: "/resources/thirdparty/jsrender/jsrender.js"
 
-    jqueryValidation:
+    validation:
       local: "/resources/thirdparty/jquery.validation/jquery.validate.js"
       cssDependencies:
         - jqueryUiTheme
