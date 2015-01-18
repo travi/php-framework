@@ -15,15 +15,21 @@ class DependencyManager
     const SITE_THEME_ENHANCED_KEY = 'siteThemeEnhanced';
     const THIS_PAGE_KEY           = 'thisPage';
     const THIS_PAGE_ENHANCED_KEY  = 'thisPageEnhanced';
+    
+    const JS_LIST = 'js';
+    const TEMPLATE_LIST = 'clientTemplates';
+    const VALIDATION_LIST = 'validations';
+    const CSS_LIST = 'css';
+    const JS_INIT_LIST = 'jsInit';
 
     /** @var ClientDependencies */
     private $clientDependencyDefinitions;
     private $requirementLists = array(
-        'css' => array(),
-        'js' => array(),
-        'clientTemplates' => array(),
-        'validations' => array(),
-        'jsInit' => array()
+        self::CSS_LIST => array(),
+        self::JS_LIST => array(),
+        self::TEMPLATE_LIST => array(),
+        self::VALIDATION_LIST => array(),
+        self::JS_INIT_LIST => array()
     );
 
     /** @var FileSystem */
@@ -59,14 +65,14 @@ class DependencyManager
 
     public function addClientTemplate($name, $template)
     {
-        if (!in_array($name, $this->requirementLists['clientTemplates'])) {
-            $this->requirementLists['clientTemplates'][$name] = $template;
+        if (!in_array($name, $this->requirementLists[self::TEMPLATE_LIST])) {
+            $this->requirementLists[self::TEMPLATE_LIST][$name] = $template;
         }
     }
 
     public function addJsInit($init)
     {
-        array_push($this->requirementLists['jsInit'], $init);
+        array_push($this->requirementLists[self::JS_INIT_LIST], $init);
     }
 
     public function addValidations($list, $form)
@@ -79,12 +85,12 @@ class DependencyManager
             }
         }
 
-        $this->requirementLists['validations'][$form] = $validations;
+        $this->requirementLists[self::VALIDATION_LIST][$form] = $validations;
     }
 
     public function getDependencies()
     {
-        $this->requirementLists['css'] = $this->getStyleSheets();
+        $this->requirementLists[self::CSS_LIST] = $this->getStyleSheets();
 
         return $this->requirementLists;
     }
@@ -106,7 +112,7 @@ class DependencyManager
 
     public function getScripts()
     {
-        return $this->requirementLists['js'];
+        return $this->requirementLists[self::JS_LIST];
     }
 
     public function getStyleSheets()
@@ -124,8 +130,8 @@ class DependencyManager
                 $this->addJavaScript($script);
             }
         }
-        if (!empty($dependencies['js'])) {
-            foreach ($dependencies['js'] as $script) {
+        if (!empty($dependencies[self::JS_LIST])) {
+            foreach ($dependencies[self::JS_LIST] as $script) {
                 $this->addJavaScript($script);
             }
         }
@@ -139,14 +145,14 @@ class DependencyManager
                 $this->addStyleSheet($style);
             }
         }
-        if (!empty($dependencies['css'])) {
-            foreach ($dependencies['css'] as $style) {
+        if (!empty($dependencies[self::CSS_LIST])) {
+            foreach ($dependencies[self::CSS_LIST] as $style) {
                 $this->addStyleSheet($style);
             }
         }
-        if (!empty($dependencies['validations'])) {
+        if (!empty($dependencies[self::VALIDATION_LIST])) {
             /** @var $component Field */
-            $this->addValidations($dependencies['validations'], $component->getName());
+            $this->addValidations($dependencies[self::VALIDATION_LIST], $component->getName());
         }
         if (!empty($dependencies[$this->request->getEnhancementVersion()])) {
             $this->addDependencies($dependencies[$this->request->getEnhancementVersion()]);
@@ -182,7 +188,7 @@ class DependencyManager
     public function addCacheBusters()
     {
         foreach ($this->requirementLists as $key => $list) {
-            if ($key === 'css' || $key === 'js') {
+            if ($key === self::CSS_LIST || $key === self::JS_LIST) {
                 foreach ($list as $index => $dependency) {
                     if ($this->isLocalFile($dependency)) {
                         $this->addCacheBusterIfFileExists($dependency, $key, $index);
@@ -194,7 +200,7 @@ class DependencyManager
 
     private function sortStyleSheets()
     {
-        $css = $this->requirementLists['css'];
+        $css = $this->requirementLists[self::CSS_LIST];
 
         uksort($css, 'strnatcasecmp');
 
@@ -292,8 +298,8 @@ class DependencyManager
 
     public function getPageStyle()
     {
-        if (isset($this->requirementLists['css'])) {
-            $cssLists = $this->requirementLists['css'];
+        if (isset($this->requirementLists[self::CSS_LIST])) {
+            $cssLists = $this->requirementLists[self::CSS_LIST];
         }
 
         if (isset($cssLists[self::THIS_PAGE_KEY])) {
@@ -364,8 +370,8 @@ class DependencyManager
                 $this->addStyleSheet($dependency);
             }
         }
-        if (!empty($dependencies['clientTemplates'])) {
-            foreach ($dependencies['clientTemplates'] as $name => $dependency) {
+        if (!empty($dependencies[self::TEMPLATE_LIST])) {
+            foreach ($dependencies[self::TEMPLATE_LIST] as $name => $dependency) {
                 $this->addClientTemplate($name, $dependency);
             }
         }
@@ -377,7 +383,7 @@ class DependencyManager
     private function addAsScriptDependency($script)
     {
         if (!empty($script)) {
-            array_push($this->requirementLists['js'], $script);
+            array_push($this->requirementLists[self::JS_LIST], $script);
         }
     }
 
@@ -388,7 +394,7 @@ class DependencyManager
     {
         $fileURI = $this->clientDependencyDefinitions->resolveFileURI($script);
 
-        if ($this->hasNotAlreadyBeenAddedToDependencyListFor($fileURI, 'js')) {
+        if ($this->hasNotAlreadyBeenAddedToDependencyListFor($fileURI, self::JS_LIST)) {
             $dependencies = $this->clientDependencyDefinitions->getDependenciesFor($script);
 
             if (!empty($dependencies)) {
@@ -489,7 +495,7 @@ class DependencyManager
      */
     private function addStylesheetToList($sheet, $index)
     {
-        $styleSheetList = &$this->requirementLists['css'];
+        $styleSheetList = &$this->requirementLists[self::CSS_LIST];
         $enhancedFile = $this->getEnhancedFileName($sheet);
 
         if ($this->stylesheetShouldBeRankedBy($index)) {
@@ -506,7 +512,7 @@ class DependencyManager
      */
     private function addingThisStylesheetShouldAdjustExistingList($sheet, $index)
     {
-        return $this->hasNotAlreadyBeenAddedToDependencyListFor($sheet, 'css')
+        return $this->hasNotAlreadyBeenAddedToDependencyListFor($sheet, self::CSS_LIST)
             || $this->isStylesheetForThisPage($index);
     }
 
@@ -640,8 +646,8 @@ class DependencyManager
     private function minifyAll($dependencies)
     {
         if ($this->shouldUseBuiltVersion()) {
-            $dependencies = $this->minify($dependencies, 'css');
-            $dependencies = $this->minify($dependencies, 'js');
+            $dependencies = $this->minify($dependencies, self::CSS_LIST);
+            $dependencies = $this->minify($dependencies, self::JS_LIST);
             $dependencies = $this->minify($dependencies, 'criticalJs');
             return $dependencies;
         }
