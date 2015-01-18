@@ -15,7 +15,7 @@ class DependencyManager
     const SITE_THEME_ENHANCED_KEY = 'siteThemeEnhanced';
     const THIS_PAGE_KEY           = 'thisPage';
     const THIS_PAGE_ENHANCED_KEY  = 'thisPageEnhanced';
-    
+
     const JS_LIST = 'js';
     const TEMPLATE_LIST = 'clientTemplates';
     const VALIDATION_LIST = 'validations';
