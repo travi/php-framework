@@ -36,7 +36,7 @@ class Form extends FormElementGroup
             $this->action = $options['action'];
         }
 
-        $this->addJavaScript('form');
+        $this->addStyleSheet('/resources/thirdparty/travi-styles/dist/css/form/travi-form.css');
     }
 
     public function getName()
@@ -78,10 +78,7 @@ class Form extends FormElementGroup
 
         $dependencies = parent::getDependencies();
 
-        if (!empty($validations)) {
-            $dependencies['validations'] = $validations;
-        }
-
+        $dependencies['validations'] = $validations;
 
         return $dependencies;
     }

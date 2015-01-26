@@ -4,6 +4,9 @@ use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use travi\framework\components\Forms\Form;
+use travi\framework\components\Forms\inputs\EmailInput;
+use travi\framework\components\Forms\inputs\TextInput;
+use travi\framework\content\GalleryComponent;
 use travi\framework\controller\front\FrontController;
 use travi\framework\dependencyManagement\DependencyManager;
 use travi\framework\http\Request;
@@ -12,6 +15,9 @@ use travi\framework\utilities\FileSystem;
 
 class DependenciesContext extends BehatContext
 {
+    private $content = array();
+    /** @var  Form */
+    private $form;
     /** @var  Request */
     private $request;
     /** @var  Pd_Container */
@@ -123,13 +129,40 @@ class DependenciesContext extends BehatContext
      */
     public function includedAsAComponent($component)
     {
-        $content = array();
 
         if ($component === 'Form') {
-            array_push($content, new Form());
+            $this->form = new Form();
+            array_push($this->content, $this->form);
+        } elseif ($component === 'Gallery') {
+            array_push($this->content, new GalleryComponent());
         }
+    }
 
-        $this->dependencyManager->resolveContentDependencies($content);
+    /**
+     * @Given /^a field is required$/
+     */
+    public function aFieldIsRequired()
+    {
+        $this->form->addFormElement(
+            new TextInput(
+                array(
+                    'label' => 'doesnt matter',
+                    'validations' => array('required')
+                )
+            )
+        );
+    }
+
+    /**
+     * @Given /^a "([^"]*)" field is included$/
+     */
+    public function aFieldIsIncluded($field)
+    {
+        if ('Email' === $field) {
+            $this->form->addFormElement(
+                new EmailInput()
+            );
+        }
     }
 
     /**
@@ -137,6 +170,8 @@ class DependenciesContext extends BehatContext
      */
     public function pageHasBeenRequested()
     {
+        $this->dependencyManager->resolveContentDependencies($this->content);
+
         $this->frontController->processRequest();
     }
 

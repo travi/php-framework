@@ -72,7 +72,7 @@ gallery:
   large:
     local: /resources/js/photos/gallery.js
     jsDependencies:
-      - events
+      - framework
       - carousel
       - videoPlayer
       - previewPane
@@ -85,7 +85,6 @@ form:
     - /resources/thirdparty/travi-styles/dist/css/form/travi-form.css
   jsDependencies:
     - jqueryUi
-    - validation
     - wymEditor
     - wymEditor-fullScreen
     - framework
@@ -109,6 +108,14 @@ buttons:
     - jqueryUi
     - framework
 
+validation:
+  local: /resources/thirdparty/travi-ui/js/form/validation/active.js
+  jsDependencies:
+    - framework
+    - jqueryValidation
+  cssDependencies:
+    - /resources/thirdparty/travi-styles/dist/css/form/travi-form.css
+
 #=======jQuery======
 jquery:
   local: /resources/thirdparty/jquery/jquery.js
@@ -130,9 +137,9 @@ jquery:
       local: /resources/thirdparty/jquery-equalizebottoms/jquery.ba-equalizebottoms.js
 
     lightbox:
-      local: "/resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js"
+      local: /resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js
       cssDependencies:
-        - "/resources/shared/thirdparty/jquery/plugins/lightbox/css/jquery.lightbox.css"
+        - /resources/shared/thirdparty/jquery/plugins/lightbox/css/jquery.lightbox.css
 
     pxem:
       local: "/resources/shared/thirdparty/jquery/plugins/pxem/jquery.pxem.js"
@@ -140,8 +147,8 @@ jquery:
     jsRender:
       local: "/resources/thirdparty/jsrender/jsrender.js"
 
-    validation:
-      local: "/resources/thirdparty/jquery.validation/jquery.validate.js"
+    jqueryValidation:
+      local: /resources/thirdparty/jquery.validation/jquery.validate.js
       cssDependencies:
         - jqueryUiTheme
 
