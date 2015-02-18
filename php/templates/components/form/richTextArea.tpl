@@ -5,4 +5,5 @@
         {$field->getValue()|escape:'htmlall'}
     </textarea>
 </div>
+{assign var="error" value=$field->getValidationError()}
 {if !empty($error)}<label for="{$field->getId()}" class="ui-state-error">{$error}</label>{/if}
