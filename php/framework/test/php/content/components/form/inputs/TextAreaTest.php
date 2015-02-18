@@ -1,23 +1,25 @@
 <?php
 
+require_once __DIR__ . '/../FieldTest.php';
+
 use travi\framework\components\Forms\inputs\TextArea;
 
-class TextAreaTest extends PHPUnit_Framework_TestCase
+class TextAreaTest extends FieldTest
 {
     /** @var TextArea */
-    protected $textArea;
+    protected $field;
 
     protected function setUp()
     {
         $options = array();
         $options['rows'] = 4;
 
-        $this->textArea = new TextArea($options);
+        $this->field = new TextArea($options);
     }
 
     public function testGetRows()
     {
-        $this->assertSame(4, $this->textArea->getRows());
+        $this->assertSame(4, $this->field->getRows());
     }
 
     public function testGetRowsDefault()
@@ -29,17 +31,17 @@ class TextAreaTest extends PHPUnit_Framework_TestCase
 
     public function testClassName()
     {
-        $this->assertSame('textInput', $this->textArea->getClass());
+        $this->assertSame('textInput', $this->field->getClass());
     }
 
     public function testType()
     {
-        $this->assertNull($this->textArea->getType());
+        $this->assertNull($this->field->getType());
     }
 
     public function testTemplate()
     {
-        $this->assertSame('components/form/textArea.tpl', $this->textArea->getTemplate());
+        $this->assertSame('components/form/textArea.tpl', $this->field->getTemplate());
     }
 }
 ?>

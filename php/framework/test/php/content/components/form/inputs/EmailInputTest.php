@@ -21,13 +21,10 @@ class EmailInputTest extends FieldTest
         $this->assertEquals('textInput', $this->field->getClass());
     }
 
-
-
     public function testThatValidationsListNotEmpty()
     {
         $this->assertEquals(array('email'), $this->field->getValidations());
     }
-
 
     public function testThatInitializingWithOptionsSetsOptions()
     {
