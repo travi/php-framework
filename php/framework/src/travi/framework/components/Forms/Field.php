@@ -91,7 +91,8 @@ abstract class Field extends ContentObject implements FormElement
 
     public function isValid()
     {
-        if (in_array('required', $this->getValidations()) && empty($this->value)) {
+        $value = trim($this->value);
+        if (in_array('required', $this->getValidations()) && empty($value)) {
             $this->setValidationError($this->label . ' is required');
             return false;
         }

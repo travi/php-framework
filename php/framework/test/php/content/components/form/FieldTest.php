@@ -12,11 +12,15 @@ abstract class FieldTest extends PHPUnit_Framework_TestCase
         $this->field->addValidation('required');
         $this->field->setValue('');
 
-        $this->assertFalse($this->field->isValid());
-        $this->assertEquals(
-            $this->field->getLabel() . ' is required',
-            $this->field->getValidationError()
-        );
+        $this->assertInvalid();
+    }
+
+    public function testNotValidWhenRequiredFieldContainsOnly()
+    {
+        $this->field->addValidation('required');
+        $this->field->setValue("\n");
+
+        $this->assertInvalid();
     }
 
     public function testThatBlankInputIsAcceptableIfNotRequired()
@@ -35,5 +39,14 @@ abstract class FieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($name, $this->field->getName());
         $this->assertEquals($name, $this->field->getId());
+    }
+
+    private function assertInvalid()
+    {
+        $this->assertFalse($this->field->isValid());
+        $this->assertEquals(
+            $this->field->getLabel() . ' is required',
+            $this->field->getValidationError()
+        );
     }
 }
