@@ -46,9 +46,9 @@ abstract class Choices extends Field
      * @param Option $option
      * @return bool
      */
-    private function isThisOptionSelected($option)
+    protected function isThisOptionSelected($option)
     {
-        if (isset($this->value) && ($this->value === $option->value)) {
+        if (isset($this->value) && ((string) $this->value === (string) $option->value)) {
             return true;
         } elseif (is_string($option)) {
             return false;
@@ -77,12 +77,10 @@ abstract class Choices extends Field
      * @param $options
      * @return mixed
      */
-    private function initializeChoices($options)
+    protected function initializeChoices($options)
     {
         if (isset($options['options'])) {
             $this->optionAdder($options['options']);
         }
     }
-
-
 }

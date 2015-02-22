@@ -1,26 +1,28 @@
 <?php
 
+require_once 'ChoicesTest.php';
+
 use travi\framework\components\Forms\choices\SelectionBox;
 use travi\framework\view\objects\inputs\Option;
 
-class SelectionBoxTest extends PHPUnit_Framework_TestCase
+class SelectionBoxTest extends ChoicesTest
 {
     /** @var SelectionBox */
-    protected $selectionBox;
+    protected $field;
 
     protected function setUp()
     {
-        $this->selectionBox = new SelectionBox;
+        $this->field = new SelectionBox($this->settings);
     }
 
     public function testAddOption()
     {
         $text = 'option';
 
-        $this->selectionBox->addOption($text);
+        $this->field->addOption($text);
 
         /** @var Option[] $options */
-        $options = $this->selectionBox->getOptions();
+        $options = $this->field->getOptions();
 
         $firstOption = $options[0];
 
@@ -35,14 +37,13 @@ class SelectionBoxTest extends PHPUnit_Framework_TestCase
 
     public function testDefaultTemplate()
     {
-        $this->assertEquals('components/form/selectionBox.tpl', $this->selectionBox->getTemplate());
+        $this->assertEquals('components/form/selectionBox.tpl', $this->field->getTemplate());
     }
 
     public function testSetTemplate()
     {
-        $this->selectionBox->setTemplate('template');
+        $this->field->setTemplate('template');
 
-        $this->assertEquals('template', $this->selectionBox->getTemplate());
+        $this->assertEquals('template', $this->field->getTemplate());
     }
 }
-?>

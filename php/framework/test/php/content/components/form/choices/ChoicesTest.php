@@ -5,20 +5,12 @@ require_once __DIR__ . '/../FieldTest.php';
 use travi\framework\components\Forms\choices\Choices;
 use travi\framework\view\objects\inputs\Option;
 
-class ChoicesTest extends FieldTest
+abstract class ChoicesTest extends FieldTest
 {
+    protected $settings = array('label' => 'label');
+
     /** @var Choices */
     protected $field;
-
-    protected function setUp()
-    {
-        $settings = array('label' => 'label');
-
-        $this->field = $this->getMockForAbstractClass(
-            'travi\\framework\\components\\Forms\\choices\\Choices',
-            array($settings)
-        );
-    }
 
     public function testAddOption()
     {
@@ -54,16 +46,6 @@ class ChoicesTest extends FieldTest
     public function testGetLabel()
     {
         $this->assertEquals('label', $this->field->getLabel());
-    }
-
-    public function testGetType()
-    {
-        $this->assertEquals(null, $this->field->getType());
-    }
-
-    public function testGetClass()
-    {
-        $this->assertEquals(null, $this->field->getClass());
     }
 
     public function testValidations()
@@ -120,6 +102,10 @@ class ChoicesTest extends FieldTest
         /** @var Option[] $options */
         $options = $this->field->getOptions();
 
+        if ($options[0]->text === 'Select One') {
+            array_shift($options);
+        }
+
         $firstOption = $options[0];
 
         $this->assertEquals($text1, $firstOption->text);
@@ -167,6 +153,30 @@ class ChoicesTest extends FieldTest
         $returnedValue = $this->field->getValue();
         $this->assertEquals($someValue, $returnedValue);
         $this->assertSelectedOptionIs($returnedValue, $this->field->getOptions());
+    }
+
+    public function testThatSettingValueCausesProperChoiceToBeMarkedAsSelected()
+    {
+        $selectedField = 'field';
+        $this->field->addOption('other');
+        $this->field->addOption($selectedField);
+        $this->field->setValue($selectedField);
+
+        $options = $this->field->getOptions();
+
+        $this->assertSelectedOptionIs($selectedField, $options);
+    }
+
+    public function testThatSettingValueCausesProperChoiceToBeMarkedAsSelectedWhenOptionIsNumber()
+    {
+        $selectedField = '1';
+        $this->field->addOption('other');
+        $this->field->addOption(1);
+        $this->field->setValue($selectedField);
+
+        $options = $this->field->getOptions();
+
+        $this->assertSelectedOptionIs($selectedField, $options);
     }
 
     private function assertSelectedOptionIs($value, $options)
