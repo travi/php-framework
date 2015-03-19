@@ -70,7 +70,6 @@ gallery:
   large:
     local: /resources/js/photos/gallery.js
     jsDependencies:
-      - events
       - carousel
       - videoPlayer
       - previewPane
