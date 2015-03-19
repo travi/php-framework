@@ -37,8 +37,6 @@ entityList:
       - /resources/thirdparty/travi-ui/js/entityList/updates.js
 
 carousel:
-  cssDependencies:
-    - /resources/css/pages/gallery/carousel.css
   large:
     local: /resources/js/photos/carousel.js
 
@@ -52,8 +50,6 @@ previewPane:
 
 thumbnails:
   local: /resources/js/photos/thumbnails.js
-  cssDependencies:
-    - /resources/css/pages/gallery/thumbnails.css
   jsDependencies:
     - framework
   clientTemplates:
@@ -68,7 +64,9 @@ videoPlayer:
 
 gallery:
   jsDependencies:
-      - thumbnails
+    - thumbnails
+  cssDependencies:
+    - /resources/thirdparty/travi.org-theme/dist/css/gallery/gallery.css
   large:
     local: /resources/js/photos/gallery.js
     jsDependencies:
