@@ -124,12 +124,9 @@ jquery:
       local: /resources/thirdparty/jquery-equalizebottoms/jquery.ba-equalizebottoms.js
 
     lightbox:
-      local: "/resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js"
+      local: /resources/thirdparty/travi.org-theme/thirdparty/lightbox/jquery.lightbox.js
       cssDependencies:
-        - "/resources/shared/thirdparty/jquery/plugins/lightbox/css/jquery.lightbox.css"
-
-    pxem:
-      local: "/resources/shared/thirdparty/jquery/plugins/pxem/jquery.pxem.js"
+        - /resources/thirdparty/travi.org-theme/thirdparty/lightbox/css/jquery.lightbox.css
 
     jsRender:
       local: "/resources/thirdparty/jsrender/jsrender.js"
@@ -151,7 +148,7 @@ jquery:
 
 #=====Third Party JavaScript=====
 reflection:
-  local: /resources/shared/thirdparty/reflection/reflection.js
+  local: /resources/thirdparty/travi.org-theme/thirdparty/reflection/reflection.js
 
 instant:
   local: /resources/shared/thirdparty/instant/instant.js
