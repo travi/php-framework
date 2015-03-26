@@ -42,11 +42,9 @@ carousel:
 
 previewPane:
   large:
-    local: /resources/js/photos/previewPane.js
+    local: /resources/thirdparty/travi.org-theme/js/photos/previewPane.js
     jsDependencies:
       - lightbox
-    clientTemplates:
-      previewPane: /resources/templates/previewPane.tmpl
 
 thumbnails:
   local: /resources/thirdparty/travi.org-theme/js/photos/thumbnails.js
@@ -68,7 +66,7 @@ gallery:
   cssDependencies:
     - /resources/thirdparty/travi.org-theme/dist/css/gallery/gallery.css
   large:
-    local: /resources/js/photos/gallery.js
+    local: /resources/thirdparty/travi.org-theme/js/photos/gallery.js
     jsDependencies:
       - carousel
       - videoPlayer
