@@ -38,7 +38,7 @@ entityList:
 
 carousel:
   large:
-    local: /resources/js/photos/carousel.js
+    local: /resources/thirdparty/travi.org-theme/js/photos/carousel.js
 
 previewPane:
   large:
@@ -49,18 +49,18 @@ previewPane:
       previewPane: /resources/templates/previewPane.tmpl
 
 thumbnails:
-  local: /resources/js/photos/thumbnails.js
+  local: /resources/thirdparty/travi.org-theme/js/photos/thumbnails.js
   jsDependencies:
     - framework
   clientTemplates:
-    thumbnail: /resources/templates/thumbnail.tmpl
+    thumbnail: /resources/thirdparty/travi.org-theme/templates/thumbnail.tmpl
 
 videoPlayer:
-  local: /resources/js/video/player.js
+  local: /resources/thirdparty/travi.org-theme/js/video/player.js
   jsDependencies:
     - http://cdn.sublimevideo.net/js/ws9xvgbm.js
   clientTemplates:
-    videoStage: /resources/templates/videoStage.tmpl
+    videoStage: /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl
 
 gallery:
   jsDependencies:
