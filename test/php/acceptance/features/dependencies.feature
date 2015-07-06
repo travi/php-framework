@@ -134,19 +134,19 @@ Feature: Front-end Dependency Management
         And "videoPlayer" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                                      | css | templates                                                          |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                              |     | /resources/templates/videoStage.tmpl                               |
-            | /resources/js/video/player.js                                           |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/thirdparty/jquery/jquery.js                                  |     | /resources/templates/thumbnail.tmpl                                |
-            | /resources/thirdparty/amplify/amplify.core.js                           |     | /resources/templates/previewPane.tmpl                              |
-            | /resources/thirdparty/jsrender/jsrender.js                              |     |                                                                    |
-            | /resources/thirdparty/travi-core/dist/travi-core.min.js                 |     |                                                                    |
-            | /resources/js/photos/thumbnails.js                                      |     |                                                                    |
-            | /resources/js/photos/carousel.js                                        |     |                                                                    |
-            | /resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js |     |                                                                    |
-            | /resources/js/photos/previewPane.js                                     |     |                                                                    |
-            | /resources/shared/thirdparty/reflection/reflection.js                   |     |                                                                    |
-            | /resources/js/photos/gallery.js                                         |     |                                                                    |
+            | js                                                                           | css | templates                                                          |
+            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                                   |     | /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl    |
+            | /resources/thirdparty/travi.org-theme/js/video/player.js                     |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/jquery/jquery.js                                       |     | /resources/thirdparty/travi.org-theme/templates/thumbnail.tmpl     |
+            | /resources/thirdparty/amplify/amplify.core.js                                |     |                                                                    |
+            | /resources/thirdparty/jsrender/jsrender.js                                   |     |                                                                    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                      |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/thumbnails.js                |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/carousel.js                  |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/thirdparty/lightbox/jquery.lightbox.js |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/previewPane.js               |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/thirdparty/reflection/reflection.js    |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/gallery.js                   |     |                                                                    |
 
     Scenario: Component and file should not duplicate dependencies
         Given environment is "local"
@@ -155,19 +155,19 @@ Feature: Front-end Dependency Management
         And "gallery" defined as a dependency
         When page is rendered
         Then the dependencies lists should contain
-            | js                                                                      | css | templates                                                          |
-            | /resources/thirdparty/jquery/jquery.js                                  |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
-            | /resources/thirdparty/amplify/amplify.core.js                           |     | /resources/templates/thumbnail.tmpl                                |
-            | /resources/thirdparty/jsrender/jsrender.js                              |     | /resources/templates/videoStage.tmpl                               |
-            | /resources/thirdparty/travi-core/dist/travi-core.min.js                 |     | /resources/templates/previewPane.tmpl                              |
-            | /resources/js/photos/thumbnails.js                                      |     |                                                                    |
-            | /resources/js/photos/carousel.js                                        |     |                                                                    |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                              |     |                                                                    |
-            | /resources/js/video/player.js                                           |     |                                                                    |
-            | /resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js |     |                                                                    |
-            | /resources/js/photos/previewPane.js                                     |     |                                                                    |
-            | /resources/shared/thirdparty/reflection/reflection.js                   |     |                                                                    |
-            | /resources/js/photos/gallery.js                                         |     |                                                                    |
+            | js                                                                           | css | templates                                                          |
+            | /resources/thirdparty/jquery/jquery.js                                       |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
+            | /resources/thirdparty/amplify/amplify.core.js                                |     | /resources/thirdparty/travi.org-theme/templates/thumbnail.tmpl     |
+            | /resources/thirdparty/jsrender/jsrender.js                                   |     | /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl    |
+            | /resources/thirdparty/travi-core/dist/travi-core.min.js                      |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/thumbnails.js                |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/carousel.js                  |     |                                                                    |
+            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                                   |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/video/player.js                     |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/thirdparty/lightbox/jquery.lightbox.js |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/previewPane.js               |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/thirdparty/reflection/reflection.js    |     |                                                                    |
+            | /resources/thirdparty/travi.org-theme/js/photos/gallery.js                   |     |                                                                    |
 
     @wip
     Scenario: Sub-component should not be included separately when bundled with other component
