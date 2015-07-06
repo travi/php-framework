@@ -1,30 +1,32 @@
 <?php
 
+require_once __DIR__ . '/../FieldTest.php';
+
 use travi\framework\components\Forms\inputs\RichTextArea;
 
-class RichTextAreaTest extends PHPUnit_Framework_TestCase
+class RichTextAreaTest extends FieldTest
 {
     /** @var RichTextArea */
-    protected $object;
+    protected $field;
 
     protected function setUp()
     {
-        $this->object = new RichTextArea;
+        $this->field = new RichTextArea;
     }
 
     public function testClassName()
     {
-        $this->assertSame('textInput richEditor', $this->object->getClass());
+        $this->assertSame('textInput richEditor', $this->field->getClass());
     }
 
     public function testType()
     {
-        $this->assertNull($this->object->getType());
+        $this->assertNull($this->field->getType());
     }
 
     public function testTemplate()
     {
-        $this->assertSame('components/form/richTextArea.tpl', $this->object->getTemplate());
+        $this->assertSame('components/form/richTextArea.tpl', $this->field->getTemplate());
     }
 
     public function testGetJavaScripts()
@@ -33,7 +35,7 @@ class RichTextAreaTest extends PHPUnit_Framework_TestCase
             array(
                 'richTextArea'
             ),
-            $this->object->getJavaScripts()
+            $this->field->getJavaScripts()
         );
     }
 }

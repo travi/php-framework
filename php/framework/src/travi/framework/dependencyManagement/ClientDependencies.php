@@ -35,6 +35,8 @@ class ClientDependencies
 
         if (isset($this->jsNeeds[$resource]) && isset($this->jsNeeds[$resource][self::LOCAL])) {
             return $this->jsNeeds[$resource][self::LOCAL];
+        } else {
+            return $resource;
         }
     }
 

@@ -6,29 +6,13 @@ use travi\framework\components\Forms\Field;
 
 abstract class Input extends Field
 {
-    private $type;
-    protected $class;
-
     public function __construct($options = array())
     {
-        if (isset($options['label'])) {
-            $this->label = $options['label'];
-        }
-        if (isset($options['name'])) {
-            $this->setName($options['name']);
-        } elseif (isset($this->label)) {
-            $this->setName($options['label']);
-        }
-        if (isset($options['value'])) {
-            $this->value = $options['value'];
-        }
-        if (!empty($options['validations'])) {
-            foreach ($options['validations'] as $validation) {
-                $this->addValidation($validation);
-            }
-        }
+        parent::__construct($options);
+
         $this->setTemplate('components/form/inputWithLabel.tpl');
     }
+
     public function setName($name)
     {
         $name = str_replace(' ', '_', strtolower($name));
@@ -39,21 +23,5 @@ abstract class Input extends Field
         }
 
         $this->name = $name;
-    }
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-    public function getType()
-    {
-        return $this->type;
-    }
-    public function setClass($class)
-    {
-        $this->class = $class;
-    }
-    public function getClass()
-    {
-        return $this->class;
     }
 }

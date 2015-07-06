@@ -111,7 +111,18 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertContains('buttons', $dependencies['scripts']);
     }
 
-    public function testValidationScriptAddedToDependencyList()
+    public function testValidationScriptNotAddedToDependencyListWhenNoValidationDefined()
+    {
+        $anyField = $this->getAnyField();
+
+        $this->form->addFormElement($anyField);
+
+        $dependencies = $this->form->getDependencies();
+        $this->assertNotContains('validation', $dependencies['scripts']);
+
+    }
+
+    public function testValidationScriptAddedToDependencyListWhenValidationDefined()
     {
         $validations = $this->getAnyValidations();
         $anyField = $this->getAnyFieldWithValidations($validations);
@@ -131,10 +142,18 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->form->addFormElement($anyField);
 
         $dependencies = $this->form->getDependencies();
-        $this->assertSame($validations, $dependencies['validations'][$anyField->getName()]);
+        $this->assertEquals($validations, $dependencies['validations'][$anyField->getName()]);
     }
 
-    public function testThatActionInputCanBeRetievedByName()
+    public function testThatValidationListDoesNotContainListForFieldWithNoRules()
+    {
+        $this->form->addFormElement($this->getAnyField());
+
+        $dependencies = $this->form->getDependencies();
+        $this->assertEquals(array(), $dependencies['validations']);
+    }
+
+    public function testThatActionInputCanBeRetrievedByName()
     {
         $action = new SubmitButton();
 

@@ -4,7 +4,7 @@
     {foreach from=$field->getOptions() item=option}
         <li>
             <label>
-                <input type="{$field->getType()}" name="{$field->getName()}" value="{$option->value}" class="{$field->getClass()}"{if $option->selected} checked{/if}/>
+                <input type="{$field->getType()}" name="{$field->getName()}" value="{$option->value}" class="{$field->getClass()}"{if $option->selected} checked{/if}{if in_array('required', $field->getValidations())} required{/if}/>
                 {$option->text}
             </label>
         </li>

@@ -71,15 +71,6 @@ class HtmlRenderer extends Renderer
     }
 
     /**
-     * @param $fileSystem
-     * @PdInject fileSystem
-     */
-    public function setFileSystem($fileSystem)
-    {
-        $this->fileSystem = $fileSystem;
-    }
-
-    /**
      * @param $data
      * @param $page AbstractResponse
      */
@@ -112,7 +103,6 @@ class HtmlRenderer extends Renderer
         return $pathToTemplate;
     }
 
-
     /**
      * @param $data
      * @param $page
@@ -124,6 +114,7 @@ class HtmlRenderer extends Renderer
         $this->smarty->assign('page', $page);
         $this->smarty->assign('showMetaViewport', $this->shouldShowMetaViewport());
     }
+
 
     /**
      * @param $data
@@ -169,6 +160,15 @@ class HtmlRenderer extends Renderer
     public function setLayoutTemplate($layoutTemplate)
     {
         $this->layoutTemplate = $layoutTemplate;
+    }
+
+    /**
+     * @param $fileSystem
+     * @PdInject fileSystem
+     */
+    public function setFileSystem($fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
     }
 
     /**

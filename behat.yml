@@ -16,3 +16,13 @@ ci:
       output_path: null,logs/behat
       output_styles:
         comment: [magenta]
+
+wip:
+  filters:
+    tags: '@wip'
+  formatter:
+    name: pretty
+    parameters:
+          output_path: null,logs/behat
+          output_styles:
+            comment: [magenta]

@@ -8,7 +8,7 @@ use travi\framework\marshallers\PicasaUnmarshaller;
 
 class PicasaService
 {
-    const PICASA_URI = 'http://picasaweb.google.com/data/feed/api/user/';
+    const PICASA_URI = 'https://picasaweb.google.com/data/feed/api/user/';
 
     /* 1-indexed */
     const OFFSET_QUERY_PARAM    = 'start-index';

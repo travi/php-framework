@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../FieldTest.php';
+
 use travi\framework\components\Forms\inputs\EmailInput;
 
 class EmailInputTest extends FieldTest
@@ -19,24 +21,27 @@ class EmailInputTest extends FieldTest
         $this->assertEquals('textInput', $this->field->getClass());
     }
 
+    public function testThatValidationsListNotEmpty()
+    {
+        $this->assertEquals(array('email'), $this->field->getValidations());
+    }
+
     public function testThatInitializingWithOptionsSetsOptions()
     {
         $label = 'Some Label';
-        $validations = array('required');
-
+        $validation = 'required';
         $field = new EmailInput(
             array(
                 'label' => $label,
-                'validations' => $validations
+                'validations' => array($validation)
             )
         );
 
         $this->assertEquals($label, $field->getLabel());
         $this->assertEquals('some_label', $field->getName());
-        $this->assertEquals($validations, $field->getValidations());
+        $this->assertEquals(array($validation, 'email'), $field->getValidations());
         $this->assertEquals('components/form/inputWithLabel.tpl', $field->getTemplate());
     }
-
 
     public function testThatValidEmailPassesValidation()
     {

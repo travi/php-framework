@@ -78,10 +78,7 @@ class Form extends FormElementGroup
 
         $dependencies = parent::getDependencies();
 
-        if (!empty($validations)) {
-            $dependencies['validations'] = $validations;
-        }
-
+        $dependencies['validations'] = $validations;
 
         return $dependencies;
     }

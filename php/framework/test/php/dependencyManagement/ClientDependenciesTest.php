@@ -35,11 +35,19 @@ class ClientDependenciesTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testThatPassedStringReturnedIfNoMatch()
+    {
+        $this->assertEquals(
+            self::PATH_TO_SOME_COMPONENT,
+            $this->dependencies->resolveFileURI(self::PATH_TO_SOME_COMPONENT)
+        );
+    }
+
     public function testDependenciesReturnedForComponent()
     {
         $this->assertEquals(
             array(
-                'local'             => self::PATH_TO_SOME_COMPONENT
+                'local' => self::PATH_TO_SOME_COMPONENT
             ),
             $this->dependencies->getDependenciesFor(self::SOME_COMPONENT)
         );

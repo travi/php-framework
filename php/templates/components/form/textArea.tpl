@@ -1,5 +1,7 @@
-<label for="{$field->getName()}">{$field->getLabel()}</label>
+<label for="{$field->getId()}">{$field->getLabel()}</label>
 {assign var="rowCount" value=$field->getRows()}
-<textarea name="{$field->getName()}" id="{$field->getName()}"{if !empty($rowCount)} rows="{$rowCount}"{/if} class="{$field->getClass()}">
+<textarea name="{$field->getName()}" id="{$field->getId()}"{if !empty($rowCount)} rows="{$rowCount}"{/if} class="{$field->getClass()}"{if in_array('required', $field->getValidations())} required{/if}>
 {$field->getValue()}
 </textarea>
+{assign var="error" value=$field->getValidationError()}
+{if !empty($error)}<label for="{$field->getId()}" class="ui-state-error">{$error}</label>{/if}

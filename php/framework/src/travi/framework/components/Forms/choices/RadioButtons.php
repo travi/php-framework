@@ -2,8 +2,6 @@
 
 namespace travi\framework\components\Forms\choices;
 
-use travi\framework\components\Forms\choices\Choices;
-
 class RadioButtons extends Choices
 {
     public function __construct($options=array())
@@ -14,4 +12,3 @@ class RadioButtons extends Choices
         $this->class = "radioButton";
     }
 }
- 

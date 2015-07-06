@@ -1,21 +1,34 @@
 <?php
 
-use travi\framework\components\Forms\choices\RadioButtons;
+require_once 'ChoicesTest.php';
 
-class RadioButtonsTest extends PHPUnit_Framework_TestCase
+use travi\framework\components\Forms\choices\RadioButtons;
+use travi\framework\view\objects\inputs\Option;
+
+class RadioButtonsTest extends ChoicesTest
 {
     /** @var RadioButtons */
-    protected $object;
+    protected $field;
 
     protected function setUp()
     {
-        $this->object = new RadioButtons;
+        $this->field = new RadioButtons($this->settings);
     }
 
     public function testDefaults()
     {
-        $this->assertSame('components/form/choices.tpl', $this->object->getTemplate());
-        $this->assertSame('radio', $this->object->getType());
-        $this->assertSame('radioButton', $this->object->getClass());
+        $this->assertSame('components/form/choices.tpl', $this->field->getTemplate());
+        $this->assertSame('radio', $this->field->getType());
+        $this->assertSame('radioButton', $this->field->getClass());
+    }
+
+    public function testThatRadioClassIsAdded()
+    {
+        $this->assertEquals('radioButton', $this->field->getClass());
+    }
+
+    public function testThatTypeIsSetToRadio()
+    {
+        $this->assertEquals('radio', $this->field->getType());
     }
 }

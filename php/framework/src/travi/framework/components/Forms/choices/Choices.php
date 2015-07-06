@@ -8,7 +8,6 @@ use travi\framework\view\objects\inputs\Option;
 abstract class Choices extends Field
 {
     protected $type;
-    protected $class;
     protected $template;
 
     protected $settings = array();
@@ -16,26 +15,10 @@ abstract class Choices extends Field
 
     public function __construct($options = array())
     {
-        if (isset($options['label'])) {
-            $this->label = $options['label'];
-        }
-        if (!empty($options['name'])) {
-            $this->name = $options['name'];
-        } elseif (isset($this->label)) {
-            $this->name = strtolower($options['label']);
-        }
-        if (isset($options['value'])) {
-            $this->value = $options['value'];
-        }
+        parent::__construct($options);
+        $this->initializeChoices($options);
         $this->settings = $options;
-        if (isset($options['options'])) {
-            $this->optionAdder($options['options']);
-        }
-        if (!empty($options['validations'])) {
-            foreach ($options['validations'] as $validation) {
-                $this->addValidation($validation);
-            }
-        }
+
         $this->setTemplate('components/form/choices.tpl');
     }
 
@@ -63,9 +46,9 @@ abstract class Choices extends Field
      * @param Option $option
      * @return bool
      */
-    private function isThisOptionSelected($option)
+    protected function isThisOptionSelected($option)
     {
-        if (isset($this->value) && ($this->value === $option->value)) {
+        if (isset($this->value) && ((string) $this->value === (string) $option->value)) {
             return true;
         } elseif (is_string($option)) {
             return false;
@@ -89,20 +72,15 @@ abstract class Choices extends Field
 
         return $this->options;
     }
-    public function getType()
+
+    /**
+     * @param $options
+     * @return mixed
+     */
+    protected function initializeChoices($options)
     {
-        return $this->type;
-    }
-    public function getClass()
-    {
-        return $this->class;
-    }
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-    }
-    public function getTemplate()
-    {
-        return $this->template;
+        if (isset($options['options'])) {
+            $this->optionAdder($options['options']);
+        }
     }
 }
