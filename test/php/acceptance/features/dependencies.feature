@@ -135,7 +135,7 @@ Feature: Front-end Dependency Management
         When page is rendered
         Then the dependencies lists should contain
             | js                                                                      | css | templates                                                          |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                              |     | /resources/templates/videoStage.tmpl                               |
+            | https://cdn.sublimevideo.net/js/ws9xvgbm.js                             |     | /resources/templates/videoStage.tmpl                               |
             | /resources/js/video/player.js                                           |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
             | /resources/thirdparty/jquery/jquery.js                                  |     | /resources/templates/thumbnail.tmpl                                |
             | /resources/thirdparty/amplify/amplify.core.js                           |     | /resources/templates/previewPane.tmpl                              |
@@ -162,7 +162,7 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-core/dist/travi-core.min.js                 |     | /resources/templates/previewPane.tmpl                              |
             | /resources/js/photos/thumbnails.js                                      |     |                                                                    |
             | /resources/js/photos/carousel.js                                        |     |                                                                    |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                              |     |                                                                    |
+            | https://cdn.sublimevideo.net/js/ws9xvgbm.js                             |     |                                                                    |
             | /resources/js/video/player.js                                           |     |                                                                    |
             | /resources/shared/thirdparty/jquery/plugins/lightbox/jquery.lightbox.js |     |                                                                    |
             | /resources/js/photos/previewPane.js                                     |     |                                                                    |
