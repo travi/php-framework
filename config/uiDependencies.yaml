@@ -56,7 +56,7 @@ thumbnails:
 videoPlayer:
   local: /resources/thirdparty/travi.org-theme/js/video/player.js
   jsDependencies:
-    - http://cdn.sublimevideo.net/js/ws9xvgbm.js
+    - https://cdn.sublimevideo.net/js/ws9xvgbm.js
   clientTemplates:
     videoStage: /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl
 
