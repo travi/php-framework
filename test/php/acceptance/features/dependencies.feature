@@ -135,7 +135,7 @@ Feature: Front-end Dependency Management
         When page is rendered
         Then the dependencies lists should contain
             | js                                                                           | css | templates                                                          |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                                   |     | /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl    |
+            | https://cdn.sublimevideo.net/js/ws9xvgbm.js                                  |     | /resources/thirdparty/travi.org-theme/templates/videoStage.tmpl    |
             | /resources/thirdparty/travi.org-theme/js/video/player.js                     |     | /resources/thirdparty/travi-core/templates/enhancementVersion.tmpl |
             | /resources/thirdparty/jquery/jquery.js                                       |     | /resources/thirdparty/travi.org-theme/templates/thumbnail.tmpl     |
             | /resources/thirdparty/amplify/amplify.core.js                                |     |                                                                    |
@@ -162,7 +162,7 @@ Feature: Front-end Dependency Management
             | /resources/thirdparty/travi-core/dist/travi-core.min.js                      |     |                                                                    |
             | /resources/thirdparty/travi.org-theme/js/photos/thumbnails.js                |     |                                                                    |
             | /resources/thirdparty/travi.org-theme/js/photos/carousel.js                  |     |                                                                    |
-            | http://cdn.sublimevideo.net/js/ws9xvgbm.js                                   |     |                                                                    |
+            | https://cdn.sublimevideo.net/js/ws9xvgbm.js                                  |     |                                                                    |
             | /resources/thirdparty/travi.org-theme/js/video/player.js                     |     |                                                                    |
             | /resources/thirdparty/travi.org-theme/thirdparty/lightbox/jquery.lightbox.js |     |                                                                    |
             | /resources/thirdparty/travi.org-theme/js/photos/previewPane.js               |     |                                                                    |
