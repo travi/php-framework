@@ -3,7 +3,7 @@
 {else}
     {assign var=sectionContent value=$section}
 {/if}
-{if is_array($sectionContent)}{* && empty($section->getContent()[0])*}
+{if is_array($sectionContent)}
                             <ul class="bulletNav">
             {foreach key=key item=value from=$sectionContent}
                 {if !is_array($value)}{*TODO: Find a way to normalize the format of link arrays without requiring all to be persisted consistently*}
@@ -26,19 +26,4 @@
                 {/if}
             {/foreach}
                             </ul>
-    {*}else if(is_array($this->sectionContent)){*}
-            {*foreach($this->sectionContent as $contentPiece)*}
-            {*{*}
-                {*$content .= $contentPiece;*}
-                {*if(is_object($contentPiece) && is_a($contentPiece,'ContentObject'))*}
-                {*{*}
-                    {*$this->checkDependencies($contentPiece);*}
-                {*}*}
-            {*}*}
-    {*}else{*}
-            {*$content .= $this->sectionContent;*}
-            {*if(is_object($this->sectionContent) && is_a($this->sectionContent,'ContentObject'))*}
-            {*{*}
-                {*$this->checkDependencies($this->sectionContent);*}
-            {*}*}
 {/if}
