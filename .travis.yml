@@ -15,3 +15,5 @@ install:
 script: vendor/bin/phing
 
 after_script: php vendor/bin/coveralls -v
+
+sudo: false
