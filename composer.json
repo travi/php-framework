@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "smarty/smarty": "3.1.*",
+        "smarty/smarty": "3.1.27",
         "html2text/html2text": "1.0.0",
         "mustangostang/spyc": "0.5.1"
     },
