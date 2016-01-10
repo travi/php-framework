@@ -21,7 +21,7 @@
         <include name="**/*.php"/>
     </fileset>
 
-    <fileset dir="php/framework/test" id="all-unit-tests">
+    <fileset dir="test/php/unit" id="all-unit-tests">
         <include name="**/*Test.php"/>
     </fileset>
 

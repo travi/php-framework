@@ -10,7 +10,7 @@ before_install:
 
 install:
   - composer install
-  - sh php/framework/test/php/mockProject/install-dependencies.sh
+  - sh test/mockProject/install-dependencies.sh
 
 script: vendor/bin/phing
 

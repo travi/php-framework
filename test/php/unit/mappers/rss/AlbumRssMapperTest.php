@@ -5,8 +5,8 @@ use travi\framework\photos\Thumbnail,
     travi\framework\http\Request,
     travi\framework\photos\Album;
 
-require_once dirname(__FILE__).'/../../../../../../php/thirdparty/FeedCreator/include/feedcreator.class.php';
-require_once dirname(__FILE__).'/../../../../src/mappers/rss/album.mapper.php';
+require_once dirname(__FILE__).'/../../../../../php/thirdparty/FeedCreator/include/feedcreator.class.php';
+require_once dirname(__FILE__).'/../../../../../php/framework/src/mappers/rss/album.mapper.php';
 
 class AlbumRssMapperTest extends PHPUnit_Framework_TestCase
 {

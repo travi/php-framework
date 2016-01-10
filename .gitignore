@@ -2,6 +2,6 @@ vendor/*
 **/bower_components/*
 .idea/*
 logs/*
-php/framework/test/php/mockProject/node_modules/
-php/framework/test/php/mockProject/doc_root/resources/
-php/framework/test/php/mockProject/.sass-cache
+test/mockProject/node_modules/
+test/mockProject/doc_root/resources/
+test/mockProject/.sass-cache

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../mockProject/app/controller/test.controller.php';
+require_once __DIR__ . '/../../../mockProject/app/controller/test.controller.php';
 
 use travi\framework\auth\Authentication;
 use travi\framework\controller\front\FrontController,

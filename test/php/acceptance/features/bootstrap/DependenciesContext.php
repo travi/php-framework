@@ -33,7 +33,7 @@ class DependenciesContext extends BehatContext
     public function initializeApplication()
     {
         if (!defined('SITE_ROOT')) {
-            define('SITE_ROOT', __DIR__ . '/../../../../../php/framework/test/php/mockProject/');
+            define('SITE_ROOT', __DIR__ . '/../../../../mockProject/');
         }
 
         $_SERVER['HTTP_HOST'] = '';
