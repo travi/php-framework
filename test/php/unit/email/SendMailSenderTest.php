@@ -3,8 +3,9 @@
 use travi\framework\email\EmailAddress;
 use travi\framework\email\Email;
 use travi\framework\email\EmailSender;
+use travi\framework\email\SendMailSender;
 
-class SenderTest extends PHPUnit_Framework_TestCase {
+class SendMailSenderTest extends PHPUnit_Framework_TestCase {
     private $mailer;
     const TO = 'To';
     const SUBJECT = 'Subject';
@@ -13,7 +14,7 @@ class SenderTest extends PHPUnit_Framework_TestCase {
     const EMAIL = 'some email';
     private $from;
 
-    /** @var  EmailSender */
+    /** @var  SendMailSender */
     private $sender;
 
     public function setUp()
@@ -55,7 +56,7 @@ class SenderTest extends PHPUnit_Framework_TestCase {
     }
 }
 
-class EmailSenderShunt extends EmailSender
+class EmailSenderShunt extends SendMailSender
 {
     /** @var  MailerToMock */
     private $mailer;

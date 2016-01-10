@@ -2,9 +2,7 @@
 
 namespace travi\framework\email;
 
-use travi\framework\exception\EmailNotAcceptedForDeliveryException;
-
-class EmailSender
+abstract class EmailSender
 {
     /**
      * @param $to
@@ -30,12 +28,7 @@ class EmailSender
         );
     }
 
-    protected function mail($to, $subject, $message, $headers)
-    {
-        if (false === mail($to, $subject, $message, $headers)) {
-            throw new EmailNotAcceptedForDeliveryException();
-        }
-    }
+    protected abstract function mail($to, $subject, $message, $headers);
 
     /**
      * @param $from
