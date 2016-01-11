@@ -19,9 +19,9 @@ class SendMailSenderTest extends PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
-        $this->sender = new EmailSenderShunt();
+        $this->sender = new SendMailSenderShunt();
 
-        $this->mailer = $this->getMock('MailerToMock');
+        $this->mailer = $this->getMock('SendMailerToMock');
         $this->sender->setMailer($this->mailer);
 
         $this->from = new EmailAddress();
@@ -56,14 +56,14 @@ class SendMailSenderTest extends PHPUnit_Framework_TestCase {
     }
 }
 
-class EmailSenderShunt extends SendMailSender
+class SendMailSenderShunt extends SendMailSender
 {
-    /** @var  MailerToMock */
+    /** @var  SendMailerToMock */
     private $mailer;
 
-    protected function mail($to, $subject, $message, $headers)
+    protected function mail($to, $from, $subject, $message)
     {
-        $this->mailer->mail($to, $subject, $message, $headers);
+        $this->mailer->mail($to, $subject, $message, $from);
     }
 
     public function setMailer($mailer)
@@ -72,7 +72,7 @@ class EmailSenderShunt extends SendMailSender
     }
 }
 
-class MailerToMock
+class SendMailerToMock
 {
     public function mail($to, $subject, $message, $headers)
     {
