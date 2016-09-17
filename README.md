@@ -8,6 +8,8 @@ Travi Framework
 [![Latest Stable Version](http://img.shields.io/packagist/v/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
 [![Total Downloads](http://img.shields.io/packagist/dt/travi/framework.svg?style=flat)](https://packagist.org/packages/travi/framework)
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 This is a php web framework that I've built over the years as I've worked to better understand web development.
 
 ## Installation using [Composer] (http://getcomposer.org/)
